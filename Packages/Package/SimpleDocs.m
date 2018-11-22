@@ -201,7 +201,7 @@ SaveNotebookToPaclet[nb_]:=
       pacletLoc=SetNotebookPaclet[nb];
       ];
     If[StringQ@pacletLoc,
-      pac=PacletFind[pacletLoc];
+      pac=PacletManager`PacletFind[pacletLoc];
       If[Length@pac>0, pac=First@pac, pac=None];
       If[pac=!=None,
         cont=getMeta[nb, "context"];
