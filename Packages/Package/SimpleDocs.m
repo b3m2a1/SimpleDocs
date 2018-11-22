@@ -294,7 +294,7 @@ SaveNotebookMarkdown[nb_]:=
 $baseTemplates=
   <|
     "Divider"->Cell["", "PageBreak", PageBreakBelow->False, PageBreakAbove->False],
-    "Footer"->Cell["Made with SimpleDocs", "Footer"],
+    "Footer"->Cell["Made with SimpleDocs", "Text", "Footer"],
     "Usage"->
       Cell@
         CellGroupData[
@@ -602,7 +602,7 @@ formatDetailsSection[deets_]:=
           deets,
           {
             grid:{__List}:>
-              Replace[grid,
+              Sequence@@Replace[grid,
                 {
                   {a_}:>Cell[a, "Subitem", "DetailsItem"],
                   {a_, b_}:>
@@ -907,13 +907,19 @@ $HamburgerMenu=
     Button["\[Congruent]",None,Appearance->None, ImageSize->{50, 35}],
     {
       "Save":>
-        SystemOpen@SaveNotebookToPaclet[EvaluationNotebook[]],
+        (
+          Needs["SimpleDocs`"];
+          SystemOpen@SaveNotebookToPaclet[EvaluationNotebook[]]
+          ),
       Delimiter,
       "Set Paclet":>
         SetNotebookPaclet[EvaluationNotebook[]],
       Delimiter,
       "Save Markdown":>
-        SystemOpen@SaveNotebookMarkdown[EvaluationNotebook[]]
+        (
+          Needs["SimpleDocs`"];
+          SystemOpen@SaveNotebookMarkdown[EvaluationNotebook[]]
+          )
       },
     Appearance->None,
     Method->"Queued"
