@@ -1,13 +1,13 @@
 Title: SampleTutorial
 built: {2018, 11, 23, 23, 23, 54.214811}
 context: SimpleDocs`
-Date: 2018-11-24 01:55:10
+Date: 2018-11-24 02:02:26
 history: 11.3,,
 index: True
 keywords: <||>
 label: SampleTutorial
 language: en
-Modified: 2018-11-24 01:55:16
+Modified: 2018-11-24 02:02:34
 paclet: Mathematica
 specialkeywords: <||>
 status: None
@@ -160,7 +160,17 @@ The listing of options is extensive and will depend on the use case, and we'll g
 
 ### Building the Website
 
-The last thing to do, after we've amassed our content, is to build the actual website. Amusingly, the function we've been documenting,  ```BuildDocsSite``` , is the function used for this export process too. All we do though is go to the  *Build Site* menu item and the site will be built for us automatically:
+The last thing to do, after we've amassed our content, is to build the actual website. Amusingly, the function we've been documenting,  ```BuildDocsSite``` , is the function used for this export process too. All we do though is go to the  *Build Site* menu item and the site will be built for us automatically. 
+
+![simpledocs-97374131907832919](../img/simpledocs-97374131907832919.png)
+
+It'll open through python, if possible, but in general the website is just in the  *output* folder a few up from the current notebook directory:
+
+    FileNameJoin@{Nest[ParentDirectory, NotebookDirectory[], 2], "output"}
+
+    (*Out:*)
+    
+    "~/Documents/Wolfram Mathematica/Applications/SimpleDocs/project/docs/output"
 
 ---
 
