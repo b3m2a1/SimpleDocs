@@ -1,0 +1,868 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     33538,        859]
+NotebookOptionsPosition[     31483,        805]
+NotebookOutlinePosition[     32010,        826]
+CellTagsIndexPosition[     31967,        823]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["", "PageBreak",
+ PageBreakAbove->False,
+ PageBreakBelow->False],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "Subsection", "SeeAlso",
+ CellID->745571890],
+
+Cell[TextData[{
+ ButtonBox["BuildDocsSite",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/BuildDocsSite"],
+ " | ",
+ ButtonBox["BuildNotebookDocsSite",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/BuildNotebookDocsSite"],
+ " | ",
+ ButtonBox["CreateTemplateNotebook",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/CreateTemplateNotebook"],
+ " | ",
+ ButtonBox["InitializeDocsSite",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/InitializeDocsSite"],
+ " | ",
+ ButtonBox["OpenDocsSiteConfig",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/OpenDocsSiteConfig"],
+ " | ",
+ ButtonBox["SampleTemplateNotebook",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/SampleTemplateNotebook"],
+ " | ",
+ ButtonBox["SaveNotebookMarkdown",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/SaveNotebookMarkdown"],
+ " | ",
+ ButtonBox["SaveNotebookToPaclet",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/SaveNotebookToPaclet"],
+ " | ",
+ ButtonBox["SaveNotebookToPacletProject",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/SaveNotebookToPacletProject"],
+ " | ",
+ ButtonBox["SetNotebookPaclet",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/SetNotebookPaclet"],
+ " | ",
+ ButtonBox["$DockedCell",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/$DockedCell"],
+ " | ",
+ ButtonBox["$HamburgerMenu",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/$HamburgerMenu"],
+ " | ",
+ ButtonBox["$InsertionMenu",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/$InsertionMenu"],
+ " | ",
+ ButtonBox["$MetadataEditor",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/$MetadataEditor"],
+ " | ",
+ ButtonBox["$NotebookTemplates",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/$NotebookTemplates"]
+}], "Text",
+ CellID->1084717067]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "Subsection", "Related",
+ CellID->1044184471],
+
+Cell[TextData[ButtonBox["SimpleDocs",
+ BaseStyle->"Link",
+ ButtonData->"paclet:SimpleDocs/guide/SimpleDocs"]], "Item",
+ CellID->372040813]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Tutorials", "Subsection", "Related",
+ CellID->1432922421],
+
+Cell[TextData[ButtonBox["SimpleDocs",
+ BaseStyle->"Link",
+ ButtonData->"paclet:SimpleDocs/tutorial/SimpleDocs"]], "Item",
+ CellID->1245512289]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "Subsection", "RelatedLinks",
+ CellID->1376548462],
+
+Cell[CellGroupData[{
+
+Cell[TextData[ButtonBox["SimpleDocs",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["https://github.com/b3m2a1/SimpleDocs"], None},
+ ButtonNote->"SimpleDocs"]], "Item",
+ CellID->808671703],
+
+Cell[TextData[ButtonBox["BTools",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["https://github.com/b3m2a1/mathematica-BTools"], None},
+ ButtonNote->"https://github.com/b3m2a1/mathematica-BTools"]], "Item",
+ CellID->764470499],
+
+Cell[TextData[ButtonBox["Ems",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["https://github.com/b3m2a1/Ems"], None},
+ ButtonNote->"https://github.com/b3m2a1/Ems"]], "Item",
+ CellID->1318189595]
+}, Open  ]],
+
+Cell[TextData[{
+ "Made with ",
+ ButtonBox["SimpleDocs",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["https://github.com/b3m2a1/SimpleDocs"], None},
+  ButtonNote->"https://github.com/b3m2a1/SimpleDocs"]
+}], "Text", "Footer",
+ CellID->2067337585],
+
+Cell[BoxData[
+ RowBox[{"SimpleDocs`Package`Private`SymbolNotebookTemplate", "[", 
+  TagBox[GridBox[{
+     {
+      ItemBox[
+       FrameBox[
+        DynamicModuleBox[{SimpleDocs`Package`Private`show$$}, 
+         DynamicBox[ToBoxes[
+           Grid[{{
+              If[
+               TrueQ[SimpleDocs`Package`Private`show$$], 
+               Button[
+               "", SimpleDocs`Package`Private`show$$ = False, 
+                ImageSize -> {7, 7}, FrameMargins -> 0, ImageMargins -> 0, 
+                Appearance -> {
+                 "Default" -> 
+                  Image[RawArray["UnsignedInteger8",{{180, 180, 180, 180, 180,
+                     180, 181}, {180, 180, 180, 180, 180, 180, 180}, {180, 
+                    180, 182, 180, 180, 180, 180}, {180, 241, 241, 241, 241, 
+                    241, 180}, {180, 180, 180, 180, 180, 180, 180}, {180, 180,
+                     180, 180, 180, 180, 180}, {180, 180, 180, 180, 180, 180, 
+                    180}}], "Byte", ColorSpace -> "Grayscale", ImageSize -> 
+                    Automatic, Interleaving -> None]}], 
+               Button[
+               "", SimpleDocs`Package`Private`show$$ = True, 
+                ImageSize -> {7, 7}, FrameMargins -> 0, ImageMargins -> 0, 
+                Appearance -> {
+                 "Default" -> 
+                  Image[RawArray["UnsignedInteger8",{{180, 180, 180, 180, 180,
+                     180, 181}, {180, 180, 180, 241, 180, 180, 180}, {180, 
+                    180, 182, 241, 180, 180, 180}, {180, 241, 241, 241, 241, 
+                    241, 180}, {180, 180, 180, 241, 180, 180, 180}, {180, 180,
+                     180, 241, 180, 180, 180}, {180, 180, 180, 180, 180, 180, 
+                    180}}], "Byte", ColorSpace -> "Grayscale", ImageSize -> 
+                    Automatic, Interleaving -> None]}]], "Metadata", 
+              
+              ButtonBar[{
+               "Populate" :> (Needs["SimpleDocs`"]; 
+                 SimpleDocs`Package`Private`PopulateNotebookMetadata[
+                   EvaluationNotebook[]]), 
+                "Clear" :> (Needs["SimpleDocs`"]; 
+                 SimpleDocs`Package`Private`ClearNotebookMetadata[
+                   EvaluationNotebook[]])}, ImageSize -> {100, Automatic}]}, {
+             Null, 
+              If[
+               TrueQ[SimpleDocs`Package`Private`show$$], 
+               Column[{
+                 OpenerView[{"Basics", 
+                   Grid[{{"Context", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {
+                    TaggingRules, "Metadata", "context"}, Automatic]]]}, {
+                    "Language", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {
+                    TaggingRules, "Metadata", "language"}, Automatic]]]}, {
+                    "Paclet", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {
+                    TaggingRules, "Metadata", "paclet"}, Automatic]]]}, {
+                    "Type", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {TaggingRules, "Metadata", "type"}, 
+                    Automatic]]]}, {"Label", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {TaggingRules, "Metadata", "label"},
+                     Automatic]]]}, {"URI", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {TaggingRules, "Metadata", "uri"}, 
+                    Automatic]]]}, {"Summary", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {
+                    TaggingRules, "Metadata", "summary"}, Automatic]]]}, {
+                    "Status", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {
+                    TaggingRules, "Metadata", "status"}, Automatic]]]}, {
+                    "Title", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {TaggingRules, "Metadata", "title"},
+                     Automatic]]]}, {"Title Modifier", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {
+                    TaggingRules, "Metadata", "titlemodifier"}, 
+                    Automatic]]]}, {"Window Title", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {
+                    TaggingRules, "Metadata", "windowtitle"}, Automatic]]]}}, 
+                    Alignment -> Left]}], 
+                 OpenerView[{"Location", 
+                   Grid[{{"Keywords", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {
+                    TaggingRules, "Metadata", "keywords"}, Automatic]]]}, {
+                    "Synonyms", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {
+                    TaggingRules, "Metadata", "synonyms"}, Automatic]]]}, {
+                    "Index", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {TaggingRules, "Metadata", "index"},
+                     Automatic]]]}}, Alignment -> Left]}], 
+                 OpenerView[{"History", 
+                   Grid[{{"Built", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {TaggingRules, "Metadata", "built"},
+                     Automatic]]]}, {"History", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {
+                    TaggingRules, "Metadata", "history"}, Automatic]]]}}, 
+                    Alignment -> Left]}], 
+                 OpenerView[{"Advanced", 
+                   Grid[{{"Table Tags", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {
+                    TaggingRules, "Metadata", "tabletags"}, Automatic]]]}, {
+                    "Tutorial Collection Links", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {
+                    TaggingRules, "Metadata", "tutorialcollectionlinks"}, 
+                    Automatic]]]}, {"Special Keywords", 
+                    InputField[
+                    Dynamic[
+                    CurrentValue[
+                    EvaluationNotebook[], {
+                    TaggingRules, "Metadata", "specialkeywords"}, 
+                    Automatic]]]}}, Alignment -> Left]}]}]], SpanFromLeft}}, 
+            Alignment -> Left], StandardForm],
+          ImageSizeCache->{295., {18.8837890625, 26.1162109375}}],
+         DynamicModuleValues:>{}],
+        Background->GrayLevel[1],
+        FrameStyle->GrayLevel[0.8],
+        ImageSize->{
+          Scaled[1], {50, 1000}},
+        RoundingRadius->5,
+        StripOnInput->False],
+       ItemSize->{
+         Scaled[0.7], Automatic},
+       StripOnInput->False], 
+      ItemBox[
+       ActionMenuBox[
+        FrameBox[
+         TagBox[GridBox[{
+            {
+             ItemBox["\<\"Insert\"\>",
+              Alignment->{Left, Center},
+              ItemSize->{
+                Scaled[0.5], Automatic},
+              StripOnInput->False], 
+             ItemBox[
+              StyleBox["\<\"\[DownPointer]\"\>",
+               StripOnInput->False,
+               LineColor->GrayLevel[0.5],
+               FrontFaceColor->GrayLevel[0.5],
+               GraphicsColor->GrayLevel[0.5],
+               FontColor->GrayLevel[0.5],
+               $CellContext`BackFaceColor -> GrayLevel[0.5]],
+              Alignment->{Right, Bottom},
+              ItemSize->{
+                Scaled[0.5], 
+                Scaled[0.2]},
+              StripOnInput->False]}
+           },
+           AutoDelete->False,
+           
+           GridBoxItemSize->{
+            "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+          "Grid"],
+         Background->GrayLevel[1],
+         FrameStyle->GrayLevel[0.8],
+         ImageSize->{150, 50},
+         RoundingRadius->5,
+         StripOnInput->False], {"\<\"Symbol\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell[
+             BoxData[
+              RowBox[{
+                RowBox[{"(*", " ", 
+                  RowBox[{"Markdown", " ", "metadata"}], " ", "*)"}], 
+                "\[IndentingNewLine]", 
+                RowBox[{"<|", "\[IndentingNewLine]", 
+                  RowBox[{
+                    RowBox[{"\"Date\"", "\[RuleDelayed]", "Now"}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"\"ExportOptions\"", "\[Rule]", 
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{"\"UseImageInput\"", "\[Rule]", "True"}], "*)"}], 
+                    "\[IndentingNewLine]", "}"}]}]}], "\[IndentingNewLine]", 
+                  "|>"}]}]], "Metadata"], 
+            Cell["<Context>", "TitleBar"], 
+            Cell["FunctionName", "Section"], 
+            Cell[
+             CellGroupData[{
+               Cell["", "Subsection", "UsageSection"], 
+               Cell[
+                CellGroupData[{
+                  Cell[
+                   BoxData[
+                    RowBox[{"<FunctionName>", "[", 
+                    RowBox[{"arg1", ",", "arg2", ",", "..."}], "]"}]], "Code",
+                    "UsageInput"], 
+                  Cell["description", "Text", "UsageText"]}]], 
+               Cell["", "UsageSectionFooter"]}]], 
+            Cell[
+             CellGroupData[{
+               Cell["Details", "Subsection", "DetailsSection"], 
+               Cell[
+                CellGroupData[{
+                  Cell["Details item", "Item", "DetailsItem"], 
+                  Cell["Details subitem", "Subitem", "DetailsSubitem"]}]]}, 
+              Closed]], 
+            Cell[
+             CellGroupData[{
+               Cell["Examples", "Subsection", "ExamplesSection"], 
+               Cell[
+                CellGroupData[{
+                  Cell[
+                  "Basic Examples", "Subsubsection", "ExamplesSubsection"], 
+                  Cell[
+                   CellGroupData[{
+                    Cell["Description", "Text"], 
+                    Cell[
+                    BoxData[
+                    RowBox[{"FunctionName", "[", 
+                    RowBox[{"arg1", ",", "arg2", ",", "..."}], "]"}]], 
+                    "Code"], 
+                    Cell[
+                    BoxData[
+                    RowBox[{"result"}]], "Output", GeneratedCell -> 
+                    True]}]]}]]}]], 
+            Cell[
+             CellGroupData[{
+               Cell[
+                CellGroupData[{
+                  Cell["See Also", "Subsection", "SeeAlso"], 
+                  Cell[
+                   TextData[{
+                    ButtonBox[
+                    "Function1", BaseStyle -> {"Link", "Input"}, ButtonData -> 
+                    "paclet:Pkg/ref/Function1"], " | ", 
+                    ButtonBox[
+                    "Function2", BaseStyle -> {"Link", "Input"}, ButtonData -> 
+                    "paclet:Pkg/ref/Function2"]}], "Text"]}]], 
+               Cell[
+                CellGroupData[{
+                  Cell["Related Guides", "Subsection", "Related"], 
+                  Cell[
+                   TextData[
+                    ButtonBox[
+                    "Guide 1", BaseStyle -> "Link", ButtonData -> 
+                    "paclet:Pkg/guide/Guide1"]], "Item"], 
+                  Cell[
+                   TextData[
+                    ButtonBox[
+                    "Guide 2", BaseStyle -> "Link", ButtonData -> 
+                    "paclet:Pkg/guide/Guide2"]], "Item"]}]], 
+               Cell[
+                CellGroupData[{
+                  Cell["Related Links", "Subsection", "RelatedLinks"], 
+                  Cell[
+                   TextData[
+                    ButtonBox["Link 1", BaseStyle -> "Hyperlink", ButtonData -> {
+                    URL["https://google.com"], None}, ButtonNote -> 
+                    "Link 1"]], "Item"], 
+                  Cell[
+                   TextData[
+                    ButtonBox["Link 2", BaseStyle -> "Hyperlink", ButtonData -> {
+                    URL["https://paclets.github.io/PacletServer"], None}, 
+                    ButtonNote -> "Link 2"]], "Item"]}]]}]], 
+            Cell[
+            "Made with SimpleDocs", "Text", "Footer"]}]]], "\<\"Guide\"\>":>
+        NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell[
+             BoxData[
+              RowBox[{
+                RowBox[{"(*", " ", 
+                  RowBox[{"Markdown", " ", "metadata"}], " ", "*)"}], 
+                "\[IndentingNewLine]", 
+                RowBox[{"<|", "\[IndentingNewLine]", 
+                  RowBox[{
+                    RowBox[{"\"Date\"", "\[RuleDelayed]", "Now"}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"\"ExportOptions\"", "\[Rule]", 
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{"\"UseImageInput\"", "\[Rule]", "True"}], "*)"}], 
+                    "\[IndentingNewLine]", "}"}]}]}], "\[IndentingNewLine]", 
+                  "|>"}]}]], "Metadata"], 
+            Cell["<Context>", "TitleBar"], 
+            Cell["Guide Name", "Section"], 
+            Cell["guide descriptions", "Text"], 
+            Cell[
+             CellGroupData[{
+               Cell[
+               "", "PageBreak", PageBreakBelow -> False, PageBreakAbove -> 
+                False], 
+               Cell["Description", "Text"], 
+               Cell[
+                TextData[{
+                  ButtonBox[
+                  "Function1", BaseStyle -> "Link", ButtonData -> 
+                   "paclet:Pkg/ref/Function1"], " - ", "description"}], 
+                "Text"], 
+               Cell[
+                TextData[{
+                  ButtonBox[
+                  "Function1", BaseStyle -> "Link", ButtonData -> 
+                   "paclet:Pkg/ref/Function1"], " - ", "description"}], 
+                "Text"]}]], 
+            Cell[
+            "", "PageBreak", PageBreakBelow -> False, PageBreakAbove -> 
+             False], 
+            Cell[
+             CellGroupData[{
+               Cell["Related Guides", "Subsection", "Related"], 
+               Cell[
+                TextData[
+                 ButtonBox[
+                 "Guide 1", BaseStyle -> "Link", ButtonData -> 
+                  "paclet:Pkg/guide/Guide1"]], "Item"], 
+               Cell[
+                TextData[
+                 ButtonBox[
+                 "Guide 2", BaseStyle -> "Link", ButtonData -> 
+                  "paclet:Pkg/guide/Guide2"]], "Item"]}]], 
+            Cell[
+             CellGroupData[{
+               Cell["Related Links", "Subsection", "RelatedLinks"], 
+               Cell[
+                TextData[
+                 ButtonBox[
+                 "Link 1", BaseStyle -> "Hyperlink", ButtonData -> {
+                    URL["https://google.com"], None}, ButtonNote -> 
+                  "Link 1"]], "Item"], 
+               Cell[
+                TextData[
+                 ButtonBox[
+                 "Link 2", BaseStyle -> "Hyperlink", ButtonData -> {
+                    URL["https://paclets.github.io/PacletServer"], None}, 
+                  ButtonNote -> "Link 2"]], "Item"]}]], 
+            Cell[
+            "Made with SimpleDocs", "Text", "Footer"]}]]], "\<\"Tutorial\"\>":>
+        NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell[
+             BoxData[
+              RowBox[{
+                RowBox[{"(*", " ", 
+                  RowBox[{"Markdown", " ", "metadata"}], " ", "*)"}], 
+                "\[IndentingNewLine]", 
+                RowBox[{"<|", "\[IndentingNewLine]", 
+                  RowBox[{
+                    RowBox[{"\"Date\"", "\[RuleDelayed]", "Now"}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"\"ExportOptions\"", "\[Rule]", 
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{"\"UseImageInput\"", "\[Rule]", "True"}], "*)"}], 
+                    "\[IndentingNewLine]", "}"}]}]}], "\[IndentingNewLine]", 
+                  "|>"}]}]], "Metadata"], 
+            Cell["<Context>", "TitleBar"], 
+            Cell["Tutorial Name", "Section"], 
+            Cell["Made with SimpleDocs", "Text", "Footer"]}]]], 
+        Delimiter, "\<\"Usage Section\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell["", "Subsection", "UsageSection"], 
+            Cell[
+             CellGroupData[{
+               Cell[
+                BoxData[
+                 RowBox[{"<FunctionName>", "[", 
+                   RowBox[{"arg1", ",", "arg2", ",", "..."}], "]"}]], "Code", 
+                "UsageInput"], 
+               Cell["description", "Text", "UsageText"]}]], 
+            Cell["", "UsageSectionFooter"]}]]], "\<\"Details Section\"\>":>
+        NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell["Details", "Subsection", "DetailsSection"], 
+            Cell[
+             CellGroupData[{
+               Cell["Details item", "Item", "DetailsItem"], 
+               Cell["Details subitem", "Subitem", "DetailsSubitem"]}]]}, 
+           Closed]]], "\<\"Examples Section\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell["Examples", "Subsection", "ExamplesSection"], 
+            Cell[
+             CellGroupData[{
+               Cell["Basic Examples", "Subsubsection", "ExamplesSubsection"], 
+               
+               Cell[
+                CellGroupData[{
+                  Cell["Description", "Text"], 
+                  Cell[
+                   BoxData[
+                    RowBox[{"FunctionName", "[", 
+                    RowBox[{"arg1", ",", "arg2", ",", "..."}], "]"}]], 
+                   "Code"], 
+                  Cell[
+                   BoxData[
+                    RowBox[{"result"}]], "Output", GeneratedCell -> 
+                   True]}]]}]]}]]], "\<\"Related Section\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell[
+             CellGroupData[{
+               Cell["See Also", "Subsection", "SeeAlso"], 
+               Cell[
+                TextData[{
+                  ButtonBox[
+                  "Function1", BaseStyle -> {"Link", "Input"}, ButtonData -> 
+                   "paclet:Pkg/ref/Function1"], " | ", 
+                  ButtonBox[
+                  "Function2", BaseStyle -> {"Link", "Input"}, ButtonData -> 
+                   "paclet:Pkg/ref/Function2"]}], "Text"]}]], 
+            Cell[
+             CellGroupData[{
+               Cell["Related Guides", "Subsection", "Related"], 
+               Cell[
+                TextData[
+                 ButtonBox[
+                 "Guide 1", BaseStyle -> "Link", ButtonData -> 
+                  "paclet:Pkg/guide/Guide1"]], "Item"], 
+               Cell[
+                TextData[
+                 ButtonBox[
+                 "Guide 2", BaseStyle -> "Link", ButtonData -> 
+                  "paclet:Pkg/guide/Guide2"]], "Item"]}]], 
+            Cell[
+             CellGroupData[{
+               Cell["Related Links", "Subsection", "RelatedLinks"], 
+               Cell[
+                TextData[
+                 ButtonBox[
+                 "Link 1", BaseStyle -> "Hyperlink", ButtonData -> {
+                    URL["https://google.com"], None}, ButtonNote -> 
+                  "Link 1"]], "Item"], 
+               Cell[
+                TextData[
+                 ButtonBox[
+                 "Link 2", BaseStyle -> "Hyperlink", ButtonData -> {
+                    URL["https://paclets.github.io/PacletServer"], None}, 
+                  ButtonNote -> "Link 2"]], 
+                "Item"]}]]}]]], "\<\"Guide Section\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell[
+            "", "PageBreak", PageBreakBelow -> False, PageBreakAbove -> 
+             False], 
+            Cell["Description", "Text"], 
+            Cell[
+             TextData[{
+               ButtonBox[
+               "Function1", BaseStyle -> "Link", ButtonData -> 
+                "paclet:Pkg/ref/Function1"], " - ", "description"}], "Text"], 
+            
+            Cell[
+             TextData[{
+               ButtonBox[
+               "Function1", BaseStyle -> "Link", ButtonData -> 
+                "paclet:Pkg/ref/Function1"], " - ", "description"}], 
+             "Text"]}]]], Delimiter, "\<\"Usage\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell[
+             BoxData[
+              RowBox[{"<FunctionName>", "[", 
+                RowBox[{"arg1", ",", "arg2", ",", "..."}], "]"}]], "Code", 
+             "UsageInput"], 
+            Cell[
+            "description", "Text", "UsageText"]}]]], "\<\"Guide Line\"\>":>
+        NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          TextData[{
+            ButtonBox[
+            "Function1", BaseStyle -> "Link", ButtonData -> 
+             "paclet:Pkg/ref/Function1"], " - ", "description"}], 
+          "Text"]], "\<\"Details\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell["Details item", "Item", "DetailsItem"], 
+            Cell[
+            "Details subitem", "Subitem", 
+             "DetailsSubitem"]}]]], "\<\"Example\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell["Description", "Text"], 
+            Cell[
+             BoxData[
+              RowBox[{"FunctionName", "[", 
+                RowBox[{"arg1", ",", "arg2", ",", "..."}], "]"}]], "Code"], 
+            Cell[
+             BoxData[
+              RowBox[{"result"}]], "Output", GeneratedCell -> 
+             True]}]]], "\<\"Related Functions\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell["See Also", "Subsection", "SeeAlso"], 
+            Cell[
+             TextData[{
+               ButtonBox[
+               "Function1", BaseStyle -> {"Link", "Input"}, ButtonData -> 
+                "paclet:Pkg/ref/Function1"], " | ", 
+               ButtonBox[
+               "Function2", BaseStyle -> {"Link", "Input"}, ButtonData -> 
+                "paclet:Pkg/ref/Function2"]}], 
+             "Text"]}]]], "\<\"Related Guides\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell["Related Guides", "Subsection", "Related"], 
+            Cell[
+             TextData[
+              ButtonBox[
+              "Guide 1", BaseStyle -> "Link", ButtonData -> 
+               "paclet:Pkg/guide/Guide1"]], "Item"], 
+            Cell[
+             TextData[
+              ButtonBox[
+              "Guide 2", BaseStyle -> "Link", ButtonData -> 
+               "paclet:Pkg/guide/Guide2"]], 
+             "Item"]}]]], "\<\"Related Links\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell[
+          CellGroupData[{
+            Cell["Related Links", "Subsection", "RelatedLinks"], 
+            Cell[
+             TextData[
+              ButtonBox["Link 1", BaseStyle -> "Hyperlink", ButtonData -> {
+                 URL["https://google.com"], None}, ButtonNote -> "Link 1"]], 
+             "Item"], 
+            Cell[
+             TextData[
+              ButtonBox["Link 2", BaseStyle -> "Hyperlink", ButtonData -> {
+                 URL["https://paclets.github.io/PacletServer"], None}, 
+               ButtonNote -> "Link 2"]], "Item"]}]]], 
+        Delimiter, "\<\"TitleBar\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell["<Context>", "TitleBar"]], "\<\"Divider\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell[
+         "", "PageBreak", PageBreakBelow -> False, PageBreakAbove -> 
+          False]], "\<\"Footer\"\>":>NotebookWrite[
+         InputNotebook[], 
+         Cell["Made with SimpleDocs", "Text", "Footer"]]},
+        Appearance->None,
+        ImageSize->{150, 50}],
+       Alignment->{Left, Top},
+       ItemSize->Scaled[0.27],
+       StripOnInput->False], 
+      ItemBox[
+       ActionMenuBox[
+        ButtonBox["\<\"\[Congruent]\"\>",
+         Appearance->None,
+         Evaluator->Automatic,
+         ImageSize->{50, 35},
+         Method->"Preemptive"], {"\<\"Save Documentation\"\>":>(
+        Needs["SimpleDocs`"]; NotebookOpen[
+          SimpleDocs`Package`SaveNotebookToPaclet[
+           EvaluationNotebook[]]]), "\<\"Save To Project\"\>":>(
+        Needs["SimpleDocs`"]; SimpleDocs`Package`SaveNotebookToPacletProject[
+          EvaluationNotebook[]]), "\<\"Save Markdown\"\>":>(
+        Needs["SimpleDocs`"]; NotebookOpen[
+          SimpleDocs`Package`SaveNotebookMarkdown[
+           EvaluationNotebook[]]]), Delimiter, "\<\"Set Paclet\"\>":>(
+        Needs["SimpleDocs`"]; SimpleDocs`Package`SetNotebookPaclet[
+          EvaluationNotebook[]]), "\<\"Update PacletInfo\"\>":>(
+        Needs["SimpleDocs`"]; Replace[
+          SimpleDocs`Package`SetPacletInfo[
+           EvaluationNotebook[]], Pattern[SimpleDocs`Package`Private`s, 
+            Blank[String]] :> NotebookOpen[SimpleDocs`Package`Private`s]]), 
+        Delimiter, "\<\"New Symbol\"\>":>(Needs["SimpleDocs`"]; 
+        SimpleDocs`Package`SampleTemplateNotebook[
+         "Symbol"]), "\<\"New Guide\"\>":>(Needs["SimpleDocs`"]; 
+        SimpleDocs`Package`SampleTemplateNotebook[
+         "Guide"]), "\<\"New Tutorial\"\>":>(Needs["SimpleDocs`"]; 
+        SimpleDocs`Package`SampleTemplateNotebook["Tutorial"]), 
+        Delimiter, "\<\"Open SiteConfig\"\>":>(Needs["SimpleDocs`"]; 
+        SimpleDocs`Package`OpenDocsSiteConfig[
+          EvaluationNotebook[]]), "\<\"Build Site\"\>":>(Needs["SimpleDocs`"]; 
+        SimpleDocs`Package`BuildNotebookDocsSite[
+          EvaluationNotebook[]])},
+        Appearance->None,
+        Method->"Queued"],
+       Alignment->Right,
+       ItemSize->Scaled[0.03],
+       StripOnInput->False]}
+    },
+    AutoDelete->False,
+    BaseStyle->{FontFamily -> "Helvetica", FontSize -> 14},
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Grid"], "]"}]]]
+}, Open  ]]
+},
+WindowSize->{808, 755},
+WindowMargins->{{316, Automatic}, {Automatic, 50}},
+TaggingRules->{
+ "Paclet" -> "SimpleDocs", 
+  "Metadata" -> {
+   "context" -> "SimpleDocs`", "uri" -> 
+    StringReplace[Inherited, "SimpleDocsPackage" -> "SimpleDocs"]}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 69, 2, 70, "PageBreak",ExpressionUUID->"960305c5-e153-4d8d-9bd8-8bf6ecc05ea0",
+ PageBreakAbove->False,
+ PageBreakBelow->False],
+Cell[CellGroupData[{
+Cell[652, 26, 61, 1, 70, "Subsection",ExpressionUUID->"94621fbb-bf9e-426e-84e7-f7dd9fe3f0c2",
+ CellID->745571890],
+Cell[716, 29, 2019, 61, 70, "Text",ExpressionUUID->"4e8969b9-7c82-45b9-90e8-1228d62eaf24",
+ CellID->1084717067]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2772, 95, 68, 1, 70, "Subsection",ExpressionUUID->"d0774bdd-6d71-42e2-8403-51dbbb75e6bb",
+ CellID->1044184471],
+Cell[2843, 98, 138, 3, 70, "Item",ExpressionUUID->"19565ec1-2104-4a1c-889b-4f6202f0f7cd",
+ CellID->372040813]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3018, 106, 71, 1, 70, "Subsection",ExpressionUUID->"6ad92ca3-1ae8-4ba6-a400-358411360132",
+ CellID->1432922421],
+Cell[3092, 109, 142, 3, 70, "Item",ExpressionUUID->"b9540aad-8ddc-4c37-a0ff-eefdf9a9c139",
+ CellID->1245512289]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3271, 117, 72, 1, 70, "Subsection",ExpressionUUID->"f1b56fd4-bd43-41f9-9b27-6d09eaf40708",
+ CellID->1376548462],
+Cell[CellGroupData[{
+Cell[3368, 122, 189, 5, 70, "Item",ExpressionUUID->"d1a16389-966a-46df-9e2b-5b5f09ac96ae",
+ CellID->808671703],
+Cell[3560, 129, 227, 5, 70, "Item",ExpressionUUID->"dd5e2464-b601-436a-a30a-cc640318c3af",
+ CellID->764470499],
+Cell[3790, 136, 195, 5, 70, "Item",ExpressionUUID->"f32d959f-8edb-450c-bd3b-5bfb3f32b4bc",
+ CellID->1318189595]
+}, Open  ]],
+Cell[4000, 144, 250, 8, 70, "Text",ExpressionUUID->"ef4884d6-be5d-4324-ab01-e8d2c71cf051",
+ CellID->2067337585],
+Cell[4253, 154, 27214, 648, 70, InheritFromParent,ExpressionUUID->"9797f870-5f72-49d0-89fa-fdd788a66f7f"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

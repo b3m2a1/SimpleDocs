@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[    218811,       3776]
+NotebookDataLength[    218812,       3776]
 NotebookOptionsPosition[    213488,       3658]
-NotebookOutlinePosition[    214696,       3689]
-CellTagsIndexPosition[    214653,       3686]
+NotebookOutlinePosition[    214697,       3689]
+CellTagsIndexPosition[    214654,       3686]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -3643,7 +3643,6 @@ Cell[TextData[ButtonBox["Ems",
    URL["https://github.com/b3m2a1/Ems"], None},
  ButtonNote->"https://github.com/b3m2a1/Ems"]], "Item",
  CellID->1318189595,ExpressionUUID->"7dfe4d9e-a75f-450a-af72-b56df68eebdc"]
-}, Open  ]]
 }, Open  ]],
 
 Cell[TextData[{
@@ -3655,10 +3654,11 @@ Cell[TextData[{
   ButtonNote->"https://github.com/b3m2a1/SimpleDocs"]
 }], "Text", "Footer",ExpressionUUID->"c982609d-a8c7-406d-bf22-c2c599b1781b"]
 }, Open  ]]
+}, Open  ]]
 },
 ScreenStyleEnvironment->"Editing",
 WindowSize->{808, 755},
-WindowMargins->{{221, Automatic}, {Automatic, 0}},
+WindowMargins->{{190, Automatic}, {25, Automatic}},
 TaggingRules->{
  "Metadata" -> {
    "built" -> "{2018, 11, 22, 14, 7, 16.560213}", 
@@ -3767,9 +3767,9 @@ Cell[212626, 3632, 282, 5, 32, "Item",ExpressionUUID->"18bc60db-55ff-49a2-9d65-7
  CellID->764470499],
 Cell[212911, 3639, 250, 5, 32, "Item",ExpressionUUID->"7dfe4d9e-a75f-450a-af72-b56df68eebdc",
  CellID->1318189595]
-}, Open  ]]
 }, Open  ]],
-Cell[213188, 3648, 284, 7, 62, "Text",ExpressionUUID->"c982609d-a8c7-406d-bf22-c2c599b1781b"]
+Cell[213176, 3647, 284, 7, 62, "Text",ExpressionUUID->"c982609d-a8c7-406d-bf22-c2c599b1781b"]
+}, Open  ]]
 }, Open  ]]
 }
 ]

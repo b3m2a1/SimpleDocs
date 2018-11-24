@@ -202,7 +202,7 @@ fns = Names[&quot;SimpleDocs`Package`*&quot;]</code>
 <p id='p42'>Next we add the necessary things to the <code>&quot;PacletInfo.m&quot; </code> file by using the  <em>Update PacletInfo</em> menu item:</p>
 <img src='../img/simpledocs-6839446010392387124.png' alt='simpledocs-6839446010392387124' id='img43' />
 <p id='p44'>We only really need to do this once (or whenever we add new things to the paclet that we want to be accounted for here).</p>
-<p id='p45'>At this point, once the documentation indices get rebuilt (not entirely sure what this takes) we should be able to find our new function via search.</p>
+<p id='p45'>At this point, once the documentation indices get rebuilt (in 11.2+ this is immediate and automatic, in earlier versions we need to do a bit of work) we should be able to find our new function via search.</p>
 <a shape='rect' id='markdown-and-websites' style='width:0;height:0;margin:0;padding:0;'>&#8204;</a>
 <h2 id='h246'> Markdown and Websites</h2>
 <p id='p47'>At this point we can also do things to get a website out of our notebook. The key benefit of the simplistic nature of these docs pages is it&apos;s possible to directly map them over to other formats. The &quot;intermediate representation&quot; we&apos;ll use here is called <a href='https://daringfireball.net/projects/markdown/syntax'>Markdown</a> and is a popular format these days for representing documents. Many sites process it naturally, including <a href='https://github.com/'>GitHub</a> , <a href='https://mathematica.stackexchange.com/'>StackExchange</a> , and many others. Lots of documentation systems (e.g. <a href='http://www.sphinx-doc.org/en/master/'>sphinx</a> ) use Markdown as their base content, too.
@@ -219,18 +219,35 @@ fns = Names[&quot;SimpleDocs`Package`*&quot;]</code>
 <p id='p55'>The listing of options is extensive and will depend on the use case, and we&apos;ll get into that in other tutorials
 </p>
 <h3 id='h356'> Building the Website</h3>
-<p id='p57'>The last thing to do, after we&apos;ve amassed our content, is to build the actual website. Amusingly, the function we&apos;ve been documenting, <code>BuildDocsSite</code> , is the function used for this export process too. All we do though is go to the  <em>Build Site</em> menu item and the site will be built for us automatically:
+<p id='p57'>The last thing to do, after we&apos;ve amassed our content, is to build the actual website. Amusingly, the function we&apos;ve been documenting, <code>BuildDocsSite</code> , is the function used for this export process too. All we do though is go to the  <em>Build Site</em> menu item and the site will be built for us automatically. </p>
+<img src='../img/simpledocs-97374131907832919.png' alt='simpledocs-97374131907832919' id='img58' />
+<p id='p59'>It&apos;ll open through python, if possible, but in general the website is just in the  <em>output</em> folder a few up from the current notebook directory:
 </p>
+<pre class='mma-input prettyprint lang-mma'
+    id='pre60'>
+ <code>FileNameJoin@{Nest[ParentDirectory, NotebookDirectory[], 2], &quot;output&quot;}</code>
+</pre>
+<pre class='mma-output prettyprint lang-mma'
+    id='pre61'>
+ <code>&quot;~/Documents/Wolfram Mathematica/Applications/SimpleDocs/project/docs/output&quot;</code>
+</pre>
 <hr />
 <a shape='rect' id='related-guides' style='width:0;height:0;margin:0;padding:0;'>&#8204;</a>
-<h2 id='h258'> Related Guides</h2>
+<h2 id='h262'> Related Guides</h2>
 <ul>
  <li>
   <a href='../guide/SimpleDocs.html'>SimpleDocs</a>
  </li>
 </ul>
+<a shape='rect' id='related-tutorials' style='width:0;height:0;margin:0;padding:0;'>&#8204;</a>
+<h2 id='h263'> Related Tutorials</h2>
+<ul>
+ <li>
+  <a href='../tutorial/BatchDocs.html'>Batch Documentation</a>
+ </li>
+</ul>
 <a shape='rect' id='related-links' style='width:0;height:0;margin:0;padding:0;'>&#8204;</a>
-<h2 id='h259'> Related Links</h2>
+<h2 id='h264'> Related Links</h2>
 <ul>
  <li>
   <a href='https://github.com/b3m2a1/SimpleDocs'>SimpleDocs</a>
@@ -243,7 +260,7 @@ fns = Names[&quot;SimpleDocs`Package`*&quot;]</code>
  </li>
 </ul>
 <hr />
-<p id='p60'>
+<p id='p65'>
 Made with <a href='https://github.com/b3m2a1/SimpleDocs'>SimpleDocs</a></p>
       </div>
       <!-- /.entry-content -->

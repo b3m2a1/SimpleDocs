@@ -1,0 +1,328 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     10487,        319]
+NotebookOptionsPosition[      6095,        228]
+NotebookOutlinePosition[      7168,        257]
+CellTagsIndexPosition[      7125,        254]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Markdown", " ", "metadata"}], " ", "*)"}], "\[IndentingNewLine]", 
+  
+  RowBox[{"<|", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\"\<Date\>\"", "\[RuleDelayed]", "Now"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<ExportOptions\>\"", "\[Rule]", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"\"\<UseImageInput\>\"", "\[Rule]", "True"}], "*)"}], 
+      "\[IndentingNewLine]", "}"}]}]}], "\[IndentingNewLine]", 
+   "|>"}]}]], "Metadata"],
+
+Cell["SimpleDocs Symbol", "TitleBar",
+ CellID->442319917],
+
+Cell[CellGroupData[{
+
+Cell["SetNotebookPaclet", "Section", "SymbolName"],
+
+Cell["", "UsageSection"],
+
+Cell[BoxData[
+ RowBox[{"SetNotebookPaclet", "[", "nb", "]"}]], "Code", "UsageInput"],
+
+Cell[" has no usage message", "Text", "UsageText"],
+
+Cell["", "UsageSectionFooter"],
+
+Cell[CellGroupData[{
+
+Cell["Details", "Subsection", "DetailsSection"],
+
+Cell["SetNotebookPaclet has 1 call pattern", "Item", "DetailsItem"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Examples", "Subsection", "ExamplesSection"],
+
+Cell[CellGroupData[{
+
+Cell["Basic Examples", "Subsubsection", "ExamplesSection"],
+
+Cell["Load the package:", "Text", "ExamplesText"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<SimpleDocs`Package`\>\"", "]"}]], "Code", \
+"ExamplesInput"],
+
+Cell["SetNotebookPaclet[nb]", "Text", "ExamplesText"],
+
+Cell[BoxData[
+ RowBox[{"SetNotebookPaclet", "[", "nb", "]"}]], "Code", "ExamplesInput"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Definitions", "Subsubsection", "ExamplesSection"],
+
+Cell["Examine all definitions:", "Text", "ExamplesText"],
+
+Cell[BoxData[
+ RowBox[{"GeneralUtilities`PrintDefinitionsLocal", "[", "SetNotebookPaclet", 
+  "]"}]], "Code", "ExamplesInput"],
+
+Cell["", "PageBreak",
+ PageBreakAbove->False,
+ PageBreakBelow->False,
+ CellID->1629942752]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "Subsection", "SeeAlso",
+ CellID->745571890],
+
+Cell[TextData[{
+ ButtonBox["BuildDocsSite",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/BuildDocsSite"],
+ " | ",
+ ButtonBox["BuildNotebookDocsSite",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/BuildNotebookDocsSite"],
+ " | ",
+ ButtonBox["CreateTemplateNotebook",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/CreateTemplateNotebook"],
+ " | ",
+ ButtonBox["InitializeDocsSite",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/InitializeDocsSite"],
+ " | ",
+ ButtonBox["OpenDocsSiteConfig",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/OpenDocsSiteConfig"],
+ " | ",
+ ButtonBox["SampleTemplateNotebook",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/SampleTemplateNotebook"],
+ " | ",
+ ButtonBox["SaveNotebookMarkdown",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/SaveNotebookMarkdown"],
+ " | ",
+ ButtonBox["SaveNotebookToPaclet",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/SaveNotebookToPaclet"],
+ " | ",
+ ButtonBox["SaveNotebookToPacletProject",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/SaveNotebookToPacletProject"],
+ " | ",
+ ButtonBox["SetNotebookPaclet",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/SetNotebookPaclet"],
+ " | ",
+ ButtonBox["$DockedCell",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/$DockedCell"],
+ " | ",
+ ButtonBox["$HamburgerMenu",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/$HamburgerMenu"],
+ " | ",
+ ButtonBox["$InsertionMenu",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/$InsertionMenu"],
+ " | ",
+ ButtonBox["$MetadataEditor",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/$MetadataEditor"],
+ " | ",
+ ButtonBox["$NotebookTemplates",
+  BaseStyle->{"Link", "Input"},
+  ButtonData->"paclet:SimpleDocs/ref/$NotebookTemplates"]
+}], "Text",
+ CellID->1084717067]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "Subsection", "Related",
+ CellID->1044184471],
+
+Cell[TextData[ButtonBox["SimpleDocs",
+ BaseStyle->"Link",
+ ButtonData->"paclet:SimpleDocs/guide/SimpleDocs"]], "Item",
+ CellID->372040813]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Tutorials", "Subsection", "Related",
+ CellID->1432922421],
+
+Cell[TextData[ButtonBox["SimpleDocs",
+ BaseStyle->"Link",
+ ButtonData->"paclet:SimpleDocs/tutorial/SimpleDocs"]], "Item",
+ CellID->1245512289]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "Subsection", "RelatedLinks",
+ CellID->1376548462],
+
+Cell[CellGroupData[{
+
+Cell[TextData[ButtonBox["SimpleDocs",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["https://github.com/b3m2a1/SimpleDocs"], None},
+ ButtonNote->"SimpleDocs"]], "Item",
+ CellID->808671703],
+
+Cell[TextData[ButtonBox["BTools",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["https://github.com/b3m2a1/mathematica-BTools"], None},
+ ButtonNote->"https://github.com/b3m2a1/mathematica-BTools"]], "Item",
+ CellID->764470499],
+
+Cell[TextData[ButtonBox["Ems",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["https://github.com/b3m2a1/Ems"], None},
+ ButtonNote->"https://github.com/b3m2a1/Ems"]], "Item",
+ CellID->1318189595]
+}, Open  ]]
+}, Open  ]],
+
+Cell[TextData[{
+ "Made with ",
+ ButtonBox["SimpleDocs",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["https://github.com/b3m2a1/SimpleDocs"], None},
+  ButtonNote->"https://github.com/b3m2a1/SimpleDocs"]
+}], "Text", "Footer",
+ CellID->2067337585]
+}, Open  ]]
+},
+WindowSize->{808, 755},
+WindowMargins->{{316, Automatic}, {Automatic, 50}},
+TaggingRules->{
+ "Metadata" -> {
+   "built" -> "{2018, 11, 24, 3, 10, 38.077121}", 
+    "history" -> {"11.3", "", ""}, "context" -> "SimpleDocs`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "SetNotebookPaclet", "language" -> "en", "paclet" -> "Mathematica", 
+    "status" -> "None", "summary" -> "", "synonyms" -> {}, "tabletags" -> {}, 
+    "title" -> "SetNotebookPaclet", "titlemodifier" -> "", "windowtitle" -> 
+    "SetNotebookPaclet", "type" -> "Symbol", "uri" -> 
+    "SimpleDocs/ref/SetNotebookPaclet"}, "ColorType" -> "SymbolColor", 
+  "Paclet" -> "SimpleDocs"},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 540, 14, 70, "Metadata",ExpressionUUID->"d89205aa-65e7-4131-896f-1327655398d0"],
+Cell[1101, 36, 57, 1, 70, "TitleBar",ExpressionUUID->"404dc5de-6212-4814-93d8-6651b966b581",
+ CellID->442319917],
+Cell[CellGroupData[{
+Cell[1183, 41, 50, 0, 70, "Section",ExpressionUUID->"3afbc3b2-3e7e-498f-ba2f-d52329201219"],
+Cell[1236, 43, 24, 0, 70, "UsageSection",ExpressionUUID->"b5703e57-9249-48e0-89dc-91c235d6af1f"],
+Cell[1263, 45, 84, 1, 70, "Code",ExpressionUUID->"4ce7ad12-0176-4941-9d64-49d8f3477064"],
+Cell[1350, 48, 50, 0, 70, "Text",ExpressionUUID->"a1175d08-f290-4cac-b5a4-a4692efefe45"],
+Cell[1403, 50, 30, 0, 70, "UsageSectionFooter",ExpressionUUID->"2611c0ce-a451-4b72-9ae0-cead762b6e98"],
+Cell[CellGroupData[{
+Cell[1458, 54, 47, 0, 70, "Subsection",ExpressionUUID->"64c0d164-4b7b-4e02-bfb8-73fa262bf958"],
+Cell[1508, 56, 67, 0, 70, "Item",ExpressionUUID->"0bab9d08-d148-4934-b213-c151554a0308"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[1612, 61, 49, 0, 70, "Subsection",ExpressionUUID->"08184eec-d117-4e19-8470-a1f152a2d984"],
+Cell[CellGroupData[{
+Cell[1686, 65, 58, 0, 70, "Subsubsection",ExpressionUUID->"e0fdecc6-5827-431e-aa30-f0a4f2407468"],
+Cell[1747, 67, 49, 0, 70, "Text",ExpressionUUID->"c0018bb0-466f-4965-9934-ab91fd0202b1"],
+Cell[1799, 69, 102, 2, 70, "Code",ExpressionUUID->"9ee0523a-e91a-40f0-9a55-d8f75fd15d4b"],
+Cell[1904, 73, 53, 0, 70, "Text",ExpressionUUID->"6c26a7dc-3be5-4c44-ba75-3d3223260fe4"],
+Cell[1960, 75, 87, 1, 70, "Code",ExpressionUUID->"4f0e67f3-e3df-49e7-acc1-c02caa0ffdcd"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2084, 81, 55, 0, 70, "Subsubsection",ExpressionUUID->"6a97f95e-0309-4fa4-9dd2-57ef4df9c22b"],
+Cell[2142, 83, 56, 0, 70, "Text",ExpressionUUID->"57a85595-01a7-4775-b54b-f2aa2e173351"],
+Cell[2201, 85, 126, 2, 70, "Code",ExpressionUUID->"26c1a7e7-a85c-480f-b166-570ae3d22281"],
+Cell[2330, 89, 90, 3, 70, "PageBreak",ExpressionUUID->"791b6a5b-b5c6-4f1e-b224-2498f75f7b06",
+ PageBreakAbove->False,
+ PageBreakBelow->False,
+ CellID->1629942752]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2469, 98, 61, 1, 70, "Subsection",ExpressionUUID->"c417449c-6146-4ecf-8ceb-3d1c68c4d47e",
+ CellID->745571890],
+Cell[2533, 101, 2019, 61, 70, "Text",ExpressionUUID->"d7584b3b-dd60-4766-b80a-6eefa48241c5",
+ CellID->1084717067]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4589, 167, 68, 1, 70, "Subsection",ExpressionUUID->"557f4ae9-f44e-4e24-8b75-b85530b305b5",
+ CellID->1044184471],
+Cell[4660, 170, 138, 3, 70, "Item",ExpressionUUID->"9e85af34-09d7-4b9f-b6ae-9647f09dc2ef",
+ CellID->372040813]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4835, 178, 71, 1, 70, "Subsection",ExpressionUUID->"72c6a9a6-f2d3-483b-813b-9610a3ca17f0",
+ CellID->1432922421],
+Cell[4909, 181, 142, 3, 70, "Item",ExpressionUUID->"2b17c957-3f22-443b-812d-6c850c653a91",
+ CellID->1245512289]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5088, 189, 72, 1, 70, "Subsection",ExpressionUUID->"655072e1-47bb-4c90-ae39-a4ee4b36d363",
+ CellID->1376548462],
+Cell[CellGroupData[{
+Cell[5185, 194, 189, 5, 70, "Item",ExpressionUUID->"63918dd1-9ee9-4ac8-873e-64aadd9046b8",
+ CellID->808671703],
+Cell[5377, 201, 227, 5, 70, "Item",ExpressionUUID->"4523f0e1-d3b2-4940-ba10-bbc3fa3d6175",
+ CellID->764470499],
+Cell[5607, 208, 195, 5, 70, "Item",ExpressionUUID->"c3d77fab-d58b-4844-8a5b-e95dfd2bee49",
+ CellID->1318189595]
+}, Open  ]]
+}, Open  ]],
+Cell[5829, 217, 250, 8, 70, "Text",ExpressionUUID->"9b82108c-c1fa-42fa-b9fa-720496c6eb31",
+ CellID->2067337585]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

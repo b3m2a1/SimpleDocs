@@ -85,7 +85,7 @@ Quiet[
   ]
 
 
-PackageExtendContextPath@
+deps=
   {
     "Ems`",
     "BTools`Developer`",
@@ -94,7 +94,11 @@ PackageExtendContextPath@
     "BTools`Paclets`",
     "BTools`Paclets`DocGen`",
     "BTools`External`"
-    }
+    };
+
+
+Needs/@deps;
+PackageExtendContextPath@deps;
 
 
 (* ::Subsection:: *)
@@ -213,7 +217,7 @@ buildNotebookDocsSite[loc_]:=
               WindowFloating->True
               ];
           overrideMonitor[
-            BTools`External`PySimpleServerOpen@Ems`Ems["Build", l],
+            PySimpleServerOpen@Ems`Ems["Build", l],
             blech
             ];
           NotebookClose@nb;
@@ -619,8 +623,20 @@ getPacletSaveLocation[loc_String, lang_, type_]:=
     loc, 
     "Documentation", 
     lang, 
-    Lookup[<|"symbol"->"ReferencePages", "Symbol"->"ReferencePages"|>, type,
-      If[StringQ@type,(ToUpperCase[StringTake[#, {1}]]<>StringDrop[#, 1])&@ type<>"s", "ReferencePages"]
+    Lookup[
+      <|
+        "symbol"->FileNameJoin@{"ReferencePages", "Symbols"}, 
+        "Symbol"->FileNameJoin@{"ReferencePages", "Symbols"}
+        |>, 
+      type,
+      If[StringQ@type,
+        Replace[
+          (ToUpperCase[StringTake[#, {1}]]<>ToLowerCase@StringDrop[#, 1])&@ type<>"s", 
+          s:Except["Guides"|"Tutorials"]:>
+            FileNameJoin@{"ReferencePages", s}
+          ],
+        FileNameJoin@{"ReferencePages", "Symbols"}
+        ]
       ]
     };
 getPacletSaveLocation[pac_PacletManager`Paclet, lang_, type_]:=
@@ -858,7 +874,7 @@ mergeCellStyles[md_]:=
 SaveNotebookMarkdown[nb_]:=
   Module[
     {
-      md=BTools`Web`Markdown`MarkdownNotebookMetadata@nb 
+      md=MarkdownNotebookMetadata@nb 
       (* for some reason this isn't getting linked in properly... *)
       },
     md=
@@ -969,7 +985,9 @@ CreateTemplateNotebook[thing_Symbol]:=
   CreateTemplateNotebook["Symbol", thing];
 CreateTemplateNotebook[thing_String]:=
   If[NameQ[thing],
-    CreateTemplateNotebook["Symbol", Evaluate@Symbol@thing],
+    ToExpression[thing, StandardForm,
+      Function[Null, CreateTemplateNotebook["Symbol", #], HoldAllComplete]
+      ],
     CreateTemplateNotebook["Guide", thing]
     ];
 CreateTemplateNotebook[e_]:=

@@ -1,13 +1,13 @@
 Title: SampleTutorial
 built: {2018, 11, 23, 23, 23, 54.214811}
 context: SimpleDocs`
-Date: 2018-11-24 01:55:10
+Date: 2018-11-24 03:16:20
 history: 11.3,,
 index: True
 keywords: <||>
-label: SampleTutorial
+label: SimpleDocs
 language: en
-Modified: 2018-11-24 01:55:16
+Modified: 2018-11-24 03:16:24
 paclet: Mathematica
 specialkeywords: <||>
 status: None
@@ -18,7 +18,7 @@ title: SampleTutorial
 titlemodifier: 
 tutorialcollectionlinks: <||>
 type: Tutorial
-uri: SimpleDocs/tutorial/SampleTutorial
+uri: SimpleDocs/tutorial/SimpleDocs
 windowtitle: SampleTutorial
 
 <a id="simpledocs-usage" style="width:0;height:0;margin:0;padding:0;">&zwnj;</a>
@@ -132,7 +132,7 @@ Next we add the necessary things to the  ```"PacletInfo.m" ``` file by using the
 
 We only really need to do this once (or whenever we add new things to the paclet that we want to be accounted for here).
 
-At this point, once the documentation indices get rebuilt (not entirely sure what this takes) we should be able to find our new function via search.
+At this point, once the documentation indices get rebuilt (in 11.2+ this is immediate and automatic, in earlier versions we need to do a bit of work) we should be able to find our new function via search.
 
 <a id="markdown-and-websites" style="width:0;height:0;margin:0;padding:0;">&zwnj;</a>
 
@@ -160,7 +160,17 @@ The listing of options is extensive and will depend on the use case, and we'll g
 
 ### Building the Website
 
-The last thing to do, after we've amassed our content, is to build the actual website. Amusingly, the function we've been documenting,  ```BuildDocsSite``` , is the function used for this export process too. All we do though is go to the  *Build Site* menu item and the site will be built for us automatically:
+The last thing to do, after we've amassed our content, is to build the actual website. Amusingly, the function we've been documenting,  ```BuildDocsSite``` , is the function used for this export process too. All we do though is go to the  *Build Site* menu item and the site will be built for us automatically. 
+
+![simpledocs-97374131907832919](../img/simpledocs-97374131907832919.png)
+
+It'll open through python, if possible, but in general the website is just in the  *output* folder a few up from the current notebook directory:
+
+    FileNameJoin@{Nest[ParentDirectory, NotebookDirectory[], 2], "output"}
+
+    (*Out:*)
+    
+    "~/Documents/Wolfram Mathematica/Applications/SimpleDocs/project/docs/output"
 
 ---
 
@@ -169,6 +179,12 @@ The last thing to do, after we've amassed our content, is to build the actual we
 ## Related Guides
 
 * [SimpleDocs](../guide/SimpleDocs.html)
+
+<a id="related-tutorials" style="width:0;height:0;margin:0;padding:0;">&zwnj;</a>
+
+## Related Tutorials
+
+* [Batch Documentation](../tutorial/BatchDocs.html)
 
 <a id="related-links" style="width:0;height:0;margin:0;padding:0;">&zwnj;</a>
 

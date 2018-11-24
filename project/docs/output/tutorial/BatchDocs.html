@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <title>
+  Making Batch Documentation | SimpleDocs Documentation
+  </title>
+  <!-- Using the latest rendering mode for IE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+      rel='apple-touch-icon'
+      href='../apple-touch-icon.png'
+      sizes='180x180'
+  >
+<link
+      rel='icon'
+      href='../favicon-32x32.png'
+      sizes='32x32'
+  >
+<link
+      rel='icon'
+      href='../favicon-16x16.png'
+      sizes='16x16'
+  >
+<link
+      rel='manifest'
+      href='../manifest.json'
+  >
+  <meta name="creator" content="" />
+  <link rel="canonical" href="../tutorial/BatchDocs.html">
+<link
+      rel='stylesheet'
+      href='../theme/css/bootstrap.mma.min.css'
+  >
+<link
+      rel='stylesheet'
+      href='../theme/css/typogrify.css'
+  >
+<link
+      rel='stylesheet'
+      href='../theme/css/font-awesome.min.css'
+  >
+<link
+      rel='stylesheet'
+      href='../theme/css/common.css'
+  >
+<link
+      rel='stylesheet'
+      href='../theme/css/style.css'
+  >
+  <meta name="author" content="" />
+  <meta name="keywords" content='' />
+      <meta name="description" content="">
+  <link href="../theme/prettify/styles/prettify-mma.min.css" rel="stylesheet">
+  <script src="../theme/prettify/src/prettify.js"></script>
+  <script src="../theme/prettify/src/lang-mma.min.js"></script>
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+        </button>
+<a
+      class='navbar-brand'
+      href='../'
+  >
+      SimpleDocs Documentation</a>
+      </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav" id="">
+<li class="">
+<a
+      href='../pages/about.html'
+  >
+      About</a>
+</li>
+</ul>
+            <ul class="nav navbar-nav navbar-right">
+<div class="search-box">
+  <script>
+    var search_SiteURL = ".."
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+  <link rel="stylesheet" href="../theme/tipuesearch/tipuesearch.css">
+  <form action="../search.html">
+    <div class="tipue_search_group">
+      <input
+        type="text"
+        name="q"
+        id="tipue_search_input"
+        pattern=".{3,}"
+        title="At least 3 characters" required>
+      <button type="submit" class="tipue_search_button">
+        <div class="tipue_search_icon">&#9906;</div>
+      </button>
+    </div>
+  </form>
+</div>
+            </ul>
+      </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<!-- Content Container -->
+<div class="container">
+  <div class="main-content">
+    <div class="row">
+      <div class='col-lg-12'>
+        <!-- <div class="breadcrumbs"></div>
+        <div class="page-header"></div> -->
+        <div class="page-content">
+  <section id="content">
+    <article>
+      <div class="entry-content">
+        </div>
+        <a shape='rect' id='making-batch-documentation' style='width:0;height:0;margin:0;padding:0;'>&#8204;</a>
+<h1 id='h11'> Making Batch Documentation</h1>
+<p id='p2'>One of the big benefits of having code to generate documentation like this (and having simple documentation to work with) is that we can deal with it programatically. That&apos;s not to say that we can do everything perfectly, but we can get the basic superstructure up and working and handle most of the boiler plate.</p>
+<p id='p3'>For this demo, we&apos;ll first figure out what functions still need to be documented:
+</p>
+<pre class='mma-input prettyprint lang-mma'
+    id='pre4'>
+ <code>&lt;&lt; SimpleDocs`Package`
+fns = Names[&quot;SimpleDocs`Package`*&quot;]</code>
+</pre>
+<pre class='mma-output prettyprint lang-mma'
+    id='pre5'>
+ <code>{&quot;BuildDocsSite&quot;,&quot;BuildNotebookDocsSite&quot;,&quot;CreateTemplateNotebook&quot;,&quot;InitializeDocsSite&quot;,&quot;OpenDocsSiteConfig&quot;,&quot;SampleTemplateNotebook&quot;,&quot;SaveNotebookMarkdown&quot;,&quot;SaveNotebookToPaclet&quot;,&quot;SaveNotebookToPacletProject&quot;,&quot;SetNotebookPaclet&quot;,&quot;SetPacletInfo&quot;,&quot;$DockedCell&quot;,&quot;$HamburgerMenu&quot;,&quot;$InsertionMenu&quot;,&quot;$MetadataEditor&quot;,&quot;$NotebookTemplates&quot;}
+
+needDocs=
+  Select[fns, 
+  !FileExistsQ@
+    FileNameJoin@{ParentDirectory@NotebookDirectory[], &quot;ref&quot;, StringSplit[#, &quot;`&quot;]&lt;&gt;&quot;.nb&quot;}&amp;
+  ]</code>
+</pre>
+<pre class='mma-output prettyprint lang-mma'
+    id='pre6'>
+ <code>{&quot;BuildNotebookDocsSite&quot;,&quot;InitializeDocsSite&quot;,&quot;OpenDocsSiteConfig&quot;,&quot;SampleTemplateNotebook&quot;,&quot;SaveNotebookMarkdown&quot;,&quot;SaveNotebookToPaclet&quot;,&quot;SaveNotebookToPacletProject&quot;,&quot;SetNotebookPaclet&quot;,&quot;SetPacletInfo&quot;,&quot;$DockedCell&quot;,&quot;$HamburgerMenu&quot;,&quot;$InsertionMenu&quot;,&quot;$MetadataEditor&quot;,&quot;$NotebookTemplates&quot;}</code>
+</pre>
+<p id='p7'>At this point we&apos;ll think about what we did in the basic <a href='../tutorial/SimpleDocs.html'>SimpleDocs Usage</a> tutorial and just write code to do most of it:</p>
+<ul>
+ <li>Generate function template with <a href='../ref/CreateTemplateNotebook.html'><code>CreateTemplateNotebook</code></a></li>
+ <li>Save notebook to paclet</li>
+ <li>Edit metadata to get the context and URI parts correct</li>
+ <li>Change the little label bar to be correct</li>
+ <li>Save the documentation notebook</li>
+ <li>Save the Markdown</li>
+</ul>
+<p id='p8'>As an additional step, we&apos;ll add the related links I&apos;ve been adding to all of the pages, which look like this:</p>
+<img src='../img/batchdocs-3557312341007022428.png' alt='batchdocs-3557312341007022428' id='img9' />
+<p id='p10'>And then we&apos;ll just loop over the functions and do that at each step. So let&apos;s start. First, the function to make a template and get the <a href='../ref/NotebookObject.html'><code>NotebookObject</code></a> reference. Well that&apos;s already basically there, so let&apos;s move to the next part, which is correcting the metadata:
+</p>
+<pre class='mma-input prettyprint lang-mma'
+    id='pre11'>
+ <code>correctMetadata[nb_]:=
+  (
+    CurrentValue[nb, {TaggingRules, &quot;Metadata&quot;, &quot;context&quot;}]=
+      &quot;SimpleDocs`&quot;;
+    CurrentValue[nb, {TaggingRules, &quot;Metadata&quot;, &quot;uri&quot;}]=
+      StringReplace[
+        CurrentValue[nb, {TaggingRules, &quot;Metadata&quot;, &quot;uri&quot;}],
+        &quot;SimpleDocsPackage&quot;-&gt;&quot;SimpleDocs&quot;
+        ];
+    )</code>
+</pre>
+<p id='p12'>That was easy. Okay. Next step is correcting the label cell. I called the cell style <code>&quot;TitleBar&quot;</code> so we&apos;ll just find the first of that type of cell and change the body:
+</p>
+<pre class='mma-input prettyprint lang-mma'
+    id='pre13'>
+ <code>correctTitleBar[nb_]:=
+  With[{c=Cells[nb, CellStyle-&gt;&quot;TitleBar&quot;][[1]]},
+    NotebookWrite[c, Cell[&quot;SimpleDocs Symbol&quot;, &quot;TitleBar&quot;]];
+    ]</code>
+</pre>
+<p id='p14'>Then we&apos;ll replace the related bits. Let&apos;s just say I saved the collection of cells to a variable called <code>$relatedCells</code> :
+</p>
+<pre class='mma-input prettyprint lang-mma'
+    id='pre15'>
+ <code>correctRelatedStuff[nb_]:=
+  Module[{cells, firstCell},
+    firstCell=Cells[nb, CellStyle-&gt;&quot;SeeAlso&quot;][[1]];
+    cells=
+      Cells[nb, 
+        CellStyle-&gt;&quot;SeeAlso&quot;|&quot;Related&quot;|&quot;RelatedLinks&quot;|&quot;Footer&quot;|&quot;Text&quot;|&quot;Item&quot;
+        ];
+    cells=Join@@SplitBy[cells, #=!=firstCell&amp;][[2;;]];
+    SelectionMove[cells[[-1]], After, Cell];
+    NotebookDelete@cells;
+    NotebookWrite[nb, $relatedCells]
+    ];</code>
+</pre>
+<p id='p16'>Also easy. Finally, the saving steps are basically just functions in the package so we&apos;ll just chain this all together as:
+</p>
+<pre class='mma-input prettyprint lang-mma'
+    id='pre17'>
+ <code>doTemplateDocs[fn_]:=
+  Module[{nb, file, docs, md},
+    nb=CreateTemplateNotebook@fn;
+    CurrentValue[nb, {TaggingRules, &quot;Paclet&quot;}]=&quot;SimpleDocs&quot;;
+    SaveNotebookToPacletProject[nb];
+    file = NotebookFileName@nb;
+    correctMetadata[nb];
+    correctTitleBar[nb];
+    correctRelatedStuff[nb];
+    NotebookSave@nb;
+    docs = SaveNotebookToPaclet[nb];
+    md = SaveNotebookMarkdown[nb];
+    NotebookClose@nb;
+    &lt;|
+      &quot;Notebook&quot;-&gt;file,
+      &quot;Documentation&quot;-&gt;docs,
+      &quot;Markdown&quot;-&gt;md
+      |&gt;
+    ]</code>
+</pre>
+<p id='p18'>Let&apos;s just check that this works cleanly on the first of our undocumented functions:
+</p>
+<pre class='mma-input prettyprint lang-mma'
+    id='pre19'>
+ <code>doTemplateDocs@needDocs[[1]]</code>
+</pre>
+<pre class='mma-output prettyprint lang-mma'
+    id='pre20'>
+ <code>&lt;|&quot;Notebook&quot;-&gt;&quot;~/Documents/Wolfram Mathematica/Applications/SimpleDocs/project/docs/content/ref/BuildNotebookDocsSite.nb&quot;,&quot;Documentation&quot;-&gt;&quot;~/Documents/Wolfram Mathematica/Applications/SimpleDocs/Documentation/English/ReferencePages/Symbols/BuildNotebookDocsSite.nb&quot;,&quot;Markdown&quot;-&gt;&quot;~/Documents/Wolfram Mathematica/Applications/SimpleDocs/project/docs/content/ref/BuildNotebookDocsSite.md&quot;|&gt;</code>
+</pre>
+<p id='p21'>Seems clean. Now let&apos;s do this for all of the rest of them (where they aren&apos;t just objects, which a) don&apos;t work well with the templates and b) aren&apos;t going to be worth documenting really):
+</p>
+<pre class='mma-input prettyprint lang-mma'
+    id='pre22'>
+ <code>doTemplateDocs/@
+  Select[Rest@needDocs, Length@ToExpression[#, StandardForm, OwnValues]==0&amp;];</code>
+</pre>
+<hr />
+<hr />
+<a shape='rect' id='related-guides' style='width:0;height:0;margin:0;padding:0;'>&#8204;</a>
+<h2 id='h223'> Related Guides</h2>
+<ul>
+ <li>
+  <a href='../guide/SimpleDocs.html'>SimpleDocs</a>
+ </li>
+</ul>
+<a shape='rect' id='related-tutorials' style='width:0;height:0;margin:0;padding:0;'>&#8204;</a>
+<h2 id='h224'> Related Tutorials</h2>
+<ul>
+ <li>
+  <a href='../tutorial/SimpleDocs.html'>SimpleDocs</a>
+ </li>
+</ul>
+<a shape='rect' id='related-links' style='width:0;height:0;margin:0;padding:0;'>&#8204;</a>
+<h2 id='h225'> Related Links</h2>
+<ul>
+ <li>
+  <a href='https://github.com/b3m2a1/SimpleDocs'>SimpleDocs</a>
+ </li>
+ <li>
+  <a href='https://github.com/b3m2a1/mathematica-BTools'>BTools</a>
+ </li>
+ <li>
+  <a href='https://github.com/b3m2a1/Ems'>Ems</a>
+ </li>
+</ul>
+<hr />
+<p id='p26'>
+Made with <a href='https://github.com/b3m2a1/SimpleDocs'>SimpleDocs</a></p>
+      </div>
+      <!-- /.entry-content -->
+    </article>
+  </section>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Content Container -->
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+        <div class="col-xs-10">
+            Generated with <a href="https://github.com/b3m2a1/Ems">Ems</a>
+        </div>
+        <div class="col-xs-2">
+          <p class="pull-right">
+            <i class="fa fa-arrow-up"></i>
+            <a href="#">Back to top</a>
+          </p>
+        </div>
+      </div>
+   </div>
+</footer>
+<script src="../theme/js/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../theme/js/bootstrap.min.js"></script>
+</body>
+</html>

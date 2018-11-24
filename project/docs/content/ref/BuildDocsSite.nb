@@ -1805,7 +1805,6 @@ Cell[TextData[ButtonBox["Ems",
    URL["https://github.com/b3m2a1/Ems"], None},
  ButtonNote->"https://github.com/b3m2a1/Ems"]], "Item",
  CellID->1318189595,ExpressionUUID->"ba98991d-b60a-470e-9590-2cb9d402739b"]
-}, Open  ]]
 }, Open  ]],
 
 Cell[TextData[{
@@ -1817,6 +1816,7 @@ Cell[TextData[{
   ButtonNote->"https://github.com/b3m2a1/SimpleDocs"]
 }], "Text", "Footer",
  CellID->2067337585,ExpressionUUID->"6e9a955b-cd5c-4bfd-9181-da4a5d1def7c"]
+}, Open  ]]
 }, Open  ]]
 },
 ScreenStyleEnvironment->"Editing",
@@ -1909,10 +1909,10 @@ Cell[102668, 1794, 282, 5, 32, "Item",ExpressionUUID->"b66414cc-9af6-4d5c-a572-a
  CellID->764470499],
 Cell[102953, 1801, 250, 5, 32, "Item",ExpressionUUID->"ba98991d-b60a-470e-9590-2cb9d402739b",
  CellID->1318189595]
-}, Open  ]]
 }, Open  ]],
-Cell[103230, 1810, 305, 8, 62, "Text",ExpressionUUID->"6e9a955b-cd5c-4bfd-9181-da4a5d1def7c",
+Cell[103218, 1809, 305, 8, 62, "Text",ExpressionUUID->"6e9a955b-cd5c-4bfd-9181-da4a5d1def7c",
  CellID->2067337585]
+}, Open  ]]
 }, Open  ]]
 }
 ]

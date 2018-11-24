@@ -1,13 +1,13 @@
 Title: SimpleDocs
 built: {2018, 11, 23, 22, 6, 12.203926}
 context: SimpleDocs`
-Date: 2018-11-23 22:34:00
+Date: 2018-11-24 03:15:57
 history: 11.3,,
 index: True
 keywords: <||>
 label: SimpleDocs
 language: en
-Modified: 2018-11-23 22:34:00
+Modified: 2018-11-24 03:15:57
 paclet: Mathematica
 specialkeywords: <||>
 status: None
@@ -62,6 +62,14 @@ SimpleDocs also provides some function for working with Markdown and websites
 [```BuildNotebookDocsSite```](../ref/BuildNotebookDocsSite.html) - ...
 
 ---
+
+<a id="related-tutorials" style="width:0;height:0;margin:0;padding:0;">&zwnj;</a>
+
+## Related Tutorials
+
+* [SimpleDocs](../tutorial/SimpleDocs.html)
+
+* [Batch Documentation](../tutorial/BatchDocs.html)
 
 <a id="related-links" style="width:0;height:0;margin:0;padding:0;">&zwnj;</a>
 
