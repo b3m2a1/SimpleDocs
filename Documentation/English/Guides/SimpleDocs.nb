@@ -1,0 +1,324 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9530,        315]
+NotebookOptionsPosition[      5349,        224]
+NotebookOutlinePosition[      6389,        252]
+CellTagsIndexPosition[      6346,        249]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Markdown", " ", "metadata"}], " ", "*)"}], "\[IndentingNewLine]", 
+  
+  RowBox[{"<|", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\"\<Date\>\"", "\[RuleDelayed]", "Now"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<ExportOptions\>\"", "\[Rule]", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"\"\<UseImageInput\>\"", "\[Rule]", "True"}], "*)"}], 
+      "\[IndentingNewLine]", "}"}]}]}], "\[IndentingNewLine]", 
+   "|>"}]}]], "Metadata"],
+
+Cell["Guide", "TitleBar"],
+
+Cell[CellGroupData[{
+
+Cell["SimpleDocs", "Section", "GuideName"],
+
+Cell[TextData[{
+ "SimpleDocs is a paclet that implements simple documentation building. It \
+has a stylesheet that ",
+ StyleBox["should",
+  FontSlant->"Italic"],
+ " be cross-version compatible going back quite a while. It also provides \
+facilities for automatic export to Markdown and for building of a website off \
+that Markdown."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell["", "PageBreak",
+ PageBreakAbove->False,
+ PageBreakBelow->False],
+
+Cell["\<\
+SimpleDocs provides a collection of functions for creating notebooks and the \
+like\
+\>", "Text"],
+
+Cell[TextData[{
+ ButtonBox["CreateTemplateNotebook",
+  BaseStyle->"Link",
+  ButtonData->"paclet:SimpleDocs/ref/CreateTemplateNotebook"],
+ " - creates a template notebook (like this) to fill out"
+}], "Text"],
+
+Cell[TextData[{
+ ButtonBox["SampleTemplateNotebook",
+  BaseStyle->"Link",
+  ButtonData->"paclet:SimpleDocs/ref/SampleTemplateNotebook"],
+ " - ..."
+}], "Text",
+ CellID->6081247],
+
+Cell[TextData[{
+ ButtonBox["$NotebookTemplates",
+  BaseStyle->"Link",
+  ButtonData->"paclet:SimpleDocs/ref/$NotebookTemplates"],
+ " - ..."
+}], "Text",
+ CellID->352640527]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "PageBreak",
+ PageBreakAbove->False,
+ PageBreakBelow->False,
+ CellID->786133058],
+
+Cell["\<\
+SimpleDocs provides a collection of functions for working with documentation \
+and paclets\
+\>", "Text",
+ CellID->1218909462],
+
+Cell[TextData[{
+ ButtonBox["SetNotebookPaclet",
+  BaseStyle->"Link",
+  ButtonData->"paclet:SimpleDocs/ref/SetNotebookPaclet"],
+ " - ..."
+}], "Text",
+ CellID->1586580418],
+
+Cell[TextData[{
+ ButtonBox["SaveNotebookToPaclet",
+  BaseStyle->"Link",
+  ButtonData->"paclet:SimpleDocs/ref/SaveNotebookToPaclet"],
+ " - ..."
+}], "Text",
+ CellID->1674032792],
+
+Cell[TextData[{
+ ButtonBox["SaveNotebookToPacletProject",
+  BaseStyle->"Link",
+  ButtonData->"paclet:SimpleDocs/ref/SaveNotebookToPacletProject"],
+ " - ..."
+}], "Text",
+ CellID->1285875797]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "PageBreak",
+ PageBreakAbove->False,
+ PageBreakBelow->False,
+ CellID->1352941326],
+
+Cell["\<\
+SimpleDocs also provides some function for working with Markdown and websites\
+\
+\>", "Text",
+ CellID->1328011646],
+
+Cell[TextData[{
+ ButtonBox["SaveNotebookMarkdown",
+  BaseStyle->"Link",
+  ButtonData->"paclet:SimpleDocs/ref/SaveNotebookMarkdown"],
+ " - ..."
+}], "Text",
+ CellID->1275786920],
+
+Cell[TextData[{
+ ButtonBox["InitializeDocsSite",
+  BaseStyle->"Link",
+  ButtonData->"paclet:SimpleDocs/ref/InitializeDocsSite"],
+ " - ..."
+}], "Text",
+ CellID->1043925289],
+
+Cell[TextData[{
+ ButtonBox["OpenDocsSiteConfig",
+  BaseStyle->"Link",
+  ButtonData->"paclet:SimpleDocs/ref/OpenDocsSiteConfig"],
+ " - ..."
+}], "Text",
+ CellID->310936233],
+
+Cell[TextData[{
+ ButtonBox["BuildDocsSite",
+  BaseStyle->"Link",
+  ButtonData->"paclet:SimpleDocs/ref/BuildDocsSite"],
+ " - ..."
+}], "Text",
+ CellID->824166789],
+
+Cell[TextData[{
+ ButtonBox["BuildNotebookDocsSite",
+  BaseStyle->"Link",
+  ButtonData->"paclet:SimpleDocs/ref/BuildNotebookDocsSite"],
+ " - ..."
+}], "Text",
+ CellID->501699573]
+}, Open  ]],
+
+Cell["", "PageBreak",
+ PageBreakAbove->False,
+ PageBreakBelow->False],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "Subsection", "RelatedLinks",
+ CellID->1376548462],
+
+Cell[CellGroupData[{
+
+Cell[TextData[ButtonBox["SimpleDocs",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["https://github.com/b3m2a1/SimpleDocs"], None},
+ ButtonNote->"SimpleDocs"]], "Item",
+ CellID->808671703],
+
+Cell[TextData[ButtonBox["BTools",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["https://github.com/b3m2a1/mathematica-BTools"], None},
+ ButtonNote->"https://github.com/b3m2a1/mathematica-BTools"]], "Item",
+ CellID->764470499],
+
+Cell[TextData[ButtonBox["Ems",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["https://github.com/b3m2a1/Ems"], None},
+ ButtonNote->"https://github.com/b3m2a1/Ems"]], "Item",
+ CellID->1318189595]
+}, Open  ]]
+}, Open  ]],
+
+Cell[TextData[{
+ "Made with ",
+ ButtonBox["SimpleDocs",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["https://github.com/b3m2a1/SimpleDocs"], None},
+  ButtonNote->"https://github.com/b3m2a1/SimpleDocs"]
+}], "Text", "Footer",
+ CellID->1389138853]
+}, Open  ]]
+},
+WindowSize->{808, 755},
+WindowMargins->{{316, Automatic}, {Automatic, 50}},
+TaggingRules->{
+ "Metadata" -> {
+   "built" -> "{2018, 11, 23, 22, 6, 12.203926}", 
+    "history" -> {"11.3", "", ""}, "context" -> "SimpleDocs`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> "SimpleDocs",
+     "language" -> "en", "paclet" -> "Mathematica", "status" -> "None", 
+    "summary" -> "", "synonyms" -> {}, "tabletags" -> {}, "title" -> 
+    "SimpleDocs", "titlemodifier" -> "", "windowtitle" -> "SimpleDocs", 
+    "type" -> "Guide", "uri" -> "SimpleDocs/guide/SimpleDocs"}, "ColorType" -> 
+  "GuideColor", "Paclet" -> "SimpleDocs"},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 540, 14, 70, "Metadata",ExpressionUUID->"277ee6bd-15f8-472f-a107-d7d3d5308203"],
+Cell[1101, 36, 25, 0, 70, "TitleBar",ExpressionUUID->"7b124a73-4528-4db4-bae6-c900ffe559ee"],
+Cell[CellGroupData[{
+Cell[1151, 40, 42, 0, 70, "Section",ExpressionUUID->"6a9bf4b3-f193-438d-ba80-662a266e9835"],
+Cell[1196, 42, 345, 8, 70, "Text",ExpressionUUID->"b69af5b0-be76-4114-a136-55460898696b"],
+Cell[CellGroupData[{
+Cell[1566, 54, 69, 2, 70, "PageBreak",ExpressionUUID->"1a7ba89a-8fc4-4ab4-8e0b-6f7c2c4bb0ae",
+ PageBreakAbove->False,
+ PageBreakBelow->False],
+Cell[1638, 58, 107, 3, 70, "Text",ExpressionUUID->"85eaae2d-b8fa-4534-b568-6a8976d9cdac"],
+Cell[1748, 63, 206, 5, 70, "Text",ExpressionUUID->"847c5ec9-613f-44d2-a5e9-5b5e651653a0"],
+Cell[1957, 70, 176, 6, 70, "Text",ExpressionUUID->"f8546ede-ed9c-43e0-9f2b-bd5f8ddf9813",
+ CellID->6081247],
+Cell[2136, 78, 170, 6, 70, "Text",ExpressionUUID->"c317d9ed-fb14-4cfc-b193-5edef7d93c35",
+ CellID->352640527]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2343, 89, 89, 3, 70, "PageBreak",ExpressionUUID->"ee3e8c3e-28c7-4226-9b0e-14c3abfc5c22",
+ PageBreakAbove->False,
+ PageBreakBelow->False,
+ CellID->786133058],
+Cell[2435, 94, 135, 4, 70, "Text",ExpressionUUID->"ed5e18cc-95d5-4b5a-a756-cf4096d04b3e",
+ CellID->1218909462],
+Cell[2573, 100, 169, 6, 70, "Text",ExpressionUUID->"4272ae8e-5bd0-4831-812b-31e3ca914e71",
+ CellID->1586580418],
+Cell[2745, 108, 175, 6, 70, "Text",ExpressionUUID->"a2e23581-4218-4be4-a13f-b04a92d44bec",
+ CellID->1674032792],
+Cell[2923, 116, 189, 6, 70, "Text",ExpressionUUID->"9892bdf5-95c6-4013-90a8-e5eb87a8645a",
+ CellID->1285875797]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3149, 127, 90, 3, 70, "PageBreak",ExpressionUUID->"b9ccedd2-aeb1-4c1d-9fe0-a3dc89c4ec11",
+ PageBreakAbove->False,
+ PageBreakBelow->False,
+ CellID->1352941326],
+Cell[3242, 132, 124, 4, 70, "Text",ExpressionUUID->"21ebded2-f067-4cc8-8054-adadfe592269",
+ CellID->1328011646],
+Cell[3369, 138, 175, 6, 70, "Text",ExpressionUUID->"50da746f-d81a-4780-867e-72ffcf1650d0",
+ CellID->1275786920],
+Cell[3547, 146, 171, 6, 70, "Text",ExpressionUUID->"ad3f6bb2-055c-443a-9447-12b4cfbe23f7",
+ CellID->1043925289],
+Cell[3721, 154, 170, 6, 70, "Text",ExpressionUUID->"31f2728f-ab19-4d79-afaf-c611893d9467",
+ CellID->310936233],
+Cell[3894, 162, 160, 6, 70, "Text",ExpressionUUID->"60f60901-6301-488c-9930-5108dfed4ccf",
+ CellID->824166789],
+Cell[4057, 170, 176, 6, 70, "Text",ExpressionUUID->"be35376c-cb52-472e-9aab-f5202c6b3674",
+ CellID->501699573]
+}, Open  ]],
+Cell[4248, 179, 69, 2, 70, "PageBreak",ExpressionUUID->"61b0ac0c-46c0-4d02-94a6-5278b48a578e",
+ PageBreakAbove->False,
+ PageBreakBelow->False],
+Cell[CellGroupData[{
+Cell[4342, 185, 72, 1, 70, "Subsection",ExpressionUUID->"2826b70a-4f13-4d1a-9402-babde50998b3",
+ CellID->1376548462],
+Cell[CellGroupData[{
+Cell[4439, 190, 189, 5, 70, "Item",ExpressionUUID->"e694f0ff-ee14-4109-a1ea-ee44bc5e36c3",
+ CellID->808671703],
+Cell[4631, 197, 227, 5, 70, "Item",ExpressionUUID->"21b2a31d-c378-4273-9b56-3699d22374ee",
+ CellID->764470499],
+Cell[4861, 204, 195, 5, 70, "Item",ExpressionUUID->"7e4d5685-8a4a-4d09-82fa-4a202a7b1d27",
+ CellID->1318189595]
+}, Open  ]]
+}, Open  ]],
+Cell[5083, 213, 250, 8, 70, "Text",ExpressionUUID->"b5ee24ca-09dd-4b1b-9556-ace2f2391b4a",
+ CellID->1389138853]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

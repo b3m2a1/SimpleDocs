@@ -30,9 +30,11 @@ $NotebookTemplates::usage="";
 SetNotebookPaclet::usage="";
 SaveNotebookToPaclet::usage="";
 SaveNotebookMarkdown::usage="";
+SaveNotebookToPacletProject::usage=""
 
 
-SymbolNotebookTemplate::usage="";
+CreateTemplateNotebook::usage="";
+SampleTemplateNotebook::usage="";
 
 
 (* ::Subsubsection::Closed:: *)
@@ -47,13 +49,22 @@ $DockedCell::usage="";
 
 
 (* ::Subsubsection::Closed:: *)
+(*Docs*)
+
+
+
+InitializeDocsSite::usage="";
+BuildDocsSite::usage="";
+BuildNotebookDocsSite::usage="";
+OpenDocsSiteConfig::usage="";
+
+
+(* ::Subsubsection::Closed:: *)
 (*Paclets*)
 
 
 
-(* ::Subsubsection::Closed:: *)
-(*SiteBuilder*)
-
+SetPacletInfo::usage="";
 
 
 Begin["`Private`"];
@@ -67,13 +78,160 @@ PackageLoadPacletDependency["Ems",
   ];
 
 
+Quiet[
+  Needs["BTools`"];
+  Needs["Ems`"],
+  General::shdw
+  ]
+
+
 PackageExtendContextPath@
   {
     "Ems`",
     "BTools`Developer`",
     "BTools`Web`",
-    "BTools`Paclets`DocGen`"
+    "BTools`Web`Markdown`",
+    "BTools`Paclets`",
+    "BTools`Paclets`DocGen`",
+    "BTools`External`"
     }
+
+
+(* ::Subsection:: *)
+(*Site*)
+
+
+
+(* ::Subsubsection::Closed:: *)
+(*docsSiteLoc*)
+
+
+
+docsSiteLoc//Clear
+docsSiteLoc[loc_String?(StringQ[#]&&StringLength[#]>0&&DirectoryQ[#]&)]:=
+  FileNameJoin@{loc, "project", "docs"};
+docsSiteLoc[p_PacletManager`Paclet]:=
+  docsSiteLoc[p["Location"]];
+docsSiteLoc[s_String]:=
+  Replace[PacletManager`PacletFind[s], {p_, ___}:>docsSiteLoc[p]];
+
+
+(* ::Subsubsection::Closed:: *)
+(*InitializeDocsSite*)
+
+
+
+InitializeDocsSite[loc_]:=
+  With[{l=docsSiteLoc[loc]},
+    If[StringQ@l&&!DirectoryQ@l,
+      With[{s=Ems`Ems["New", l, "docs"]},
+        DeleteFile/@FileNames["*", FileNameJoin@{s, "content", "ref"}];
+        DeleteFile/@FileNames["*", FileNameJoin@{s, "content", "guide"}];
+        s
+        ],
+      $Failed
+      ]
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*BuildDocsSite*)
+
+
+
+BuildDocsSite[loc_]:=
+  Ems["Build", docsSiteLoc[loc]];
+
+
+(* ::Subsubsection::Closed:: *)
+(*BuildNotebookDocsSite*)
+
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*BuildNotebookDocsSite*)
+
+
+
+BuildNotebookDocsSite[nb_, ploc_:Automatic]:=
+  With[{pac=getNotebookPaclet[nb, ploc]},
+    If[pac=!=None,
+      buildNotebookDocsSite[pac]
+      ]
+    ]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*overrideMonitor*)
+
+
+
+overrideMonitor//Clear
+
+
+overrideMonitor[expr_, sym_]:=
+  Block[{Monitor},
+    SetAttributes[Monitor, HoldAllComplete];
+    Monitor[a_, b_, ___]:=
+      (
+        sym=b;
+        a
+        );
+    expr;
+    ];
+overrideMonitor~SetAttributes~HoldAll;
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*buildNotebookDocsSite*)
+
+
+
+$protector=False;
+
+
+buildNotebookDocsSite[loc_]:=
+  With[{l=docsSiteLoc[loc]},
+    Block[{blech},
+      If[DirectoryQ@l,
+        Module[{nb},
+          nb=
+            MessageDialog[
+              Column@{
+                StringForm[
+                  "Creating site @ ``", l
+                  ],
+                Panel[
+                  Dynamic[
+                    If[MatchQ[blech, _Symbol], "", blech],
+                    TrackedSymbols:>{blech}
+                    ],
+                  ImageSize->{350, 100}
+                  ]
+                },
+              WindowTitle->"Building Site",
+              WindowFloating->True
+              ];
+          overrideMonitor[
+            BTools`External`PySimpleServerOpen@Ems`Ems["Build", l],
+            blech
+            ];
+          NotebookClose@nb;
+          ],
+        $Failed
+        ]
+      ]
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*OpenDocsSiteConfig*)
+
+
+
+OpenDocsSiteConfig[nb_, ploc_:Automatic]:=
+  SystemOpen@
+    FileNameJoin@{docsSiteLoc@getNotebookPaclet[nb, ploc], "SiteConfig.wl"}
 
 
 (* ::Subsection:: *)
@@ -102,188 +260,22 @@ $MetadataMap=
     |>;
 
 
-(* ::Subsection:: *)
-(*Notebook*)
-
-
-
 (* ::Subsubsection::Closed:: *)
-(*getMeta*)
+(*$NotebookTemplates*)
 
 
 
-getMeta[nb_, k_]:=
-  CurrentValue[nb, {TaggingRules, "Metadata", ToLowerCase@k}];
-
-
-(* ::Subsubsection::Closed:: *)
-(*setMeta*)
+(* ::Subsubsubsection::Closed:: *)
+(*$miscTemplates*)
 
 
 
-getMeta[nb_, k_, v_]:=
-  CurrentValue[nb, {TaggingRules, "Metadata", ToLowerCase@k}]=v;
-
-
-(* ::Subsubsection::Closed:: *)
-(*getPacletDialog*)
-
-
-
-getPacletDialog[]:=
-  DialogInput[
-    {pacletName=""},
-    Pane[
-      Panel[
-        Column[
-          {
-            EventHandler[
-              InputField[Dynamic@pacletName,
-                String,
-                BoxID->"pname",
-                FieldHint->"paclet name"
-                ],
-              "ReturnKeyDown":>DialogReturn@pacletName
-              ]
-            }
-          ],
-        "Specify paclet:",
-        ImageSize->{Automatic, 60},
-        Alignment->Center
-        ],
-      ImageSize->{250, 100},
-      Alignment->Center
-      ],
-    WindowFloating->True,
-    NotebookDynamicExpression:>
-      Refresh[
-        FrontEndExecute@FrontEnd`MoveCursorToInputField[EvaluationNotebook[], "pname"], 
-        None
-        ]
-    ];
-
-
-(* ::Subsubsection::Closed:: *)
-(*SetNotebookPaclet*)
-
-
-
-SetNotebookPaclet[nb_]:=
-  Module[
-    {pacletLoc=getPacletDialog[]},
-    If[StringLength@pacletLoc>0,
-      CurrentValue[nb, {TaggingRules, "Paclet"}]=pacletLoc,
-      pacletLoc=None
-      ];
-    pacletLoc
-    ]
-
-
-(* ::Subsubsection::Closed:: *)
-(*SaveNotebookToPaclet*)
-
-
-
-SaveNotebookToPaclet[nb_]:=
-  Module[
-    {
-      pacletLoc,
-      lang,
-      pac,
-      cont,
-      type,
-      baseDir,
-      title,
-      fname
-      },
-    pacletLoc=CurrentValue[nb, {TaggingRules, "Paclet"}];
-    If[!StringQ[pacletLoc], 
-      pacletLoc=SetNotebookPaclet[nb];
-      ];
-    If[StringQ@pacletLoc,
-      pac=PacletManager`PacletFind[pacletLoc];
-      If[Length@pac>0, pac=First@pac, pac=None];
-      If[pac=!=None,
-        cont=getMeta[nb, "context"];
-        lang=getMeta[nb, "language"];
-        If[cont===Automatic,
-          setMeta[nb, "context", pacletLoc<>"`"]
-          ];
-        type=getMeta[nb, "type"];
-        lang=Lookup[<|"en"->"English"|>, lang, $Language];
-        baseDir=
-          FileNameJoin@{
-              pac["Location"], 
-              "Documentation", 
-              lang, 
-              Lookup[<|"symbol"->"ReferencePages", "Symbol"->"ReferencePages"|>, type,
-                If[StringQ@type,(ToUpperCase[StringTake[#, {1}]]<>StringDrop[#, 1])&@ type<>"s", "ReferencePages"]
-                ]
-              };
-        Quiet@CreateDirectory[baseDir, CreateIntermediateDirectories->True];
-        title=CurrentValue[nb, {TaggingRules, "Metadata", "label"}];
-        If[!StringQ@title, title="Symbol"];
-        fname=FileNameJoin@{baseDir,StringTrim[title, ".nb"]<>".nb" };
-        Export[
-          fname,
-          Notebook[#[[1]],
-            FilterRules[
-              Flatten@{List@@#[[2;;]], ScreenStyleEnvironment->"Working"},
-               Except[ScreenStyleEnvironment]
-              ]
-            ]&@NotebookGet[nb] 
-          ]
-        ]
-      ]
-    ]
-
-
-(* ::Subsubsection::Closed:: *)
-(*SaveNotebookMarkdown*)
-
-
-
-(* ::Text:: *)
-(*
-	Should be better about how I handle defaults...
-*)
-
-
-
-SaveNotebookMarkdown[nb_]:=
-  NotebookMarkdownSave[
-    nb,
-    "ExportOptions"->
-      {
-        "PacletLinkResolutionFunction"->
-          Function[l, 
-            "/"<>
-            URLBuild[
-              Join@@SplitBy[URLParse[l, "Path"],#=="ref"||#=="guide"||#=="tutorial"&][[-2;;]]
-              ]<>".html"
-            ]
-        },
-    "Title"->getMeta[nb, "title"],
-    "Date"->
-      Replace[getMeta[nb, "built"], 
-        {
-          s_String:>DateObject@ToExpression[s],
-          l_List:>DateObject[l]
-          }
-        ],
-    Sequence@@
-      Flatten@{
-          Replace[
-            CurrentValue[nb, {TaggingRules, "Metadata"}],
-            Except[_?OptionQ]:>{}
-            ]
-          }
-    ]
-
-
-(* ::Subsubsection::Closed:: *)
-(*Templates*)
-
+$miscTemplates=
+  <|
+    "TitleBar"->Cell["<Context>", "TitleBar"],
+    "Divider"->Cell["", "PageBreak", PageBreakBelow->False, PageBreakAbove->False],
+    "Footer"->Cell["Made with SimpleDocs", "Text", "Footer"]
+    |>;
 
 
 (* ::Subsubsubsection::Closed:: *)
@@ -293,8 +285,6 @@ SaveNotebookMarkdown[nb_]:=
 
 $baseTemplates=
   <|
-    "Divider"->Cell["", "PageBreak", PageBreakBelow->False, PageBreakAbove->False],
-    "Footer"->Cell["Made with SimpleDocs", "Text", "Footer"],
     "Usage"->
       Cell@
         CellGroupData[
@@ -304,7 +294,12 @@ $baseTemplates=
             }
           ],
     "Guide Line"->
-      Cell[TextData@{ButtonBox["Function1",BaseStyle->"Link",ButtonData->"paclet:Pkg/ref/Function1"], " \[LongDash] ", "description"}, "Text"],
+      Cell[
+        TextData@{
+          ButtonBox["Function1", BaseStyle->"Link",ButtonData->"paclet:Pkg/ref/Function1"], 
+          " - ", 
+          "description"
+          }, "Text"],
     "Details"->
       Cell@
         CellGroupData[
@@ -436,7 +431,7 @@ $sectionTemplates=
       Cell@
         CellGroupData[
           {
-            $baseTemplates["Divider"],
+            $miscTemplates["Divider"],
             Cell["Description", "Text"],
             $baseTemplates["Guide Line"],
             $baseTemplates["Guide Line"]
@@ -457,7 +452,7 @@ $metaCell=
           RowBox[{"(*"," ",
               RowBox[{"Markdown"," ","metadata"}]," ","*)"}],"\[IndentingNewLine]",
           RowBox[{"<|","\[IndentingNewLine]",
-              RowBox[{RowBox[{"\"Title\"","\[Rule]","Automatic"}],",","\[IndentingNewLine]",
+              RowBox[{
                   RowBox[{"\"Date\"","\[RuleDelayed]","Now"}],",","\[IndentingNewLine]",
                   RowBox[{"\"ExportOptions\"","\[Rule]",
                       RowBox[{"{","\[IndentingNewLine]",
@@ -485,12 +480,13 @@ $primaryTemplates=
         CellGroupData[
           {
             $metaCell,
+            $miscTemplates["TitleBar"],
             Cell["FunctionName", "Section"],
             $sectionTemplates["Usage Section"],
             $sectionTemplates["Details Section"],
             $sectionTemplates["Examples Section"],
             $sectionTemplates["Related Section"],
-            $baseTemplates["Footer"]
+            $miscTemplates["Footer"]
             }
           ],
     "Guide"->
@@ -498,16 +494,14 @@ $primaryTemplates=
         CellGroupData[
           {
             $metaCell,
+            $miscTemplates["TitleBar"],
             Cell["Guide Name", "Section"],
             Cell["guide descriptions", "Text"],
             $sectionTemplates["Guide Section"],
-            Cell@
-              CellGroupData[{
-                  $baseTemplates["Divider"],
-                  Cell["Related", "Subsection"],
-                  $baseTemplates["Related Links"]
-                  }],
-            $baseTemplates["Footer"]
+            $miscTemplates["Divider"],
+            $baseTemplates["Related Guides"],
+            $baseTemplates["Related Links"],
+            $miscTemplates["Footer"]
             }
           ],
     "Tutorial"->
@@ -515,8 +509,9 @@ $primaryTemplates=
         CellGroupData[
           {
             $metaCell,
+            $miscTemplates["TitleBar"],
             Cell["Tutorial Name", "Section"],
-            $baseTemplates["Footer"]
+            $miscTemplates["Footer"]
             }
           ]
     |>;
@@ -531,8 +526,394 @@ $NotebookTemplates=
   Join[
     $primaryTemplates,
     $sectionTemplates,
-    $baseTemplates
+    $baseTemplates,
+    $miscTemplates
     ]
+
+
+(* ::Subsection:: *)
+(*Notebook*)
+
+
+
+(* ::Subsubsection::Closed:: *)
+(*getMeta*)
+
+
+
+getMeta[nb_, k_]:=
+  CurrentValue[nb, {TaggingRules, "Metadata", ToLowerCase@k}];
+
+
+(* ::Subsubsection::Closed:: *)
+(*setMeta*)
+
+
+
+getMeta[nb_, k_, v_]:=
+  CurrentValue[nb, {TaggingRules, "Metadata", ToLowerCase@k}]=v;
+
+
+(* ::Subsubsection::Closed:: *)
+(*getPacletDialog*)
+
+
+
+getPacletDialog[]:=
+  DialogInput[
+    {pacletName=""},
+    Pane[
+      Panel[
+        Column[
+          {
+            EventHandler[
+              InputField[Dynamic@pacletName,
+                String,
+                BoxID->"pname",
+                FieldHint->"paclet name"
+                ],
+              "ReturnKeyDown":>DialogReturn@pacletName
+              ]
+            }
+          ],
+        "Specify paclet:",
+        ImageSize->{Automatic, 60},
+        Alignment->Center
+        ],
+      ImageSize->{250, 100},
+      Alignment->Center
+      ],
+    WindowFloating->True,
+    NotebookDynamicExpression:>
+      Refresh[
+        FrontEndExecute@FrontEnd`MoveCursorToInputField[EvaluationNotebook[], "pname"], 
+        None
+        ],
+"CellInsertionPointCell"->Automatic
+    ];
+
+
+(* ::Subsubsection::Closed:: *)
+(*SetNotebookPaclet*)
+
+
+
+SetNotebookPaclet[nb_]:=
+  Module[
+    {pacletLoc=getPacletDialog[]},
+    If[StringLength@pacletLoc>0,
+      CurrentValue[nb, {TaggingRules, "Paclet"}]=pacletLoc,
+      pacletLoc=None
+      ];
+    pacletLoc
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*getPacletSaveLocation*)
+
+
+
+getPacletSaveLocation[loc_String, lang_, type_]:=
+  FileNameJoin@{
+    loc, 
+    "Documentation", 
+    lang, 
+    Lookup[<|"symbol"->"ReferencePages", "Symbol"->"ReferencePages"|>, type,
+      If[StringQ@type,(ToUpperCase[StringTake[#, {1}]]<>StringDrop[#, 1])&@ type<>"s", "ReferencePages"]
+      ]
+    };
+getPacletSaveLocation[pac_PacletManager`Paclet, lang_, type_]:=
+  getPacletSaveLocation[pac["Location"], lang, type];
+
+
+(* ::Subsubsection::Closed:: *)
+(*getPacletSaveFileName*)
+
+
+
+getPacletSaveFileName[pac_, nb_]:=
+  Module[
+    {
+      cont,
+      lang,
+      type,
+      baseDir,
+      title,
+      pi
+      },
+    cont=getMeta[nb, "context"];
+    lang=getMeta[nb, "language"];
+    If[cont===Automatic,
+      pi=PacletManager`PacletInformation[pac];
+      setMeta[nb, "context", 
+        First["Context"/.Append[pi, "Context"->{Lookup[pi, "Name"]<>"`"}]]
+        ]
+      ];
+    type=getMeta[nb, "type"];
+    lang=Lookup[<|"en"->"English"|>, lang, $Language];
+    baseDir=getPacletSaveLocation[pac, lang, type];
+    Quiet@CreateDirectory[baseDir, CreateIntermediateDirectories->True];
+    title=CurrentValue[nb, {TaggingRules, "Metadata", "label"}];
+    If[!StringQ@title, title="Symbol"];
+    FileNameJoin@{baseDir,StringTrim[title, ".nb"]<>".nb" }
+    ];
+
+
+(* ::Subsubsection::Closed:: *)
+(*getSiteSaveLocation*)
+
+
+
+getSiteSaveLocation[loc_, type_]:=
+  FileNameJoin@{
+    docsSiteLoc@loc, 
+    "content",  
+    StringTrim[
+      Lookup[<|"symbol"->"ref", "Symbol"->"ref"|>, type,
+        If[StringQ@type,
+          (ToUpperCase[StringTake[#, {1}]]<>StringDrop[#, 1])&@ type, 
+          "ref"
+          ]
+        ],
+      "s"~~EndOfString
+      ]
+    };
+
+
+(* ::Subsubsection::Closed:: *)
+(*getSiteSaveFileName*)
+
+
+
+getSiteSaveFileName[pac_, nb_]:=
+  Module[
+    {
+      cont,
+      lang,
+      type,
+      baseDir,
+      title,
+      pi
+      },
+    cont=getMeta[nb, "context"];
+    lang=getMeta[nb, "language"];
+    If[cont===Automatic,
+      pi=PacletManager`PacletInformation[pac];
+      setMeta[nb, "context",
+        First["Context"/.Append[pi, "Context"->{Lookup[pi, "Name"]<>"`"}]]
+        ]
+      ];
+    type=getMeta[nb, "type"];
+    InitializeDocsSite[pac];
+    baseDir=getSiteSaveLocation[pac, type];
+    title=CurrentValue[nb, {TaggingRules, "Metadata", "label"}];
+    If[!StringQ@title, title="Symbol"];
+    FileNameJoin@{baseDir,StringTrim[title, ".nb"]<>".nb" }
+    ];
+
+
+(* ::Subsubsection::Closed:: *)
+(*getNotebookPaclet*)
+
+
+
+getNotebookPaclet[nb_, ploc_:Automatic]:=
+  Module[
+    {
+      pacletLoc=ploc,
+      pac
+      },
+    If[!StringQ@pacletLoc, 
+      pacletLoc=CurrentValue[nb, {TaggingRules, "Paclet"}]
+      ];
+    If[!StringQ[pacletLoc], 
+      pacletLoc=SetNotebookPaclet[nb];
+      ];
+    If[StringQ@pacletLoc,
+      pac=PacletManager`PacletFind[pacletLoc];
+      If[Length@pac>0, pac=First@pac, pac=None],
+      pac=None
+      ];
+    pac
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*SaveNotebookToPaclet*)
+
+
+
+SaveNotebookToPaclet//Clear;
+SaveNotebookToPaclet[nb_, ploc_:Automatic]:=
+  Module[
+    {
+      pacletLoc=ploc,
+      pac,
+      fname
+      },
+    If[!StringQ@pacletLoc, 
+      pacletLoc=CurrentValue[nb, {TaggingRules, "Paclet"}]
+      ];
+    If[!StringQ[pacletLoc], 
+      pacletLoc=SetNotebookPaclet[nb];
+      ];
+    If[StringQ@pacletLoc,
+      pac=PacletManager`PacletFind[pacletLoc];
+      If[Length@pac>0, pac=First@pac, pac=None];
+      If[pac=!=None,
+        fname=getPacletSaveFileName[pac, nb];
+        Export[
+          fname,
+          Notebook[#[[1]],
+            FilterRules[
+              Flatten@{List@@#[[2;;]], ScreenStyleEnvironment->"Working"},
+               Except[ScreenStyleEnvironment]
+              ]
+            ]&@NotebookGet[nb] 
+          ]
+        ]
+      ]
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*SaveNotebookToPacletProject*)
+
+
+
+SaveNotebookToPacletProject//Clear
+SaveNotebookToPacletProject[nb_, ploc_:Automatic]:=
+  Module[
+    {
+      pacletLoc=ploc,
+      pac,
+      fname
+      },
+    If[!StringQ@pacletLoc, 
+      pacletLoc=CurrentValue[nb, {TaggingRules, "Paclet"}]
+      ];
+    If[!StringQ[pacletLoc], 
+      pacletLoc=SetNotebookPaclet[nb];
+      ];
+    If[StringQ@pacletLoc,
+      pac=PacletManager`PacletFind[pacletLoc];
+      If[Length@pac>0, pac=First@pac, pac=None];
+      If[pac=!=None,
+        fname=getSiteSaveFileName[pac, nb];
+        NotebookSave[nb, fname]
+        ]
+      ]
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*SaveNotebookMarkdown*)
+
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*customMDExporter*)
+
+
+
+customMDExporter//Clear
+customMDExporter[pi_, c:Cell[_, "Text", "Footer", ___]]:=
+  {
+    Cell["", "PageBreak"],
+    c
+    };
+customMDExporter[pi_, e_]:=e
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*mergeCellStyles*)
+
+
+
+mergeCellStyles[md_]:=
+  Module[
+    {
+      sub=
+        Lookup[Select[Lookup[md, "ExportOptions", {}], OptionQ], "CellStyles", {}],
+      autof
+      },
+    autof=Lookup[sub, Automatic, None];
+    {ParentList, 
+      "Input", 
+      Automatic->
+        If[autof===None, 
+          customMDExporter,
+          customMDExporter[#, autof[##]]&
+          ]
+      }
+    ]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*SaveNotebookMarkdown*)
+
+
+
+SaveNotebookMarkdown[nb_]:=
+  Module[
+    {
+      md=BTools`Web`Markdown`MarkdownNotebookMetadata@nb 
+      (* for some reason this isn't getting linked in properly... *)
+      },
+    md=
+      Merge[
+        {
+          Replace[md,
+            ("CellStyles"->_)->Nothing,
+            4
+            ],
+          "ExportOptions"->
+            {
+              "PacletLinkResolutionFunction"->
+                Function[l, 
+                  "../"<>
+                  URLBuild[
+                    Join@@
+                      SplitBy[
+                        URLParse[l, "Path"],
+                        #=="ref"||#=="guide"||#=="tutorial"&
+                        ][[-2;;]]
+                    ]<>".html"
+                  ],
+              "CellStyles"->mergeCellStyles[md],
+              "ContentPathExtension"->".."
+              },
+          "Title"->getMeta[nb, "title"],
+          "Date"->
+            Replace[getMeta[nb, "built"], 
+              {
+                s_String:>DateObject@ToExpression[s],
+                l_List:>DateObject[l]
+                }
+              ],
+          Flatten@{
+              Replace[
+                CurrentValue[nb, {TaggingRules, "Metadata"}],
+                Except[_?OptionQ]:>{}
+                ]
+              }
+          },
+        Which[
+          AllTrue[#, OptionQ], 
+            Normal@Merge[#, First],
+          AllTrue[#, ListQ],
+            Join@@#,
+          Length@#==1,
+            First@#,
+          ListQ@#[[2]],
+            Prepend[#[[2]], #[[1]]],
+          True,
+            First@#
+          ]&
+        ];
+  NotebookMarkdownSave[nb, Sequence@@Normal@md]
+  ]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -540,9 +921,15 @@ $NotebookTemplates=
 
 
 
+capitalize=ToUpperCase[StringTake[#, {1}]]<>StringDrop[#, 1]&
+
+
 PopulateNotebookMetadata[nb_]:=
-  CurrentValue[nb, {TaggingRules, "Metadata"}]=
-    DocMetadata[nb]
+  Module[{md=DocMetadata[nb]},
+    CurrentValue[nb, {TaggingRules, "Metadata"}]=md;
+    CurrentValue[nb, {TaggingRules, "ColorType"}]=
+      capitalize[Lookup[md, "type", "message"]]<>"Color"
+    ]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -553,6 +940,51 @@ PopulateNotebookMetadata[nb_]:=
 ClearNotebookMetadata[nb_]:=
   CurrentValue[nb, {TaggingRules, "Metadata"}]=
       Thread[Map[ToLowerCase, Flatten@Values@$MetadataMap]->Automatic];
+
+
+(* ::Subsection:: *)
+(*Templates*)
+
+
+
+(* ::Subsubsection::Closed:: *)
+(*CreateTemplateNotebook*)
+
+
+
+$ctnMap=
+  <|
+    "Symbol"->SymbolNotebookTemplate,
+    "Guide"->GuideNotebookTemplate,
+    "Tutorial"->TutorialNotebookTemplate
+    |>;
+
+
+CreateTemplateNotebook//ClearAll
+
+
+CreateTemplateNotebook[type:(Alternatives@@Keys[$ctnMap]), thing_]:=
+  CreateDocument@Lookup[$ctnMap, type][thing];
+CreateTemplateNotebook[thing_Symbol]:=
+  CreateTemplateNotebook["Symbol", thing];
+CreateTemplateNotebook[thing_String]:=
+  If[NameQ[thing],
+    CreateTemplateNotebook["Symbol", Evaluate@Symbol@thing],
+    CreateTemplateNotebook["Guide", thing]
+    ];
+CreateTemplateNotebook[e_]:=
+  CreateTemplateNotebook[Evaluate@e]/;
+    MatchQ[e, _String|_Symbol];
+CreateTemplateNotebook[type_, thing_]:=
+  CreateTemplateNotebook[Evaluate@type, thing]/;
+    KeyExistsQ[$ctnMap, type];
+CreateTemplateNotebook~SetAttributes~HoldAll;
+
+
+PackageAddAutocompletions[
+  CreateTemplateNotebook,
+  {Keys@$ctnMap}
+  ]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -719,10 +1151,13 @@ SymbolNotebookTemplate[s_Symbol]:=
     meta=AssociationThread[ToLowerCase@Flatten@Values@$MetadataMap, Automatic];
     meta["label"]=SymbolName[s];
     meta["context"]=Context[s];
+    meta["type"]="Symbol";
     nb=
       Notebook[
         {
           $metaCell,
+          $miscTemplates["TitleBar"]/.
+            "<Context>"->StringDelete[meta["context"], "`"]<>" Symbol",
           Cell[meta["label"], "Section", "SymbolName"],
           formatUsageSection[use],
           formatDetailsSection[deets],
@@ -732,11 +1167,137 @@ SymbolNotebookTemplate[s_Symbol]:=
           },
         {
           StyleDefinitions->FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"],
-          TaggingRules->{"Metadata"->DocMetadata@Normal@meta},
+          TaggingRules->{
+            "Metadata"->DocMetadata@Normal@meta,
+            "ColorType"->"SymbolColor"
+            },
           ScreenStyleEnvironment->"Editing"
           }
         ]
     ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*GuideNotebookTemplate*)
+
+
+
+GuideNotebookTemplate[name_String]:=
+  Module[
+    {
+      cleanName,
+      meta,
+      nb
+      },
+    meta=AssociationThread[ToLowerCase@Flatten@Values@$MetadataMap, Automatic];
+    cleanName=StringDelete[name, Except[WordCharacter]|"$"];
+    meta["label"]=cleanName;
+    meta["type"]="Guide";
+    nb=
+      Notebook[
+        {
+          $metaCell,
+          $miscTemplates["TitleBar"]/.
+            "<Context>"->"Guide",
+          Cell[name, "Section", "GuideName"],
+          Cell["guide descriptions", "Text"],
+          $sectionTemplates["Guide Section"],
+          $miscTemplates["Divider"],
+          $NotebookTemplates["Related Guides"],
+          $NotebookTemplates["Related Links"],
+          $NotebookTemplates["Footer"]
+          },
+        {
+          StyleDefinitions->FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"],
+          TaggingRules->{
+            "Metadata"->DocMetadata@Normal@meta,
+            "ColorType"->"GuideColor"
+            },
+          ScreenStyleEnvironment->"Editing"
+          }
+        ]
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*TutorialNotebookTemplate*)
+
+
+
+TutorialNotebookTemplate[name_String]:=
+  Module[
+    {
+      cleanName,
+      meta,
+      nb
+      },
+    meta=AssociationThread[ToLowerCase@Flatten@Values@$MetadataMap, Automatic];
+    cleanName=StringDelete[name, Except[WordCharacter]|"$"];
+    meta["label"]=cleanName;
+    meta["type"]="Tutorial";
+    nb=
+      Notebook[
+        {
+          $metaCell,
+          $miscTemplates["TitleBar"]/.
+            "<Context>"->"Tutorial",
+          Cell[name, "Section", "TutorialName"],
+          Cell["Tutorial text...", "Text"],
+          $miscTemplates["Divider"],
+          $NotebookTemplates["Related Guides"],
+          $NotebookTemplates["Related Links"],
+          $NotebookTemplates["Footer"]
+          },
+        {
+          StyleDefinitions->FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"],
+          TaggingRules->{
+            "Metadata"->DocMetadata@Normal@meta,
+            "ColorType"->"TutorialColor"
+            },
+          ScreenStyleEnvironment->"Editing"
+          }
+        ]
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*SampleTemplateNotebook*)
+
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Symbol*)
+
+
+
+SampleTemplateNotebook["Symbol"]:=
+  Block[{SamplePaclet`Sym, SamplePaclet`Sym1, SamplePaclet`Sym2},
+    SamplePaclet`Sym::usage="sample function";
+    SamplePaclet`Sym::msg="sample message";
+    SamplePaclet`Sym[arg_]:=Null;
+    SamplePaclet`Sym~SetAttributes~Temporary;
+    SamplePaclet`Sym1=1;
+    SamplePaclet`Sym2=2;
+    CreateTemplateNotebook["Symbol", SamplePaclet`Sym]
+    ]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Guide*)
+
+
+
+SampleTemplateNotebook["Guide"]:=
+  CreateTemplateNotebook["Guide", "Sample Guide"];
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Tutorial*)
+
+
+
+SampleTemplateNotebook["Tutorial"]:=
+  CreateTemplateNotebook["Tutorial", "Sample Tutorial"];
 
 
 (* ::Subsection:: *)
@@ -871,7 +1432,8 @@ $insertionMenuTemplates=
           ]&/@{
           $primaryTemplates,
           $sectionTemplates,
-          $baseTemplates
+          $baseTemplates,
+          $miscTemplates
           },
         Delimiter
         ],
@@ -898,7 +1460,7 @@ Appearance->None
 
 
 (* ::Subsubsection::Closed:: *)
-(*Menu*)
+(*$HamburgerMenu*)
 
 
 
@@ -906,19 +1468,60 @@ $HamburgerMenu=
   ActionMenu[
     Button["\[Congruent]",None,Appearance->None, ImageSize->{50, 35}],
     {
-      "Save":>
+      "Save Documentation":>
         (
           Needs["SimpleDocs`"];
-          SystemOpen@SaveNotebookToPaclet[EvaluationNotebook[]]
+          NotebookOpen@SaveNotebookToPaclet[EvaluationNotebook[]]
           ),
-      Delimiter,
-      "Set Paclet":>
-        SetNotebookPaclet[EvaluationNotebook[]],
-      Delimiter,
+      "Save To Project":>
+        (
+          Needs["SimpleDocs`"];
+          SaveNotebookToPacletProject[EvaluationNotebook[]]
+          ),
       "Save Markdown":>
         (
           Needs["SimpleDocs`"];
-          SystemOpen@SaveNotebookMarkdown[EvaluationNotebook[]]
+          NotebookOpen@SaveNotebookMarkdown[EvaluationNotebook[]]
+          ),
+      Delimiter,
+      "Set Paclet":>
+        (
+          Needs["SimpleDocs`"];
+          SetNotebookPaclet[EvaluationNotebook[]]
+          ),
+      "Update PacletInfo":>
+        (
+          Needs["SimpleDocs`"];
+          Replace[SetPacletInfo[EvaluationNotebook[]],
+            s_String:>NotebookOpen@s
+            ]
+          ),
+      Delimiter,
+      "New Symbol":>
+        (
+          Needs["SimpleDocs`"];
+          SampleTemplateNotebook["Symbol"]
+          ),
+      "New Guide":>
+        (
+          Needs["SimpleDocs`"];
+          SampleTemplateNotebook["Guide"]
+          ),
+      "New Tutorial":>
+        (
+          Needs["SimpleDocs`"];
+          SampleTemplateNotebook["Tutorial"]
+          ),
+      Delimiter,
+      "Open SiteConfig":>
+        (
+          Needs["SimpleDocs`"];
+          OpenDocsSiteConfig[EvaluationNotebook[]]
+          ),
+      "Build Site":>
+        (
+          Needs["SimpleDocs`"];
+          BuildNotebookDocsSite[EvaluationNotebook[]]
           )
       },
     Appearance->None,
@@ -952,6 +1555,24 @@ $DockedCell=
       }, 
     Alignment->{Left, Top}, 
     BaseStyle->{FontFamily->"Helvetica", FontSize->14}
+    ];
+
+
+(* ::Subsection:: *)
+(*Paclets*)
+
+
+
+SetPacletInfo//Clear
+SetPacletInfo[pac:_String|_PacletManager`Paclet]:=
+  Module[{pi=PacletManager`PacletInformation@pac},
+    PacletExecute["GeneratePacletInfo", Lookup[pi, "Location"],
+      "Version"->Lookup[pi, "Version"]
+      ]
+    ];
+SetPacletInfo[nb_NotebookObject, ploc_:Automatic]:=
+  Module[{pac=getNotebookPaclet[nb, ploc]},
+    SetPacletInfo[pac]
     ];
 
 

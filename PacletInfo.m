@@ -1,14 +1,28 @@
-(* ::Package:: *)
-
 Paclet[
   Name -> "SimpleDocs",
-  Version -> "1.0.0",
+  Version -> "1.0.2",
+  Thumbnail -> "Resources/icon.png",
   Extensions -> {
     	{
      		"Kernel",
      		"Root" -> ".",
      		"Context" -> {"SimpleDocs`"}
      	},
-    	{"FrontEnd"}
+    	{"FrontEnd"},
+    	{
+     		"Documentation",
+     		"Language" -> "English",
+     		"MainPage" -> "Guides/SimpleDocs"
+     	},
+    	{
+     		"Resource",
+     		"Root" -> "Resources",
+     		"Resources" -> {
+       			{
+        				"icon",
+        				"icon.png"
+        			}
+       		}
+     	}
     }
  ]
