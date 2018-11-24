@@ -92,7 +92,10 @@ deps=
     };
 
 
-PackageExtendContextPath@deps;
+
+PackageExtendContextPath@deps
+$ContextPath=
+  Prepend[$PackageContexts, "System`"];
 
 
 (* ::Subsection:: *)
