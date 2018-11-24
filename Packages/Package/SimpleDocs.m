@@ -70,21 +70,14 @@ SetPacletInfo::usage="";
 Begin["`Private`"];
 
 
-PackageLoadPacletDependency["BTools",
-  "Site"->"https://www.wolframcloud.com/objects/b3m2a1.paclets/PacletServer",
+PackageLoadPacletDependency["BTools`",
+  "Site"->"http://www.wolframcloud.com/objects/b3m2a1.paclets/PacletServer",
   "Update"->True
   ];
-PackageLoadPacletDependency["Ems",
-  "Site"->"https://www.wolframcloud.com/objects/b3m2a1.paclets/PacletServer",
+PackageLoadPacletDependency["Ems`",
+  "Site"->"http://www.wolframcloud.com/objects/b3m2a1.paclets/PacletServer",
   "Update"->True
   ];
-
-
-Quiet[
-  Needs["BTools`"];
-  Needs["Ems`"],
-  General::shdw
-  ]
 
 
 deps=
@@ -99,7 +92,6 @@ deps=
     };
 
 
-Needs/@deps;
 PackageExtendContextPath@deps;
 
 

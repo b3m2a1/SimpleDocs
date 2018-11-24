@@ -1,13 +1,13 @@
 Title: SampleTutorial
 built: {2018, 11, 23, 23, 23, 54.214811}
 context: SimpleDocs`
-Date: 2018-11-24 03:16:20
+Date: 2018-11-24 13:06:17
 history: 11.3,,
 index: True
 keywords: <||>
 label: SimpleDocs
 language: en
-Modified: 2018-11-24 03:16:24
+Modified: 2018-11-24 13:06:21
 paclet: Mathematica
 specialkeywords: <||>
 status: None
@@ -77,6 +77,8 @@ At this point we have a template notebook to work with. Before we go on with any
 ![simpledocs-3968114955546408557](../img/simpledocs-3968114955546408557.png)
 
 Just press Enter and it'll save to a project subfolder of the paclet and will also initialize content necessary to build the website later.
+
+One note on the time required to do this: SimpleDocs loads a few dependencies from a server, and so the first time you run these commands it will check for updates and download the source (if necessary) which can take a while. In a future version these dependencies will be bundled in with the package and so this download won't be necessary.
 
 ### Metadata
 
