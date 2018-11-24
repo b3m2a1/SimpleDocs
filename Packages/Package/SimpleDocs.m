@@ -71,10 +71,12 @@ Begin["`Private`"];
 
 
 PackageLoadPacletDependency["BTools",
-  "Site"->"https://www.wolframcloud.com/objects/b3m2a1.paclets/PacletServer"
+  "Site"->"https://www.wolframcloud.com/objects/b3m2a1.paclets/PacletServer",
+  "Update"->True
   ];
 PackageLoadPacletDependency["Ems",
-  "Site"->"https://www.wolframcloud.com/objects/b3m2a1.paclets/PacletServer"
+  "Site"->"https://www.wolframcloud.com/objects/b3m2a1.paclets/PacletServer",
+  "Update"->True
   ];
 
 
