@@ -1,7 +1,11 @@
+(* ::Package:: *)
+
 Paclet[
   Name -> "SimpleDocs",
   Version -> "1.0.5",
   Thumbnail -> "Resources/icon.png",
+  Creator -> "b3m2a1 <b3m2a1@gmail.com>",
+  URL -> "https://github.com/b3m2a1/SimpleDocs",
   Extensions -> {
     	{
      		"Kernel",
@@ -23,6 +27,14 @@ Paclet[
         				"icon.png"
         			}
        		}
+     	},
+       {
+     		"PacletServer",
+     		"Tags" -> {"documentation"},
+     		"Categories" -> {"Development"},
+     		"Description" -> 
+      "A simple package to make simple documentation",
+     		"License" -> "MIT"
      	}
     }
  ]
