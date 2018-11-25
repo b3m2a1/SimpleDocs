@@ -1,0 +1,680 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Ems Sites", \
+"CodeSection",ExpressionUUID->"6335eed0-9b17-4929-a372-1feface45096"],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Config\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"4f0dd390-27d2-499b-8de1-efd2caebc8d9"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"SiteOptions", "::", "usage"}], "=", "\n", "\t", 
+   "\"\<Gets site options\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetSiteOptions", "::", "usage"}], "=", "\n", "\t", 
+   "\"\<Sets site options\>\""}], 
+  ";"}]}], "CodeInput",ExpressionUUID->"7a0e3e0b-7b9d-43b6-8935-5e242205497d"]\
+
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Content\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"ed6a4f39-f681-4248-8292-a97d96ce9692"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"NewSite", "::", "usage"}], "=", "\n", "\t", 
+   "\"\<Makes a new site\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NewPost", "::", "usage"}], "=", "\n", "\t", 
+   "\"\<Makes a new post\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NewPage", "::", "usage"}], "=", "\n", "\t", 
+   "\"\<Makes a new page\>\""}], 
+  ";"}], "\n"}], \
+"CodeInput",ExpressionUUID->"241ddc21-0237-4fe3-a738-eec1179a4016"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Build\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"1672d440-b54e-4c2d-b2e8-b399137a06e2"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"BuildSite", "::", "usage"}], "=", "\n", "\t", 
+   "\"\<Builds a website from a directory\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"OpenSite", "::", "usage"}], "=", "\n", "\t", 
+   "\"\<Opens a site from a directory\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DeploySite", "::", "usage"}], "=", "\n", "\t", 
+   "\"\<Deploy a site from a directory\>\""}], 
+  ";"}]}], "CodeInput",ExpressionUUID->"968616b6-64b9-4b39-b455-91842f4ebc2b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"$BuildErrors", "::", "usage"}], "=", "\n", "\t", 
+  "\"\<The errors from the latest build\>\""}]], \
+"CodeInput",ExpressionUUID->"3d30f4a9-8d23-4b5c-9954-2885fcd29a11"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], 
+  ";"}]], "InputSection",ExpressionUUID->"01a1c17c-d522-4532-84cc-\
+2b7764fd468b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ems", ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"invoke", " ", "the", " ", "autoloader"}], " ", 
+   "*)"}]}]], \
+"CodeInput",ExpressionUUID->"49d01a12-b988-49c2-bafd-e1c4c9b5c621"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Config\[RightFloor]", "CodeSubsection",
+ Evaluatable->True,ExpressionUUID->"0aa642dd-1987-4aff-bdb7-3da63653c34d"],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]SiteOptions\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"694984b5-5257-4d0a-9652-887409086a2a"],
+
+Cell[BoxData[{
+ RowBox[{"SiteOptions", "//", "Clear"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SiteOptions", "[", 
+    RowBox[{
+     RowBox[{"dir_String", "?", "DirectoryQ"}], ",", " ", 
+     RowBox[{"ops", ":", 
+      RowBox[{"Repeated", "[", 
+       RowBox[{"_", ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", " ", "1"}], "}"}]}], "]"}]}]}], "]"}], ":=", "\n", 
+   "\t", 
+   RowBox[{"Block", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"res", "=", 
+       RowBox[{"WebSiteOptions", "[", 
+        RowBox[{"dir", ",", " ", "ops"}], "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"res", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "res", "]"}], "=!=", "WebSiteOptions"}]}]}], "\n",
+     "\t\t", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SiteOptions", "[", 
+    RowBox[{
+     RowBox[{"name", ":", 
+      RowBox[{"Except", "[", 
+       RowBox[{
+        RowBox[{"\"\<\>\"", "|", 
+         RowBox[{"_", "?", "DirectoryQ"}]}], ",", " ", "_String"}], "]"}]}], 
+     ",", " ", 
+     RowBox[{"ops", ":", 
+      RowBox[{"Repeated", "[", 
+       RowBox[{"_", ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", " ", "1"}], "}"}]}], "]"}]}]}], "]"}], ":=", "\n", 
+   "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"s", "=", 
+       RowBox[{"FileNameJoin", "@", 
+        RowBox[{"{", 
+         RowBox[{"$SiteDirectory", ",", " ", "name"}], "}"}]}]}], "}"}], ",", 
+     "\n", "\t\t", 
+     RowBox[{
+      RowBox[{"SiteOptions", "[", 
+       RowBox[{"s", ",", " ", "ops"}], "]"}], "/;", 
+      RowBox[{"DirectoryQ", "@", "s"}]}]}], "\n", "\t\t", "]"}]}], 
+  ";"}]}], "CodeInput",ExpressionUUID->"aeb427a9-cf07-495a-bda1-efb82f88b267"]\
+
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]SetSiteOptions\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"78bef8d0-653d-45d2-8fe7-8d0ac3c85876"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetSiteOptions", "[", 
+    RowBox[{
+     RowBox[{"dir_String", "?", "DirectoryQ"}], ",", " ", 
+     RowBox[{"ops", ":", 
+      RowBox[{"_", "?", "OptionQ"}]}]}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"Block", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"res", "=", 
+       RowBox[{"WebSiteSetOptions", "[", 
+        RowBox[{"dir", ",", " ", "ops"}], "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"res", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "res", "]"}], "=!=", "WebSiteSetOptions"}]}]}], 
+    "\n", "\t\t", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetSiteOptions", "[", 
+    RowBox[{
+     RowBox[{"name", ":", 
+      RowBox[{"Except", "[", 
+       RowBox[{
+        RowBox[{"\"\<\>\"", "|", 
+         RowBox[{"_", "?", "DirectoryQ"}]}], ",", " ", "_String"}], "]"}]}], 
+     ",", " ", 
+     RowBox[{"ops", ":", 
+      RowBox[{"_", "?", "OptionQ"}]}]}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"s", "=", 
+       RowBox[{"FileNameJoin", "@", 
+        RowBox[{"{", 
+         RowBox[{"$SiteDirectory", ",", " ", "name"}], "}"}]}]}], "}"}], ",", 
+     "\n", "\t\t", 
+     RowBox[{
+      RowBox[{"SetSiteOptions", "[", 
+       RowBox[{"s", ",", " ", "ops"}], "]"}], "/;", 
+      RowBox[{"DirectoryQ", "@", "s"}]}]}], "\n", "\t\t", "]"}]}], 
+  ";"}]}], "CodeInput",ExpressionUUID->"c72d62f5-31ce-4ed4-886b-b588cba5c6b8"]\
+
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Content\[RightFloor]", "CodeSubsection",
+ Evaluatable->True,ExpressionUUID->"4539c831-8cf4-48d5-8a26-37eea63be0c6"],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]NewSite\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"f1b51f7e-53dd-424c-891a-a383104dc97a"],
+
+Cell[BoxData[{
+ RowBox[{"NewSite", "//", "Clear"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NewSite", "[", "\n", "\t", 
+    RowBox[{
+     RowBox[{"dir_String", "?", 
+      RowBox[{"(", "\n", "\t\t", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"FileNameDepth", "[", "#", "]"}], ">", "1"}], "&&", 
+         RowBox[{"DirectoryQ", "@", 
+          RowBox[{"DirectoryName", "[", "#", "]"}]}]}], "&"}], "\n", "\t\t", 
+       ")"}]}], ",", "\n", "\t", 
+     RowBox[{"template", ":", 
+      RowBox[{"_String", "|", "Automatic"}], ":", "Automatic"}], ",", "\n", 
+     "\t", 
+     RowBox[{"ops", ":", 
+      RowBox[{"OptionsPattern", "[", "]"}]}]}], "\n", "\t", "]"}], ":=", "\n",
+    "\t", 
+   RowBox[{"Block", "[", "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"{", "\n", "\t\t\t", 
+      RowBox[{
+       RowBox[{"temp", "=", "\n", "\t\t\t\t", 
+        RowBox[{"PackageFilePath", "[", "\n", "\t\t\t\t\t", 
+         RowBox[{
+         "\"\<Resources\>\"", ",", "\n", "\t\t\t\t\t", "\"\<Templates\>\"", 
+          ",", "\n", "\t\t\t\t\t", "\"\<blog\>\""}], "\n", "\t\t\t\t\t", 
+         "]"}]}], ",", "\n", "\t\t\t", "res"}], "\n", "\t\t\t", "}"}], ",", 
+     "\n", "\t\t", 
+     RowBox[{
+      RowBox[{"res", "=", "\n", "\t\t\t", 
+       RowBox[{"WebSiteInitialize", "[", 
+        RowBox[{"dir", ",", " ", "\n", "\t\t\t\t", 
+         RowBox[{"Replace", "[", 
+          RowBox[{"template", ",", " ", "\n", "\t\t\t\t\t", 
+           RowBox[{"{", "\n", "\t\t\t\t\t\t", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"s", ":", 
+               RowBox[{"Except", "[", 
+                RowBox[{
+                 RowBox[{"\"\<\>\"", "|", 
+                  RowBox[{"_", "?", "DirectoryQ"}]}], ",", " ", "_String"}], 
+                "]"}]}], ":>", "\n", "\t\t\t\t\t\t\t", 
+              RowBox[{"PackageFilePath", "[", "\n", "\t\t\t\t\t\t\t\t", 
+               RowBox[{
+               "\"\<Resources\>\"", ",", "\n", "\t\t\t\t\t\t\t\t", 
+                "\"\<Templates\>\"", ",", "\n", "\t\t\t\t\t\t\t\t", "s"}], 
+               "\n", "\t\t\t\t\t\t\t\t", "]"}]}], ",", "\n", "\t\t\t\t\t\t", 
+             RowBox[{"Automatic", "\[Rule]", "temp"}]}], "\n", "\t\t\t\t\t\t",
+             "}"}]}], "\n", "\t\t\t\t\t", "]"}], ",", " ", "\n", "\t\t\t\t", 
+         "ops"}], "\n", "\t\t\t\t", "]"}]}], ";", "\n", "\t\t", 
+      RowBox[{"res", "/;", 
+       RowBox[{"Quiet", "[", 
+        RowBox[{"DirectoryQ", "@", "res"}], "]"}]}]}]}], "\n", "\t", "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"NewSite", "[", "\n", "\t", 
+   RowBox[{
+    RowBox[{"name_String", "?", 
+     RowBox[{"(", 
+      RowBox[{"StringFreeQ", "[", 
+       RowBox[{"Whitespace", "|", "$PathnameSeparator"}], "]"}], ")"}]}], ",",
+     "\n", "\t", 
+    RowBox[{"template", ":", 
+     RowBox[{"_String", "|", "Automatic"}], ":", "Automatic"}], ",", "\n", 
+    "\t", 
+    RowBox[{"ops", ":", 
+     RowBox[{"OptionsPattern", "[", "]"}]}]}], "\n", "\t", "]"}], ":=", "\n", 
+  "\t", 
+  RowBox[{"With", "[", "\n", "\t\t", 
+   RowBox[{
+    RowBox[{"{", "\n", "\t\t\t", 
+     RowBox[{"r", "=", 
+      RowBox[{"NewSite", "[", 
+       RowBox[{
+        RowBox[{"FileNameJoin", "@", 
+         RowBox[{"{", 
+          RowBox[{"$SiteDirectory", ",", " ", "name"}], "}"}]}], ",", " ", 
+        "template", ",", " ", "ops"}], "]"}]}], "\n", "\t\t\t", "}"}], ",", 
+    "\n", "\t\t", 
+    RowBox[{"r", "/;", 
+     RowBox[{"Quiet", "[", 
+      RowBox[{"DirectoryQ", "@", "r"}], "]"}]}]}], "\n", "\t\t", 
+   "]"}]}]}], \
+"CodeInput",ExpressionUUID->"84b218ab-11b7-449e-860e-d374c742a26e"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]NewContent\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"5fc62147-91d3-4fc3-b662-a8908cd93332"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"NewContent", "[", "\n", "\t", 
+   RowBox[{
+    RowBox[{"dir_String", "?", "DirectoryQ"}], ",", "\n", "\t", 
+    "place_String", ",", "\n", "\t", 
+    RowBox[{"name", ":", 
+     RowBox[{"_String", "|", "Automatic"}], ":", "Automatic"}], ",", "\n", 
+    "\t", 
+    RowBox[{"content", ":", 
+     RowBox[{"_List", "|", "_Cell", "|", "Automatic"}], ":", "Automatic"}], 
+    ",", "\n", "\t", 
+    RowBox[{"ops", ":", 
+     RowBox[{"OptionsPattern", "[", "]"}]}]}], "\n", "\t", "]"}], ":=", "\n", 
+  "\t", 
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"r", "=", 
+      RowBox[{"WebSiteNewContent", "[", 
+       RowBox[{
+       "dir", ",", " ", "place", ",", " ", "name", ",", " ", "content", ",", 
+        " ", "ops"}], "]"}]}], "}"}], ",", "\n", "\t\t", 
+    RowBox[{"r", "/;", 
+     RowBox[{"Quiet", "[", 
+      RowBox[{"FileExistsQ", "@", "r"}], "]"}]}]}], "\n", "\t\t", 
+   "]"}]}]], \
+"CodeInput",ExpressionUUID->"e55b96a4-5078-4cdb-9e60-85d0a4ecf10d"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]NewPage\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"da6e1313-38fc-4167-9bb3-8fa99a2f5d14"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"NewPage", "[", "\n", "\t", 
+   RowBox[{
+    RowBox[{"dir_String", "?", "DirectoryQ"}], ",", "\n", "\t", 
+    RowBox[{"name", ":", 
+     RowBox[{"_String", "|", "Automatic"}], ":", "Automatic"}], ",", "\n", 
+    "\t", 
+    RowBox[{"content", ":", 
+     RowBox[{"_List", "|", "_Cell", "|", "Automatic"}], ":", "Automatic"}], 
+    ",", "\n", "\t", 
+    RowBox[{"ops", ":", 
+     RowBox[{"OptionsPattern", "[", "]"}]}]}], "\n", "\t", "]"}], ":=", "\n", 
+  "\t", 
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"r", "=", 
+      RowBox[{"WebSiteNewContent", "[", 
+       RowBox[{
+       "dir", ",", " ", "\"\<pages\>\"", ",", " ", "name", ",", " ", 
+        "content", ",", " ", "ops"}], "]"}]}], "}"}], ",", "\n", "\t\t", 
+    RowBox[{"r", "/;", 
+     RowBox[{"Quiet", "[", 
+      RowBox[{"FileExistsQ", "@", "r"}], "]"}]}]}], "\n", "\t\t", 
+   "]"}]}]], \
+"CodeInput",ExpressionUUID->"7ef6069c-72dd-47b6-a2a8-886a2695d15f"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]NewPost\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"c8ad49b8-b537-4b36-86fc-080fc6f94cbe"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"NewPost", "[", "\n", "\t", 
+   RowBox[{
+    RowBox[{"dir_String", "?", "DirectoryQ"}], ",", "\n", "\t", 
+    RowBox[{"name", ":", 
+     RowBox[{"_String", "|", "Automatic"}], ":", "Automatic"}], ",", "\n", 
+    "\t", 
+    RowBox[{"content", ":", 
+     RowBox[{"_List", "|", "_Cell", "|", "Automatic"}], ":", "Automatic"}], 
+    ",", "\n", "\t", 
+    RowBox[{"ops", ":", 
+     RowBox[{"OptionsPattern", "[", "]"}]}]}], "\n", "\t", "]"}], ":=", "\n", 
+  "\t", 
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"r", "=", 
+      RowBox[{"WebSiteNewContent", "[", 
+       RowBox[{
+       "dir", ",", " ", "\"\<posts\>\"", ",", " ", "name", ",", " ", 
+        "content", ",", " ", "ops"}], "]"}]}], "}"}], ",", "\n", "\t\t", 
+    RowBox[{"r", "/;", 
+     RowBox[{"Quiet", "[", 
+      RowBox[{"FileExistsQ", "@", "r"}], "]"}]}]}], "\n", "\t\t", 
+   "]"}]}]], \
+"CodeInput",ExpressionUUID->"3ac75d81-2994-4a54-b0d2-70fecacdc5f6"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]NewTableOfContents\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"bd921ae5-bae9-4c7c-a5d9-24872eaf387e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"NewTableOfContents", "[", "\n", "\t", 
+   RowBox[{"dir_String", "?", "DirectoryQ"}], "\n", "\t", "]"}], ":=", "\n", 
+  "\t", 
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"r", "=", 
+      RowBox[{"WebSiteNewTableOfContents", "[", "dir", "]"}]}], "}"}], ",", 
+    "\n", "\t\t", 
+    RowBox[{"r", "/;", 
+     RowBox[{"Quiet", "[", 
+      RowBox[{"FileExistsQ", "@", "r"}], "]"}]}]}], "\n", "\t\t", 
+   "]"}]}]], \
+"CodeInput",ExpressionUUID->"4c51e9b3-b82a-43cf-9ce2-f7d2e9374708"]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Build\[RightFloor]", "CodeSubsection",
+ Evaluatable->True,ExpressionUUID->"e3a55ba7-d406-4116-9c87-28f1e7b1c914"],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]BuildSite\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"318ebd14-0327-4f9d-a342-3fc2cf928bab"],
+
+Cell[BoxData[
+ RowBox[{"BuildSite", "//", 
+  "Clear"}]], \
+"CodeInput",ExpressionUUID->"8a8ae184-c321-4cc2-962c-2e05b5529a11"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "BuildSite", "]"}], "=", "\n", "\t", 
+   RowBox[{"Options", "[", "WebSiteBuild", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"BuildSite", "[", "\n", "\t", 
+    RowBox[{
+     RowBox[{"dir_String", "?", "DirectoryQ"}], ",", "\n", "\t", 
+     RowBox[{"files", ":", "\n", "\t\t", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"_String", "?", "FileExistsQ"}], "|", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"_String", "?", "FileExistsQ"}], ")"}], "\[Rule]", 
+             "_List"}], ")"}]}], ")"}], ".."}], "}"}], "|", "\n", "\t", 
+       "\t\t", 
+       RowBox[{"s_", "?", 
+        RowBox[{"(", "StringPattern`StringPatternQ", ")"}]}], "|", 
+       "Automatic"}], ":", "Automatic"}], ",", "\n", "\t", 
+     RowBox[{"ops", ":", 
+      RowBox[{"OptionsPattern", "[", "]"}]}]}], "\n", "\t", "]"}], ":=", "\n",
+    "\t", 
+   RowBox[{"Block", "[", "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"{", "\n", "\t\t\t", 
+      RowBox[{
+       RowBox[{"$WebSiteDirectory", "=", "$SiteDirectory"}], ",", "\n", 
+       "\t\t\t", 
+       RowBox[{"$WebSitePath", "=", "$SitePath"}], ",", "\n", "\t\t\t", 
+       RowBox[{"$WebSiteThemePath", "=", "$SiteThemePath"}]}], "\n", "\t\t\t",
+       "}"}], ",", "\n", "\t\t", 
+     RowBox[{"WebSiteBuild", "[", 
+      RowBox[{"dir", ",", " ", "files", ",", " ", "ops"}], "]"}]}], "\n", 
+    "\t\t", "]"}]}], 
+  ";"}]}], "CodeInput",ExpressionUUID->"ee6ec080-bf1d-455e-95d8-a69621ea66f1"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BuildSite", "[", "\n", "\t", 
+   RowBox[{
+    RowBox[{"name_String", "?", 
+     RowBox[{"(", 
+      RowBox[{"Not", "@*", "DirectoryQ"}], ")"}]}], ",", "\n", "\t", 
+    RowBox[{"files", ":", "\n", "\t\t", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"_String", "?", "FileExistsQ"}], "|", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"_String", "?", "FileExistsQ"}], ")"}], "\[Rule]", 
+            "_List"}], ")"}]}], ")"}], ".."}], "}"}], "|", "\n", "\t", "\t\t", 
+      RowBox[{"s_", "?", 
+       RowBox[{"(", "StringPattern`StringPatternQ", ")"}]}], "|", 
+      "Automatic"}], ":", "Automatic"}], ",", "\n", "\t", 
+    RowBox[{"ops", ":", 
+     RowBox[{"OptionsPattern", "[", "]"}]}]}], "\n", "\t", "]"}], ":=", "\n", 
+  "\t", 
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"f", "=", 
+      RowBox[{"FileNameJoin", "@", 
+       RowBox[{"{", 
+        RowBox[{"$SiteDirectory", ",", " ", "name"}], "}"}]}]}], "}"}], ",", 
+    "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"BuildSite", "[", 
+      RowBox[{"f", ",", " ", "files", ",", " ", "ops"}], "]"}], "/;", 
+     RowBox[{"DirectoryQ", "[", "f", "]"}]}]}], "\n", "\t\t", 
+   "]"}]}]], \
+"CodeInput",ExpressionUUID->"d0b292b0-a1f7-4eb4-b3d7-94b422756a7a"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]OpenSite\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"2b31e5b3-5d76-4caa-bae0-b2fdb71e0e0e"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"OpenSite", "[", 
+    RowBox[{"dir_String", "?", "DirectoryQ"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"PySimpleServerOpen", "@", "\n", "\t\t", 
+    RowBox[{"With", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"fns", "=", 
+        RowBox[{"FileNames", "[", 
+         RowBox[{"\"\<*.html\>\"", ",", " ", 
+          RowBox[{"FileNameJoin", "@", 
+           RowBox[{"{", 
+            RowBox[{"dir", ",", " ", "\"\<docs\>\""}], "}"}]}]}], "]"}]}], 
+       "}"}], ",", "\n", "\t\t\t", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Length", "@", "fns"}], ">", "0"}], ",", "\n", "\t\t\t\t", 
+        RowBox[{"FileNameJoin", "@", 
+         RowBox[{"{", 
+          RowBox[{"dir", ",", " ", "\"\<docs\>\""}], "}"}]}], ",", "\n", 
+        "\t\t\t\t", 
+        RowBox[{"FileNameJoin", "@", 
+         RowBox[{"{", 
+          RowBox[{"dir", ",", " ", "\"\<output\>\""}], "}"}]}]}], "\n", 
+       "\t\t\t\t", "]"}]}], "\n", "\t\t\t", "]"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"OpenSite", "[", "name_String", "]"}], ":=", "\n", "\t", 
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"d", "=", 
+      RowBox[{"FileNameJoin", "@", 
+       RowBox[{"{", 
+        RowBox[{"$SiteDirectory", ",", " ", "name"}], "}"}]}]}], "}"}], ",", 
+    "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"OpenSite", "[", "d", "]"}], "/;", 
+     RowBox[{"DirectoryQ", "[", "d", "]"}]}]}], "\n", "\t\t", 
+   "]"}]}]}], \
+"CodeInput",ExpressionUUID->"05fddfec-eff7-4135-9a46-2ac832668604"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]DeploySite\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"7af1b251-d470-4f82-aa96-876f6bc13ec2"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "DeploySite", "]"}], "=", "\n", "\t", 
+   RowBox[{"Options", "[", "WebSiteDeploy", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DeploySite", "[", "\n", "\t", 
+    RowBox[{
+     RowBox[{"dir_String", "?", "DirectoryQ"}], ",", "\n", "\t", 
+     RowBox[{"uri", ":", 
+      RowBox[{"_String", "|", "Automatic"}], ":", "Automatic"}], ",", "\n", 
+     "\t", 
+     RowBox[{"ops", ":", 
+      RowBox[{"OptionsPattern", "[", "]"}]}]}], "\n", "\t", "]"}], ":=", "\n",
+    "\t", 
+   RowBox[{"With", "[", "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"odir", "=", "\n", "\t\t\t", 
+       RowBox[{"With", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"fns", "=", 
+           RowBox[{"FileNames", "[", 
+            RowBox[{"\"\<*.html\>\"", ",", " ", 
+             RowBox[{"FileNameJoin", "@", 
+              RowBox[{"{", 
+               RowBox[{"dir", ",", " ", "\"\<docs\>\""}], "}"}]}]}], "]"}]}], 
+          "}"}], ",", "\n", "\t", "\t\t\t", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Length", "@", "fns"}], ">", "0"}], ",", "\n", "\t", 
+           "\t\t\t\t", 
+           RowBox[{"FileNameJoin", "@", 
+            RowBox[{"{", 
+             RowBox[{"dir", ",", " ", "\"\<docs\>\""}], "}"}]}], ",", "\n", 
+           "\t", "\t\t\t\t", 
+           RowBox[{"FileNameJoin", "@", 
+            RowBox[{"{", 
+             RowBox[{"dir", ",", " ", "\"\<output\>\""}], "}"}]}]}], "\n", 
+          "\t", "\t\t\t\t", "]"}]}], "\n", "\t\t\t\t", "]"}]}], "\n", 
+      "\t\t\t", "}"}], ",", "\n", "\t\t", 
+     RowBox[{"WebSiteDeploy", "[", 
+      RowBox[{"odir", ",", " ", "uri", ",", " ", "ops"}], "]"}]}], "\n", 
+    "\t\t", "]"}]}], 
+  ";"}]}], "CodeInput",ExpressionUUID->"a81d1575-78db-4163-961b-a541977bcdd0"]\
+
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]BuildErrors\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"2ab12852-0263-470d-8ea3-0321c2c3b0c7"],
+
+Cell[BoxData[
+ RowBox[{"$BuildErrors", ":=", "\n", "\t", 
+  RowBox[{"Replace", "[", 
+   RowBox[{"$WebSiteBuildErrors", ",", "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"Except", "[", 
+      RowBox[{"_Association", "?", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Length", "[", "#", "]"}], ">", "0"}], "&"}], ")"}]}], 
+      "]"}], "\[Rule]", "None"}]}], "\n", "\t\t", 
+   "]"}]}]], \
+"CodeInput",ExpressionUUID->"4a659584-622a-49a1-beb9-8fe0dd1cf59d"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"End", "[", "]"}], 
+  ";"}]], "InputSection",ExpressionUUID->"8c65acb2-a737-495d-a2a4-\
+c330f4f5c5fe"]
+}, Open  ]],
+
+Cell["", "SectionSeparator",ExpressionUUID->"7ae8f3ea-0d98-4fe8-b7be-\
+8fc9c5b0f030"]
+},
+WindowSize->{808, 755},
+WindowMargins->{{Automatic, 266}, {Automatic, 0}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"BTools"}, "CodePackage.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

@@ -1,0 +1,3721 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    188569,       3713]
+NotebookOptionsPosition[    187423,       3680]
+NotebookOutlinePosition[    188554,       3713]
+CellTagsIndexPosition[    188511,       3710]
+WindowTitle->App Manager
+WindowFrame->Palette*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ DynamicWrapperBox[
+  PanelBox[
+   TagBox[GridBox[{
+      {
+       PaneBox[
+        TagBox[GridBox[{
+           {
+            DynamicBox[ToBoxes[
+              Insert[
+               ReplaceAll[
+                Insert[
+                 Row[{
+                   Button[
+                   "Open App", Null, 
+                    Appearance -> ("Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8839340610906646254]), {
+                    Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                    FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                    "Palette", Appearance -> ActionMenu, Alignment -> 
+                    Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                   ActionMenu[
+                    Button[
+                    "", Null, 
+                    Appearance -> {
+                    "Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8071098384273740474], "Hover" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3640287997483741904], "Pressed" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3409879950018111118], "Disabled" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3341935564104018004]}], {"Label" :> "Result"}, Appearance -> 
+                    None, {}]}, {}], 
+                 
+                 FilterRules[{
+                  Enabled -> Length[AppManagerPalette`Private`appList] > 0, 
+                   TrackedSymbols :> {AppManagerPalette`Private`appList}}, 
+                  Options[ActionMenu]], {1, 2, -1}], {"Label" :> "Result"} -> 
+                Table[
+                  
+                  With[{AppManagerPalette`Private`n = 
+                    AppManagerPalette`Private`n}, 
+                   FileBaseName[AppManagerPalette`Private`n] :> 
+                   AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`n]], {
+                  AppManagerPalette`Private`n, 
+                   AppManagerPalette`Private`appList}]], 
+               
+               FilterRules[{
+                Enabled -> Length[AppManagerPalette`Private`appList] > 0, 
+                 TrackedSymbols :> {AppManagerPalette`Private`appList}}, 
+                Options[Button]], {1, 1, -1}], StandardForm], {
+             Enabled -> False},
+             ImageSizeCache->{200., {8., 19.}}]},
+           {
+            TagBox[GridBox[{
+               {
+                
+                CheckboxBox[Dynamic[
+                 AppManagerPalette`Private`$selectAllApps]], 
+                StyleBox["\<\"Use All Apps\"\>",
+                 StripOnInput->False,
+                 LineColor->GrayLevel[0.5],
+                 FrontFaceColor->GrayLevel[0.5],
+                 BackFaceColor->GrayLevel[0.5],
+                 GraphicsColor->GrayLevel[0.5],
+                 FontColor->GrayLevel[0.5]]}
+              },
+              AutoDelete->False,
+              GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Bottom}}},
+              
+              
+              GridBoxItemSize->{
+               "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+             "Grid"]},
+           {
+            PanelBox["\<\"\"\>",
+             Appearance->Image[CompressedData["
+1:eJyF0b0OgjAQB/BGHRx9BRMfwtXRFeMDQETiggmYGJ+rL9XS8lVoC12wJnLT
+JVxyd7/7r7ePnsF9RQjJt34E4fuUZeHnsvPHNc0fSRrfzukrTuLsGK19ePD9
+2xsCNQF8/e/JOQcex3HRwzCgttaCjTGotdao+74Hd12HWikFbtsWddM04Lqu
+UVdVBS7LErWUErUQAlwUBWrO+aIZY7MJpRT+Mmdfqc/QmA==
+               "], "Byte", 
+               ColorSpace -> "RGB", Interleaving -> True],
+             ImageSize->{200, 1}]},
+           {
+            DynamicBox[ToBoxes[
+              ReplaceAll[
+               Insert[
+                Row[{
+                  Button[
+                   Dynamic[
+                    Lookup[
+                    Association["apps" -> "apps"], 
+                    Key[AppManagerPalette`Private`currentApp], ""]], 
+                   If[ReleaseHold[
+                    Hold[
+                    (AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][#]]& )[
+                    First[
+                    Dynamic[AppManagerPalette`Private`currentApp]]]]] === 
+                    None, Null], 
+                   Appearance -> {
+                    "Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    5847666566343194541], "Hover" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    5847666566343194541], "Pressed" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    1647662466445621740]}, {Appearance -> {
+                    GrayLevel[1], FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                    FrameMargins -> Automatic, ImageSize -> 200, ImageSize -> 
+                    Automatic, Appearance -> PopupMenu, Alignment -> 
+                    Automatic, Background -> None, DefaultBaseStyle -> {}, 
+                    Active -> True, DefaultTooltipStyle -> "TooltipLabel", 
+                    Evaluator -> Automatic, Method -> "Preemptive", Tooltip -> 
+                    None, TooltipDelay -> 0., TooltipStyle -> {}, Enabled -> 
+                    True}], 
+                  PopupMenu[
+                   Dynamic[AppManagerPalette`Private`currentApp], {"apps"}, 
+                   AppManagerPalette`Private`currentApp, 
+                   Button[
+                   "", Null, 
+                    Appearance -> {
+                    "Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    1532046636781779760], "Hover" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    688383996681129337], "Pressed" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    6036219341610178011]}, ImageMargins -> 0, {}], {}]}, {}], 
+                Enabled -> Length[AppManagerPalette`Private`appList] > 0, {1, 
+                2, -1}], {{"apps"} -> 
+                Map[FileBaseName, AppManagerPalette`Private`appList], ("apps" -> 
+                 "apps") -> RuleCondition[
+                  Thread[
+                  Map[FileBaseName, AppManagerPalette`Private`appList] -> 
+                   Map[FileBaseName, AppManagerPalette`Private`appList]], 
+                  True]}], StandardForm],
+             ImageSizeCache->{200., {9., 20.}},
+             TrackedSymbols:>{AppManagerPalette`Private`appList}]},
+           {
+            
+            TemplateBox[{
+             ButtonBox[
+              "\"App\"", 
+               ButtonFunction :> ((
+                HoldPattern[AppManagerPalette`Private`$paletteTab] = #)& )[
+                "App"], Appearance -> {"Default" -> Image[CompressedData["
+1:eJzN1DEKwjAUxvGgDg4OHsDFW7g6ulY8QIuxuERIBfFGPV4aSktJk5pFeFn8
+mrr0wT/Q8htChrfPHsltwRgr1v5I0tdRyvR93vqPiyjuueDXk3jynMtDtvQ/
+d76Nb8WCGX4UTFmWw5iot9bC5uydc7DvO0b4YaofM//42Pv0fQ+j3hgDo77r
+Ohj1bdvCqG+aBkZ9Xdcw6rXWMOqrqoJRr5SCTfQswrO5+ph9BXZhsBM/R5cH
+vA==
+                   "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                   True], "Hover" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiHmAmIUBBfzHg1HAypUr/xODkdX//fuXIKZE/b9//whiOqn/T4L6/+Sq
+JwZQop5U9xAZX3D1v3//JoiR1f/8+ZMgRlb/48cPghhZ/bdv3whiZPVfvnwh
+iJHVf/78mSBGVv/x40eCGFn9hw8fCGIy1TOQoJ5hsKonpbwiUBailIkATgkI
+xw==
+                   "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                   True], "Pressed" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiHmAmIUBBfzHg1HA9OnT/xODkdVfu3aNIB4m6v+ToP4/vdRfv36dIEZW
+f/v2bYIYWf39+/cJYmT1jx8/JoiR1T9//pwgRlb/8uVLghhZ/YsXLwhiStzz
+9OlTghhZ/ZMnTwhiSsKTBPUMJKhnGKzqSSmvCJSFKGUiAONovsk=
+                   "], 
+                   "Byte", ColorSpace -> "RGB", Interleaving -> True], 
+                 Dynamic[
+                  If[ReleaseHold[
+                    HoldPattern[AppManagerPalette`Private`$paletteTab]] === 
+                   "App", "Pressed", Automatic]]}, ImageSize -> 100, 
+               ImageSize -> 200, FrameMargins -> {{15, 15}, {0, 0}}, 
+               Evaluator -> Automatic, Method -> "Preemptive"],ButtonBox[
+              "\"Dist\"", 
+               ButtonFunction :> ((
+                HoldPattern[AppManagerPalette`Private`$paletteTab] = #)& )[
+                "Dist"], Appearance -> {"Default" -> Image[CompressedData["
+1:eJzV1DEKwjAUxvGgDi6CB3DxFq6OrhUP0GItLhVSQbxRjteWklDSJGZsn8PX
+WJc++AcS+EGmt08e0W3BGCvW/oji15Hz+H3e+sslL+5Znl5P+TPNUn5Ilv5x
+59v4VmwwDjQYIYQbW98YY2BzMtZaWM+4QOOmmDHzD/PL37qug1GjtYZR07Yt
+jBqlFIwaKSWMmqZpYNTUdQ2jpqoqGDVlWcImGhZo2BxM4E5EO/drB38AaiFY
+zw==
+                   "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                   True], "Hover" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiHmBmIUBBfwngFHAypUr/xOLkfX8/fuXIKaGnn///hHEA6DnP4l6/lOi
+hxhADT3kuI2EOIXr+f37N0GMrufnz58EMbqeHz9+EMToer59+0YQo+v58uUL
+QYyu5/PnzwQxup6PHz8SxOh6Pnz4QBBTqIeBRD0MQ0EPiWUioTIXowwGAIrY
+Wig=
+                   "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                   True], "Pressed" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiHmBmIUBBfwngFHA9OnT/xOLkfVcu3aNIB7Gev6TqOc/vfVcv36dIEbX
+c/v2bYIYXc/9+/cJYnQ9jx8/JojR9Tx//pwgRtfz8uVLghhdz4sXLwhiarjt
+6dOnBDG6nidPnhDE1AhrEvUwkKiHYSjoIbFMJFTmYpTBABUpCr0=
+                   "], 
+                   "Byte", ColorSpace -> "RGB", Interleaving -> True], 
+                 Dynamic[
+                  If[ReleaseHold[
+                    HoldPattern[AppManagerPalette`Private`$paletteTab]] === 
+                   "Dist", "Pressed", Automatic]]}, ImageSize -> 100, 
+               ImageSize -> 200, FrameMargins -> {{15, 15}, {0, 0}}, 
+               Evaluator -> Automatic, Method -> "Preemptive"]},
+             "RowDefault"]}
+          },
+          DefaultBaseStyle->"Column",
+          GridBoxAlignment->{"Columns" -> {{Left}}},
+          
+          GridBoxItemSize->{
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+         "Column"],
+        ImageSize->{Automatic, 135}]},
+      {
+       FrameBox[
+        DynamicBox[ToBoxes[
+          Column[
+           Association["App" -> {
+              EventHandler[
+               Dynamic[
+                Insert[
+                 ReplaceAll[
+                  Insert[
+                   Row[{
+                    Button[
+                    "Packages", Null, 
+                    Appearance -> ("Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8839340610906646254]), {
+                    Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                    FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                    "Palette", Appearance -> ActionMenu, Alignment -> 
+                    Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                    ActionMenu[
+                    Button[
+                    "", Null, 
+                    Appearance -> {
+                    "Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8071098384273740474], "Hover" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3640287997483741904], "Pressed" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3409879950018111118], "Disabled" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3341935564104018004]}], {"Label" :> "Result"}, Appearance -> 
+                    None, {}]}, {}], 
+                   FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$9473], 
+                    Part[AppManagerPalette`Private`listing$9473, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$9473, 2], 
+                    Join[
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.nb", "*.m", "*.wl"], "Packages"], 
+                    Select[FileBaseName[#] =!= "init"& ][
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.m", "*.wl"], "Kernel"]], 
+                    Select[Not[
+                    StringEndsQ[
+                    FileBaseName[#], "Info"]]& ][
+                    FileNames[
+                    Alternatives["*.m", "*.wl"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]]]]]] > 0, 
+                    TrackedSymbols :> {
+                    AppManagerPalette`Private`flag$9473, 
+                    AppManagerPalette`Private`currentApp}}, 
+                    Options[ActionMenu]], {1, 2, -1}], {
+                   "Label" :> "Result"} -> (
+                   AppManagerPalette`Private`flag$9473; 
+                   AppManagerPalette`Private`currentApp; Part[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$9473], 
+                    Part[AppManagerPalette`Private`listing$9473, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    AppManagerPalette`Private`listing$9473, 
+                    AppManagerPalette`Private`listing$9473 = {
+                    AppManagerPalette`Private`currentApp, 
+                    With[{AppManagerPalette`Private`bits = Replace[
+                    Map[
+                    DeleteDuplicatesBy[If[
+                    AtomQ[#], 
+                    RandomReal[], 
+                    First[#]]& ], {
+                    AppManagerPalette`Private`formatFilePaths[
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.nb", "*.m", "*.wl"], "Packages"]], 
+                    Select[Or[
+                    AtomQ[#], First[#] =!= "init"]& ][
+                    AppManagerPalette`Private`formatFilePaths[
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.m", "*.wl"], "Kernel"]]], 
+                    Select[Not[
+                    StringEndsQ[
+                    First[#], "Info"]]& ][
+                    AppManagerPalette`Private`formatFilePaths[
+                    SortBy[
+                    FileNames[
+                    Alternatives["*.m", "*.wl"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], {
+                    Composition[StringReverse, FileExtension]}]]]}], {} -> 
+                    Nothing, 1]}, 
+                    Flatten[
+                    Riffle[AppManagerPalette`Private`bits, Delimiter]]]}], 
+                    2])], 
+                 FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$9473], 
+                    Part[AppManagerPalette`Private`listing$9473, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$9473, 2], 
+                    Join[
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.nb", "*.m", "*.wl"], "Packages"], 
+                    Select[FileBaseName[#] =!= "init"& ][
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.m", "*.wl"], "Kernel"]], 
+                    Select[Not[
+                    StringEndsQ[
+                    FileBaseName[#], "Info"]]& ][
+                    FileNames[
+                    Alternatives["*.m", "*.wl"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]]]]]] > 0, 
+                   TrackedSymbols :> {
+                    AppManagerPalette`Private`flag$9473, 
+                    AppManagerPalette`Private`currentApp}}, 
+                  Options[Button]], {1, 1, -1}], {Enabled -> False}], {
+               "MouseDown" :> (AppManagerPalette`Private`flag$9473 = 
+                 RandomReal[]), PassEventsDown -> True}], 
+              EventHandler[
+               Dynamic[
+                Insert[
+                 ReplaceAll[
+                  Insert[
+                   Row[{
+                    Button[
+                    "Front End", Null, 
+                    Appearance -> ("Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8839340610906646254]), {
+                    Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                    FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                    "Palette", Appearance -> ActionMenu, Alignment -> 
+                    Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                    ActionMenu[
+                    Button[
+                    "", Null, 
+                    Appearance -> {
+                    "Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8071098384273740474], "Hover" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3640287997483741904], "Pressed" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3409879950018111118], "Disabled" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3341935564104018004]}], {"Label" :> "Result"}, Appearance -> 
+                    None, {}]}, {}], 
+                   FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$9906], 
+                    Part[AppManagerPalette`Private`listing$9906, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$9906, 2], 
+                    FileNames["*.nb", 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "FrontEnd"], 4]]] > 
+                    0, TrackedSymbols :> {
+                    AppManagerPalette`Private`flag$9906, 
+                    AppManagerPalette`Private`currentApp}}, 
+                    Options[ActionMenu]], {1, 2, -1}], {
+                   "Label" :> "Result"} -> (
+                   AppManagerPalette`Private`flag$9906; 
+                   AppManagerPalette`Private`currentApp; Part[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$9906], 
+                    Part[AppManagerPalette`Private`listing$9906, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    AppManagerPalette`Private`listing$9906, 
+                    AppManagerPalette`Private`listing$9906 = {
+                    AppManagerPalette`Private`currentApp, 
+                    If[
+                    DirectoryQ[
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "FrontEnd"]], 
+                    AppManagerPalette`Private`formatFilePaths[
+                    AppManagerPalette`Private`fileNamesGather[
+                    "*.nb", "FrontEnd"]], {}]}], 2])], 
+                 FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$9906], 
+                    Part[AppManagerPalette`Private`listing$9906, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$9906, 2], 
+                    FileNames["*.nb", 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "FrontEnd"], 4]]] > 
+                    0, TrackedSymbols :> {
+                    AppManagerPalette`Private`flag$9906, 
+                    AppManagerPalette`Private`currentApp}}, 
+                  Options[Button]], {1, 1, -1}], {Enabled -> False}], {
+               "MouseDown" :> (AppManagerPalette`Private`flag$9906 = 
+                 RandomReal[]), PassEventsDown -> True}], 
+              EventHandler[
+               Dynamic[
+                Insert[
+                 ReplaceAll[
+                  Insert[
+                   Row[{
+                    Button[
+                    "Private", Null, 
+                    Appearance -> ("Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8839340610906646254]), {
+                    Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                    FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                    "Palette", Appearance -> ActionMenu, Alignment -> 
+                    Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                    ActionMenu[
+                    Button[
+                    "", Null, 
+                    Appearance -> {
+                    "Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8071098384273740474], "Hover" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3640287997483741904], "Pressed" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3409879950018111118], "Disabled" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3341935564104018004]}], {"Label" :> "Result"}, Appearance -> 
+                    None, {}]}, {}], 
+                   FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$10339], 
+                    Part[AppManagerPalette`Private`listing$10339, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$10339, 2], 
+                    FileNames[
+                    Alternatives["*.nb", "*.wl", "*.m"], 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "Private"], 5]]] > 
+                    0, TrackedSymbols :> {
+                    AppManagerPalette`Private`flag$10339, 
+                    AppManagerPalette`Private`currentApp}}, 
+                    Options[ActionMenu]], {1, 2, -1}], {
+                   "Label" :> "Result"} -> (
+                   AppManagerPalette`Private`flag$10339; 
+                   AppManagerPalette`Private`currentApp; Part[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$10339], 
+                    Part[AppManagerPalette`Private`listing$10339, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    AppManagerPalette`Private`listing$10339, 
+                    AppManagerPalette`Private`listing$10339 = {
+                    AppManagerPalette`Private`currentApp, 
+                    If[
+                    DirectoryQ[
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "Private"]], 
+                    AppManagerPalette`Private`formatFilePaths[
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.nb", "*.wl", "*.m"], "Private"]], {}]}], 
+                    2])], 
+                 FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$10339], 
+                    Part[AppManagerPalette`Private`listing$10339, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$10339, 2], 
+                    FileNames[
+                    Alternatives["*.nb", "*.wl", "*.m"], 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "Private"], 5]]] > 
+                    0, TrackedSymbols :> {
+                    AppManagerPalette`Private`flag$10339, 
+                    AppManagerPalette`Private`currentApp}}, 
+                  Options[Button]], {1, 1, -1}], {Enabled -> False}], {
+               "MouseDown" :> (AppManagerPalette`Private`flag$10339 = 
+                 RandomReal[]), PassEventsDown -> True}], 
+              EventHandler[
+               Dynamic[
+                Insert[
+                 ReplaceAll[
+                  Insert[
+                   Row[{
+                    Button[
+                    "Resources", Null, 
+                    Appearance -> ("Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8839340610906646254]), {
+                    Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                    FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                    "Palette", Appearance -> ActionMenu, Alignment -> 
+                    Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                    ActionMenu[
+                    Button[
+                    "", Null, 
+                    Appearance -> {
+                    "Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8071098384273740474], "Hover" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3640287997483741904], "Pressed" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3409879950018111118], "Disabled" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3341935564104018004]}], {"Label" :> "Result"}, Appearance -> 
+                    None, {}]}, {}], 
+                   FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$10773], 
+                    Part[AppManagerPalette`Private`listing$10773, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$10773, 2], 
+                    FileNames[
+                    Alternatives["*.nb", "*.wl", "*.m", ".tr"], 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "Resources"], 8]]] > 
+                    0, TrackedSymbols :> {
+                    AppManagerPalette`Private`flag$10773, 
+                    AppManagerPalette`Private`currentApp}}, 
+                    Options[ActionMenu]], {1, 2, -1}], {
+                   "Label" :> "Result"} -> (
+                   AppManagerPalette`Private`flag$10773; 
+                   AppManagerPalette`Private`currentApp; Part[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$10773], 
+                    Part[AppManagerPalette`Private`listing$10773, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    AppManagerPalette`Private`listing$10773, 
+                    AppManagerPalette`Private`listing$10773 = {
+                    AppManagerPalette`Private`currentApp, 
+                    If[
+                    DirectoryQ[
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "Resources"]], 
+                    AppManagerPalette`Private`formatFilePaths[
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.nb", "*.wl", "*.m", ".tr"], 
+                    "Resources"]], {}]}], 2])], 
+                 FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$10773], 
+                    Part[AppManagerPalette`Private`listing$10773, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$10773, 2], 
+                    FileNames[
+                    Alternatives["*.nb", "*.wl", "*.m", ".tr"], 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "Resources"], 8]]] > 
+                    0, TrackedSymbols :> {
+                    AppManagerPalette`Private`flag$10773, 
+                    AppManagerPalette`Private`currentApp}}, 
+                  Options[Button]], {1, 1, -1}], {Enabled -> False}], {
+               "MouseDown" :> (AppManagerPalette`Private`flag$10773 = 
+                 RandomReal[]), PassEventsDown -> True}], 
+              EventHandler[
+               Dynamic[
+                Insert[
+                 ReplaceAll[
+                  Insert[
+                   Row[{
+                    Button[
+                    "Config", Null, 
+                    Appearance -> ("Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8839340610906646254]), {
+                    Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                    FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                    "Palette", Appearance -> ActionMenu, Alignment -> 
+                    Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                    ActionMenu[
+                    Button[
+                    "", Null, 
+                    Appearance -> {
+                    "Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8071098384273740474], "Hover" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3640287997483741904], "Pressed" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3409879950018111118], "Disabled" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3341935564104018004]}], {"Label" :> "Result"}, Appearance -> 
+                    None, {}]}, {}], 
+                   FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$11206], 
+                    Part[AppManagerPalette`Private`listing$11206, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$11206, 2], 
+                    Join[
+                    FileNames[
+                    Alternatives["*.m", "*.wl"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], 
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.m", "*.wl"], "Config"]]]] > 0, 
+                    TrackedSymbols :> {
+                    AppManagerPalette`Private`flag$11206, 
+                    AppManagerPalette`Private`currentApp}}, 
+                    Options[ActionMenu]], {1, 2, -1}], {
+                   "Label" :> "Result"} -> (
+                   AppManagerPalette`Private`flag$11206; 
+                   AppManagerPalette`Private`currentApp; Part[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$11206], 
+                    Part[AppManagerPalette`Private`listing$11206, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    AppManagerPalette`Private`listing$11206, 
+                    AppManagerPalette`Private`listing$11206 = {
+                    AppManagerPalette`Private`currentApp, 
+                    AppManagerPalette`Private`formatFilePaths[
+                    SortBy[FileNameDepth][
+                    Join[
+                    FileNames[
+                    Alternatives["*Info.m", "*Info.wl"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], 
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.m", "*.wl"], "Config"]]]]}], 2])], 
+                 FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$11206], 
+                    Part[AppManagerPalette`Private`listing$11206, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$11206, 2], 
+                    Join[
+                    FileNames[
+                    Alternatives["*.m", "*.wl"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], 
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.m", "*.wl"], "Config"]]]] > 0, 
+                   TrackedSymbols :> {
+                    AppManagerPalette`Private`flag$11206, 
+                    AppManagerPalette`Private`currentApp}}, 
+                  Options[Button]], {1, 1, -1}], {Enabled -> False}], {
+               "MouseDown" :> (AppManagerPalette`Private`flag$11206 = 
+                 RandomReal[]), PassEventsDown -> True}], 
+              EventHandler[
+               Dynamic[
+                Insert[
+                 ReplaceAll[
+                  Insert[
+                   Row[{
+                    Button[
+                    "Project", Null, 
+                    Appearance -> ("Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8839340610906646254]), {
+                    Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                    FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                    "Palette", Appearance -> ActionMenu, Alignment -> 
+                    Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                    ActionMenu[
+                    Button[
+                    "", Null, 
+                    Appearance -> {
+                    "Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8071098384273740474], "Hover" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3640287997483741904], "Pressed" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3409879950018111118], "Disabled" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3341935564104018004]}], {"Label" :> "Result"}, Appearance -> 
+                    None, {}]}, {}], 
+                   FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$11639], 
+                    Part[AppManagerPalette`Private`listing$11639, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$11639, 2], 
+                    Join[
+                    FileNames["README*", 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], 
+                    FileNames[
+                    Alternatives["*.png", "*.html", "*.md", "*.nb"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp, "project"], 
+                    Infinity]]]] > 0, 
+                    TrackedSymbols :> {
+                    AppManagerPalette`Private`flag$11639, 
+                    AppManagerPalette`Private`currentApp}}, 
+                    Options[ActionMenu]], {1, 2, -1}], {
+                   "Label" :> "Result"} -> (
+                   AppManagerPalette`Private`flag$11639; 
+                   AppManagerPalette`Private`currentApp; Part[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$11639], 
+                    Part[AppManagerPalette`Private`listing$11639, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    AppManagerPalette`Private`listing$11639, 
+                    AppManagerPalette`Private`listing$11639 = {
+                    AppManagerPalette`Private`currentApp, 
+                    AppManagerPalette`Private`formatFilePaths[
+                    SortBy[FileNameDepth][
+                    Join[
+                    FileNames["README*", 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], 
+                    FileNames[
+                    Alternatives["*.png", "*.html", "*.md", "*.nb"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp, "project"], 
+                    Infinity]]]]}], 2])], 
+                 FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$11639], 
+                    Part[AppManagerPalette`Private`listing$11639, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$11639, 2], 
+                    Join[
+                    FileNames["README*", 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], 
+                    FileNames[
+                    Alternatives["*.png", "*.html", "*.md", "*.nb"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp, "project"], 
+                    Infinity]]]] > 0, 
+                   TrackedSymbols :> {
+                    AppManagerPalette`Private`flag$11639, 
+                    AppManagerPalette`Private`currentApp}}, 
+                  Options[Button]], {1, 1, -1}], {Enabled -> False}], {
+               "MouseDown" :> (AppManagerPalette`Private`flag$11639 = 
+                 RandomReal[]), PassEventsDown -> True}], 
+              Panel[
+              "", ImageSize -> {190, 1}, ImageMargins -> 5, Appearance -> 
+               AppManagerPalette`Private`$AppManagerImages[
+                6095725086947264879]], 
+              Row[{
+                Button[
+                "Regenerate", Null, 
+                 Appearance -> ("Default" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   8839340610906646254]), {
+                 Appearance -> {
+                   "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                  FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                  "Palette", Appearance -> ActionMenu, Alignment -> Automatic,
+                   Background -> None, DefaultBaseStyle -> {}}], 
+                ActionMenu[
+                 Button[
+                 "", Null, 
+                  Appearance -> {
+                   "Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8071098384273740474], "Hover" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3640287997483741904], "Pressed" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3409879950018111118], "Disabled" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3341935564104018004]}], {
+                 "Loader" :> AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`whichPacF["AppRegenerateInit"][
+                    AppManagerPalette`Private`currentApp]], "PacletInfo" :> 
+                  AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`whichPacF[
+                    "AppRegeneratePacletInfo"][
+                    AppManagerPalette`Private`currentApp]], 
+                  "Directories" :> (
+                   AppManagerPalette`Private`whichPacF[
+                    "AppRegenerateDirectories"][
+                    AppManagerPalette`Private`currentApp]; 
+                   AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]]), "LoadInfo" :> 
+                  AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`whichPacF[
+                    "AppRegenerateLoadInfo"][
+                    AppManagerPalette`Private`currentApp]]}, Appearance -> 
+                 None, {}]}, {}], 
+              Panel[
+              "", ImageSize -> {190, 1}, ImageMargins -> 5, Appearance -> 
+               AppManagerPalette`Private`$AppManagerImages[
+                6095725086947264879]], 
+              EventHandler[
+               Button[
+                Dynamic[
+                 
+                 If[(AppManagerPalette`Private`gitRefresh; 
+                   AppManagerPalette`Private`gitRepoQ[]) === False, 
+                  Style["Git Commit", 
+                   GrayLevel[0.5]], 
+                  Style["Git Commit", 
+                   GrayLevel[0.2]]], 
+                 TrackedSymbols :> {
+                  AppManagerPalette`Private`gitRefresh, 
+                   AppManagerPalette`Private`currentApp}], 
+                With[{BTools`Formatting`Private`nb$ = EvaluationNotebook[]}, 
+                  Internal`WithLocalSettings[CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-f8a10bc0-c151-4415-b44f-9e84dd823048"}] = True, 
+                    Block[{$ContextPath = {"System`"}}, 
+                    Needs[
+                    StringJoin[AppManagerPalette`Private`$appName, "`"]]]; 
+                    AppManagerPalette`Private`whichPacF["AppGitCommit"][
+                    AppManagerPalette`Private`currentApp], CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-f8a10bc0-c151-4415-b44f-9e84dd823048"}] = False]; 
+                  Null]; Null, 
+                Appearance -> {
+                 "Default" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   5440051064614500607], "Hover" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   4079914506038896738], "Pressed" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   685002494092402898], 
+                  Dynamic[
+                   FEPrivate`If[
+                    FrontEnd`CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-f8a10bc0-c151-4415-b44f-9e84dd823048"}, False], 
+                    "Pressed", Automatic, Automatic]]}, Enabled -> 
+                Dynamic[
+                 AppManagerPalette`Private`gitRefresh; 
+                  AppManagerPalette`Private`gitRepoQ[], 
+                  TrackedSymbols :> {
+                   AppManagerPalette`Private`gitRefresh, 
+                    AppManagerPalette`Private`currentApp}], Method -> 
+                "Queued", FrameMargins -> {{5, 5}, {2, 0}}, ImageSize -> 200, 
+                Appearance -> {"Palette", 
+                  Dynamic[
+                   FEPrivate`If[
+                    FrontEnd`CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-f8a10bc0-c151-4415-b44f-9e84dd823048"}, False], 
+                    "Pressed", Automatic, Automatic]]}], {
+               "MouseClicked" :> Internal`WithLocalSettings[
+                  FrontEndExecute[
+                   FrontEnd`NotebookSuspendScreenUpdates[
+                    FrontEnd`EvaluationNotebook[]]], 
+                  If[
+                   TrueQ[
+                    Replace[
+                    Replace[
+                    Dynamic[
+                    AppManagerPalette`Private`gitRefresh; 
+                    AppManagerPalette`Private`gitRepoQ[], 
+                    TrackedSymbols :> {
+                    AppManagerPalette`Private`gitRefresh, 
+                    AppManagerPalette`Private`currentApp}], 
+                    Pattern[BTools`Formatting`Private`d, 
+                    Blank[Dynamic]] :> First[BTools`Formatting`Private`d]], 
+                    Automatic -> True]], CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-f8a10bc0-c151-4415-b44f-9e84dd823048"}] = True], 
+                  FrontEndExecute[
+                   FrontEnd`NotebookResumeScreenUpdates[
+                    FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> 
+                True}], 
+              Row[{
+                Button[
+                "Git Actions", Null, 
+                 Appearance -> ("Default" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   8839340610906646254]), {
+                 Appearance -> {
+                   "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                  FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                  "Palette", Appearance -> ActionMenu, Alignment -> Automatic,
+                   Background -> None, DefaultBaseStyle -> {}}], 
+                ActionMenu[
+                 Button[
+                 "", Null, 
+                  Appearance -> {
+                   "Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8071098384273740474], "Hover" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3640287997483741904], "Pressed" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3409879950018111118], "Disabled" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3341935564104018004]}], {"Init" :> (Quiet[
+                    AppManagerPalette`Private`whichPacF["AppGitInit"][
+                    AppManagerPalette`Private`currentApp]]; 
+                   AppManagerPalette`Private`gitRefresh = RandomReal[]), 
+                  Delimiter, "Edit README" :> 
+                  AppManagerPalette`Private`sysOpen[
+                    If[
+                    FileExistsQ[
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "README.nb"]], 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "README.nb"], 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "README.md"]]], 
+                  "Edit Ignore" :> AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, ".gitignore"]], 
+                  "Edit Exclude" :> AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, ".git", "info", 
+                    "exclude"]], Delimiter, "Regenerate README" :> 
+                  AppManagerPalette`Private`sysOpen[
+                    CopyFile[
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    "BTools", "Resources", "Templates", "README.nb"], 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "README.nb"], 
+                    OverwriteTarget -> True]], "Regenerate Ignore" :> 
+                  AppManagerPalette`Private`sysOpen[
+                    Quiet[
+                    AppManagerPalette`Private`whichPacF[
+                    "AppRegenerateGitIgnore"][
+                    AppManagerPalette`Private`currentApp]]], 
+                  "Regenerate Exclude" :> AppManagerPalette`Private`sysOpen[
+                    Quiet[
+                    AppManagerPalette`Private`whichPacF[
+                    "AppRegenerateGitExclude"][
+                    AppManagerPalette`Private`currentApp]]]}, Appearance -> 
+                 None, {}]}, {}], 
+              EventHandler[
+               Dynamic[
+                Insert[
+                 ReplaceAll[
+                  Insert[
+                   Row[{
+                    Button[
+                    "Switch Branches", Null, 
+                    Appearance -> ("Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8839340610906646254]), {
+                    Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                    FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                    "Palette", Appearance -> ActionMenu, Alignment -> 
+                    Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                    ActionMenu[
+                    Button[
+                    "", Null, 
+                    Appearance -> {
+                    "Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8071098384273740474], "Hover" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3640287997483741904], "Pressed" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3409879950018111118], "Disabled" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3341935564104018004]}], {"Label" :> "Result"}, Appearance -> 
+                    None, {}]}, {}], 
+                   
+                   FilterRules[{
+                    Enabled -> 
+                    Dynamic[
+                    AppManagerPalette`Private`gitRefresh; 
+                    AppManagerPalette`Private`gitRepoQ[], 
+                    TrackedSymbols :> {
+                    AppManagerPalette`Private`gitRefresh, 
+                    AppManagerPalette`Private`currentApp}], Method -> 
+                    "Queued", 
+                    TrackedSymbols :> {
+                    AppManagerPalette`Private`currentApp, 
+                    AppManagerPalette`Private`$gitBranches}}, 
+                    Options[ActionMenu]], {1, 2, -1}], {"Label" :> "Result"} -> 
+                  Replace[
+                    AppManagerPalette`Private`loadGitBranches[], 
+                    Pattern[AppManagerPalette`Private`l, {
+                    BlankSequence[]}] :> Join[{Style[
+                    First[AppManagerPalette`Private`l], Bold, Italic] :> 
+                    None}, 
+                    Map[# :> If[
+                    AppManagerPalette`Private`gitRepoQ[], Quiet[
+                    AppManagerPalette`Private`whichPacF["GitSwitchBranch"][
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp], #]]; 
+                    AppManagerPalette`Private`loadGitBranches[True]]& , 
+                    Rest[AppManagerPalette`Private`l]], {
+                    Delimiter, "New Branch" :> Replace[
+                    AppManagerPalette`Private`inputDialog[
+                    "Provide a name for the branch:"], 
+                    Pattern[AppManagerPalette`Private`s, 
+                    Blank[String]] :> (Quiet[
+                    AppManagerPalette`Private`whichPacF["GitSwitchBranch"][
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp], 
+                    StringDelete[AppManagerPalette`Private`s, 
+                    Except[WordCharacter]]]]; 
+                    AppManagerPalette`Private`loadGitBranches[True])]}]]], 
+                 
+                 FilterRules[{
+                  Enabled -> 
+                   Dynamic[
+                    AppManagerPalette`Private`gitRefresh; 
+                    AppManagerPalette`Private`gitRepoQ[], 
+                    TrackedSymbols :> {
+                    AppManagerPalette`Private`gitRefresh, 
+                    AppManagerPalette`Private`currentApp}], Method -> 
+                   "Queued", 
+                   TrackedSymbols :> {
+                    AppManagerPalette`Private`currentApp, 
+                    AppManagerPalette`Private`$gitBranches}}, 
+                  Options[Button]], {1, 1, -1}], {
+                Enabled -> 
+                 Dynamic[
+                  AppManagerPalette`Private`gitRefresh; 
+                   AppManagerPalette`Private`gitRepoQ[], 
+                   TrackedSymbols :> {
+                    AppManagerPalette`Private`gitRefresh, 
+                    AppManagerPalette`Private`currentApp}]}], "MouseEntered" :> 
+               AppManagerPalette`Private`loadGitBranches[True]]}, "Dist" -> {
+              EventHandler[
+               Button[
+                Style["Publish", 
+                 GrayLevel[0.2]], 
+                With[{BTools`Formatting`Private`nb$ = EvaluationNotebook[]}, 
+                  Internal`WithLocalSettings[CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-f9a01cd2-24c7-4db5-a266-cd19086a173d"}] = True, 
+                    Block[{$ContextPath = {"System`"}}, 
+                    Needs[
+                    StringJoin[AppManagerPalette`Private`$appName, "`"]]]; 
+                    AppManagerPalette`Private`paletteDialog[
+                    
+                    With[{AppManagerPalette`Private`r = 
+                    AppManagerPalette`Private`whichPacF["AppPublish"][
+                    AppManagerPalette`Private`currentApp, "PublishServer" -> 
+                    TrueQ[AppManagerPalette`Private`publishServerFlag], 
+                    "MakeSite" -> 
+                    TrueQ[AppManagerPalette`Private`makeSiteFlag], 
+                    "PushToGitHub" -> 
+                    AppManagerPalette`Private`gitPushFlag =!= False, 
+                    "PacletBackup" -> 
+                    AppManagerPalette`Private`backupFlag =!= False, 
+                    "PushToServer" -> 
+                    AppManagerPalette`Private`pushToServerFlag =!= False, 
+                    "UpdatePaclet" -> 
+                    AppManagerPalette`Private`updatePacletFlag =!= False]}, 
+                    Quiet[
+                    If[AppManagerPalette`Private`gitPushFlag =!= False, 
+                    AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`whichPacF["AppGitHubRepo"][
+                    AppManagerPalette`Private`currentApp]]]; 
+                    If[AppManagerPalette`Private`publishServerFlag, 
+                    Replace[
+                    AppManagerPalette`Private`whichPacF[
+                    "PacletServerDeploymentURL"][], 
+                    Pattern[AppManagerPalette`Private`s, 
+                    Blank[String]] :> 
+                    AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`s]]]; Null]], "Publishing"], 
+                    CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-f9a01cd2-24c7-4db5-a266-cd19086a173d"}] = False]; 
+                  Null]; Null, 
+                Appearance -> {
+                 "Default" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   5440051064614500607], "Hover" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   4079914506038896738], "Pressed" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   685002494092402898], 
+                  Dynamic[
+                   FEPrivate`If[
+                    FrontEnd`CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-f9a01cd2-24c7-4db5-a266-cd19086a173d"}, False], 
+                    "Pressed", Automatic, Automatic]]}, Method -> "Queued", 
+                FrameMargins -> {{5, 5}, {2, 0}}, ImageSize -> 200, 
+                Appearance -> {"Palette", 
+                  Dynamic[
+                   FEPrivate`If[
+                    FrontEnd`CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-f9a01cd2-24c7-4db5-a266-cd19086a173d"}, False], 
+                    "Pressed", Automatic, Automatic]]}], {
+               "MouseClicked" :> Internal`WithLocalSettings[
+                  FrontEndExecute[
+                   FrontEnd`NotebookSuspendScreenUpdates[
+                    FrontEnd`EvaluationNotebook[]]], 
+                  If[
+                   TrueQ[
+                    Replace[
+                    Replace[Automatic, Pattern[BTools`Formatting`Private`d, 
+                    Blank[Dynamic]] :> First[BTools`Formatting`Private`d]], 
+                    Automatic -> True]], CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-f9a01cd2-24c7-4db5-a266-cd19086a173d"}] = True], 
+                  FrontEndExecute[
+                   FrontEnd`NotebookResumeScreenUpdates[
+                    FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> 
+                True}], 
+              Grid[{{
+                 Grid[{{
+                    Checkbox[
+                    Dynamic[
+                    AppManagerPalette`Private`gitPushFlag =!= False, (
+                    AppManagerPalette`Private`gitPushFlag = #)& ]], 
+                    Style["Git Push", 
+                    GrayLevel[0.5]]}}, Alignment -> Bottom], 
+                 Grid[{{
+                    Checkbox[
+                    Dynamic[
+                    AppManagerPalette`Private`backupFlag =!= False, (
+                    AppManagerPalette`Private`backupFlag = #)& ]], 
+                    Style["Backup", 
+                    GrayLevel[0.5]]}}, Alignment -> Bottom]}, {
+                 Grid[{{
+                    Checkbox[
+                    Dynamic[
+                    AppManagerPalette`Private`pushToServerFlag =!= False, (
+                    AppManagerPalette`Private`pushToServerFlag = #)& ]], 
+                    Style["Push to server", 
+                    GrayLevel[0.5]]}}, Alignment -> Bottom], 
+                 Grid[{{
+                    Checkbox[
+                    Dynamic[
+                    AppManagerPalette`Private`updatePacletFlag =!= False, (
+                    AppManagerPalette`Private`updatePacletFlag = #)& ]], 
+                    Style["Update PI", 
+                    GrayLevel[0.5]]}}, Alignment -> Bottom]}, {
+                 Grid[{{
+                    Checkbox[
+                    Dynamic[AppManagerPalette`Private`publishServerFlag]], 
+                    Style["Publish server", 
+                    GrayLevel[0.5]]}}, Alignment -> Bottom], 
+                 Grid[{{
+                    Checkbox[
+                    Dynamic[AppManagerPalette`Private`makeSiteFlag]], 
+                    Style["Make Site", 
+                    GrayLevel[0.5]]}}, Alignment -> Bottom]}}, Alignment -> 
+               Left], 
+              Panel[
+              "", ImageSize -> {190, 1}, ImageMargins -> 5, Appearance -> 
+               AppManagerPalette`Private`$AppManagerImages[
+                6095725086947264879]], 
+              Row[{
+                Button[
+                "Make Config File", Null, 
+                 Appearance -> ("Default" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   8839340610906646254]), {
+                 Appearance -> {
+                   "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                  FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                  "Palette", Appearance -> ActionMenu, Alignment -> Automatic,
+                   Background -> None, DefaultBaseStyle -> {}}], 
+                ActionMenu[
+                 Button[
+                 "", Null, 
+                  Appearance -> {
+                   "Default" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    8071098384273740474], "Hover" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3640287997483741904], "Pressed" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3409879950018111118], "Disabled" -> 
+                    AppManagerPalette`Private`$AppManagerImages[
+                    3341935564104018004]}], {
+                 "PacletInfo" :> AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`whichPacF[
+                    "AppRegeneratePacletInfo"][
+                    AppManagerPalette`Private`currentApp]], Delimiter, 
+                  "BundleInfo" :> AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`whichPacF[
+                    "AppRegenerateBundleInfo"][
+                    AppManagerPalette`Private`currentApp]], "UploadInfo" :> 
+                  AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`whichPacF[
+                    "AppRegenerateUploadInfo"][
+                    AppManagerPalette`Private`currentApp]]}, Appearance -> 
+                 None, {}]}, {}], 
+              Panel[
+              "", ImageSize -> {190, 1}, ImageMargins -> 5, Appearance -> 
+               AppManagerPalette`Private`$AppManagerImages[
+                6095725086947264879]], 
+              EventHandler[
+               Button[
+                Style["Push to GitHub", 
+                 GrayLevel[0.2]], 
+                With[{BTools`Formatting`Private`nb$ = EvaluationNotebook[]}, 
+                  Internal`WithLocalSettings[CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-eee2fb65-cd26-416b-a3e6-f804c9c500d2"}] = True, 
+                    Block[{$ContextPath = {"System`"}}, 
+                    Needs[
+                    StringJoin[AppManagerPalette`Private`$appName, "`"]]]; (
+                    Quiet[
+                    AppManagerPalette`Private`whichPacF["AppGitHubPush"][
+                    AppManagerPalette`Private`currentApp]]; SystemOpen[
+                    AppManagerPalette`Private`whichPacF["AppGitHubRepo"][
+                    AppManagerPalette`Private`currentApp, None]]), 
+                    CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-eee2fb65-cd26-416b-a3e6-f804c9c500d2"}] = False]; 
+                  Null]; Null, 
+                Appearance -> {
+                 "Default" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   5440051064614500607], "Hover" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   4079914506038896738], "Pressed" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   685002494092402898], 
+                  Dynamic[
+                   FEPrivate`If[
+                    FrontEnd`CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-eee2fb65-cd26-416b-a3e6-f804c9c500d2"}, False], 
+                    "Pressed", Automatic, Automatic]]}, Method -> "Queued", 
+                FrameMargins -> {{5, 5}, {2, 0}}, ImageSize -> 200, 
+                Appearance -> {"Palette", 
+                  Dynamic[
+                   FEPrivate`If[
+                    FrontEnd`CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-eee2fb65-cd26-416b-a3e6-f804c9c500d2"}, False], 
+                    "Pressed", Automatic, Automatic]]}], {
+               "MouseClicked" :> Internal`WithLocalSettings[
+                  FrontEndExecute[
+                   FrontEnd`NotebookSuspendScreenUpdates[
+                    FrontEnd`EvaluationNotebook[]]], 
+                  If[
+                   TrueQ[
+                    Replace[
+                    Replace[Automatic, Pattern[BTools`Formatting`Private`d, 
+                    Blank[Dynamic]] :> First[BTools`Formatting`Private`d]], 
+                    Automatic -> True]], CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-eee2fb65-cd26-416b-a3e6-f804c9c500d2"}] = True], 
+                  FrontEndExecute[
+                   FrontEnd`NotebookResumeScreenUpdates[
+                    FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> 
+                True}], 
+              EventHandler[
+               Button[
+                Style["Create GitHub Repo", 
+                 GrayLevel[0.2]], 
+                With[{BTools`Formatting`Private`nb$ = EvaluationNotebook[]}, 
+                  Internal`WithLocalSettings[CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-8941379c-e8ce-46d5-9329-0c51aa26741e"}] = True, 
+                    Block[{$ContextPath = {"System`"}}, 
+                    Needs[
+                    StringJoin[AppManagerPalette`Private`$appName, "`"]]]; 
+                    Quiet[
+                    AppManagerPalette`Private`whichPacF["AppGitHubConfigure"][
+                    AppManagerPalette`Private`currentApp]], CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-8941379c-e8ce-46d5-9329-0c51aa26741e"}] = False]; 
+                  Null]; Null, 
+                Appearance -> {
+                 "Default" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   5440051064614500607], "Hover" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   4079914506038896738], "Pressed" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   685002494092402898], 
+                  Dynamic[
+                   FEPrivate`If[
+                    FrontEnd`CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-8941379c-e8ce-46d5-9329-0c51aa26741e"}, False], 
+                    "Pressed", Automatic, Automatic]]}, Method -> "Queued", 
+                FrameMargins -> {{5, 5}, {2, 0}}, ImageSize -> 200, 
+                Appearance -> {"Palette", 
+                  Dynamic[
+                   FEPrivate`If[
+                    FrontEnd`CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-8941379c-e8ce-46d5-9329-0c51aa26741e"}, False], 
+                    "Pressed", Automatic, Automatic]]}], {
+               "MouseClicked" :> Internal`WithLocalSettings[
+                  FrontEndExecute[
+                   FrontEnd`NotebookSuspendScreenUpdates[
+                    FrontEnd`EvaluationNotebook[]]], 
+                  If[
+                   TrueQ[
+                    Replace[
+                    Replace[Automatic, Pattern[BTools`Formatting`Private`d, 
+                    Blank[Dynamic]] :> First[BTools`Formatting`Private`d]], 
+                    Automatic -> True]], CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-8941379c-e8ce-46d5-9329-0c51aa26741e"}] = True], 
+                  FrontEndExecute[
+                   FrontEnd`NotebookResumeScreenUpdates[
+                    FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> 
+                True}], 
+              EventHandler[
+               Button[
+                Style["Delete GitHub Repo", 
+                 GrayLevel[0.2]], 
+                With[{BTools`Formatting`Private`nb$ = EvaluationNotebook[]}, 
+                  Internal`WithLocalSettings[CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-b7520e09-d485-41b2-92ec-d2d9129c598c"}] = True, 
+                    Block[{$ContextPath = {"System`"}}, 
+                    Needs[
+                    StringJoin[AppManagerPalette`Private`$appName, "`"]]]; 
+                    Quiet[
+                    AppManagerPalette`Private`whichPacF["AppGitHubDelete"][
+                    AppManagerPalette`Private`currentApp]], CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-b7520e09-d485-41b2-92ec-d2d9129c598c"}] = False]; 
+                  Null]; Null, 
+                Appearance -> {
+                 "Default" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   5440051064614500607], "Hover" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   4079914506038896738], "Pressed" -> 
+                  AppManagerPalette`Private`$AppManagerImages[
+                   685002494092402898], 
+                  Dynamic[
+                   FEPrivate`If[
+                    FrontEnd`CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-b7520e09-d485-41b2-92ec-d2d9129c598c"}, False], 
+                    "Pressed", Automatic, Automatic]]}, Method -> "Queued", 
+                FrameMargins -> {{5, 5}, {2, 0}}, ImageSize -> 200, 
+                Appearance -> {"Palette", 
+                  Dynamic[
+                   FEPrivate`If[
+                    FrontEnd`CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-b7520e09-d485-41b2-92ec-d2d9129c598c"}, False], 
+                    "Pressed", Automatic, Automatic]]}], {
+               "MouseClicked" :> Internal`WithLocalSettings[
+                  FrontEndExecute[
+                   FrontEnd`NotebookSuspendScreenUpdates[
+                    FrontEnd`EvaluationNotebook[]]], 
+                  If[
+                   TrueQ[
+                    Replace[
+                    Replace[Automatic, Pattern[BTools`Formatting`Private`d, 
+                    Blank[Dynamic]] :> First[BTools`Formatting`Private`d]], 
+                    Automatic -> True]], CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-b7520e09-d485-41b2-92ec-d2d9129c598c"}] = True], 
+                  FrontEndExecute[
+                   FrontEnd`NotebookResumeScreenUpdates[
+                    FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> 
+                True}]}][
+            ReleaseHold[
+             HoldPattern[AppManagerPalette`Private`$paletteTab]]], Spacings -> 
+           0], StandardForm],
+         ImageSizeCache->{200., {144.4169921875, 149.5830078125}}],
+        Alignment->{Left, Top},
+        Background->GrayLevel[0.9],
+        FrameMargins->{{None, None}, {None, 5}},
+        FrameStyle->GrayLevel[0.8],
+        ImageSize->{Automatic, 
+          Dynamic[
+           (Part[#, 2, 2] - Part[#, 2, 1] - (135 + 290)& )[
+            CurrentValue[ScreenRectangle]]]},
+        StripOnInput->False]},
+      {
+       PaneBox[
+        TagBox[GridBox[{
+           {
+            PanelBox["\<\"\"\>",
+             Appearance->Image[CompressedData["
+1:eJyF0b0OgjAQB/BGHRx9BRMfwtXRFeMDQETiggmYGJ+rL9XS8lVoC12wJnLT
+JVxyd7/7r7ePnsF9RQjJt34E4fuUZeHnsvPHNc0fSRrfzukrTuLsGK19ePD9
+2xsCNQF8/e/JOQcex3HRwzCgttaCjTGotdao+74Hd12HWikFbtsWddM04Lqu
+UVdVBS7LErWUErUQAlwUBWrO+aIZY7MJpRT+Mmdfqc/QmA==
+               "], "Byte", 
+               ColorSpace -> "RGB", Interleaving -> True],
+             ImageSize->{200, 1}]},
+           {
+            DynamicBox[ToBoxes[Quiet[
+                Check[
+                 Needs[
+                  StringJoin[AppManagerPalette`Private`$appName, "`"]], 
+                 Needs["BTools`"]]]; AppManagerPalette`Private`refreshFlag; 
+              AppManagerPalette`Private`appList; 
+              AppManagerPalette`Private`whichPacF["FileBrowser"][
+                If[
+                 And[
+                  StringQ[AppManagerPalette`Private`currentApp], 
+                  FileExistsQ[
+                   AppManagerPalette`Private`whichPacF["AppDirectory"][
+                   AppManagerPalette`Private`currentApp]]], 
+                 AppManagerPalette`Private`whichPacF["AppDirectory"][
+                 AppManagerPalette`Private`currentApp], 
+                 AppManagerPalette`Private`$whichPacF["AppDirectory"]], 
+                Background -> Gray, FrameMargins -> None, FrameStyle -> None, 
+                ImageSize -> {200, 200}, "SideBar" -> False, "TopBar" -> 
+                False, DeleteCases -> StringExpression[".", 
+                  Except["g"], 
+                  BlankSequence[]], "FrameWidth" -> 200, "BarSize" -> 100], 
+              StandardForm],
+             ImageSizeCache->{202., {99., 104.}},
+             
+             TrackedSymbols:>{
+              AppManagerPalette`Private`currentApp, 
+               AppManagerPalette`Private`appList, 
+               AppManagerPalette`Private`refreshFlag}]},
+           {
+            TagBox[
+             ButtonBox[
+              StyleBox["\<\"New App\"\>",
+               StripOnInput->False,
+               LineColor->GrayLevel[0.2],
+               FrontFaceColor->GrayLevel[0.2],
+               BackFaceColor->GrayLevel[0.2],
+               GraphicsColor->GrayLevel[0.2],
+               FontColor->GrayLevel[0.2]],
+              Appearance->{"Default" -> Image[CompressedData["
+1:eJzV1EEKgkAYhuGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKRxNFUVFEEVF0bUMU
+5NfiS1r1wzvMDDzbf66e1vuBEOI8lsdauS4NQ7ltpvKx1c/Hg67tVvpFO2jG
+Qh3Kz5lsIhuJzrSkzpim2X7bu7Esi4bGtm0aGsdxaGhc16Wh8TyP9mYed9/3
+aU/TvkwQBDQ0YRjS0ERRREMTxzENTZIkNDRpmtLQZFlGQ5PnOQ1NURQ0NGVZ
+0tBUVUVDU9c1DU3TNLQfjehpxD+YnjuR7dyPHXwHy1co2w==
+                  "], "Byte",
+                   ColorSpace -> "RGB", Interleaving -> True], "Hover" -> 
+                Image[CompressedData["
+1:eJzV1E0KgkAYxvGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKx/MDP1FRUZc2REE+
+LZ6kVS/8h5mB3/adq6f1fiCEOI/lsVauS8NQbpupfGz18/Gga7uVftEOmrFQ
+h/JzJpvIRqIzLakzpmm23/ZuLMuiobFtm4bGcRwaGtd1aWg8z6O9mcfd933a
+07QvEwQBDU0YhjQ0URTR0MRxTEOTJAkNTZqmNDRZltHQ5HlOQ1MUBQ1NWZY0
+NFVV0dDUdU1D0zQN7UcjehrxD6bnTmQ792MH3wFFhzOd
+                  "], "Byte", 
+                  ColorSpace -> "RGB", Interleaving -> True], "Pressed" -> 
+                Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiHmBmIUBBfwngFHAzJkz/xOLkfVs27aNIB7Gev6TqOc/vfVs376dIEbX
+s2fPHoIYXc/BgwcJYnQ9x44dI4jR9Zw+fZogRtdz/vx5ghhdz6VLlwhidD1X
+r14liNH13LhxgyBG13P79m2CGF3PnTt3CGIK9TCQqIdhKOghsUwkVOZilMEA
+mEXTyg==
+                  "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                  True], 
+                Dynamic[
+                 FEPrivate`If[
+                  FrontEnd`CurrentValue[
+                   FrontEnd`EvaluationNotebook[], {
+                   TaggingRules, "UUIDButtons", "Active", 
+                    "Button-21f6e290-e07f-4bef-9d86-e5282a86787a"}, False], 
+                  "Pressed", Automatic, Automatic]]},
+              
+              ButtonFunction:>(
+               With[{BTools`Formatting`Private`nb$ = EvaluationNotebook[]}, 
+                 Internal`WithLocalSettings[CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-21f6e290-e07f-4bef-9d86-e5282a86787a"}] = True, 
+                   Block[{$ContextPath = {"System`"}}, 
+                    Needs[
+                    StringJoin[AppManagerPalette`Private`$appName, "`"]]]; 
+                   AppManagerPalette`Private`newAppDialog[], CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-21f6e290-e07f-4bef-9d86-e5282a86787a"}] = False]; 
+                 Null]; Null),
+              Evaluator->Automatic,
+              FrameMargins->{{5, 5}, {2, 0}},
+              ImageSize->200,
+              Method->"Queued"],
+             EventHandlerTag[{"MouseClicked" :> Internal`WithLocalSettings[
+                 FrontEndExecute[
+                  FrontEnd`NotebookSuspendScreenUpdates[
+                   FrontEnd`EvaluationNotebook[]]], 
+                 If[
+                  TrueQ[
+                   Replace[
+                    Replace[Automatic, Pattern[BTools`Formatting`Private`d, 
+                    Blank[Dynamic]] :> First[BTools`Formatting`Private`d]], 
+                    Automatic -> True]], CurrentValue[
+                    FrontEnd`EvaluationNotebook[], {
+                    TaggingRules, "UUIDButtons", "Active", 
+                    "Button-21f6e290-e07f-4bef-9d86-e5282a86787a"}] = True], 
+                 FrontEndExecute[
+                  FrontEnd`NotebookResumeScreenUpdates[
+                   FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> True, 
+               Method -> "Preemptive", PassEventsUp -> True}]]}
+          },
+          DefaultBaseStyle->"Column",
+          GridBoxAlignment->{"Columns" -> {{Center}}},
+          
+          GridBoxItemSize->{
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+          
+          GridBoxSpacings->{
+           "ColumnsIndexed" -> {1 -> 0}, "RowsIndexed" -> {2 -> 0}}],
+         "Column"],
+        Alignment->{Center, Bottom},
+        ImageSize->{Automatic, 250}]}
+     },
+     DefaultBaseStyle->"Column",
+     GridBoxAlignment->{"Columns" -> {Left}, "Rows" -> {Top, Bottom}},
+     GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+     GridBoxSpacings->{"Columns" -> {{Automatic}}, "Rows" -> {{0}}}],
+    "Column"],
+   ImageSize->{Automatic, 
+     Scaled[1]}], If[Length[
+      OwnValues[AppManagerPalette`Private`$AppManagerImages]] == 0, 
+    AppManagerPalette`Private`$AppManagerImages = 
+    Association[8839340610906646254 -> Image[CompressedData["
+1:eJzN1LEKglAYhuFDNTQ0dAEt3UVrY6vRBRSZtBhoEF2GlyeKoqKIIqLobMdB
++Fz6qqkfngPn8E5n+Nenm3KZCCHMuTyU42NrGMfnfikvB928arp63ul3VVON
+zWkqH1fSQpqJ0XRvjMayrO4T2Nu2TWHvOA6Fveu6FPae51HY+75PDf/Y90EQ
+UMP/9n0YhhT2URRR2MdxTGGfJAmFfZqmFPZZllHY53lOYV8UBYV9WZYU9lVV
+UdjXdU1h3zQNhX3bttSPvfiiF//af7OvyC4c7cQXOc/YKw==
+        "], "Byte", 
+        ColorSpace -> "RGB", Interleaving -> True], 8071098384273740474 -> 
+      Image[CompressedData["
+1:eJzt1s+KgkAcwPGhOuyxY4e99BZd97jXYh+gyKSLgYV/HsMH8MFEUVQUUUQU
+PbszURG/GpP4uacd+MioM9+TqPPNYbkbEUKOH/SwXKtfsrzWV1N68iMd96Ik
+bL+lkyAK8mIzphc/qRk1IdzRvoE7DMNoh3DftywLFezbto0K9h3HQQX7ruui
+gn3P81Dd9c9z3/dRXfrttR8EASrYD8MQFexHUYQK9uM4RgX7SZI8YM+xaZqd
+2Jpne2E/TdOnFEXhvtPYPd4+2M+yjEtV1Yc2u9a1B/bzPO+kadptPZu/Wg/7
+RVG8pOv6WZ+1sF+WJSrYr6oKFezXdY0K9pumQfWHfTJgn/z3+/WH/L+6focR
+3cYv8PIQ7g==
+        "], "Byte", ColorSpace -> "RGB", Interleaving -> True], 
+      3640287997483741904 -> Image[CompressedData["
+1:eJzt1j1rg0AYwPEj6ZCxY4Yu+RZdM3a19AMkxIYuBrQQ9YM4+9V8wVdUVNTR
+3oUq8iRnJDx26sFPTr37b75s9ifhc0EIUVb0IOzOW1neae/P9ORDUr6Oknh4
+k77Foyi/7pf04gu1pp4Id7QP4A7DMNo5DPuWZaGCfdu2UcG+4zioYN91XVSw
+73keqkH/Mvd9H9Vvv+36QRCggv0wDFHBfhRFqGA/jmNUsJ8kyRX2HJqmOYqt
+ubUX9tM0vUlVVe47jd3j7YP9LMu4NE27arNrY3tgP8/zUbqu9+vZ/N562C+K
+4i7WZaashf2yLFHBflVVqGC/rmtUsN80Dao/7JMZ++S/P60/5/9V9x1G1I8f
+BDwtSg==
+        "], "Byte", ColorSpace -> "RGB", Interleaving -> True], 
+      3409879950018111118 -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJmpqa/tMCI5u/bds2quJR8weN+f9paP7/4WL+9u3b
+qYrRzd+zZw9VMbr5Bw8exMAwd+DDIDXY9KKbf+zYMaw4JSUFZ5kGksOlD938
+06dP48Tp6ekYZoPE8OlBN//8+fN4cWZmJlw9iE1IPbr5ly5dIoizsrLAmBi1
+6OZfvXqVqhjd/Bs3blAVo5t/+/ZtqmJ08+/cuUNVTEfzGWhoPsOo+cSZT8v2
+FawepiKGAwBxeUst
+        "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+        True], 3341935564104018004 -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGh7dBxj3vo0lt07di1ZR+gyKKLgS0se/MVfBj/vIAPIYqi
+oogioujZnYkt4pdaxM9ODXxkHGe+By86We0XmwEh5DCil8XyZyYIy9/Pd3rz
+xR92W55bz/lvbssJ09UbXRxTH9SQtI76Aa1DkqS6D5d9wzBQwb5pmqhg37Is
+VLBv2zYq2HccB9VF/zh3XRfVf78+9T3PQwX7vu+jgv0gCFDBfhiGqGA/iqIr
+7D3qut6J7Wk6C/txHDeSZbkWRbERe9Z2DvaTJGmlKMpVm611nYH9NE07qap6
+brP5rf2wn2XZTZqmHd2zF/bzPEcF+0VRoIL9sixRwX5VVaie2Cc99smrf1+/
+z/+r03cY0Xn8Ad19LLo=
+        "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+        True], 5847666566343194541 -> Image[CompressedData["
+1:eJzd1LEOwiAQgGGiDg4OPoCLb+Hq6FrjA7QRGxdMqInxlXi8QiBAABmPxStO
+jZf8JEe++fbdo7ktCCHDOj9N+zpy3r7P27xc2HDvGb2e2JP2lB+6Zf7c5Ta5
+FSkmfakYIUSaEvRT5k98qvBprj7GiAZ9CAENeu89GvTOOTTorbVo0Btj0KDX
+WqNBr5RCg15KiQb9OI5oP3pS4clcfc29Qm5hcRM/pA4MWg==
+        "], "Byte", 
+        ColorSpace -> "RGB", Interleaving -> True], 1647662466445621740 -> 
+      Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiHmAmIUBBfzHg1HAzJkz/xODkdXfvHmTIB4m6v+ToP7/YFV/9+5dghhZ
+/cOHDwliZPVPnz4liJHVv3z5kiBGVv/69WuCGFn9q1evCGJK3PP8+XOCGFn9
+s2fPCGI6qWcgQT3DYFVPSnlFoCxEKRMB+xLGWw==
+        "], "Byte", ColorSpace -> 
+        "RGB", Interleaving -> True], 1532046636781779760 -> 
+      Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJVP0b/tMCI5tvUXaAqhjD/PIDVMWY5h+kKsY0/xBV
+MYb5FYeoipHMB7MtKw5TFUPN/w83v/IIVTGm+UepijHMrzpKVUxv92NLA871
+x/5XLrmGF4PU4Ek/CPNx5MNZu+7/xwVAcgTyL9x889J9OPGsnfcwzQaK4dOD
+YX7JHrx41s67SGbfJage3Xyz4l0E8cwdd8CYGLXo5psW7qAqxjC/YBtVMbr5
+JvlbqIoxzM/bTFVMR/MZaGg+w6j5xJlPy/YVrB6mIoYDAAAkmg0=
+        "], "Byte", 
+        ColorSpace -> "RGB", Interleaving -> True], 688383996681129337 -> 
+      Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJHBI7/tMCI5ufMOkMVTGm+WepijHMn3yOqhjd/ESg
+GDUxhvlTzlMVI5n/H2L+BapiqPn/YeYnTb1IVUx386ddoiqmt/uxpYHMmZf+
+T9l+Hy8GqcGTfuDm48qH6048+48LgOQI5F+4+fETT+PE644/xTQbKIZPD7r5
+cf0n8eK1x57AzQaxCalHNz+27zhBvPbYYzAmRi26+TE9R6mK0c2P7j5EVYxu
+flTnAapidPMjO/ZTFdPRfAYams8waj5x5tOyfQWrh6mI4QAAWYY7QA==
+        "], "Byte", 
+        ColorSpace -> "RGB", Interleaving -> True], 6036219341610178011 -> 
+      Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJFN2L/9MCI5uvlzSfqnjU/EFj/n8amv9/2JifvICq
+GN18/dQlVMXo5humr8DA1vlr/pfMPIIXg9Rg04tuvlHWGqx4+par/3EBkBwu
+fejmG+dswIlnbL2OYTZIDJ8edPNN8jbhxTO23UCYDWQTUo/h/tyNBDHIzWB3
+E6EWM3zWUxVjxG/2OqpiTPPXUhUTmz7JxXQ0n4GG5jOMmk+c+bRsX8HqYSpi
+OAAA5rpJeQ==
+        "], "Byte", ColorSpace -> "RGB", Interleaving -> True], 
+      6095725086947264879 -> Image[CompressedData["
+1:eJyF0b0OgjAQB/BGHRx9BRMfwtXRFeMDQETiggmYGJ+rL9XS8lVoC12wJnLT
+JVxyd7/7r7ePnsF9RQjJt34E4fuUZeHnsvPHNc0fSRrfzukrTuLsGK19ePD9
+2xsCNQF8/e/JOQcex3HRwzCgttaCjTGotdao+74Hd12HWikFbtsWddM04Lqu
+UVdVBS7LErWUErUQAlwUBWrO+aIZY7MJpRT+Mmdfqc/QmA==
+        "], "Byte", 
+        ColorSpace -> "RGB", Interleaving -> True], 5440051064614500607 -> 
+      Image[CompressedData["
+1:eJzV1EEKgkAYhuGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKRxNFUVFEEVF0bUMU
+5NfiS1r1wzvMDDzbf66e1vuBEOI8lsdauS4NQ7ltpvKx1c/Hg67tVvpFO2jG
+Qh3Kz5lsIhuJzrSkzpim2X7bu7Esi4bGtm0aGsdxaGhc16Wh8TyP9mYed9/3
+aU/TvkwQBDQ0YRjS0ERRREMTxzENTZIkNDRpmtLQZFlGQ5PnOQ1NURQ0NGVZ
+0tBUVUVDU9c1DU3TNLQfjehpxD+YnjuR7dyPHXwHy1co2w==
+        "], "Byte", 
+        ColorSpace -> "RGB", Interleaving -> True], 4079914506038896738 -> 
+      Image[CompressedData["
+1:eJzV1E0KgkAYxvGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKx/MDP1FRUZc2REE+
+LZ6kVS/8h5mB3/adq6f1fiCEOI/lsVauS8NQbpupfGz18/Gga7uVftEOmrFQ
+h/JzJpvIRqIzLakzpmm23/ZuLMuiobFtm4bGcRwaGtd1aWg8z6O9mcfd933a
+07QvEwQBDU0YhjQ0URTR0MRxTEOTJAkNTZqmNDRZltHQ5HlOQ1MUBQ1NWZY0
+NFVV0dDUdU1D0zQN7UcjehrxD6bnTmQ792MH3wFFhzOd
+        "], "Byte", ColorSpace -> 
+        "RGB", Interleaving -> True], 685002494092402898 -> 
+      Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiHmBmIUBBfwngFHAzJkz/xOLkfVs27aNIB7Gev6TqOc/vfVs376dIEbX
+s2fPHoIYXc/BgwcJYnQ9x44dI4jR9Zw+fZogRtdz/vx5ghhdz6VLlwhidD1X
+r14liNH13LhxgyBG13P79m2CGF3PnTt3CGIK9TCQqIdhKOghsUwkVOZilMEA
+mEXTyg==
+        "], "Byte", ColorSpace -> "RGB", Interleaving -> True]]]; 
+  If[DownValues[AppManagerPalette`Private`getAppName] == {}, 
+    DownValues[AppManagerPalette`Private`getAppName] = {HoldPattern[
+        AppManagerPalette`Private`getAppName[]] :> (
+       AppManagerPalette`Private`$appName = 
+       With[{AppManagerPalette`Private`dir = NotebookDirectory[]}, 
+         Replace[
+          FileNameSplit[AppManagerPalette`Private`dir], {{
+             BlankNullSequence[], 
+             Pattern[AppManagerPalette`Private`d, 
+              Blank[]], "FrontEnd", "Palettes", 
+             BlankNullSequence[]} :> First[
+             StringSplit[AppManagerPalette`Private`d, "-", 2]], {
+             BlankNullSequence[], 
+             Pattern[AppManagerPalette`Private`d, 
+              Blank[]], "Private", "Misc", 
+             BlankNullSequence[]} :> First[
+             StringSplit[AppManagerPalette`Private`d, "-", 2]], Blank[] :> 
+           FileBaseName[
+             Nest[DirectoryName, AppManagerPalette`Private`dir, 2]]}]])}]; 
+  If[
+    Not[
+     StringQ[AppManagerPalette`Private`$appName]], 
+    AppManagerPalette`Private`getAppName[]]; 
+  Block[{$ContextPath = {"System`"}}, 
+    Needs[
+     StringJoin[AppManagerPalette`Private`$appName, "`"]]]; 
+  If[DownValues[AppManagerPalette`Private`newAppDialog] == {}, 
+    DownValues[AppManagerPalette`Private`newAppDialog] = {HoldPattern[
+        AppManagerPalette`Private`newAppDialog[]] :> 
+      DynamicModule[{
+        AppManagerPalette`Private`newAppName = "", 
+         AppManagerPalette`Private`appFiles = {}}, 
+        ClearAttributes[{
+          AppManagerPalette`Private`newAppName, 
+           AppManagerPalette`Private`appFiles}, Temporary]; CreateDialog[
+          Column[{
+            InputField[
+             Dynamic[AppManagerPalette`Private`newAppName], String, BoxID -> 
+             "app-name"], 
+            Panel[
+             Column[{"App Files:", 
+               Panel[
+                Pane[
+                 With[{AppManagerPalette`Private`xIcon = RawBoxes[
+                    FrontEndResource["FEBitmaps", "CircleXIcon"]], 
+                   AppManagerPalette`Private`xIconActive = RawBoxes[
+                    FrontEndResource["FEBitmaps", "CircleXIcon"]]}, 
+                  Dynamic[
+                   Column[
+                    Map[Grid[{{
+                    Button[
+                    Mouseover[
+                    AppManagerPalette`Private`xIcon, 
+                    AppManagerPalette`Private`xIconActive], 
+                    AppManagerPalette`Private`appFiles = 
+                    DeleteCases[AppManagerPalette`Private`appFiles, #], 
+                    Appearance -> "Frameless"], #}}]& , 
+                    AppManagerPalette`Private`appFiles]], 
+                   TrackedSymbols :> {
+                    AppManagerPalette`Private`appFiles}]], {{250, 500}, 
+                  Automatic}]], 
+               Button["Add Files", 
+                
+                With[{AppManagerPalette`Private`f = 
+                  SystemDialogInput["FileOpen", 
+                    FileNameJoin[{$HomeDirectory, "Desktop"}]]}, 
+                 AppManagerPalette`Private`appFiles = DeleteCases[
+                   
+                   Flatten[{
+                    AppManagerPalette`Private`appFiles, 
+                    AppManagerPalette`Private`f}], 
+                   Except[
+                    PatternTest[
+                    Blank[String], FileExistsQ]]]], Method -> "Queued", 
+                Appearance -> "Palette"], 
+               Button["Add Directory", 
+                
+                With[{AppManagerPalette`Private`f = 
+                  SystemDialogInput["Directory", 
+                    FileNameJoin[{$HomeDirectory, "Desktop"}]]}, 
+                 If[
+                  And[
+                   MatchQ[AppManagerPalette`Private`f, 
+                    PatternTest[
+                    Blank[String], FileExistsQ]], 
+                   Not[
+                    MemberQ[
+                    AppManagerPalette`Private`appFiles, 
+                    AppManagerPalette`Private`f]]], 
+                  AppendTo[
+                  AppManagerPalette`Private`appFiles, 
+                   AppManagerPalette`Private`f]]], Method -> "Queued", 
+                Appearance -> "Palette"]}]], 
+            Button["Create App", 
+             If[
+              And[
+               MatchQ[AppManagerPalette`Private`newAppName, 
+                PatternTest[
+                 Blank[String], 
+                 StringMatchQ[
+                  Repeated[WordCharacter]]]], 
+               Not[
+                FileExistsQ[
+                 AppManagerPalette`Private`whichPacF["AppDirectory"][
+                 AppManagerPalette`Private`newAppName]]]], 
+              With[{AppManagerPalette`Private`name = 
+                 AppManagerPalette`Private`newAppName, 
+                 AppManagerPalette`Private`fils = 
+                 AppManagerPalette`Private`appFiles}, 
+                AppManagerPalette`Private`whichPacF["AppConfigure"][
+                AppManagerPalette`Private`name, 
+                 AppManagerPalette`Private`fils]]; DialogReturn[
+                AppManagerPalette`Private`whichPacF["AppDirectory"][
+                AppManagerPalette`Private`newAppName]], 
+              Message[
+               MessageName[
+               AppManagerPalette`Private`AppManagerPalette, "noapp"], 
+               AppManagerPalette`Private`newAppName]]]}], WindowTitle -> 
+          "New App", NotebookDynamicExpression :> Refresh[
+            FrontEnd`MoveCursorToInputField[
+             EvaluationNotebook[], "app-name"], None]]]}]; 
+  If[DownValues[AppManagerPalette`Private`refreshApps] == {}, 
+    DownValues[AppManagerPalette`Private`refreshApps] = {HoldPattern[
+        AppManagerPalette`Private`refreshApps[]] :> (
+       AppManagerPalette`Private`refreshFlag = RandomReal[]; 
+       AppManagerPalette`Private`appList = Select[And[
+           If[
+            TrueQ[AppManagerPalette`Private`$selectAllApps], True, 
+            StringFreeQ[#, 
+             
+             Alternatives[$InstallationDirectory, 
+              PacletManager`$UserBasePacletsDirectory]]], 
+           StringMatchQ[
+            FileBaseName[#], 
+            Repeated[
+             Alternatives[WordCharacter, "$"]]]]& ][
+          AppManagerPalette`Private`whichPacF["AppNames"][False]]; If[
+         Not[
+          MemberQ[
+           Map[FileBaseName, AppManagerPalette`Private`appList], 
+           AppManagerPalette`Private`currentApp]], 
+         AppManagerPalette`Private`currentApp = 
+         If[Length[AppManagerPalette`Private`appList] > 0, 
+           If[
+            MemberQ[
+             Map[FileBaseName, AppManagerPalette`Private`appList], "BTools"], 
+            "BTools", 
+            FileBaseName[
+             First[AppManagerPalette`Private`appList]]], ""]]; 
+       AppManagerPalette`Private`appList)}]; 
+  If[DownValues[AppManagerPalette`Private`addContent] == {}, 
+    DownValues[AppManagerPalette`Private`addContent] = {}]; 
+  If[DownValues[AppManagerPalette`Private`currentExtensionPath] == {}, 
+    DownValues[AppManagerPalette`Private`currentExtensionPath] = {}]; 
+  If[DownValues[AppManagerPalette`Private`sysOpen] == {}, 
+    DownValues[AppManagerPalette`Private`sysOpen] = {HoldPattern[
+        AppManagerPalette`Private`sysOpen[
+         Pattern[AppManagerPalette`Private`file, 
+          Blank[]], 
+         Optional[
+          Pattern[AppManagerPalette`Private`app, 
+           Blank[]], Automatic]]] :> 
+      With[{AppManagerPalette`Private`useApp = Switch[
+           ToLowerCase[
+            FileExtension[AppManagerPalette`Private`file]], "m", 
+           "Mathematica", "html", "Atom", 
+           Alternatives["mol", "sdf", "mol2", "xyz", "paclet"], 
+           "TextWrangler", 
+           Blank[], None]}, 
+        Switch[$OperatingSystem, "MacOSX", 
+         If[
+          Or[
+           Not[
+            StringQ[AppManagerPalette`Private`useApp]], 
+           RunProcess[{
+             "open", AppManagerPalette`Private`file, "-a", 
+              AppManagerPalette`Private`useApp}, "ExitCode"] =!= 0], 
+          SystemOpen[AppManagerPalette`Private`file]], 
+         Blank[], 
+         SystemOpen[AppManagerPalette`Private`file]]]}]; 
+  If[DownValues[AppManagerPalette`Private`undefF] == {}, 
+    DownValues[AppManagerPalette`Private`undefF] = {HoldPattern[
+        AppManagerPalette`Private`undefF[
+         Pattern[AppManagerPalette`Private`s, 
+          Blank[]], 
+         Optional[
+          Pattern[AppManagerPalette`Private`h, 
+           Blank[]], Identity], 
+         Optional[
+          Pattern[AppManagerPalette`Private`c, 
+           Blank[]], "*"]]] :> Replace[
+        Join[
+         Names[
+          StringJoin[
+          AppManagerPalette`Private`c, "`", AppManagerPalette`Private`s]], 
+         Names[
+          StringJoin[
+          AppManagerPalette`Private`c, "`*`", AppManagerPalette`Private`s]], 
+         Names[
+          StringJoin[
+          AppManagerPalette`Private`c, "`*`*`", 
+           AppManagerPalette`Private`s]]], 
+        Pattern[AppManagerPalette`Private`f, {
+           BlankNullSequence[]}] :> ToExpression[
+          SelectFirst[
+          AppManagerPalette`Private`f, ToExpression[#, StandardForm, 
+            Function[Null, Length[
+               Join[
+                OwnValues[#], 
+                DownValues[#], 
+                UpValues[#], 
+                SubValues[#]]] > 0, HoldAllComplete]]& , 
+           Part[AppManagerPalette`Private`f, 1]], StandardForm, 
+          AppManagerPalette`Private`h]]}]; 
+  If[DownValues[AppManagerPalette`Private`whichPacF] == {}, 
+    DownValues[AppManagerPalette`Private`whichPacF] = {HoldPattern[
+        AppManagerPalette`Private`whichPacF[
+         Pattern[AppManagerPalette`Private`s, 
+          Blank[]], 
+         Optional[
+          Pattern[AppManagerPalette`Private`h, 
+           Blank[]], Identity]]] :> Which[Length[
+          DownValues[BTools`PackageScope`Private`PackageFilePath]] > 0, 
+        AppManagerPalette`Private`undefF[
+        AppManagerPalette`Private`s, AppManagerPalette`Private`h, "BTools"], 
+        Length[
+          DownValues[
+           Evaluate[
+            ToExpression[
+             StringJoin[
+             AppManagerPalette`Private`$appName, 
+              "`PackageScope`Private`PackageFilePath"]]]]] > 0, 
+        AppManagerPalette`Private`undefF[
+        AppManagerPalette`Private`s, AppManagerPalette`Private`h, 
+         AppManagerPalette`Private`$appName], True, 
+        AppManagerPalette`Private`undefF[
+        AppManagerPalette`Private`s, AppManagerPalette`Private`h]]}]; 
+  If[DownValues[AppManagerPalette`Private`paletteDialog] == {}, 
+    DownValues[AppManagerPalette`Private`paletteDialog] = {HoldPattern[
+        AppManagerPalette`Private`paletteDialog[
+         Pattern[AppManagerPalette`Private`expr, 
+          Blank[]], 
+         Pattern[AppManagerPalette`Private`msg, 
+          Blank[]], 
+         Pattern[AppManagerPalette`Private`ops, 
+          BlankNullSequence[]]]] :> 
+      With[{AppManagerPalette`Private`nb = MessageDialog[
+           Row[{AppManagerPalette`Private`msg, 
+             ProgressIndicator[Appearance -> "Ellipsis"]}], 
+           AppManagerPalette`Private`ops, WindowTitle -> 
+           AppManagerPalette`Private`msg]}, 
+        ((NotebookClose[AppManagerPalette`Private`nb]; #)& )[
+         CheckAbort[AppManagerPalette`Private`expr, 
+          NotebookClose[AppManagerPalette`Private`nb]]]]}]; 
+  If[Attributes[AppManagerPalette`Private`paletteDialog] == {}, 
+    Attributes[AppManagerPalette`Private`paletteDialog] = {HoldFirst}]; 
+  DownValues[AppManagerPalette`Private`loadGitBranches] = {HoldPattern[
+       AppManagerPalette`Private`loadGitBranches[
+        Optional[
+         Pattern[AppManagerPalette`Private`forceReload, 
+          Alternatives[True, False]], False]]] :> 
+     If[AppManagerPalette`Private`forceReload, 
+       AppManagerPalette`Private`$gitBranches = If[
+         AppManagerPalette`Private`gitRepoQ[], 
+         AppManagerPalette`Private`whichPacF["GitListWithCurrentBranch"][
+          AppManagerPalette`Private`whichPacF["AppPath"][
+          AppManagerPalette`Private`currentApp]], {}], 
+       Replace[AppManagerPalette`Private`$gitBranches, Except[
+          Blank[List]] :> AppManagerPalette`Private`loadGitBranches[True]]]}; 
+  DownValues[AppManagerPalette`Private`inputDialog] = {HoldPattern[
+       AppManagerPalette`Private`inputDialog[
+        Pattern[AppManagerPalette`Private`header, 
+         Blank[]]]] :> DialogInput[{AppManagerPalette`Private`var}, 
+       Column[
+        Flatten[{AppManagerPalette`Private`header, 
+          EventHandler[
+           InputField[
+            Dynamic[AppManagerPalette`Private`var], String, BoxID -> 
+            "input-field"], {
+           "ReturnKeyDown" :> 
+            DialogReturn[AppManagerPalette`Private`var]}]}]], 
+       NotebookDynamicExpression :> Refresh[
+         FrontEnd`MoveCursorToInputField[
+          EvaluationNotebook[], "input-field"], None]]}; 
+  DownValues[AppManagerPalette`Private`gitRepoQ] = {HoldPattern[
+       AppManagerPalette`Private`gitRepoQ[]] :> TrueQ[
+       AppManagerPalette`Private`whichPacF["GitRepoQ"][
+        AppManagerPalette`Private`whichPacF["AppPath"][
+        AppManagerPalette`Private`currentApp]]]}; 
+  DownValues[AppManagerPalette`Private`fileNamesGather] = {HoldPattern[
+       AppManagerPalette`Private`fileNamesGather[
+        Pattern[AppManagerPalette`Private`zargs, 
+         BlankNullSequence[]]]] :> (
+      With[{AppManagerPalette`Private`pat = #, AppManagerPalette`Private`path = {
+          SlotSequence[2]}, AppManagerPalette`Private`dir = 
+        AppManagerPalette`Private`whichPacF["AppPath"][
+         AppManagerPalette`Private`currentApp, 
+          SlotSequence[2]]}, 
+       Flatten[
+        Riffle[
+         (Map[
+         GatherBy[#, 
+           FileNameTake[#, FileNameDepth[AppManagerPalette`Private`dir] + 
+            2]& ]& , 
+          GatherBy[#, FileNameTake[#, {
+             FileNameDepth[AppManagerPalette`Private`dir], 
+             
+             Min[{FileNameDepth[AppManagerPalette`Private`dir] + 1, 
+               FileNameDepth[#] - 1}]}]& ]]& )[
+          SortBy[{FileNameDepth[#] + 30 Boole[
+               StringContainsQ[#, 
+                StringExpression["__", 
+                 Repeated[
+                  Alternatives[WordCharacter, " ", "$"]], "__"]]]& , Part[
+             FileNameSplit[#], -2]& , FileBaseName[#]& , StringReverse[
+             FileExtension[#]]& }][
+           Select[Or[
+             StringContainsQ[
+              StringTrim[#, AppManagerPalette`Private`dir], "__Future__"], 
+             Not[
+              StringContainsQ[
+               StringTrim[#, AppManagerPalette`Private`dir], 
+               StringExpression["__", 
+                Repeated[
+                 Alternatives[WordCharacter, " ", "$"]], "__"]]]]& ][
+            FileNames[#, AppManagerPalette`Private`dir, Infinity]]]], 
+         Delimiter]]]& )[AppManagerPalette`Private`zargs]}; 
+  DownValues[AppManagerPalette`Private`formatFilePaths] = {HoldPattern[
+       AppManagerPalette`Private`formatFilePaths[
+        Pattern[AppManagerPalette`Private`zargs, 
+         BlankNullSequence[]]]] :> ((
+      DeleteDuplicates[#, If[# === Delimiter, False, 
+        Equal[
+         SlotSequence[1]]]& ]& )[
+       Flatten[
+        Table[
+         With[{AppManagerPalette`Private`n = AppManagerPalette`Private`n}, 
+          If[
+           StringQ[AppManagerPalette`Private`n], 
+           With[{AppManagerPalette`Private`fp = FileNameDrop[
+               FileNameJoin[{
+                 DirectoryName[AppManagerPalette`Private`n], 
+                 FileBaseName[AppManagerPalette`Private`n]}], 
+               FileNameDepth[
+                AppManagerPalette`Private`whichPacF["AppDirectory"][
+                AppManagerPalette`Private`currentApp]]]}, 
+            
+            With[{AppManagerPalette`Private`l = 
+              FileNameDepth[AppManagerPalette`Private`fp]}, 
+             If[AppManagerPalette`Private`l > 1, 
+              MapIndexed[
+              If[Part[#2, 1] === AppManagerPalette`Private`l - 1, StringJoin[
+                  If[Part[#2, 1] > 1, 
+                   StringRepeat["  ", Part[#2, 1] - 1], ""], #] :> 
+                AppManagerPalette`Private`sysOpen[
+                 AppManagerPalette`Private`n], 
+                
+                With[{AppManagerPalette`Private`p = 
+                  FileNameDrop[
+                   AppManagerPalette`Private`n, Part[#2, 1] - 
+                    AppManagerPalette`Private`l + 1]}, StringJoin[
+                   If[Part[#2, 1] > 1, 
+                    StringRepeat["  ", Part[#2, 1] - 1], ""], #, 
+                   "\[RightGuillemet]"] :> 
+                 AppManagerPalette`Private`sysOpen[
+                  AppManagerPalette`Private`p]]]& , 
+               Rest[
+                FileNameSplit[AppManagerPalette`Private`fp]]], 
+              AppManagerPalette`Private`fp :> 
+              AppManagerPalette`Private`sysOpen[
+               AppManagerPalette`Private`n]]]], 
+           AppManagerPalette`Private`n]], {
+         AppManagerPalette`Private`n, #}]]]& )[
+      AppManagerPalette`Private`zargs]}; If[
+    Not[
+     StringQ[
+      ReleaseHold[AppManagerPalette`Private`$paletteTab]]], 
+    AppManagerPalette`Private`$paletteTab = First[
+      Keys[
+       Association["App" -> {
+          EventHandler[
+           Dynamic[
+            Insert[
+             ReplaceAll[
+              Insert[
+               Row[{
+                 Button[
+                 "Packages", Null, 
+                  Appearance -> ("Default" -> Image[CompressedData["
+1:eJzN1LEKglAYhuFDNTQ0dAEt3UVrY6vRBRSZtBhoEF2GlyeKoqKIIqLobMdB
++Fz6qqkfngPn8E5n+Nenm3KZCCHMuTyU42NrGMfnfikvB928arp63ul3VVON
+zWkqH1fSQpqJ0XRvjMayrO4T2Nu2TWHvOA6Fveu6FPae51HY+75PDf/Y90EQ
+UMP/9n0YhhT2URRR2MdxTGGfJAmFfZqmFPZZllHY53lOYV8UBYV9WZYU9lVV
+UdjXdU1h3zQNhX3bttSPvfiiF//af7OvyC4c7cQXOc/YKw==
+                    "], 
+                    "Byte", ColorSpace -> "RGB", Interleaving -> True]), {
+                  Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                   FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                   "Palette", Appearance -> ActionMenu, Alignment -> 
+                   Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                 ActionMenu[
+                  Button[
+                  "", Null, Appearance -> {"Default" -> Image[CompressedData["
+
+1:eJzt1s+KgkAcwPGhOuyxY4e99BZd97jXYh+gyKSLgYV/HsMH8MFEUVQUUUQU
+PbszURG/GpP4uacd+MioM9+TqPPNYbkbEUKOH/SwXKtfsrzWV1N68iMd96Ik
+bL+lkyAK8mIzphc/qRk1IdzRvoE7DMNoh3DftywLFezbto0K9h3HQQX7ruui
+gn3P81Dd9c9z3/dRXfrttR8EASrYD8MQFexHUYQK9uM4RgX7SZI8YM+xaZqd
+2Jpne2E/TdOnFEXhvtPYPd4+2M+yjEtV1Yc2u9a1B/bzPO+kadptPZu/Wg/7
+RVG8pOv6WZ+1sF+WJSrYr6oKFezXdY0K9pumQfWHfTJgn/z3+/WH/L+6focR
+3cYv8PIQ7g==
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Hover" -> Image[CompressedData["
+1:eJzt1j1rg0AYwPEj6ZCxY4Yu+RZdM3a19AMkxIYuBrQQ9YM4+9V8wVdUVNTR
+3oUq8iRnJDx26sFPTr37b75s9ifhc0EIUVb0IOzOW1neae/P9ORDUr6Oknh4
+k77Foyi/7pf04gu1pp4Id7QP4A7DMNo5DPuWZaGCfdu2UcG+4zioYN91XVSw
+73keqkH/Mvd9H9Vvv+36QRCggv0wDFHBfhRFqGA/jmNUsJ8kyRX2HJqmOYqt
+ubUX9tM0vUlVVe47jd3j7YP9LMu4NE27arNrY3tgP8/zUbqu9+vZ/N562C+K
+4i7WZaashf2yLFHBflVVqGC/rmtUsN80Dao/7JMZ++S/P60/5/9V9x1G1I8f
+BDwtSg==
+                    "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                    True], "Pressed" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJmpqa/tMCI5u/bds2quJR8weN+f9paP7/4WL+9u3b
+qYrRzd+zZw9VMbr5Bw8exMAwd+DDIDXY9KKbf+zYMaw4JSUFZ5kGksOlD938
+06dP48Tp6ekYZoPE8OlBN//8+fN4cWZmJlw9iE1IPbr5ly5dIoizsrLAmBi1
+6OZfvXqVqhjd/Bs3blAVo5t/+/ZtqmJ08+/cuUNVTEfzGWhoPsOo+cSZT8v2
+FawepiKGAwBxeUst
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Disabled" -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGh7dBxj3vo0lt07di1ZR+gyKKLgS0se/MVfBj/vIAPIYqi
+oogioujZnYkt4pdaxM9ODXxkHGe+By86We0XmwEh5DCil8XyZyYIy9/Pd3rz
+xR92W55bz/lvbssJ09UbXRxTH9SQtI76Aa1DkqS6D5d9wzBQwb5pmqhg37Is
+VLBv2zYq2HccB9VF/zh3XRfVf78+9T3PQwX7vu+jgv0gCFDBfhiGqGA/iqIr
+7D3qut6J7Wk6C/txHDeSZbkWRbERe9Z2DvaTJGmlKMpVm611nYH9NE07qap6
+brP5rf2wn2XZTZqmHd2zF/bzPEcF+0VRoIL9sixRwX5VVaie2Cc99smrf1+/
+z/+r03cY0Xn8Ad19LLo=
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True]}], {"Label" :> "Result"}, 
+                  Appearance -> None, {}]}, {}], 
+               FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$9473], 
+                    Part[AppManagerPalette`Private`listing$9473, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$9473, 2], 
+                    Join[
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.nb", "*.m", "*.wl"], "Packages"], 
+                    Select[FileBaseName[#] =!= "init"& ][
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.m", "*.wl"], "Kernel"]], 
+                    Select[Not[
+                    StringEndsQ[
+                    FileBaseName[#], "Info"]]& ][
+                    FileNames[
+                    Alternatives["*.m", "*.wl"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]]]]]] > 0, 
+                 TrackedSymbols :> {
+                  AppManagerPalette`Private`flag$9473, 
+                   AppManagerPalette`Private`currentApp}}, 
+                Options[ActionMenu]], {1, 2, -1}], {"Label" :> "Result"} -> (
+               AppManagerPalette`Private`flag$9473; 
+               AppManagerPalette`Private`currentApp; Part[
+                 If[
+                  And[
+                   ListQ[AppManagerPalette`Private`listing$9473], 
+                   Part[AppManagerPalette`Private`listing$9473, 1] == 
+                   AppManagerPalette`Private`currentApp], 
+                  AppManagerPalette`Private`listing$9473, 
+                  AppManagerPalette`Private`listing$9473 = {
+                   AppManagerPalette`Private`currentApp, 
+                    With[{AppManagerPalette`Private`bits = Replace[
+                    Map[
+                    DeleteDuplicatesBy[If[
+                    AtomQ[#], 
+                    RandomReal[], 
+                    First[#]]& ], {
+                    AppManagerPalette`Private`formatFilePaths[
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.nb", "*.m", "*.wl"], "Packages"]], 
+                    Select[Or[
+                    AtomQ[#], First[#] =!= "init"]& ][
+                    AppManagerPalette`Private`formatFilePaths[
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.m", "*.wl"], "Kernel"]]], 
+                    Select[Not[
+                    StringEndsQ[
+                    First[#], "Info"]]& ][
+                    AppManagerPalette`Private`formatFilePaths[
+                    SortBy[
+                    FileNames[
+                    Alternatives["*.m", "*.wl"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], {
+                    Composition[StringReverse, FileExtension]}]]]}], {} -> 
+                    Nothing, 1]}, 
+                    Flatten[
+                    Riffle[AppManagerPalette`Private`bits, Delimiter]]]}], 
+                 2])], 
+             FilterRules[{Enabled -> Length[
+                  If[
+                   And[
+                    ListQ[AppManagerPalette`Private`listing$9473], 
+                    Part[AppManagerPalette`Private`listing$9473, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                   Part[AppManagerPalette`Private`listing$9473, 2], 
+                   Join[
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.nb", "*.m", "*.wl"], "Packages"], 
+                    Select[FileBaseName[#] =!= "init"& ][
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.m", "*.wl"], "Kernel"]], 
+                    Select[Not[
+                    StringEndsQ[
+                    FileBaseName[#], "Info"]]& ][
+                    FileNames[
+                    Alternatives["*.m", "*.wl"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]]]]]] > 0, 
+               TrackedSymbols :> {
+                AppManagerPalette`Private`flag$9473, 
+                 AppManagerPalette`Private`currentApp}}, 
+              Options[Button]], {1, 1, -1}], {Enabled -> False}], {
+           "MouseDown" :> (AppManagerPalette`Private`flag$9473 = 
+             RandomReal[]), PassEventsDown -> True}], 
+          EventHandler[
+           Dynamic[
+            Insert[
+             ReplaceAll[
+              Insert[
+               Row[{
+                 Button[
+                 "Front End", Null, 
+                  Appearance -> ("Default" -> Image[CompressedData["
+1:eJzN1LEKglAYhuFDNTQ0dAEt3UVrY6vRBRSZtBhoEF2GlyeKoqKIIqLobMdB
++Fz6qqkfngPn8E5n+Nenm3KZCCHMuTyU42NrGMfnfikvB928arp63ul3VVON
+zWkqH1fSQpqJ0XRvjMayrO4T2Nu2TWHvOA6Fveu6FPae51HY+75PDf/Y90EQ
+UMP/9n0YhhT2URRR2MdxTGGfJAmFfZqmFPZZllHY53lOYV8UBYV9WZYU9lVV
+UdjXdU1h3zQNhX3bttSPvfiiF//af7OvyC4c7cQXOc/YKw==
+                    "], 
+                    "Byte", ColorSpace -> "RGB", Interleaving -> True]), {
+                  Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                   FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                   "Palette", Appearance -> ActionMenu, Alignment -> 
+                   Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                 ActionMenu[
+                  Button[
+                  "", Null, Appearance -> {"Default" -> Image[CompressedData["
+
+1:eJzt1s+KgkAcwPGhOuyxY4e99BZd97jXYh+gyKSLgYV/HsMH8MFEUVQUUUQU
+PbszURG/GpP4uacd+MioM9+TqPPNYbkbEUKOH/SwXKtfsrzWV1N68iMd96Ik
+bL+lkyAK8mIzphc/qRk1IdzRvoE7DMNoh3DftywLFezbto0K9h3HQQX7ruui
+gn3P81Dd9c9z3/dRXfrttR8EASrYD8MQFexHUYQK9uM4RgX7SZI8YM+xaZqd
+2Jpne2E/TdOnFEXhvtPYPd4+2M+yjEtV1Yc2u9a1B/bzPO+kadptPZu/Wg/7
+RVG8pOv6WZ+1sF+WJSrYr6oKFezXdY0K9pumQfWHfTJgn/z3+/WH/L+6focR
+3cYv8PIQ7g==
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Hover" -> Image[CompressedData["
+1:eJzt1j1rg0AYwPEj6ZCxY4Yu+RZdM3a19AMkxIYuBrQQ9YM4+9V8wVdUVNTR
+3oUq8iRnJDx26sFPTr37b75s9ifhc0EIUVb0IOzOW1neae/P9ORDUr6Oknh4
+k77Foyi/7pf04gu1pp4Id7QP4A7DMNo5DPuWZaGCfdu2UcG+4zioYN91XVSw
+73keqkH/Mvd9H9Vvv+36QRCggv0wDFHBfhRFqGA/jmNUsJ8kyRX2HJqmOYqt
+ubUX9tM0vUlVVe47jd3j7YP9LMu4NE27arNrY3tgP8/zUbqu9+vZ/N562C+K
+4i7WZaashf2yLFHBflVVqGC/rmtUsN80Dao/7JMZ++S/P60/5/9V9x1G1I8f
+BDwtSg==
+                    "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                    True], "Pressed" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJmpqa/tMCI5u/bds2quJR8weN+f9paP7/4WL+9u3b
+qYrRzd+zZw9VMbr5Bw8exMAwd+DDIDXY9KKbf+zYMaw4JSUFZ5kGksOlD938
+06dP48Tp6ekYZoPE8OlBN//8+fN4cWZmJlw9iE1IPbr5ly5dIoizsrLAmBi1
+6OZfvXqVqhjd/Bs3blAVo5t/+/ZtqmJ08+/cuUNVTEfzGWhoPsOo+cSZT8v2
+FawepiKGAwBxeUst
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Disabled" -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGh7dBxj3vo0lt07di1ZR+gyKKLgS0se/MVfBj/vIAPIYqi
+oogioujZnYkt4pdaxM9ODXxkHGe+By86We0XmwEh5DCil8XyZyYIy9/Pd3rz
+xR92W55bz/lvbssJ09UbXRxTH9SQtI76Aa1DkqS6D5d9wzBQwb5pmqhg37Is
+VLBv2zYq2HccB9VF/zh3XRfVf78+9T3PQwX7vu+jgv0gCFDBfhiGqGA/iqIr
+7D3qut6J7Wk6C/txHDeSZbkWRbERe9Z2DvaTJGmlKMpVm611nYH9NE07qap6
+brP5rf2wn2XZTZqmHd2zF/bzPEcF+0VRoIL9sixRwX5VVaie2Cc99smrf1+/
+z/+r03cY0Xn8Ad19LLo=
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True]}], {"Label" :> "Result"}, 
+                  Appearance -> None, {}]}, {}], 
+               FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$9906], 
+                    Part[AppManagerPalette`Private`listing$9906, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$9906, 2], 
+                    FileNames["*.nb", 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "FrontEnd"], 4]]] > 
+                  0, 
+                 TrackedSymbols :> {
+                  AppManagerPalette`Private`flag$9906, 
+                   AppManagerPalette`Private`currentApp}}, 
+                Options[ActionMenu]], {1, 2, -1}], {"Label" :> "Result"} -> (
+               AppManagerPalette`Private`flag$9906; 
+               AppManagerPalette`Private`currentApp; Part[
+                 If[
+                  And[
+                   ListQ[AppManagerPalette`Private`listing$9906], 
+                   Part[AppManagerPalette`Private`listing$9906, 1] == 
+                   AppManagerPalette`Private`currentApp], 
+                  AppManagerPalette`Private`listing$9906, 
+                  AppManagerPalette`Private`listing$9906 = {
+                   AppManagerPalette`Private`currentApp, 
+                    If[
+                    DirectoryQ[
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "FrontEnd"]], 
+                    AppManagerPalette`Private`formatFilePaths[
+                    AppManagerPalette`Private`fileNamesGather[
+                    "*.nb", "FrontEnd"]], {}]}], 2])], 
+             FilterRules[{Enabled -> Length[
+                  If[
+                   And[
+                    ListQ[AppManagerPalette`Private`listing$9906], 
+                    Part[AppManagerPalette`Private`listing$9906, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                   Part[AppManagerPalette`Private`listing$9906, 2], 
+                   FileNames["*.nb", 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "FrontEnd"], 4]]] > 
+                0, TrackedSymbols :> {
+                AppManagerPalette`Private`flag$9906, 
+                 AppManagerPalette`Private`currentApp}}, 
+              Options[Button]], {1, 1, -1}], {Enabled -> False}], {
+           "MouseDown" :> (AppManagerPalette`Private`flag$9906 = 
+             RandomReal[]), PassEventsDown -> True}], 
+          EventHandler[
+           Dynamic[
+            Insert[
+             ReplaceAll[
+              Insert[
+               Row[{
+                 Button[
+                 "Private", Null, 
+                  Appearance -> ("Default" -> Image[CompressedData["
+1:eJzN1LEKglAYhuFDNTQ0dAEt3UVrY6vRBRSZtBhoEF2GlyeKoqKIIqLobMdB
++Fz6qqkfngPn8E5n+Nenm3KZCCHMuTyU42NrGMfnfikvB928arp63ul3VVON
+zWkqH1fSQpqJ0XRvjMayrO4T2Nu2TWHvOA6Fveu6FPae51HY+75PDf/Y90EQ
+UMP/9n0YhhT2URRR2MdxTGGfJAmFfZqmFPZZllHY53lOYV8UBYV9WZYU9lVV
+UdjXdU1h3zQNhX3bttSPvfiiF//af7OvyC4c7cQXOc/YKw==
+                    "], 
+                    "Byte", ColorSpace -> "RGB", Interleaving -> True]), {
+                  Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                   FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                   "Palette", Appearance -> ActionMenu, Alignment -> 
+                   Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                 ActionMenu[
+                  Button[
+                  "", Null, Appearance -> {"Default" -> Image[CompressedData["
+
+1:eJzt1s+KgkAcwPGhOuyxY4e99BZd97jXYh+gyKSLgYV/HsMH8MFEUVQUUUQU
+PbszURG/GpP4uacd+MioM9+TqPPNYbkbEUKOH/SwXKtfsrzWV1N68iMd96Ik
+bL+lkyAK8mIzphc/qRk1IdzRvoE7DMNoh3DftywLFezbto0K9h3HQQX7ruui
+gn3P81Dd9c9z3/dRXfrttR8EASrYD8MQFexHUYQK9uM4RgX7SZI8YM+xaZqd
+2Jpne2E/TdOnFEXhvtPYPd4+2M+yjEtV1Yc2u9a1B/bzPO+kadptPZu/Wg/7
+RVG8pOv6WZ+1sF+WJSrYr6oKFezXdY0K9pumQfWHfTJgn/z3+/WH/L+6focR
+3cYv8PIQ7g==
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Hover" -> Image[CompressedData["
+1:eJzt1j1rg0AYwPEj6ZCxY4Yu+RZdM3a19AMkxIYuBrQQ9YM4+9V8wVdUVNTR
+3oUq8iRnJDx26sFPTr37b75s9ifhc0EIUVb0IOzOW1neae/P9ORDUr6Oknh4
+k77Foyi/7pf04gu1pp4Id7QP4A7DMNo5DPuWZaGCfdu2UcG+4zioYN91XVSw
+73keqkH/Mvd9H9Vvv+36QRCggv0wDFHBfhRFqGA/jmNUsJ8kyRX2HJqmOYqt
+ubUX9tM0vUlVVe47jd3j7YP9LMu4NE27arNrY3tgP8/zUbqu9+vZ/N562C+K
+4i7WZaashf2yLFHBflVVqGC/rmtUsN80Dao/7JMZ++S/P60/5/9V9x1G1I8f
+BDwtSg==
+                    "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                    True], "Pressed" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJmpqa/tMCI5u/bds2quJR8weN+f9paP7/4WL+9u3b
+qYrRzd+zZw9VMbr5Bw8exMAwd+DDIDXY9KKbf+zYMaw4JSUFZ5kGksOlD938
+06dP48Tp6ekYZoPE8OlBN//8+fN4cWZmJlw9iE1IPbr5ly5dIoizsrLAmBi1
+6OZfvXqVqhjd/Bs3blAVo5t/+/ZtqmJ08+/cuUNVTEfzGWhoPsOo+cSZT8v2
+FawepiKGAwBxeUst
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Disabled" -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGh7dBxj3vo0lt07di1ZR+gyKKLgS0se/MVfBj/vIAPIYqi
+oogioujZnYkt4pdaxM9ODXxkHGe+By86We0XmwEh5DCil8XyZyYIy9/Pd3rz
+xR92W55bz/lvbssJ09UbXRxTH9SQtI76Aa1DkqS6D5d9wzBQwb5pmqhg37Is
+VLBv2zYq2HccB9VF/zh3XRfVf78+9T3PQwX7vu+jgv0gCFDBfhiGqGA/iqIr
+7D3qut6J7Wk6C/txHDeSZbkWRbERe9Z2DvaTJGmlKMpVm611nYH9NE07qap6
+brP5rf2wn2XZTZqmHd2zF/bzPEcF+0VRoIL9sixRwX5VVaie2Cc99smrf1+/
+z/+r03cY0Xn8Ad19LLo=
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True]}], {"Label" :> "Result"}, 
+                  Appearance -> None, {}]}, {}], 
+               FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$10339], 
+                    Part[AppManagerPalette`Private`listing$10339, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$10339, 2], 
+                    FileNames[
+                    Alternatives["*.nb", "*.wl", "*.m"], 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "Private"], 5]]] > 
+                  0, TrackedSymbols :> {
+                  AppManagerPalette`Private`flag$10339, 
+                   AppManagerPalette`Private`currentApp}}, 
+                Options[ActionMenu]], {1, 2, -1}], {"Label" :> "Result"} -> (
+               AppManagerPalette`Private`flag$10339; 
+               AppManagerPalette`Private`currentApp; Part[
+                 If[
+                  And[
+                   ListQ[AppManagerPalette`Private`listing$10339], 
+                   Part[AppManagerPalette`Private`listing$10339, 1] == 
+                   AppManagerPalette`Private`currentApp], 
+                  AppManagerPalette`Private`listing$10339, 
+                  AppManagerPalette`Private`listing$10339 = {
+                   AppManagerPalette`Private`currentApp, 
+                    If[
+                    DirectoryQ[
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "Private"]], 
+                    AppManagerPalette`Private`formatFilePaths[
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.nb", "*.wl", "*.m"], "Private"]], {}]}], 
+                 2])], 
+             FilterRules[{Enabled -> Length[
+                  If[
+                   And[
+                    ListQ[AppManagerPalette`Private`listing$10339], 
+                    Part[AppManagerPalette`Private`listing$10339, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                   Part[AppManagerPalette`Private`listing$10339, 2], 
+                   FileNames[
+                    Alternatives["*.nb", "*.wl", "*.m"], 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "Private"], 5]]] > 
+                0, TrackedSymbols :> {
+                AppManagerPalette`Private`flag$10339, 
+                 AppManagerPalette`Private`currentApp}}, 
+              Options[Button]], {1, 1, -1}], {Enabled -> False}], {
+           "MouseDown" :> (AppManagerPalette`Private`flag$10339 = 
+             RandomReal[]), PassEventsDown -> True}], 
+          EventHandler[
+           Dynamic[
+            Insert[
+             ReplaceAll[
+              Insert[
+               Row[{
+                 Button[
+                 "Resources", Null, 
+                  Appearance -> ("Default" -> Image[CompressedData["
+1:eJzN1LEKglAYhuFDNTQ0dAEt3UVrY6vRBRSZtBhoEF2GlyeKoqKIIqLobMdB
++Fz6qqkfngPn8E5n+Nenm3KZCCHMuTyU42NrGMfnfikvB928arp63ul3VVON
+zWkqH1fSQpqJ0XRvjMayrO4T2Nu2TWHvOA6Fveu6FPae51HY+75PDf/Y90EQ
+UMP/9n0YhhT2URRR2MdxTGGfJAmFfZqmFPZZllHY53lOYV8UBYV9WZYU9lVV
+UdjXdU1h3zQNhX3bttSPvfiiF//af7OvyC4c7cQXOc/YKw==
+                    "], 
+                    "Byte", ColorSpace -> "RGB", Interleaving -> True]), {
+                  Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                   FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                   "Palette", Appearance -> ActionMenu, Alignment -> 
+                   Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                 ActionMenu[
+                  Button[
+                  "", Null, Appearance -> {"Default" -> Image[CompressedData["
+
+1:eJzt1s+KgkAcwPGhOuyxY4e99BZd97jXYh+gyKSLgYV/HsMH8MFEUVQUUUQU
+PbszURG/GpP4uacd+MioM9+TqPPNYbkbEUKOH/SwXKtfsrzWV1N68iMd96Ik
+bL+lkyAK8mIzphc/qRk1IdzRvoE7DMNoh3DftywLFezbto0K9h3HQQX7ruui
+gn3P81Dd9c9z3/dRXfrttR8EASrYD8MQFexHUYQK9uM4RgX7SZI8YM+xaZqd
+2Jpne2E/TdOnFEXhvtPYPd4+2M+yjEtV1Yc2u9a1B/bzPO+kadptPZu/Wg/7
+RVG8pOv6WZ+1sF+WJSrYr6oKFezXdY0K9pumQfWHfTJgn/z3+/WH/L+6focR
+3cYv8PIQ7g==
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Hover" -> Image[CompressedData["
+1:eJzt1j1rg0AYwPEj6ZCxY4Yu+RZdM3a19AMkxIYuBrQQ9YM4+9V8wVdUVNTR
+3oUq8iRnJDx26sFPTr37b75s9ifhc0EIUVb0IOzOW1neae/P9ORDUr6Oknh4
+k77Foyi/7pf04gu1pp4Id7QP4A7DMNo5DPuWZaGCfdu2UcG+4zioYN91XVSw
+73keqkH/Mvd9H9Vvv+36QRCggv0wDFHBfhRFqGA/jmNUsJ8kyRX2HJqmOYqt
+ubUX9tM0vUlVVe47jd3j7YP9LMu4NE27arNrY3tgP8/zUbqu9+vZ/N562C+K
+4i7WZaashf2yLFHBflVVqGC/rmtUsN80Dao/7JMZ++S/P60/5/9V9x1G1I8f
+BDwtSg==
+                    "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                    True], "Pressed" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJmpqa/tMCI5u/bds2quJR8weN+f9paP7/4WL+9u3b
+qYrRzd+zZw9VMbr5Bw8exMAwd+DDIDXY9KKbf+zYMaw4JSUFZ5kGksOlD938
+06dP48Tp6ekYZoPE8OlBN//8+fN4cWZmJlw9iE1IPbr5ly5dIoizsrLAmBi1
+6OZfvXqVqhjd/Bs3blAVo5t/+/ZtqmJ08+/cuUNVTEfzGWhoPsOo+cSZT8v2
+FawepiKGAwBxeUst
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Disabled" -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGh7dBxj3vo0lt07di1ZR+gyKKLgS0se/MVfBj/vIAPIYqi
+oogioujZnYkt4pdaxM9ODXxkHGe+By86We0XmwEh5DCil8XyZyYIy9/Pd3rz
+xR92W55bz/lvbssJ09UbXRxTH9SQtI76Aa1DkqS6D5d9wzBQwb5pmqhg37Is
+VLBv2zYq2HccB9VF/zh3XRfVf78+9T3PQwX7vu+jgv0gCFDBfhiGqGA/iqIr
+7D3qut6J7Wk6C/txHDeSZbkWRbERe9Z2DvaTJGmlKMpVm611nYH9NE07qap6
+brP5rf2wn2XZTZqmHd2zF/bzPEcF+0VRoIL9sixRwX5VVaie2Cc99smrf1+/
+z/+r03cY0Xn8Ad19LLo=
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True]}], {"Label" :> "Result"}, 
+                  Appearance -> None, {}]}, {}], 
+               FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$10773], 
+                    Part[AppManagerPalette`Private`listing$10773, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$10773, 2], 
+                    FileNames[
+                    Alternatives["*.nb", "*.wl", "*.m", ".tr"], 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "Resources"], 8]]] > 
+                  0, TrackedSymbols :> {
+                  AppManagerPalette`Private`flag$10773, 
+                   AppManagerPalette`Private`currentApp}}, 
+                Options[ActionMenu]], {1, 2, -1}], {"Label" :> "Result"} -> (
+               AppManagerPalette`Private`flag$10773; 
+               AppManagerPalette`Private`currentApp; Part[
+                 If[
+                  And[
+                   ListQ[AppManagerPalette`Private`listing$10773], 
+                   Part[AppManagerPalette`Private`listing$10773, 1] == 
+                   AppManagerPalette`Private`currentApp], 
+                  AppManagerPalette`Private`listing$10773, 
+                  AppManagerPalette`Private`listing$10773 = {
+                   AppManagerPalette`Private`currentApp, 
+                    If[
+                    DirectoryQ[
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "Resources"]], 
+                    AppManagerPalette`Private`formatFilePaths[
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.nb", "*.wl", "*.m", ".tr"], 
+                    "Resources"]], {}]}], 2])], 
+             FilterRules[{Enabled -> Length[
+                  If[
+                   And[
+                    ListQ[AppManagerPalette`Private`listing$10773], 
+                    Part[AppManagerPalette`Private`listing$10773, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                   Part[AppManagerPalette`Private`listing$10773, 2], 
+                   FileNames[
+                    Alternatives["*.nb", "*.wl", "*.m", ".tr"], 
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp, "Resources"], 8]]] > 
+                0, TrackedSymbols :> {
+                AppManagerPalette`Private`flag$10773, 
+                 AppManagerPalette`Private`currentApp}}, 
+              Options[Button]], {1, 1, -1}], {Enabled -> False}], {
+           "MouseDown" :> (AppManagerPalette`Private`flag$10773 = 
+             RandomReal[]), PassEventsDown -> True}], 
+          EventHandler[
+           Dynamic[
+            Insert[
+             ReplaceAll[
+              Insert[
+               Row[{
+                 Button[
+                 "Config", Null, 
+                  Appearance -> ("Default" -> Image[CompressedData["
+1:eJzN1LEKglAYhuFDNTQ0dAEt3UVrY6vRBRSZtBhoEF2GlyeKoqKIIqLobMdB
++Fz6qqkfngPn8E5n+Nenm3KZCCHMuTyU42NrGMfnfikvB928arp63ul3VVON
+zWkqH1fSQpqJ0XRvjMayrO4T2Nu2TWHvOA6Fveu6FPae51HY+75PDf/Y90EQ
+UMP/9n0YhhT2URRR2MdxTGGfJAmFfZqmFPZZllHY53lOYV8UBYV9WZYU9lVV
+UdjXdU1h3zQNhX3bttSPvfiiF//af7OvyC4c7cQXOc/YKw==
+                    "], 
+                    "Byte", ColorSpace -> "RGB", Interleaving -> True]), {
+                  Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                   FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                   "Palette", Appearance -> ActionMenu, Alignment -> 
+                   Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                 ActionMenu[
+                  Button[
+                  "", Null, Appearance -> {"Default" -> Image[CompressedData["
+
+1:eJzt1s+KgkAcwPGhOuyxY4e99BZd97jXYh+gyKSLgYV/HsMH8MFEUVQUUUQU
+PbszURG/GpP4uacd+MioM9+TqPPNYbkbEUKOH/SwXKtfsrzWV1N68iMd96Ik
+bL+lkyAK8mIzphc/qRk1IdzRvoE7DMNoh3DftywLFezbto0K9h3HQQX7ruui
+gn3P81Dd9c9z3/dRXfrttR8EASrYD8MQFexHUYQK9uM4RgX7SZI8YM+xaZqd
+2Jpne2E/TdOnFEXhvtPYPd4+2M+yjEtV1Yc2u9a1B/bzPO+kadptPZu/Wg/7
+RVG8pOv6WZ+1sF+WJSrYr6oKFezXdY0K9pumQfWHfTJgn/z3+/WH/L+6focR
+3cYv8PIQ7g==
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Hover" -> Image[CompressedData["
+1:eJzt1j1rg0AYwPEj6ZCxY4Yu+RZdM3a19AMkxIYuBrQQ9YM4+9V8wVdUVNTR
+3oUq8iRnJDx26sFPTr37b75s9ifhc0EIUVb0IOzOW1neae/P9ORDUr6Oknh4
+k77Foyi/7pf04gu1pp4Id7QP4A7DMNo5DPuWZaGCfdu2UcG+4zioYN91XVSw
+73keqkH/Mvd9H9Vvv+36QRCggv0wDFHBfhRFqGA/jmNUsJ8kyRX2HJqmOYqt
+ubUX9tM0vUlVVe47jd3j7YP9LMu4NE27arNrY3tgP8/zUbqu9+vZ/N562C+K
+4i7WZaashf2yLFHBflVVqGC/rmtUsN80Dao/7JMZ++S/P60/5/9V9x1G1I8f
+BDwtSg==
+                    "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                    True], "Pressed" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJmpqa/tMCI5u/bds2quJR8weN+f9paP7/4WL+9u3b
+qYrRzd+zZw9VMbr5Bw8exMAwd+DDIDXY9KKbf+zYMaw4JSUFZ5kGksOlD938
+06dP48Tp6ekYZoPE8OlBN//8+fN4cWZmJlw9iE1IPbr5ly5dIoizsrLAmBi1
+6OZfvXqVqhjd/Bs3blAVo5t/+/ZtqmJ08+/cuUNVTEfzGWhoPsOo+cSZT8v2
+FawepiKGAwBxeUst
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Disabled" -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGh7dBxj3vo0lt07di1ZR+gyKKLgS0se/MVfBj/vIAPIYqi
+oogioujZnYkt4pdaxM9ODXxkHGe+By86We0XmwEh5DCil8XyZyYIy9/Pd3rz
+xR92W55bz/lvbssJ09UbXRxTH9SQtI76Aa1DkqS6D5d9wzBQwb5pmqhg37Is
+VLBv2zYq2HccB9VF/zh3XRfVf78+9T3PQwX7vu+jgv0gCFDBfhiGqGA/iqIr
+7D3qut6J7Wk6C/txHDeSZbkWRbERe9Z2DvaTJGmlKMpVm611nYH9NE07qap6
+brP5rf2wn2XZTZqmHd2zF/bzPEcF+0VRoIL9sixRwX5VVaie2Cc99smrf1+/
+z/+r03cY0Xn8Ad19LLo=
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True]}], {"Label" :> "Result"}, 
+                  Appearance -> None, {}]}, {}], 
+               FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$11206], 
+                    Part[AppManagerPalette`Private`listing$11206, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$11206, 2], 
+                    Join[
+                    FileNames[
+                    Alternatives["*.m", "*.wl"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], 
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.m", "*.wl"], "Config"]]]] > 0, 
+                 TrackedSymbols :> {
+                  AppManagerPalette`Private`flag$11206, 
+                   AppManagerPalette`Private`currentApp}}, 
+                Options[ActionMenu]], {1, 2, -1}], {"Label" :> "Result"} -> (
+               AppManagerPalette`Private`flag$11206; 
+               AppManagerPalette`Private`currentApp; Part[
+                 If[
+                  And[
+                   ListQ[AppManagerPalette`Private`listing$11206], 
+                   Part[AppManagerPalette`Private`listing$11206, 1] == 
+                   AppManagerPalette`Private`currentApp], 
+                  AppManagerPalette`Private`listing$11206, 
+                  AppManagerPalette`Private`listing$11206 = {
+                   AppManagerPalette`Private`currentApp, 
+                    AppManagerPalette`Private`formatFilePaths[
+                    SortBy[FileNameDepth][
+                    Join[
+                    FileNames[
+                    Alternatives["*Info.m", "*Info.wl"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], 
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.m", "*.wl"], "Config"]]]]}], 2])], 
+             FilterRules[{Enabled -> Length[
+                  If[
+                   And[
+                    ListQ[AppManagerPalette`Private`listing$11206], 
+                    Part[AppManagerPalette`Private`listing$11206, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                   Part[AppManagerPalette`Private`listing$11206, 2], 
+                   Join[
+                    FileNames[
+                    Alternatives["*.m", "*.wl"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], 
+                    AppManagerPalette`Private`fileNamesGather[
+                    Alternatives["*.m", "*.wl"], "Config"]]]] > 0, 
+               TrackedSymbols :> {
+                AppManagerPalette`Private`flag$11206, 
+                 AppManagerPalette`Private`currentApp}}, 
+              Options[Button]], {1, 1, -1}], {Enabled -> False}], {
+           "MouseDown" :> (AppManagerPalette`Private`flag$11206 = 
+             RandomReal[]), PassEventsDown -> True}], 
+          EventHandler[
+           Dynamic[
+            Insert[
+             ReplaceAll[
+              Insert[
+               Row[{
+                 Button[
+                 "Project", Null, 
+                  Appearance -> ("Default" -> Image[CompressedData["
+1:eJzN1LEKglAYhuFDNTQ0dAEt3UVrY6vRBRSZtBhoEF2GlyeKoqKIIqLobMdB
++Fz6qqkfngPn8E5n+Nenm3KZCCHMuTyU42NrGMfnfikvB928arp63ul3VVON
+zWkqH1fSQpqJ0XRvjMayrO4T2Nu2TWHvOA6Fveu6FPae51HY+75PDf/Y90EQ
+UMP/9n0YhhT2URRR2MdxTGGfJAmFfZqmFPZZllHY53lOYV8UBYV9WZYU9lVV
+UdjXdU1h3zQNhX3bttSPvfiiF//af7OvyC4c7cQXOc/YKw==
+                    "], 
+                    "Byte", ColorSpace -> "RGB", Interleaving -> True]), {
+                  Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                   FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                   "Palette", Appearance -> ActionMenu, Alignment -> 
+                   Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                 ActionMenu[
+                  Button[
+                  "", Null, Appearance -> {"Default" -> Image[CompressedData["
+
+1:eJzt1s+KgkAcwPGhOuyxY4e99BZd97jXYh+gyKSLgYV/HsMH8MFEUVQUUUQU
+PbszURG/GpP4uacd+MioM9+TqPPNYbkbEUKOH/SwXKtfsrzWV1N68iMd96Ik
+bL+lkyAK8mIzphc/qRk1IdzRvoE7DMNoh3DftywLFezbto0K9h3HQQX7ruui
+gn3P81Dd9c9z3/dRXfrttR8EASrYD8MQFexHUYQK9uM4RgX7SZI8YM+xaZqd
+2Jpne2E/TdOnFEXhvtPYPd4+2M+yjEtV1Yc2u9a1B/bzPO+kadptPZu/Wg/7
+RVG8pOv6WZ+1sF+WJSrYr6oKFezXdY0K9pumQfWHfTJgn/z3+/WH/L+6focR
+3cYv8PIQ7g==
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Hover" -> Image[CompressedData["
+1:eJzt1j1rg0AYwPEj6ZCxY4Yu+RZdM3a19AMkxIYuBrQQ9YM4+9V8wVdUVNTR
+3oUq8iRnJDx26sFPTr37b75s9ifhc0EIUVb0IOzOW1neae/P9ORDUr6Oknh4
+k77Foyi/7pf04gu1pp4Id7QP4A7DMNo5DPuWZaGCfdu2UcG+4zioYN91XVSw
+73keqkH/Mvd9H9Vvv+36QRCggv0wDFHBfhRFqGA/jmNUsJ8kyRX2HJqmOYqt
+ubUX9tM0vUlVVe47jd3j7YP9LMu4NE27arNrY3tgP8/zUbqu9+vZ/N562C+K
+4i7WZaashf2yLFHBflVVqGC/rmtUsN80Dao/7JMZ++S/P60/5/9V9x1G1I8f
+BDwtSg==
+                    "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                    True], "Pressed" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJmpqa/tMCI5u/bds2quJR8weN+f9paP7/4WL+9u3b
+qYrRzd+zZw9VMbr5Bw8exMAwd+DDIDXY9KKbf+zYMaw4JSUFZ5kGksOlD938
+06dP48Tp6ekYZoPE8OlBN//8+fN4cWZmJlw9iE1IPbr5ly5dIoizsrLAmBi1
+6OZfvXqVqhjd/Bs3blAVo5t/+/ZtqmJ08+/cuUNVTEfzGWhoPsOo+cSZT8v2
+FawepiKGAwBxeUst
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Disabled" -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGh7dBxj3vo0lt07di1ZR+gyKKLgS0se/MVfBj/vIAPIYqi
+oogioujZnYkt4pdaxM9ODXxkHGe+By86We0XmwEh5DCil8XyZyYIy9/Pd3rz
+xR92W55bz/lvbssJ09UbXRxTH9SQtI76Aa1DkqS6D5d9wzBQwb5pmqhg37Is
+VLBv2zYq2HccB9VF/zh3XRfVf78+9T3PQwX7vu+jgv0gCFDBfhiGqGA/iqIr
+7D3qut6J7Wk6C/txHDeSZbkWRbERe9Z2DvaTJGmlKMpVm611nYH9NE07qap6
+brP5rf2wn2XZTZqmHd2zF/bzPEcF+0VRoIL9sixRwX5VVaie2Cc99smrf1+/
+z/+r03cY0Xn8Ad19LLo=
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True]}], {"Label" :> "Result"}, 
+                  Appearance -> None, {}]}, {}], 
+               FilterRules[{Enabled -> Length[
+                    If[
+                    And[
+                    ListQ[AppManagerPalette`Private`listing$11639], 
+                    Part[AppManagerPalette`Private`listing$11639, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                    Part[AppManagerPalette`Private`listing$11639, 2], 
+                    Join[
+                    FileNames["README*", 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], 
+                    FileNames[
+                    Alternatives["*.png", "*.html", "*.md", "*.nb"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp, "project"], 
+                    Infinity]]]] > 0, 
+                 TrackedSymbols :> {
+                  AppManagerPalette`Private`flag$11639, 
+                   AppManagerPalette`Private`currentApp}}, 
+                Options[ActionMenu]], {1, 2, -1}], {"Label" :> "Result"} -> (
+               AppManagerPalette`Private`flag$11639; 
+               AppManagerPalette`Private`currentApp; Part[
+                 If[
+                  And[
+                   ListQ[AppManagerPalette`Private`listing$11639], 
+                   Part[AppManagerPalette`Private`listing$11639, 1] == 
+                   AppManagerPalette`Private`currentApp], 
+                  AppManagerPalette`Private`listing$11639, 
+                  AppManagerPalette`Private`listing$11639 = {
+                   AppManagerPalette`Private`currentApp, 
+                    AppManagerPalette`Private`formatFilePaths[
+                    SortBy[FileNameDepth][
+                    Join[
+                    FileNames["README*", 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], 
+                    FileNames[
+                    Alternatives["*.png", "*.html", "*.md", "*.nb"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp, "project"], 
+                    Infinity]]]]}], 2])], 
+             FilterRules[{Enabled -> Length[
+                  If[
+                   And[
+                    ListQ[AppManagerPalette`Private`listing$11639], 
+                    Part[AppManagerPalette`Private`listing$11639, 1] == 
+                    AppManagerPalette`Private`currentApp], 
+                   Part[AppManagerPalette`Private`listing$11639, 2], 
+                   Join[
+                    FileNames["README*", 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp]], 
+                    FileNames[
+                    Alternatives["*.png", "*.html", "*.md", "*.nb"], 
+                    AppManagerPalette`Private`whichPacF["AppDirectory"][
+                    AppManagerPalette`Private`currentApp, "project"], 
+                    Infinity]]]] > 0, 
+               TrackedSymbols :> {
+                AppManagerPalette`Private`flag$11639, 
+                 AppManagerPalette`Private`currentApp}}, 
+              Options[Button]], {1, 1, -1}], {Enabled -> False}], {
+           "MouseDown" :> (AppManagerPalette`Private`flag$11639 = 
+             RandomReal[]), PassEventsDown -> True}], 
+          Panel[
+          "", ImageSize -> {190, 1}, ImageMargins -> 5, Appearance -> 
+           Image[CompressedData["
+1:eJyF0b0OgjAQB/BGHRx9BRMfwtXRFeMDQETiggmYGJ+rL9XS8lVoC12wJnLT
+JVxyd7/7r7ePnsF9RQjJt34E4fuUZeHnsvPHNc0fSRrfzukrTuLsGK19ePD9
+2xsCNQF8/e/JOQcex3HRwzCgttaCjTGotdao+74Hd12HWikFbtsWddM04Lqu
+UVdVBS7LErWUErUQAlwUBWrO+aIZY7MJpRT+Mmdfqc/QmA==
+             "], "Byte", 
+             ColorSpace -> "RGB", Interleaving -> True]], 
+          Row[{
+            Button[
+            "Regenerate", Null, 
+             Appearance -> ("Default" -> Image[CompressedData["
+1:eJzN1LEKglAYhuFDNTQ0dAEt3UVrY6vRBRSZtBhoEF2GlyeKoqKIIqLobMdB
++Fz6qqkfngPn8E5n+Nenm3KZCCHMuTyU42NrGMfnfikvB928arp63ul3VVON
+zWkqH1fSQpqJ0XRvjMayrO4T2Nu2TWHvOA6Fveu6FPae51HY+75PDf/Y90EQ
+UMP/9n0YhhT2URRR2MdxTGGfJAmFfZqmFPZZllHY53lOYV8UBYV9WZYU9lVV
+UdjXdU1h3zQNhX3bttSPvfiiF//af7OvyC4c7cQXOc/YKw==
+                "], "Byte", 
+                ColorSpace -> "RGB", Interleaving -> True]), {
+             Appearance -> {
+               "Palette", FrameStyle -> Automatic, 
+                ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+              FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+              "Palette", Appearance -> ActionMenu, Alignment -> Automatic, 
+              Background -> None, DefaultBaseStyle -> {}}], 
+            ActionMenu[
+             Button[
+             "", Null, Appearance -> {"Default" -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGhOuyxY4e99BZd97jXYh+gyKSLgYV/HsMH8MFEUVQUUUQU
+PbszURG/GpP4uacd+MioM9+TqPPNYbkbEUKOH/SwXKtfsrzWV1N68iMd96Ik
+bL+lkyAK8mIzphc/qRk1IdzRvoE7DMNoh3DftywLFezbto0K9h3HQQX7ruui
+gn3P81Dd9c9z3/dRXfrttR8EASrYD8MQFexHUYQK9uM4RgX7SZI8YM+xaZqd
+2Jpne2E/TdOnFEXhvtPYPd4+2M+yjEtV1Yc2u9a1B/bzPO+kadptPZu/Wg/7
+RVG8pOv6WZ+1sF+WJSrYr6oKFezXdY0K9pumQfWHfTJgn/z3+/WH/L+6focR
+3cYv8PIQ7g==
+                  "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                  True], "Hover" -> Image[CompressedData["
+1:eJzt1j1rg0AYwPEj6ZCxY4Yu+RZdM3a19AMkxIYuBrQQ9YM4+9V8wVdUVNTR
+3oUq8iRnJDx26sFPTr37b75s9ifhc0EIUVb0IOzOW1neae/P9ORDUr6Oknh4
+k77Foyi/7pf04gu1pp4Id7QP4A7DMNo5DPuWZaGCfdu2UcG+4zioYN91XVSw
+73keqkH/Mvd9H9Vvv+36QRCggv0wDFHBfhRFqGA/jmNUsJ8kyRX2HJqmOYqt
+ubUX9tM0vUlVVe47jd3j7YP9LMu4NE27arNrY3tgP8/zUbqu9+vZ/N562C+K
+4i7WZaashf2yLFHBflVVqGC/rmtUsN80Dao/7JMZ++S/P60/5/9V9x1G1I8f
+BDwtSg==
+                  "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                  True], "Pressed" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJmpqa/tMCI5u/bds2quJR8weN+f9paP7/4WL+9u3b
+qYrRzd+zZw9VMbr5Bw8exMAwd+DDIDXY9KKbf+zYMaw4JSUFZ5kGksOlD938
+06dP48Tp6ekYZoPE8OlBN//8+fN4cWZmJlw9iE1IPbr5ly5dIoizsrLAmBi1
+6OZfvXqVqhjd/Bs3blAVo5t/+/ZtqmJ08+/cuUNVTEfzGWhoPsOo+cSZT8v2
+FawepiKGAwBxeUst
+                  "], "Byte", ColorSpace -> "RGB", 
+                  Interleaving -> True], "Disabled" -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGh7dBxj3vo0lt07di1ZR+gyKKLgS0se/MVfBj/vIAPIYqi
+oogioujZnYkt4pdaxM9ODXxkHGe+By86We0XmwEh5DCil8XyZyYIy9/Pd3rz
+xR92W55bz/lvbssJ09UbXRxTH9SQtI76Aa1DkqS6D5d9wzBQwb5pmqhg37Is
+VLBv2zYq2HccB9VF/zh3XRfVf78+9T3PQwX7vu+jgv0gCFDBfhiGqGA/iqIr
+7D3qut6J7Wk6C/txHDeSZbkWRbERe9Z2DvaTJGmlKMpVm611nYH9NE07qap6
+brP5rf2wn2XZTZqmHd2zF/bzPEcF+0VRoIL9sixRwX5VVaie2Cc99smrf1+/
+z/+r03cY0Xn8Ad19LLo=
+                  "], "Byte", ColorSpace -> "RGB", 
+                  Interleaving -> True]}], {
+             "Loader" :> AppManagerPalette`Private`sysOpen[
+                AppManagerPalette`Private`whichPacF["AppRegenerateInit"][
+                AppManagerPalette`Private`currentApp]], "PacletInfo" :> 
+              AppManagerPalette`Private`sysOpen[
+                AppManagerPalette`Private`whichPacF[
+                "AppRegeneratePacletInfo"][
+                AppManagerPalette`Private`currentApp]], 
+              "Directories" :> (
+               AppManagerPalette`Private`whichPacF[
+                "AppRegenerateDirectories"][
+                AppManagerPalette`Private`currentApp]; 
+               AppManagerPalette`Private`sysOpen[
+                 AppManagerPalette`Private`whichPacF["AppDirectory"][
+                 AppManagerPalette`Private`currentApp]]), "LoadInfo" :> 
+              AppManagerPalette`Private`sysOpen[
+                AppManagerPalette`Private`whichPacF["AppRegenerateLoadInfo"][
+                AppManagerPalette`Private`currentApp]]}, Appearance -> 
+             None, {}]}, {}], 
+          Panel[
+          "", ImageSize -> {190, 1}, ImageMargins -> 5, Appearance -> 
+           Image[CompressedData["
+1:eJyF0b0OgjAQB/BGHRx9BRMfwtXRFeMDQETiggmYGJ+rL9XS8lVoC12wJnLT
+JVxyd7/7r7ePnsF9RQjJt34E4fuUZeHnsvPHNc0fSRrfzukrTuLsGK19ePD9
+2xsCNQF8/e/JOQcex3HRwzCgttaCjTGotdao+74Hd12HWikFbtsWddM04Lqu
+UVdVBS7LErWUErUQAlwUBWrO+aIZY7MJpRT+Mmdfqc/QmA==
+             "], "Byte", 
+             ColorSpace -> "RGB", Interleaving -> True]], 
+          EventHandler[
+           Button[
+            Dynamic[
+             
+             If[(AppManagerPalette`Private`gitRefresh; 
+               AppManagerPalette`Private`gitRepoQ[]) === False, 
+              Style["Git Commit", 
+               GrayLevel[0.5]], 
+              Style["Git Commit", 
+               GrayLevel[0.2]]], 
+             TrackedSymbols :> {
+              AppManagerPalette`Private`gitRefresh, 
+               AppManagerPalette`Private`currentApp}], 
+            With[{BTools`Formatting`Private`nb$ = EvaluationNotebook[]}, 
+              Internal`WithLocalSettings[CurrentValue[
+                  FrontEnd`EvaluationNotebook[], {
+                  TaggingRules, "UUIDButtons", "Active", 
+                   "Button-f8a10bc0-c151-4415-b44f-9e84dd823048"}] = True, 
+                Block[{$ContextPath = {"System`"}}, 
+                  Needs[
+                   StringJoin[AppManagerPalette`Private`$appName, "`"]]]; 
+                AppManagerPalette`Private`whichPacF["AppGitCommit"][
+                 AppManagerPalette`Private`currentApp], CurrentValue[
+                  FrontEnd`EvaluationNotebook[], {
+                  TaggingRules, "UUIDButtons", "Active", 
+                   "Button-f8a10bc0-c151-4415-b44f-9e84dd823048"}] = False]; 
+              Null]; Null, Appearance -> {"Default" -> Image[CompressedData["
+1:eJzV1EEKgkAYhuGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKRxNFUVFEEVF0bUMU
+5NfiS1r1wzvMDDzbf66e1vuBEOI8lsdauS4NQ7ltpvKx1c/Hg67tVvpFO2jG
+Qh3Kz5lsIhuJzrSkzpim2X7bu7Esi4bGtm0aGsdxaGhc16Wh8TyP9mYed9/3
+aU/TvkwQBDQ0YRjS0ERRREMTxzENTZIkNDRpmtLQZFlGQ5PnOQ1NURQ0NGVZ
+0tBUVUVDU9c1DU3TNLQfjehpxD+YnjuR7dyPHXwHy1co2w==
+                "], "Byte", 
+                ColorSpace -> "RGB", Interleaving -> True], "Hover" -> 
+              Image[CompressedData["
+1:eJzV1E0KgkAYxvGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKx/MDP1FRUZc2REE+
+LZ6kVS/8h5mB3/adq6f1fiCEOI/lsVauS8NQbpupfGz18/Gga7uVftEOmrFQ
+h/JzJpvIRqIzLakzpmm23/ZuLMuiobFtm4bGcRwaGtd1aWg8z6O9mcfd933a
+07QvEwQBDU0YhjQ0URTR0MRxTEOTJAkNTZqmNDRZltHQ5HlOQ1MUBQ1NWZY0
+NFVV0dDUdU1D0zQN7UcjehrxD6bnTmQ792MH3wFFhzOd
+                "], "Byte", 
+                ColorSpace -> "RGB", Interleaving -> True], "Pressed" -> 
+              Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiHmBmIUBBfwngFHAzJkz/xOLkfVs27aNIB7Gev6TqOc/vfVs376dIEbX
+s2fPHoIYXc/BgwcJYnQ9x44dI4jR9Zw+fZogRtdz/vx5ghhdz6VLlwhidD1X
+r14liNH13LhxgyBG13P79m2CGF3PnTt3CGIK9TCQqIdhKOghsUwkVOZilMEA
+mEXTyg==
+                "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                True], 
+              Dynamic[
+               FEPrivate`If[
+                FrontEnd`CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-f8a10bc0-c151-4415-b44f-9e84dd823048"}, False], 
+                "Pressed", Automatic, Automatic]]}, Enabled -> 
+            Dynamic[AppManagerPalette`Private`gitRefresh; 
+              AppManagerPalette`Private`gitRepoQ[], 
+              TrackedSymbols :> {
+               AppManagerPalette`Private`gitRefresh, 
+                AppManagerPalette`Private`currentApp}], Method -> "Queued", 
+            FrameMargins -> {{5, 5}, {2, 0}}, ImageSize -> 200, 
+            Appearance -> {"Palette", 
+              Dynamic[
+               FEPrivate`If[
+                FrontEnd`CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-f8a10bc0-c151-4415-b44f-9e84dd823048"}, False], 
+                "Pressed", Automatic, Automatic]]}], {
+           "MouseClicked" :> Internal`WithLocalSettings[
+              FrontEndExecute[
+               FrontEnd`NotebookSuspendScreenUpdates[
+                FrontEnd`EvaluationNotebook[]]], 
+              If[
+               TrueQ[
+                Replace[
+                 Replace[
+                  Dynamic[
+                  AppManagerPalette`Private`gitRefresh; 
+                   AppManagerPalette`Private`gitRepoQ[], 
+                   TrackedSymbols :> {
+                    AppManagerPalette`Private`gitRefresh, 
+                    AppManagerPalette`Private`currentApp}], 
+                  Pattern[BTools`Formatting`Private`d, 
+                    Blank[Dynamic]] :> First[BTools`Formatting`Private`d]], 
+                 Automatic -> True]], CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-f8a10bc0-c151-4415-b44f-9e84dd823048"}] = True], 
+              FrontEndExecute[
+               FrontEnd`NotebookResumeScreenUpdates[
+                FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> True}], 
+          Row[{
+            Button[
+            "Git Actions", Null, 
+             Appearance -> ("Default" -> Image[CompressedData["
+1:eJzN1LEKglAYhuFDNTQ0dAEt3UVrY6vRBRSZtBhoEF2GlyeKoqKIIqLobMdB
++Fz6qqkfngPn8E5n+Nenm3KZCCHMuTyU42NrGMfnfikvB928arp63ul3VVON
+zWkqH1fSQpqJ0XRvjMayrO4T2Nu2TWHvOA6Fveu6FPae51HY+75PDf/Y90EQ
+UMP/9n0YhhT2URRR2MdxTGGfJAmFfZqmFPZZllHY53lOYV8UBYV9WZYU9lVV
+UdjXdU1h3zQNhX3bttSPvfiiF//af7OvyC4c7cQXOc/YKw==
+                "], "Byte", 
+                ColorSpace -> "RGB", Interleaving -> True]), {
+             Appearance -> {
+               "Palette", FrameStyle -> Automatic, 
+                ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+              FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+              "Palette", Appearance -> ActionMenu, Alignment -> Automatic, 
+              Background -> None, DefaultBaseStyle -> {}}], 
+            ActionMenu[
+             Button[
+             "", Null, Appearance -> {"Default" -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGhOuyxY4e99BZd97jXYh+gyKSLgYV/HsMH8MFEUVQUUUQU
+PbszURG/GpP4uacd+MioM9+TqPPNYbkbEUKOH/SwXKtfsrzWV1N68iMd96Ik
+bL+lkyAK8mIzphc/qRk1IdzRvoE7DMNoh3DftywLFezbto0K9h3HQQX7ruui
+gn3P81Dd9c9z3/dRXfrttR8EASrYD8MQFexHUYQK9uM4RgX7SZI8YM+xaZqd
+2Jpne2E/TdOnFEXhvtPYPd4+2M+yjEtV1Yc2u9a1B/bzPO+kadptPZu/Wg/7
+RVG8pOv6WZ+1sF+WJSrYr6oKFezXdY0K9pumQfWHfTJgn/z3+/WH/L+6focR
+3cYv8PIQ7g==
+                  "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                  True], "Hover" -> Image[CompressedData["
+1:eJzt1j1rg0AYwPEj6ZCxY4Yu+RZdM3a19AMkxIYuBrQQ9YM4+9V8wVdUVNTR
+3oUq8iRnJDx26sFPTr37b75s9ifhc0EIUVb0IOzOW1neae/P9ORDUr6Oknh4
+k77Foyi/7pf04gu1pp4Id7QP4A7DMNo5DPuWZaGCfdu2UcG+4zioYN91XVSw
+73keqkH/Mvd9H9Vvv+36QRCggv0wDFHBfhRFqGA/jmNUsJ8kyRX2HJqmOYqt
+ubUX9tM0vUlVVe47jd3j7YP9LMu4NE27arNrY3tgP8/zUbqu9+vZ/N562C+K
+4i7WZaashf2yLFHBflVVqGC/rmtUsN80Dao/7JMZ++S/P60/5/9V9x1G1I8f
+BDwtSg==
+                  "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                  True], "Pressed" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJmpqa/tMCI5u/bds2quJR8weN+f9paP7/4WL+9u3b
+qYrRzd+zZw9VMbr5Bw8exMAwd+DDIDXY9KKbf+zYMaw4JSUFZ5kGksOlD938
+06dP48Tp6ekYZoPE8OlBN//8+fN4cWZmJlw9iE1IPbr5ly5dIoizsrLAmBi1
+6OZfvXqVqhjd/Bs3blAVo5t/+/ZtqmJ08+/cuUNVTEfzGWhoPsOo+cSZT8v2
+FawepiKGAwBxeUst
+                  "], "Byte", ColorSpace -> "RGB", 
+                  Interleaving -> True], "Disabled" -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGh7dBxj3vo0lt07di1ZR+gyKKLgS0se/MVfBj/vIAPIYqi
+oogioujZnYkt4pdaxM9ODXxkHGe+By86We0XmwEh5DCil8XyZyYIy9/Pd3rz
+xR92W55bz/lvbssJ09UbXRxTH9SQtI76Aa1DkqS6D5d9wzBQwb5pmqhg37Is
+VLBv2zYq2HccB9VF/zh3XRfVf78+9T3PQwX7vu+jgv0gCFDBfhiGqGA/iqIr
+7D3qut6J7Wk6C/txHDeSZbkWRbERe9Z2DvaTJGmlKMpVm611nYH9NE07qap6
+brP5rf2wn2XZTZqmHd2zF/bzPEcF+0VRoIL9sixRwX5VVaie2Cc99smrf1+/
+z/+r03cY0Xn8Ad19LLo=
+                  "], "Byte", ColorSpace -> "RGB", 
+                  Interleaving -> True]}], {"Init" :> (Quiet[
+                 AppManagerPalette`Private`whichPacF["AppGitInit"][
+                 AppManagerPalette`Private`currentApp]]; 
+               AppManagerPalette`Private`gitRefresh = RandomReal[]), 
+              Delimiter, "Edit README" :> AppManagerPalette`Private`sysOpen[
+                If[
+                 FileExistsQ[
+                  AppManagerPalette`Private`whichPacF["AppPath"][
+                  AppManagerPalette`Private`currentApp, "README.nb"]], 
+                 AppManagerPalette`Private`whichPacF["AppPath"][
+                 AppManagerPalette`Private`currentApp, "README.nb"], 
+                 AppManagerPalette`Private`whichPacF["AppPath"][
+                 AppManagerPalette`Private`currentApp, "README.md"]]], 
+              "Edit Ignore" :> AppManagerPalette`Private`sysOpen[
+                AppManagerPalette`Private`whichPacF["AppPath"][
+                AppManagerPalette`Private`currentApp, ".gitignore"]], 
+              "Edit Exclude" :> AppManagerPalette`Private`sysOpen[
+                AppManagerPalette`Private`whichPacF["AppPath"][
+                AppManagerPalette`Private`currentApp, ".git", "info", 
+                 "exclude"]], Delimiter, "Regenerate README" :> 
+              AppManagerPalette`Private`sysOpen[
+                CopyFile[
+                 AppManagerPalette`Private`whichPacF["AppPath"][
+                 "BTools", "Resources", "Templates", "README.nb"], 
+                 AppManagerPalette`Private`whichPacF["AppPath"][
+                 AppManagerPalette`Private`currentApp, "README.nb"], 
+                 OverwriteTarget -> True]], "Regenerate Ignore" :> 
+              AppManagerPalette`Private`sysOpen[
+                Quiet[
+                 AppManagerPalette`Private`whichPacF[
+                 "AppRegenerateGitIgnore"][
+                 AppManagerPalette`Private`currentApp]]], 
+              "Regenerate Exclude" :> AppManagerPalette`Private`sysOpen[
+                Quiet[
+                 AppManagerPalette`Private`whichPacF[
+                 "AppRegenerateGitExclude"][
+                 AppManagerPalette`Private`currentApp]]]}, Appearance -> 
+             None, {}]}, {}], 
+          EventHandler[
+           Dynamic[
+            Insert[
+             ReplaceAll[
+              Insert[
+               Row[{
+                 Button[
+                 "Switch Branches", Null, 
+                  Appearance -> ("Default" -> Image[CompressedData["
+1:eJzN1LEKglAYhuFDNTQ0dAEt3UVrY6vRBRSZtBhoEF2GlyeKoqKIIqLobMdB
++Fz6qqkfngPn8E5n+Nenm3KZCCHMuTyU42NrGMfnfikvB928arp63ul3VVON
+zWkqH1fSQpqJ0XRvjMayrO4T2Nu2TWHvOA6Fveu6FPae51HY+75PDf/Y90EQ
+UMP/9n0YhhT2URRR2MdxTGGfJAmFfZqmFPZZllHY53lOYV8UBYV9WZYU9lVV
+UdjXdU1h3zQNhX3bttSPvfiiF//af7OvyC4c7cQXOc/YKw==
+                    "], 
+                    "Byte", ColorSpace -> "RGB", Interleaving -> True]), {
+                  Appearance -> {
+                    "Palette", FrameStyle -> Automatic, 
+                    ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+                   FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+                   "Palette", Appearance -> ActionMenu, Alignment -> 
+                   Automatic, Background -> None, DefaultBaseStyle -> {}}], 
+                 ActionMenu[
+                  Button[
+                  "", Null, Appearance -> {"Default" -> Image[CompressedData["
+
+1:eJzt1s+KgkAcwPGhOuyxY4e99BZd97jXYh+gyKSLgYV/HsMH8MFEUVQUUUQU
+PbszURG/GpP4uacd+MioM9+TqPPNYbkbEUKOH/SwXKtfsrzWV1N68iMd96Ik
+bL+lkyAK8mIzphc/qRk1IdzRvoE7DMNoh3DftywLFezbto0K9h3HQQX7ruui
+gn3P81Dd9c9z3/dRXfrttR8EASrYD8MQFexHUYQK9uM4RgX7SZI8YM+xaZqd
+2Jpne2E/TdOnFEXhvtPYPd4+2M+yjEtV1Yc2u9a1B/bzPO+kadptPZu/Wg/7
+RVG8pOv6WZ+1sF+WJSrYr6oKFezXdY0K9pumQfWHfTJgn/z3+/WH/L+6focR
+3cYv8PIQ7g==
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Hover" -> Image[CompressedData["
+1:eJzt1j1rg0AYwPEj6ZCxY4Yu+RZdM3a19AMkxIYuBrQQ9YM4+9V8wVdUVNTR
+3oUq8iRnJDx26sFPTr37b75s9ifhc0EIUVb0IOzOW1neae/P9ORDUr6Oknh4
+k77Foyi/7pf04gu1pp4Id7QP4A7DMNo5DPuWZaGCfdu2UcG+4zioYN91XVSw
+73keqkH/Mvd9H9Vvv+36QRCggv0wDFHBfhRFqGA/jmNUsJ8kyRX2HJqmOYqt
+ubUX9tM0vUlVVe47jd3j7YP9LMu4NE27arNrY3tgP8/zUbqu9+vZ/N562C+K
+4i7WZaashf2yLFHBflVVqGC/rmtUsN80Dao/7JMZ++S/P60/5/9V9x1G1I8f
+BDwtSg==
+                    "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                    True], "Pressed" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJmpqa/tMCI5u/bds2quJR8weN+f9paP7/4WL+9u3b
+qYrRzd+zZw9VMbr5Bw8exMAwd+DDIDXY9KKbf+zYMaw4JSUFZ5kGksOlD938
+06dP48Tp6ekYZoPE8OlBN//8+fN4cWZmJlw9iE1IPbr5ly5dIoizsrLAmBi1
+6OZfvXqVqhjd/Bs3blAVo5t/+/ZtqmJ08+/cuUNVTEfzGWhoPsOo+cSZT8v2
+FawepiKGAwBxeUst
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True], "Disabled" -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGh7dBxj3vo0lt07di1ZR+gyKKLgS0se/MVfBj/vIAPIYqi
+oogioujZnYkt4pdaxM9ODXxkHGe+By86We0XmwEh5DCil8XyZyYIy9/Pd3rz
+xR92W55bz/lvbssJ09UbXRxTH9SQtI76Aa1DkqS6D5d9wzBQwb5pmqhg37Is
+VLBv2zYq2HccB9VF/zh3XRfVf78+9T3PQwX7vu+jgv0gCFDBfhiGqGA/iqIr
+7D3qut6J7Wk6C/txHDeSZbkWRbERe9Z2DvaTJGmlKMpVm611nYH9NE07qap6
+brP5rf2wn2XZTZqmHd2zF/bzPEcF+0VRoIL9sixRwX5VVaie2Cc99smrf1+/
+z/+r03cY0Xn8Ad19LLo=
+                    "], "Byte", ColorSpace -> "RGB", 
+                    Interleaving -> True]}], {"Label" :> "Result"}, 
+                  Appearance -> None, {}]}, {}], 
+               
+               FilterRules[{
+                Enabled -> 
+                 Dynamic[
+                  AppManagerPalette`Private`gitRefresh; 
+                   AppManagerPalette`Private`gitRepoQ[], 
+                   TrackedSymbols :> {
+                    AppManagerPalette`Private`gitRefresh, 
+                    AppManagerPalette`Private`currentApp}], Method -> 
+                 "Queued", 
+                 TrackedSymbols :> {
+                  AppManagerPalette`Private`currentApp, 
+                   AppManagerPalette`Private`$gitBranches}}, 
+                Options[ActionMenu]], {1, 2, -1}], {"Label" :> "Result"} -> 
+              Replace[
+                AppManagerPalette`Private`loadGitBranches[], 
+                Pattern[AppManagerPalette`Private`l, {
+                   BlankSequence[]}] :> Join[{Style[
+                    First[AppManagerPalette`Private`l], Bold, Italic] :> 
+                   None}, 
+                  Map[# :> If[
+                    AppManagerPalette`Private`gitRepoQ[], Quiet[
+                    AppManagerPalette`Private`whichPacF["GitSwitchBranch"][
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp], #]]; 
+                    AppManagerPalette`Private`loadGitBranches[True]]& , 
+                   Rest[AppManagerPalette`Private`l]], {
+                  Delimiter, "New Branch" :> Replace[
+                    AppManagerPalette`Private`inputDialog[
+                    "Provide a name for the branch:"], 
+                    Pattern[AppManagerPalette`Private`s, 
+                    Blank[String]] :> (Quiet[
+                    AppManagerPalette`Private`whichPacF["GitSwitchBranch"][
+                    AppManagerPalette`Private`whichPacF["AppPath"][
+                    AppManagerPalette`Private`currentApp], 
+                    StringDelete[AppManagerPalette`Private`s, 
+                    Except[WordCharacter]]]]; 
+                    AppManagerPalette`Private`loadGitBranches[True])]}]]], 
+             
+             FilterRules[{
+              Enabled -> Dynamic[
+                AppManagerPalette`Private`gitRefresh; 
+                 AppManagerPalette`Private`gitRepoQ[], 
+                 TrackedSymbols :> {
+                  AppManagerPalette`Private`gitRefresh, 
+                   AppManagerPalette`Private`currentApp}], Method -> "Queued",
+                TrackedSymbols :> {
+                AppManagerPalette`Private`currentApp, 
+                 AppManagerPalette`Private`$gitBranches}}, 
+              Options[Button]], {1, 1, -1}], {
+            Enabled -> Dynamic[
+              AppManagerPalette`Private`gitRefresh; 
+               AppManagerPalette`Private`gitRepoQ[], 
+               TrackedSymbols :> {
+                AppManagerPalette`Private`gitRefresh, 
+                 AppManagerPalette`Private`currentApp}]}], "MouseEntered" :> 
+           AppManagerPalette`Private`loadGitBranches[True]]}, "Dist" -> {
+          EventHandler[
+           Button[
+            Style["Publish", 
+             GrayLevel[0.2]], 
+            With[{BTools`Formatting`Private`nb$ = EvaluationNotebook[]}, 
+              Internal`WithLocalSettings[CurrentValue[
+                  FrontEnd`EvaluationNotebook[], {
+                  TaggingRules, "UUIDButtons", "Active", 
+                   "Button-f9a01cd2-24c7-4db5-a266-cd19086a173d"}] = True, 
+                Block[{$ContextPath = {"System`"}}, 
+                  Needs[
+                   StringJoin[AppManagerPalette`Private`$appName, "`"]]]; 
+                AppManagerPalette`Private`paletteDialog[
+                  
+                  With[{AppManagerPalette`Private`r = 
+                    AppManagerPalette`Private`whichPacF["AppPublish"][
+                    AppManagerPalette`Private`currentApp, "PublishServer" -> 
+                    TrueQ[AppManagerPalette`Private`publishServerFlag], 
+                    "MakeSite" -> 
+                    TrueQ[AppManagerPalette`Private`makeSiteFlag], 
+                    "PushToGitHub" -> 
+                    AppManagerPalette`Private`gitPushFlag =!= False, 
+                    "PacletBackup" -> 
+                    AppManagerPalette`Private`backupFlag =!= False, 
+                    "PushToServer" -> 
+                    AppManagerPalette`Private`pushToServerFlag =!= False, 
+                    "UpdatePaclet" -> 
+                    AppManagerPalette`Private`updatePacletFlag =!= False]}, 
+                   Quiet[If[AppManagerPalette`Private`gitPushFlag =!= False, 
+                    AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`whichPacF["AppGitHubRepo"][
+                    AppManagerPalette`Private`currentApp]]]; 
+                    If[AppManagerPalette`Private`publishServerFlag, 
+                    Replace[
+                    AppManagerPalette`Private`whichPacF[
+                    "PacletServerDeploymentURL"][], 
+                    Pattern[AppManagerPalette`Private`s, 
+                    Blank[String]] :> 
+                    AppManagerPalette`Private`sysOpen[
+                    AppManagerPalette`Private`s]]]; Null]], "Publishing"], 
+                CurrentValue[
+                  FrontEnd`EvaluationNotebook[], {
+                  TaggingRules, "UUIDButtons", "Active", 
+                   "Button-f9a01cd2-24c7-4db5-a266-cd19086a173d"}] = False]; 
+              Null]; Null, Appearance -> {"Default" -> Image[CompressedData["
+1:eJzV1EEKgkAYhuGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKRxNFUVFEEVF0bUMU
+5NfiS1r1wzvMDDzbf66e1vuBEOI8lsdauS4NQ7ltpvKx1c/Hg67tVvpFO2jG
+Qh3Kz5lsIhuJzrSkzpim2X7bu7Esi4bGtm0aGsdxaGhc16Wh8TyP9mYed9/3
+aU/TvkwQBDQ0YRjS0ERRREMTxzENTZIkNDRpmtLQZFlGQ5PnOQ1NURQ0NGVZ
+0tBUVUVDU9c1DU3TNLQfjehpxD+YnjuR7dyPHXwHy1co2w==
+                "], "Byte", 
+                ColorSpace -> "RGB", Interleaving -> True], "Hover" -> 
+              Image[CompressedData["
+1:eJzV1E0KgkAYxvGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKx/MDP1FRUZc2REE+
+LZ6kVS/8h5mB3/adq6f1fiCEOI/lsVauS8NQbpupfGz18/Gga7uVftEOmrFQ
+h/JzJpvIRqIzLakzpmm23/ZuLMuiobFtm4bGcRwaGtd1aWg8z6O9mcfd933a
+07QvEwQBDU0YhjQ0URTR0MRxTEOTJAkNTZqmNDRZltHQ5HlOQ1MUBQ1NWZY0
+NFVV0dDUdU1D0zQN7UcjehrxD6bnTmQ792MH3wFFhzOd
+                "], "Byte", 
+                ColorSpace -> "RGB", Interleaving -> True], "Pressed" -> 
+              Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiHmBmIUBBfwngFHAzJkz/xOLkfVs27aNIB7Gev6TqOc/vfVs376dIEbX
+s2fPHoIYXc/BgwcJYnQ9x44dI4jR9Zw+fZogRtdz/vx5ghhdz6VLlwhidD1X
+r14liNH13LhxgyBG13P79m2CGF3PnTt3CGIK9TCQqIdhKOghsUwkVOZilMEA
+mEXTyg==
+                "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                True], 
+              Dynamic[
+               FEPrivate`If[
+                FrontEnd`CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-f9a01cd2-24c7-4db5-a266-cd19086a173d"}, False], 
+                "Pressed", Automatic, Automatic]]}, Method -> "Queued", 
+            FrameMargins -> {{5, 5}, {2, 0}}, ImageSize -> 200, 
+            Appearance -> {"Palette", 
+              Dynamic[
+               FEPrivate`If[
+                FrontEnd`CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-f9a01cd2-24c7-4db5-a266-cd19086a173d"}, False], 
+                "Pressed", Automatic, Automatic]]}], {
+           "MouseClicked" :> Internal`WithLocalSettings[
+              FrontEndExecute[
+               FrontEnd`NotebookSuspendScreenUpdates[
+                FrontEnd`EvaluationNotebook[]]], 
+              If[
+               TrueQ[
+                Replace[
+                 Replace[Automatic, Pattern[BTools`Formatting`Private`d, 
+                    Blank[Dynamic]] :> First[BTools`Formatting`Private`d]], 
+                 Automatic -> True]], CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-f9a01cd2-24c7-4db5-a266-cd19086a173d"}] = True], 
+              FrontEndExecute[
+               FrontEnd`NotebookResumeScreenUpdates[
+                FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> True}], 
+          Grid[{{
+             Grid[{{
+                Checkbox[
+                 Dynamic[
+                 AppManagerPalette`Private`gitPushFlag =!= False, (
+                  AppManagerPalette`Private`gitPushFlag = #)& ]], 
+                Style["Git Push", 
+                 GrayLevel[0.5]]}}, Alignment -> Bottom], 
+             Grid[{{
+                Checkbox[
+                 Dynamic[
+                 AppManagerPalette`Private`backupFlag =!= False, (
+                  AppManagerPalette`Private`backupFlag = #)& ]], 
+                Style["Backup", 
+                 GrayLevel[0.5]]}}, Alignment -> Bottom]}, {
+             Grid[{{
+                Checkbox[
+                 Dynamic[
+                 AppManagerPalette`Private`pushToServerFlag =!= False, (
+                  AppManagerPalette`Private`pushToServerFlag = #)& ]], 
+                Style["Push to server", 
+                 GrayLevel[0.5]]}}, Alignment -> Bottom], 
+             Grid[{{
+                Checkbox[
+                 Dynamic[
+                 AppManagerPalette`Private`updatePacletFlag =!= False, (
+                  AppManagerPalette`Private`updatePacletFlag = #)& ]], 
+                Style["Update PI", 
+                 GrayLevel[0.5]]}}, Alignment -> Bottom]}, {
+             Grid[{{
+                Checkbox[
+                 Dynamic[AppManagerPalette`Private`publishServerFlag]], 
+                Style["Publish server", 
+                 GrayLevel[0.5]]}}, Alignment -> Bottom], 
+             Grid[{{
+                Checkbox[
+                 Dynamic[AppManagerPalette`Private`makeSiteFlag]], 
+                Style["Make Site", 
+                 GrayLevel[0.5]]}}, Alignment -> Bottom]}}, Alignment -> 
+           Left], 
+          Panel[
+          "", ImageSize -> {190, 1}, ImageMargins -> 5, Appearance -> 
+           Image[CompressedData["
+1:eJyF0b0OgjAQB/BGHRx9BRMfwtXRFeMDQETiggmYGJ+rL9XS8lVoC12wJnLT
+JVxyd7/7r7ePnsF9RQjJt34E4fuUZeHnsvPHNc0fSRrfzukrTuLsGK19ePD9
+2xsCNQF8/e/JOQcex3HRwzCgttaCjTGotdao+74Hd12HWikFbtsWddM04Lqu
+UVdVBS7LErWUErUQAlwUBWrO+aIZY7MJpRT+Mmdfqc/QmA==
+             "], "Byte", 
+             ColorSpace -> "RGB", Interleaving -> True]], 
+          Row[{
+            Button[
+            "Make Config File", Null, 
+             Appearance -> ("Default" -> Image[CompressedData["
+1:eJzN1LEKglAYhuFDNTQ0dAEt3UVrY6vRBRSZtBhoEF2GlyeKoqKIIqLobMdB
++Fz6qqkfngPn8E5n+Nenm3KZCCHMuTyU42NrGMfnfikvB928arp63ul3VVON
+zWkqH1fSQpqJ0XRvjMayrO4T2Nu2TWHvOA6Fveu6FPae51HY+75PDf/Y90EQ
+UMP/9n0YhhT2URRR2MdxTGGfJAmFfZqmFPZZllHY53lOYV8UBYV9WZYU9lVV
+UdjXdU1h3zQNhX3bttSPvfiiF//af7OvyC4c7cQXOc/YKw==
+                "], "Byte", 
+                ColorSpace -> "RGB", Interleaving -> True]), {
+             Appearance -> {
+               "Palette", FrameStyle -> Automatic, 
+                ImagePadding -> {{1, 0}, {1, 1}}}, ImageSize -> 178, 
+              FrameMargins -> Automatic, ImageSize -> 200, Appearance -> 
+              "Palette", Appearance -> ActionMenu, Alignment -> Automatic, 
+              Background -> None, DefaultBaseStyle -> {}}], 
+            ActionMenu[
+             Button[
+             "", Null, Appearance -> {"Default" -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGhOuyxY4e99BZd97jXYh+gyKSLgYV/HsMH8MFEUVQUUUQU
+PbszURG/GpP4uacd+MioM9+TqPPNYbkbEUKOH/SwXKtfsrzWV1N68iMd96Ik
+bL+lkyAK8mIzphc/qRk1IdzRvoE7DMNoh3DftywLFezbto0K9h3HQQX7ruui
+gn3P81Dd9c9z3/dRXfrttR8EASrYD8MQFexHUYQK9uM4RgX7SZI8YM+xaZqd
+2Jpne2E/TdOnFEXhvtPYPd4+2M+yjEtV1Yc2u9a1B/bzPO+kadptPZu/Wg/7
+RVG8pOv6WZ+1sF+WJSrYr6oKFezXdY0K9pumQfWHfTJgn/z3+/WH/L+6focR
+3cYv8PIQ7g==
+                  "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                  True], "Hover" -> Image[CompressedData["
+1:eJzt1j1rg0AYwPEj6ZCxY4Yu+RZdM3a19AMkxIYuBrQQ9YM4+9V8wVdUVNTR
+3oUq8iRnJDx26sFPTr37b75s9ifhc0EIUVb0IOzOW1neae/P9ORDUr6Oknh4
+k77Foyi/7pf04gu1pp4Id7QP4A7DMNo5DPuWZaGCfdu2UcG+4zioYN91XVSw
+73keqkH/Mvd9H9Vvv+36QRCggv0wDFHBfhRFqGA/jmNUsJ8kyRX2HJqmOYqt
+ubUX9tM0vUlVVe47jd3j7YP9LMu4NE27arNrY3tgP8/zUbqu9+vZ/N562C+K
+4i7WZaashf2yLFHBflVVqGC/rmtUsN80Dao/7JMZ++S/P60/5/9V9x1G1I8f
+BDwtSg==
+                  "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                  True], "Pressed" -> Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiCWAmIUBJ/hPBsYJmpqa/tMCI5u/bds2quJR8weN+f9paP7/4WL+9u3b
+qYrRzd+zZw9VMbr5Bw8exMAwd+DDIDXY9KKbf+zYMaw4JSUFZ5kGksOlD938
+06dP48Tp6ekYZoPE8OlBN//8+fN4cWZmJlw9iE1IPbr5ly5dIoizsrLAmBi1
+6OZfvXqVqhjd/Bs3blAVo5t/+/ZtqmJ08+/cuUNVTEfzGWhoPsOo+cSZT8v2
+FawepiKGAwBxeUst
+                  "], "Byte", ColorSpace -> "RGB", 
+                  Interleaving -> True], "Disabled" -> Image[CompressedData["
+1:eJzt1s+KgkAcwPGh7dBxj3vo0lt07di1ZR+gyKKLgS0se/MVfBj/vIAPIYqi
+oogioujZnYkt4pdaxM9ODXxkHGe+By86We0XmwEh5DCil8XyZyYIy9/Pd3rz
+xR92W55bz/lvbssJ09UbXRxTH9SQtI76Aa1DkqS6D5d9wzBQwb5pmqhg37Is
+VLBv2zYq2HccB9VF/zh3XRfVf78+9T3PQwX7vu+jgv0gCFDBfhiGqGA/iqIr
+7D3qut6J7Wk6C/txHDeSZbkWRbERe9Z2DvaTJGmlKMpVm611nYH9NE07qap6
+brP5rf2wn2XZTZqmHd2zF/bzPEcF+0VRoIL9sixRwX5VVaie2Cc99smrf1+/
+z/+r03cY0Xn8Ad19LLo=
+                  "], "Byte", ColorSpace -> "RGB", 
+                  Interleaving -> True]}], {
+             "PacletInfo" :> AppManagerPalette`Private`sysOpen[
+                AppManagerPalette`Private`whichPacF[
+                "AppRegeneratePacletInfo"][
+                AppManagerPalette`Private`currentApp]], Delimiter, 
+              "BundleInfo" :> AppManagerPalette`Private`sysOpen[
+                AppManagerPalette`Private`whichPacF[
+                "AppRegenerateBundleInfo"][
+                AppManagerPalette`Private`currentApp]], "UploadInfo" :> 
+              AppManagerPalette`Private`sysOpen[
+                AppManagerPalette`Private`whichPacF[
+                "AppRegenerateUploadInfo"][
+                AppManagerPalette`Private`currentApp]]}, Appearance -> 
+             None, {}]}, {}], 
+          Panel[
+          "", ImageSize -> {190, 1}, ImageMargins -> 5, Appearance -> 
+           Image[CompressedData["
+1:eJyF0b0OgjAQB/BGHRx9BRMfwtXRFeMDQETiggmYGJ+rL9XS8lVoC12wJnLT
+JVxyd7/7r7ePnsF9RQjJt34E4fuUZeHnsvPHNc0fSRrfzukrTuLsGK19ePD9
+2xsCNQF8/e/JOQcex3HRwzCgttaCjTGotdao+74Hd12HWikFbtsWddM04Lqu
+UVdVBS7LErWUErUQAlwUBWrO+aIZY7MJpRT+Mmdfqc/QmA==
+             "], "Byte", 
+             ColorSpace -> "RGB", Interleaving -> True]], 
+          EventHandler[
+           Button[
+            Style["Push to GitHub", 
+             GrayLevel[0.2]], 
+            With[{BTools`Formatting`Private`nb$ = EvaluationNotebook[]}, 
+              Internal`WithLocalSettings[CurrentValue[
+                  FrontEnd`EvaluationNotebook[], {
+                  TaggingRules, "UUIDButtons", "Active", 
+                   "Button-eee2fb65-cd26-416b-a3e6-f804c9c500d2"}] = True, 
+                Block[{$ContextPath = {"System`"}}, 
+                  Needs[
+                   StringJoin[AppManagerPalette`Private`$appName, "`"]]]; (
+                 Quiet[
+                   AppManagerPalette`Private`whichPacF["AppGitHubPush"][
+                   AppManagerPalette`Private`currentApp]]; SystemOpen[
+                   AppManagerPalette`Private`whichPacF["AppGitHubRepo"][
+                   AppManagerPalette`Private`currentApp, None]]), CurrentValue[
+                  FrontEnd`EvaluationNotebook[], {
+                  TaggingRules, "UUIDButtons", "Active", 
+                   "Button-eee2fb65-cd26-416b-a3e6-f804c9c500d2"}] = False]; 
+              Null]; Null, Appearance -> {"Default" -> Image[CompressedData["
+1:eJzV1EEKgkAYhuGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKRxNFUVFEEVF0bUMU
+5NfiS1r1wzvMDDzbf66e1vuBEOI8lsdauS4NQ7ltpvKx1c/Hg67tVvpFO2jG
+Qh3Kz5lsIhuJzrSkzpim2X7bu7Esi4bGtm0aGsdxaGhc16Wh8TyP9mYed9/3
+aU/TvkwQBDQ0YRjS0ERRREMTxzENTZIkNDRpmtLQZFlGQ5PnOQ1NURQ0NGVZ
+0tBUVUVDU9c1DU3TNLQfjehpxD+YnjuR7dyPHXwHy1co2w==
+                "], "Byte", 
+                ColorSpace -> "RGB", Interleaving -> True], "Hover" -> 
+              Image[CompressedData["
+1:eJzV1E0KgkAYxvGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKx/MDP1FRUZc2REE+
+LZ6kVS/8h5mB3/adq6f1fiCEOI/lsVauS8NQbpupfGz18/Gga7uVftEOmrFQ
+h/JzJpvIRqIzLakzpmm23/ZuLMuiobFtm4bGcRwaGtd1aWg8z6O9mcfd933a
+07QvEwQBDU0YhjQ0URTR0MRxTEOTJAkNTZqmNDRZltHQ5HlOQ1MUBQ1NWZY0
+NFVV0dDUdU1D0zQN7UcjehrxD6bnTmQ792MH3wFFhzOd
+                "], "Byte", 
+                ColorSpace -> "RGB", Interleaving -> True], "Pressed" -> 
+              Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiHmBmIUBBfwngFHAzJkz/xOLkfVs27aNIB7Gev6TqOc/vfVs376dIEbX
+s2fPHoIYXc/BgwcJYnQ9x44dI4jR9Zw+fZogRtdz/vx5ghhdz6VLlwhidD1X
+r14liNH13LhxgyBG13P79m2CGF3PnTt3CGIK9TCQqIdhKOghsUwkVOZilMEA
+mEXTyg==
+                "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                True], 
+              Dynamic[
+               FEPrivate`If[
+                FrontEnd`CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-eee2fb65-cd26-416b-a3e6-f804c9c500d2"}, False], 
+                "Pressed", Automatic, Automatic]]}, Method -> "Queued", 
+            FrameMargins -> {{5, 5}, {2, 0}}, ImageSize -> 200, 
+            Appearance -> {"Palette", 
+              Dynamic[
+               FEPrivate`If[
+                FrontEnd`CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-eee2fb65-cd26-416b-a3e6-f804c9c500d2"}, False], 
+                "Pressed", Automatic, Automatic]]}], {
+           "MouseClicked" :> Internal`WithLocalSettings[
+              FrontEndExecute[
+               FrontEnd`NotebookSuspendScreenUpdates[
+                FrontEnd`EvaluationNotebook[]]], 
+              If[
+               TrueQ[
+                Replace[
+                 Replace[Automatic, Pattern[BTools`Formatting`Private`d, 
+                    Blank[Dynamic]] :> First[BTools`Formatting`Private`d]], 
+                 Automatic -> True]], CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-eee2fb65-cd26-416b-a3e6-f804c9c500d2"}] = True], 
+              FrontEndExecute[
+               FrontEnd`NotebookResumeScreenUpdates[
+                FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> True}], 
+          EventHandler[
+           Button[
+            Style["Create GitHub Repo", 
+             GrayLevel[0.2]], 
+            With[{BTools`Formatting`Private`nb$ = EvaluationNotebook[]}, 
+              Internal`WithLocalSettings[CurrentValue[
+                  FrontEnd`EvaluationNotebook[], {
+                  TaggingRules, "UUIDButtons", "Active", 
+                   "Button-8941379c-e8ce-46d5-9329-0c51aa26741e"}] = True, 
+                Block[{$ContextPath = {"System`"}}, 
+                  Needs[
+                   StringJoin[AppManagerPalette`Private`$appName, "`"]]]; 
+                Quiet[
+                  AppManagerPalette`Private`whichPacF["AppGitHubConfigure"][
+                  AppManagerPalette`Private`currentApp]], CurrentValue[
+                  FrontEnd`EvaluationNotebook[], {
+                  TaggingRules, "UUIDButtons", "Active", 
+                   "Button-8941379c-e8ce-46d5-9329-0c51aa26741e"}] = False]; 
+              Null]; Null, Appearance -> {"Default" -> Image[CompressedData["
+1:eJzV1EEKgkAYhuGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKRxNFUVFEEVF0bUMU
+5NfiS1r1wzvMDDzbf66e1vuBEOI8lsdauS4NQ7ltpvKx1c/Hg67tVvpFO2jG
+Qh3Kz5lsIhuJzrSkzpim2X7bu7Esi4bGtm0aGsdxaGhc16Wh8TyP9mYed9/3
+aU/TvkwQBDQ0YRjS0ERRREMTxzENTZIkNDRpmtLQZFlGQ5PnOQ1NURQ0NGVZ
+0tBUVUVDU9c1DU3TNLQfjehpxD+YnjuR7dyPHXwHy1co2w==
+                "], "Byte", 
+                ColorSpace -> "RGB", Interleaving -> True], "Hover" -> 
+              Image[CompressedData["
+1:eJzV1E0KgkAYxvGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKx/MDP1FRUZc2REE+
+LZ6kVS/8h5mB3/adq6f1fiCEOI/lsVauS8NQbpupfGz18/Gga7uVftEOmrFQ
+h/JzJpvIRqIzLakzpmm23/ZuLMuiobFtm4bGcRwaGtd1aWg8z6O9mcfd933a
+07QvEwQBDU0YhjQ0URTR0MRxTEOTJAkNTZqmNDRZltHQ5HlOQ1MUBQ1NWZY0
+NFVV0dDUdU1D0zQN7UcjehrxD6bnTmQ792MH3wFFhzOd
+                "], "Byte", 
+                ColorSpace -> "RGB", Interleaving -> True], "Pressed" -> 
+              Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiHmBmIUBBfwngFHAzJkz/xOLkfVs27aNIB7Gev6TqOc/vfVs376dIEbX
+s2fPHoIYXc/BgwcJYnQ9x44dI4jR9Zw+fZogRtdz/vx5ghhdz6VLlwhidD1X
+r14liNH13LhxgyBG13P79m2CGF3PnTt3CGIK9TCQqIdhKOghsUwkVOZilMEA
+mEXTyg==
+                "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                True], 
+              Dynamic[
+               FEPrivate`If[
+                FrontEnd`CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-8941379c-e8ce-46d5-9329-0c51aa26741e"}, False], 
+                "Pressed", Automatic, Automatic]]}, Method -> "Queued", 
+            FrameMargins -> {{5, 5}, {2, 0}}, ImageSize -> 200, 
+            Appearance -> {"Palette", 
+              Dynamic[
+               FEPrivate`If[
+                FrontEnd`CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-8941379c-e8ce-46d5-9329-0c51aa26741e"}, False], 
+                "Pressed", Automatic, Automatic]]}], {
+           "MouseClicked" :> Internal`WithLocalSettings[
+              FrontEndExecute[
+               FrontEnd`NotebookSuspendScreenUpdates[
+                FrontEnd`EvaluationNotebook[]]], 
+              If[
+               TrueQ[
+                Replace[
+                 Replace[Automatic, Pattern[BTools`Formatting`Private`d, 
+                    Blank[Dynamic]] :> First[BTools`Formatting`Private`d]], 
+                 Automatic -> True]], CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-8941379c-e8ce-46d5-9329-0c51aa26741e"}] = True], 
+              FrontEndExecute[
+               FrontEnd`NotebookResumeScreenUpdates[
+                FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> True}], 
+          EventHandler[
+           Button[
+            Style["Delete GitHub Repo", 
+             GrayLevel[0.2]], 
+            With[{BTools`Formatting`Private`nb$ = EvaluationNotebook[]}, 
+              Internal`WithLocalSettings[CurrentValue[
+                  FrontEnd`EvaluationNotebook[], {
+                  TaggingRules, "UUIDButtons", "Active", 
+                   "Button-b7520e09-d485-41b2-92ec-d2d9129c598c"}] = True, 
+                Block[{$ContextPath = {"System`"}}, 
+                  Needs[
+                   StringJoin[AppManagerPalette`Private`$appName, "`"]]]; 
+                Quiet[
+                  AppManagerPalette`Private`whichPacF["AppGitHubDelete"][
+                  AppManagerPalette`Private`currentApp]], CurrentValue[
+                  FrontEnd`EvaluationNotebook[], {
+                  TaggingRules, "UUIDButtons", "Active", 
+                   "Button-b7520e09-d485-41b2-92ec-d2d9129c598c"}] = False]; 
+              Null]; Null, Appearance -> {"Default" -> Image[CompressedData["
+1:eJzV1EEKgkAYhuGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKRxNFUVFEEVF0bUMU
+5NfiS1r1wzvMDDzbf66e1vuBEOI8lsdauS4NQ7ltpvKx1c/Hg67tVvpFO2jG
+Qh3Kz5lsIhuJzrSkzpim2X7bu7Esi4bGtm0aGsdxaGhc16Wh8TyP9mYed9/3
+aU/TvkwQBDQ0YRjS0ERRREMTxzENTZIkNDRpmtLQZFlGQ5PnOQ1NURQ0NGVZ
+0tBUVUVDU9c1DU3TNLQfjehpxD+YnjuR7dyPHXwHy1co2w==
+                "], "Byte", 
+                ColorSpace -> "RGB", Interleaving -> True], "Hover" -> 
+              Image[CompressedData["
+1:eJzV1E0KgkAYxvGhWrQJOkCbbtG2ZduiAyhZtDGwIDqKx/MDP1FRUZc2REE+
+LZ6kVS/8h5mB3/adq6f1fiCEOI/lsVauS8NQbpupfGz18/Gga7uVftEOmrFQ
+h/JzJpvIRqIzLakzpmm23/ZuLMuiobFtm4bGcRwaGtd1aWg8z6O9mcfd933a
+07QvEwQBDU0YhjQ0URTR0MRxTEOTJAkNTZqmNDRZltHQ5HlOQ1MUBQ1NWZY0
+NFVV0dDUdU1D0zQN7UcjehrxD6bnTmQ792MH3wFFhzOd
+                "], "Byte", 
+                ColorSpace -> "RGB", Interleaving -> True], "Pressed" -> 
+              Image[CompressedData["
+1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
+UFAGiHmBmIUBBfwngFHAzJkz/xOLkfVs27aNIB7Gev6TqOc/vfVs376dIEbX
+s2fPHoIYXc/BgwcJYnQ9x44dI4jR9Zw+fZogRtdz/vx5ghhdz6VLlwhidD1X
+r14liNH13LhxgyBG13P79m2CGF3PnTt3CGIK9TCQqIdhKOghsUwkVOZilMEA
+mEXTyg==
+                "], "Byte", ColorSpace -> "RGB", Interleaving -> 
+                True], 
+              Dynamic[
+               FEPrivate`If[
+                FrontEnd`CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-b7520e09-d485-41b2-92ec-d2d9129c598c"}, False], 
+                "Pressed", Automatic, Automatic]]}, Method -> "Queued", 
+            FrameMargins -> {{5, 5}, {2, 0}}, ImageSize -> 200, 
+            Appearance -> {"Palette", 
+              Dynamic[
+               FEPrivate`If[
+                FrontEnd`CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-b7520e09-d485-41b2-92ec-d2d9129c598c"}, False], 
+                "Pressed", Automatic, Automatic]]}], {
+           "MouseClicked" :> Internal`WithLocalSettings[
+              FrontEndExecute[
+               FrontEnd`NotebookSuspendScreenUpdates[
+                FrontEnd`EvaluationNotebook[]]], 
+              If[
+               TrueQ[
+                Replace[
+                 Replace[Automatic, Pattern[BTools`Formatting`Private`d, 
+                    Blank[Dynamic]] :> First[BTools`Formatting`Private`d]], 
+                 Automatic -> True]], CurrentValue[
+                 FrontEnd`EvaluationNotebook[], {
+                 TaggingRules, "UUIDButtons", "Active", 
+                  "Button-b7520e09-d485-41b2-92ec-d2d9129c598c"}] = True], 
+              FrontEndExecute[
+               FrontEnd`NotebookResumeScreenUpdates[
+                FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> 
+            True}]}]]]]; AppManagerPalette`Private`refreshApps[],
+  ImageSizeCache->{220., {425., 431.}}]],
+ CellMargins->{{0, 0}, {0, 0}},
+ CellBracketOptions->{"Color"->RGBColor[0.269993, 0.308507, 0.6]},
+ CellHorizontalScrolling->True,
+ PageBreakAbove->True,
+ PageBreakWithin->False,
+ CellChangeTimes->{{3.751864711367447*^9, 3.7518647123868113`*^9}, {
+   3.751864855373917*^9, 3.751864861497686*^9}, {3.7518652386424227`*^9, 
+   3.7518652431369123`*^9}, {3.751870665569765*^9, 3.751870688135933*^9}, {
+   3.751872479202755*^9, 3.751872480554473*^9}, {3.7520471346158752`*^9, 
+   3.752047137845261*^9}, 3.7520815000148706`*^9, {3.752082500102845*^9, 
+   3.752082501808319*^9}, {3.7520828848656883`*^9, 3.752082886490836*^9}, {
+   3.7520911420051537`*^9, 3.752091142414904*^9}},
+ ShowAutoStyles->True,
+ LineSpacing->{1.25, 0},
+ AutoItalicWords->{},
+ ScriptMinSize->9,
+ ShowStringCharacters->False,
+ FontFamily:>CurrentValue["PanelFontFamily"],
+ FontSize:>CurrentValue[
+  "PanelFontSize"],ExpressionUUID->"e33bc218-c8a2-48c2-84e7-7a7e8fb330cd"]
+},
+ClosingSaveDialog->False,
+WindowSize->{All, 
+  Scaled[1]},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+WindowElements->{"StatusArea"},
+WindowTitle->"App Manager",
+TaggingRules->{
+ "UUIDButtons" -> {
+   "Active" -> {
+     "Button-be41c4e3-f137-497c-add6-ba4648873b2c" -> False, 
+      "Button-5dc9944a-fa18-49aa-8326-e2226ad70d8f" -> False, 
+      "Button-9a10e1ed-9468-4709-b92d-ca6c35d64094" -> False, 
+      "Button-bbc52cc5-242d-4f57-b596-c7685676a53c" -> False, 
+      "Button-f8a10bc0-c151-4415-b44f-9e84dd823048" -> False, 
+      "Button-21f6e290-e07f-4bef-9d86-e5282a86787a" -> False, 
+      "Button-f9a01cd2-24c7-4db5-a266-cd19086a173d" -> False, 
+      "Button-eee2fb65-cd26-416b-a3e6-f804c9c500d2" -> False, 
+      "Button-8941379c-e8ce-46d5-9329-0c51aa26741e" -> False, 
+      "Button-b7520e09-d485-41b2-92ec-d2d9129c598c" -> False}}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->"Palette.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[584, 21, 186835, 3657, 858, InheritFromParent,ExpressionUUID->"e33bc218-c8a2-48c2-84e7-7a7e8fb330cd",
+ PageBreakAbove->True,
+ PageBreakWithin->False]
+}
+]
+*)
+

@@ -1,0 +1,703 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Ems", \
+"CodeSection",ExpressionUUID->"6335eed0-9b17-4929-a372-1feface45096"],
+
+Cell["\<\
+\[LeftCeiling]
+\tA static site builder extending off of BTools
+\[RightFloor]\
+\>", "Text",
+ Evaluatable->True,ExpressionUUID->"b24b0622-b382-4080-80b8-7ccb1225e0fa"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "::", "usage"}], "=", "\n", "\t", 
+   "\"\<The Ems site builder interface. Supports string methods.\>\""}], 
+  ";"}]], "CodeInput",ExpressionUUID->"02862033-dd9b-47ae-bf9d-ed27050f6aa5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], 
+  ";"}]], "InputSection",ExpressionUUID->"01a1c17c-d522-4532-84cc-\
+2b7764fd468b"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Unprotect", "[", "Ems", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Clear", "[", "Ems", "]"}], 
+  ";"}]}], "CodeInput",ExpressionUUID->"15cd1266-4246-43a8-a35e-49783b82f1d2"]\
+
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Load BTools\[RightFloor]", "CodeSubsection",
+ Evaluatable->True,
+ CellChangeTimes->{{3.733928804090145*^9, 
+  3.733928805760441*^9}},ExpressionUUID->"842e5510-0f76-4a68-9d6a-\
+22755a2f6f65"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"PackageLoadPacletDependency", "[", 
+   RowBox[{"\"\<BTools`\>\"", ",", " ", "\n", "\t", 
+    RowBox[{"\"\<Update\>\"", "\[Rule]", "True"}], ",", "\n", "\t", 
+    RowBox[{
+    "\"\<Site\>\"", "\[Rule]", 
+     "\"\<http://www.wolframcloud.com/objects/b3m2a1.paclets/PacletServer\>\"\
+"}]}], "\n", "\t", "]"}], 
+  "*)"}]], "CodeInput",ExpressionUUID->"b28229d0-198c-4704-8dc0-f471680d2de5"],
+
+Cell[BoxData[
+ RowBox[{"PackageExtendContextPath", "[", "\n", "\t", 
+  RowBox[{"{", "\n", "\t\t", 
+   RowBox[{
+   "\"\<SimpleDocs`Dependencies`BTools`\>\"", ",", "\n", "\t\t", 
+    "\"\<SimpleDocs`Dependencies`BTools`External`\>\"", ",", "\n", "\t\t", 
+    "\"\<SimpleDocs`Dependencies`BTools`Web`\>\""}], "\n", "\t\t", "}"}], 
+  "\n", "\t", 
+  "]"}]], "CodeInput",ExpressionUUID->"51edb6e2-129e-4942-badd-1e1048a06f77"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Interface\[RightFloor]", "CodeSubsection",
+ Evaluatable->True,
+ CellChangeTimes->{{3.733853066150236*^9, 
+  3.733853067404583*^9}},ExpressionUUID->"fc542fb0-d8bc-4068-85f8-\
+9047c63492eb"],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Command List\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,
+ CellChangeTimes->{{3.73385331701123*^9, 
+  3.733853319442979*^9}},ExpressionUUID->"4c1ee57e-bb81-4c02-b1d6-\
+3601631ab170"],
+
+Cell[BoxData[
+ RowBox[{"$EmsCommands", "=", "\n", "\t", 
+  RowBox[{"{", "\n", "\t\t", 
+   RowBox[{
+   "\"\<Build\>\"", ",", "\n", "\t\t", "\"\<Deploy\>\"", ",", "\n", "\t\t", 
+    "\"\<Open\>\"", ",", "\n", "\t\t", "\"\<New\>\"", ",", "\n", "\t\t", "\n",
+     "\t\t", "\"\<ListSites\>\"", ",", "\n", "\t\t", "\"\<ListThemes\>\"", 
+    ",", "\n", "\t\t", "\n", "\t\t", "\"\<ListContent\>\"", ",", "\n", 
+    "\t\t", "\"\<ListPosts\>\"", ",", "\n", "\t\t", "\"\<ListPages\>\"", ",", 
+    "\n", "\t\t", "\n", "\t\t", "\"\<Options\>\"", ",", "\n", "\t\t", 
+    "\"\<SetOptions\>\"", ",", "\n", "\t\t", "\n", "\t\t", "\"\<NewPage\>\"", 
+    ",", "\n", "\t\t", "\"\<NewPost\>\"", ",", "\n", "\t\t", 
+    "\"\<NewTableOfContents\>\"", ",", "\n", "\t\t", "\n", "\t\t", 
+    "\"\<Directory\>\"", ",", "\n", "\t\t", "\"\<SetDirectory\>\"", ",", "\n",
+     "\t\t", "\"\<Path\>\"", ",", "\n", "\t\t", "\"\<SetPath\>\"", ",", "\n", 
+    "\t\t", "\"\<ThemePath\>\"", ",", "\n", "\t\t", "\"\<SetThemePath\>\"", 
+    ",", "\n", "\t\t", "\n", "\t\t", "\"\<BuildErrors\>\""}], "\n", "\t\t", 
+   "}"}]}]], \
+"CodeInput",ExpressionUUID->"9a6e8f07-28b0-403d-b3b9-643f583597da"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Path Stuff\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"ac1dffe7-3677-4c1a-a5f5-61c7a4814d8d"],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]SiteDirectory\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"9e0d984a-47ee-4197-98f2-0cecc6561d09"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ems", "[", "\"\<Directory\>\"", "]"}], ":=", "\n", "\t", 
+  "$SiteDirectory"}]], \
+"CodeInput",ExpressionUUID->"0878deba-9761-4eb3-8018-688524d30d04"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]SetDirectory\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"13087092-d144-444d-a15a-a4aedc07874d"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ems", "[", 
+   RowBox[{"\"\<SetDirectory\>\"", ",", " ", "d_"}], "]"}], ":=", "\n", "\t", 
+  
+  RowBox[{
+  "SetSiteDirectory", "[", "d", 
+   "]"}]}]], \
+"CodeInput",ExpressionUUID->"8217e36e-f4e9-44f4-a0d7-bc0e248a86d5"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Path\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"6c0ac0e4-31e2-4966-aeb7-165bf5873430"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ems", "[", "\"\<Path\>\"", "]"}], ":=", "\n", "\t", 
+  "$SitePath"}]], \
+"CodeInput",ExpressionUUID->"b530a9bb-de2f-4d94-b0a9-5b7adfbd01ca"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]SetPath\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"0a5d8223-28b3-4114-8cbf-c69e967ca00a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ems", "[", 
+   RowBox[{"\"\<SetPath\>\"", ",", " ", "d_"}], "]"}], ":=", "\n", "\t", 
+  RowBox[{
+  "SetSitePath", "[", "d", 
+   "]"}]}]], \
+"CodeInput",ExpressionUUID->"cc79f9c2-3781-427e-aef0-df57c7266e99"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]ThemePath\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"73c4145e-5178-4f5e-9d2e-ac0a29af2f22"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ems", "[", "\"\<ThemePath\>\"", "]"}], ":=", "\n", "\t", 
+  "$SiteThemePath"}]], \
+"CodeInput",ExpressionUUID->"ffa0c0d5-3ddd-4d7e-ad2f-bab4ab9409c4"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]SetThemePath\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"5d5c984d-c2f8-425e-b8aa-24320c55592d"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ems", "[", 
+   RowBox[{"\"\<SetThemePath\>\"", ",", " ", "d_"}], "]"}], ":=", "\n", "\t", 
+  
+  RowBox[{
+  "SetSiteThemePath", "[", "d", 
+   "]"}]}]], \
+"CodeInput",ExpressionUUID->"ee84af59-f013-49dd-a646-eff01c5724b0"]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]List stuff\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"e21cdb31-50b6-4817-ad60-0e10e900b652"],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]ListSites\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"11efc809-dc3a-45fe-8b8d-3daef6be54de"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "[", 
+    RowBox[{"\"\<ListSites\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+   
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"r", "=", 
+       RowBox[{"ListSites", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"r", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "r", "]"}], "=!=", "ListSites"}]}]}], "\n", 
+    "\t\t", "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"4446d1f1-abaf-416d-a444-92f482f781c4"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]ListThemes\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"e880fc26-b375-446a-95a5-c35402648038"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "[", 
+    RowBox[{"\"\<ListThemes\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"r", "=", 
+       RowBox[{"ListThemes", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"r", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "r", "]"}], "=!=", "ListThemes"}]}]}], "\n", 
+    "\t\t", "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"d6022d2c-6338-449f-a2b4-0ebe0da024b4"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]ListContent\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"ddf688b6-005b-4680-ac9d-8303a7281e68"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "[", 
+    RowBox[{"\"\<ListContent\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", 
+   "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"r", "=", 
+       RowBox[{"ListContent", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"r", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "r", "]"}], "=!=", "ListContent"}]}]}], "\n", 
+    "\t\t", "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"f6462b3c-f648-4bad-ba8f-2ae98e1b5059"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]ListPages\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"7f76c843-b202-46c0-9f10-fcb629d9a545"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "[", 
+    RowBox[{"\"\<ListPages\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+   
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"r", "=", 
+       RowBox[{"ListPages", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"r", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "r", "]"}], "=!=", "ListPages"}]}]}], "\n", 
+    "\t\t", "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"fedd0d44-91a4-48d6-887b-050f2c995400"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]ListPosts\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"df916f34-ac4b-4960-b38b-9681e65bdaeb"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "[", 
+    RowBox[{"\"\<ListPosts\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+   
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"r", "=", 
+       RowBox[{"ListPosts", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"r", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "r", "]"}], "=!=", "ListPosts"}]}]}], "\n", 
+    "\t\t", "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"1e19d127-1769-4f91-8cba-e5521ebca3f1"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]FindTheme\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"8587b018-7fa5-4285-8792-300b1013893b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "[", 
+    RowBox[{"\"\<FindTheme\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+   
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"r", "=", 
+       RowBox[{"FindTheme", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"r", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "r", "]"}], "=!=", "FindTheme"}]}]}], "\n", 
+    "\t\t", "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"927e9572-0114-4e5d-b2a3-9a6e031bbbc0"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Options\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"e98470e9-3528-42d8-abd2-f9e1dcf01ab2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "[", 
+    RowBox[{"\"\<Options\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"r", "=", 
+       RowBox[{"SiteOptions", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"r", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "r", "]"}], "=!=", "SiteOptions"}]}]}], "\n", 
+    "\t\t", "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"6dd53995-eed3-4adf-afe8-729b8ff67676"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]SetOptions\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"b013e0a3-86ca-40bb-91d1-5479ce328392"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "[", 
+    RowBox[{"\"\<SetOptions\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"r", "=", 
+       RowBox[{"SetSiteOptions", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     
+     RowBox[{"r", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "r", "]"}], "=!=", "SetSiteOptions"}]}]}], "\n", 
+    "\t\t", "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"6d0e4fb7-cc82-4afd-b06a-a5494e635f6a"]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Site stuff\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"85641a76-b389-4427-bbcb-8e598e4ace36"],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]New\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"b0ee0df9-a0a0-426c-b8b2-42c2e3d5e201"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "[", 
+    RowBox[{"\"\<New\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"r", "=", 
+       RowBox[{"NewSite", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{
+      RowBox[{"(", "\n", "\t\t\t", 
+       RowBox[{
+        RowBox[{"UpdateAutocompletions", "[", "]"}], ";", "\n", "\t\t\t", 
+        "r"}], "\n", "\t\t\t", ")"}], "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "r", "]"}], "=!=", "NewSite"}]}]}], "\n", "\t\t", 
+    "]"}]}], ";"}]], \
+"CodeInput",ExpressionUUID->"1a56a797-1db4-4ea5-b479-56e6a8238a48"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]NewContent\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"e42e6d30-3341-4ec1-9a24-a713f5cf9373"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "[", 
+    RowBox[{"\"\<NewContent\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"r", "=", 
+       RowBox[{"NewContent", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"r", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "r", "]"}], "=!=", "NewContent"}]}]}], "\n", 
+    "\t\t", "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"6e08de4e-5e09-4cb0-9cfd-ae34ac685f7d"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]NewPage\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"25ee16d2-3be4-4ca9-ac80-54971a364a3a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "[", 
+    RowBox[{"\"\<NewPage\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"r", "=", 
+       RowBox[{"NewPage", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"r", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "r", "]"}], "=!=", "NewPage"}]}]}], "\n", "\t\t", 
+    "]"}]}], ";"}]], \
+"CodeInput",ExpressionUUID->"691ab477-84da-4b81-a03a-1de0c66d5b14"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]NewPost\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"5d6ff4fa-faab-4c00-8a60-40dbf6d48ed4"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "[", 
+    RowBox[{"\"\<NewPost\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"r", "=", 
+       RowBox[{"NewPost", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"r", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "r", "]"}], "=!=", "NewPost"}]}]}], "\n", "\t\t", 
+    "]"}]}], ";"}]], \
+"CodeInput",ExpressionUUID->"cb6dae6e-ba9b-4f43-a283-58015bf362cc"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]NewTableOfContents\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"94b8a02f-afcd-4cc8-9c7d-fdff6eb56ade"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ems", "[", 
+    RowBox[{"\"\<NewTableOfContents\>\"", ",", " ", "a___"}], "]"}], ":=", 
+   "\n", "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"r", "=", 
+       RowBox[{"NewTableOfContents", "[", "a", "]"}]}], "}"}], ",", "\n", 
+     "\t\t", 
+     RowBox[{"r", "/;", 
+      RowBox[{
+       RowBox[{"Head", "[", "r", "]"}], "=!=", "NewTableOfContents"}]}]}], 
+    "\n", "\t\t", "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"ec3bf85c-d726-4bc8-973c-28934f7430d2"]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Build stuff\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"551fd2d2-4ad6-43da-8241-1db0639c5af4"],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Build\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"b9a0e3a1-8a6f-4811-8503-725d84ddcef9"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ems", "[", 
+   RowBox[{"\"\<Build\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"r", "=", 
+      RowBox[{"BuildSite", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+    RowBox[{"r", "/;", 
+     RowBox[{
+      RowBox[{"Head", "[", "r", "]"}], "=!=", "BuildSite"}]}]}], "\n", "\t\t",
+    "]"}]}]], \
+"CodeInput",ExpressionUUID->"6c174a73-04c2-4f7e-9256-f324225a6ae3"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Open\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"8a0f73ac-aad1-45ee-867e-f348db94a386"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ems", "[", 
+   RowBox[{"\"\<Open\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"r", "=", 
+      RowBox[{"OpenSite", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+    RowBox[{"r", "/;", 
+     RowBox[{
+      RowBox[{"Head", "[", "r", "]"}], "=!=", "OpenSite"}]}]}], "\n", "\t\t", 
+   "]"}]}]], \
+"CodeInput",ExpressionUUID->"06c209ac-1717-4d34-b79f-2e16e7138841"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Deploy\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"a13034cf-bc13-41be-bf5d-830ec5b902e9"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ems", "[", 
+   RowBox[{"\"\<Deploy\>\"", ",", " ", "a___"}], "]"}], ":=", "\n", "\t", 
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"r", "=", 
+      RowBox[{"DeploySite", "[", "a", "]"}]}], "}"}], ",", "\n", "\t\t", 
+    RowBox[{"r", "/;", 
+     RowBox[{
+      RowBox[{"Head", "[", "r", "]"}], "=!=", "DeploySite"}]}]}], "\n", 
+   "\t\t", "]"}]}]], \
+"CodeInput",ExpressionUUID->"71fb2d6f-e839-4a5c-825c-f2de7c322565"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]BuildErrors\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"f83e1492-cf2e-4a82-af74-ee68cee1f2c6"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ems", "[", "\"\<BuildErrors\>\"", "]"}], ":=", "\n", "\t", 
+  "$BuildErrors"}]], \
+"CodeInput",ExpressionUUID->"880f2584-9154-4571-b72e-853e5c813171"]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Git stuff\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"835b1b62-a4e6-4d01-9fa7-7c4b28cf53ad"],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]CreateSiteRepo\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"30ed7cf0-de8a-41c6-ae0a-735cd3d46a72"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ems", "[", 
+   RowBox[{
+   "\"\<CreateSiteRepo\>\"", ",", " ", "site_String", ",", " ", "\n", "\t", 
+    RowBox[{"name", ":", 
+     RowBox[{"_String", "|", "Automatic"}], ":", "Automatic"}], ",", " ", 
+    RowBox[{"ops", ":", 
+     RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", "\n", "\t", 
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"s", "=", 
+      RowBox[{"CreateSiteRepo", "[", 
+       RowBox[{"site", ",", " ", "name", ",", " ", "ops"}], "]"}]}], "}"}], 
+    ",", "\n", "\t\t", 
+    RowBox[{"s", "/;", 
+     RowBox[{
+      RowBox[{"Head", "[", "s", "]"}], "=!=", "CreateSiteRepo"}]}]}], "\n", 
+   "\t\t", "]"}]}]], \
+"CodeInput",ExpressionUUID->"87796392-8127-4807-aeeb-32f14fe0e38f"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]PushSiteRepo\[RightFloor]", "CodeSubsubsubsection",
+ Evaluatable->True,ExpressionUUID->"e03c9d73-c431-49c6-8ebd-c2e98ee5bb8b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ems", "[", 
+   RowBox[{"\"\<PushSiteRepo\>\"", ",", " ", "site_String", ",", " ", 
+    RowBox[{"ops", ":", 
+     RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", "\n", "\t", 
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"s", "=", 
+      RowBox[{
+       RowBox[{"PackageExceptionBlock", "[", "\"\<GitHub\>\"", "]"}], "@", 
+       RowBox[{"PushSiteRepo", "[", 
+        RowBox[{"site", ",", " ", "ops"}], "]"}]}]}], "}"}], ",", "\n", 
+    "\t\t", 
+    RowBox[{"s", "/;", 
+     RowBox[{
+      RowBox[{"Head", "[", "s", "]"}], "=!=", "PushSiteRepo"}]}]}], "\n", 
+   "\t\t", "]"}]}]], \
+"CodeInput",ExpressionUUID->"1f4de7de-55e2-42bf-bd65-e82bbd922380"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Clean Up\[RightFloor]", "CodeSubsection",
+ Evaluatable->True,
+ CellChangeTimes->{{3.7338532936434917`*^9, 3.733853295443551*^9}, {
+  3.733935740398941*^9, 
+  3.7339357415493107`*^9}},ExpressionUUID->"0250d52c-139b-4327-bbcc-\
+76b4e7d8ace3"],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Autocompletions\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"d97697ab-b802-4299-852a-ccdedfaae901"],
+
+Cell[BoxData[
+ RowBox[{"PackageAddAutocompletions", "[", "\n", "\t", 
+  RowBox[{"Ems", ",", "\n", "\t", 
+   RowBox[{"{", "\n", "\t\t", 
+    RowBox[{"Sort", "@", 
+     RowBox[{
+      RowBox[{"DownValues", "[", "Ems", "]"}], "[", 
+      RowBox[{"[", 
+       RowBox[{"All", ",", " ", "1", ",", " ", "1", ",", " ", "1"}], "]"}], 
+      "]"}]}], "\n", "\t\t", "}"}]}], "\n", "\t", 
+  "]"}]], "CodeInput",ExpressionUUID->"8afc0985-1174-4683-a696-f050706a290a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Protection\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"6c85962e-ea02-4823-b319-8a015b5d77bf"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Protect", "[", "Ems", "]"}], 
+  ";"}]], "CodeInput",ExpressionUUID->"c0b3628b-642f-418c-9655-2761264f268e"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"End", "[", "]"}], 
+  ";"}]], "InputSection",ExpressionUUID->"8c65acb2-a737-495d-a2a4-\
+c330f4f5c5fe"]
+}, Open  ]],
+
+Cell["", "SectionSeparator",ExpressionUUID->"7ae8f3ea-0d98-4fe8-b7be-\
+8fc9c5b0f030"]
+},
+WindowSize->{808, 755},
+WindowMargins->{{Automatic, 233}, {40, Automatic}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"BTools"}, "CodePackage.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

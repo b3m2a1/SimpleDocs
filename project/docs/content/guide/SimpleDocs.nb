@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     12070,        346]
-NotebookOptionsPosition[      7441,        244]
-NotebookOutlinePosition[      8516,        273]
-CellTagsIndexPosition[      8473,        270]
+NotebookDataLength[     10432,        348]
+NotebookOptionsPosition[      7449,        246]
+NotebookOutlinePosition[      8527,        275]
+CellTagsIndexPosition[      8484,        272]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -35,11 +35,13 @@ Cell[BoxData[
    "|>"}]}]], "Metadata",ExpressionUUID->"14f5224e-2903-426b-8202-\
 c8c77c4dd8c1"],
 
-Cell["Guide", "TitleBar",ExpressionUUID->"42d0305f-c86d-48c3-b675-da59962c68f7"],
+Cell["Guide", "TitleBar",
+ ExpressionUUID -> "42d0305f-c86d-48c3-b675-da59962c68f7"],
 
 Cell[CellGroupData[{
 
-Cell["SimpleDocs", "Section", "GuideName",ExpressionUUID->"1d3db2b7-0568-4ff8-9860-094e4758e655"],
+Cell["SimpleDocs", "Section", "GuideName",
+ ExpressionUUID -> "1d3db2b7-0568-4ff8-9860-094e4758e655"],
 
 Cell[TextData[{
  "SimpleDocs is a paclet that implements simple documentation building. It \
@@ -228,7 +230,6 @@ Cell[TextData[ButtonBox["Ems",
    URL["https://github.com/b3m2a1/Ems"], None},
  ButtonNote->"https://github.com/b3m2a1/Ems"]], "Item",
  CellID->1318189595,ExpressionUUID->"0b354f97-f977-4797-a5d8-042ad4a2bcb7"]
-}, Open  ]]
 }, Open  ]],
 
 Cell[TextData[{
@@ -241,10 +242,11 @@ Cell[TextData[{
 }], "Text", "Footer",
  CellID->1389138853,ExpressionUUID->"bd1bdf8b-4afa-469b-9d0f-7b46224ae6da"]
 }, Open  ]]
+}, Open  ]]
 },
 ScreenStyleEnvironment->"Editing",
 WindowSize->{808, 755},
-WindowMargins->{{Automatic, 272}, {Automatic, 28}},
+WindowMargins->{{191, Automatic}, {Automatic, 0}},
 TaggingRules->{
  "Metadata" -> {
    "built" -> "{2018, 11, 23, 22, 6, 12.203926}", 
@@ -256,8 +258,8 @@ TaggingRules->{
     "SimpleDocs", "titlemodifier" -> "", "windowtitle" -> "SimpleDocs", 
     "type" -> "Guide", "uri" -> "SimpleDocs/guide/SimpleDocs"}, "ColorType" -> 
   "GuideColor", "Paclet" -> "SimpleDocs"},
-FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
-2018)",
+FrontEndVersion->"11.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (September 8, \
+2016)",
 StyleDefinitions->FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb", 
   CharacterEncoding -> "UTF-8"]
 ]
@@ -272,81 +274,81 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 597, 15, 159, "Metadata",ExpressionUUID->"14f5224e-2903-426b-8202-c8c77c4dd8c1"],
-Cell[1158, 37, 80, 0, 43, "TitleBar",ExpressionUUID->"42d0305f-c86d-48c3-b675-da59962c68f7"],
+Cell[558, 20, 597, 15, 159, "Metadata"],
+Cell[1158, 37, 84, 1, 43, "TitleBar"],
 Cell[CellGroupData[{
-Cell[1263, 41, 97, 0, 54, "Section",ExpressionUUID->"1d3db2b7-0568-4ff8-9860-094e4758e655"],
-Cell[1363, 43, 400, 8, 81, "Text",ExpressionUUID->"61de55b6-aeb0-4c7c-b919-4656547e107e"],
+Cell[1267, 42, 101, 1, 51, "Section"],
+Cell[1371, 45, 400, 8, 68, "Text"],
 Cell[CellGroupData[{
-Cell[1788, 55, 124, 2, 2, "PageBreak",ExpressionUUID->"c58536f7-d61d-47cc-94d4-e5a4969f90d9",
+Cell[1796, 57, 124, 2, 2, "PageBreak",
  PageBreakAbove->False,
  PageBreakBelow->False],
-Cell[1915, 59, 162, 3, 35, "Text",ExpressionUUID->"6b9ca638-3760-40ae-b59e-7c5adf6e4c99"],
-Cell[2080, 64, 261, 5, 35, "Text",ExpressionUUID->"d458c91f-01a1-4cb5-9f37-c1004aa55787"],
-Cell[2344, 71, 231, 6, 35, "Text",ExpressionUUID->"6419f7e8-bca8-49f3-a1e9-62264c3023c5",
+Cell[1923, 61, 162, 3, 30, "Text"],
+Cell[2088, 66, 261, 5, 30, "Text"],
+Cell[2352, 73, 231, 6, 30, "Text",
  CellID->6081247],
-Cell[2578, 79, 225, 6, 35, "Text",ExpressionUUID->"b4a4bbf9-6bc0-4909-afc4-9ea7353730e6",
+Cell[2586, 81, 225, 6, 30, "Text",
  CellID->352640527]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2840, 90, 144, 3, 2, "PageBreak",ExpressionUUID->"63e97cce-a1d8-4882-bb4e-23f394944ef7",
+Cell[2848, 92, 144, 3, 2, "PageBreak",
  PageBreakAbove->False,
  PageBreakBelow->False,
  CellID->786133058],
-Cell[2987, 95, 190, 4, 35, "Text",ExpressionUUID->"0d95cacc-7541-4af4-9242-972d4b77a7fc",
+Cell[2995, 97, 190, 4, 30, "Text",
  CellID->1218909462],
-Cell[3180, 101, 224, 6, 35, "Text",ExpressionUUID->"2430140d-6592-426a-b17c-3e28c24cb19e",
+Cell[3188, 103, 224, 6, 30, "Text",
  CellID->1586580418],
-Cell[3407, 109, 230, 6, 35, "Text",ExpressionUUID->"473e1c81-8972-480f-91e7-bc5291e801aa",
+Cell[3415, 111, 230, 6, 30, "Text",
  CellID->1674032792],
-Cell[3640, 117, 244, 6, 35, "Text",ExpressionUUID->"7133de53-03ce-4562-be52-40e4ed27d5ae",
+Cell[3648, 119, 244, 6, 30, "Text",
  CellID->1285875797]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3921, 128, 145, 3, 2, "PageBreak",ExpressionUUID->"cc0b74d6-0de0-4a46-ac9f-5fa41a22d1ef",
+Cell[3929, 130, 145, 3, 2, "PageBreak",
  PageBreakAbove->False,
  PageBreakBelow->False,
  CellID->1352941326],
-Cell[4069, 133, 179, 4, 35, "Text",ExpressionUUID->"f4e5b711-0541-4d6b-a904-c470af01ed98",
+Cell[4077, 135, 179, 4, 30, "Text",
  CellID->1328011646],
-Cell[4251, 139, 230, 6, 35, "Text",ExpressionUUID->"5df2907f-ed12-4195-ba2b-541f3d2a4b31",
+Cell[4259, 141, 230, 6, 30, "Text",
  CellID->1275786920],
-Cell[4484, 147, 226, 6, 35, "Text",ExpressionUUID->"80ba7494-3216-4be4-874d-1bb11eadca00",
+Cell[4492, 149, 226, 6, 30, "Text",
  CellID->1043925289],
-Cell[4713, 155, 225, 6, 35, "Text",ExpressionUUID->"ac80dc25-c53d-49e8-b740-e42bfb70eb22",
+Cell[4721, 157, 225, 6, 30, "Text",
  CellID->310936233],
-Cell[4941, 163, 215, 6, 35, "Text",ExpressionUUID->"a0aeb326-220c-432a-b4d1-441d0cf482b4",
+Cell[4949, 165, 215, 6, 30, "Text",
  CellID->824166789],
-Cell[5159, 171, 231, 6, 35, "Text",ExpressionUUID->"127c89b3-4e84-4fd7-a400-ddbc6d02da66",
+Cell[5167, 173, 231, 6, 30, "Text",
  CellID->501699573]
 }, Open  ]],
-Cell[5405, 180, 124, 2, 2, "PageBreak",ExpressionUUID->"de192387-3915-4a55-a97f-f613716a8fbd",
+Cell[5413, 182, 124, 2, 2, "PageBreak",
  PageBreakAbove->False,
  PageBreakBelow->False],
 Cell[CellGroupData[{
-Cell[5554, 186, 126, 1, 34, "Subsection",ExpressionUUID->"3a7c343c-4bf9-45d9-b4fa-45ea8eea4c05",
+Cell[5562, 188, 126, 1, 32, "Subsection",
  CellID->1432922421],
 Cell[CellGroupData[{
-Cell[5705, 191, 197, 3, 32, "Item",ExpressionUUID->"fd592e8d-5982-4d71-b9bb-ebd53af1116c",
+Cell[5713, 193, 197, 3, 28, "Item",
  CellID->1245512289],
-Cell[5905, 196, 205, 3, 32, "Item",ExpressionUUID->"e928103e-fedc-4c3a-b537-b401012ac196",
+Cell[5913, 198, 205, 3, 28, "Item",
  CellID->1757460892]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[6159, 205, 127, 1, 34, "Subsection",ExpressionUUID->"2fb683b9-f463-492b-93e4-7ba920592e4c",
+Cell[6167, 207, 127, 1, 32, "Subsection",
  CellID->1376548462],
 Cell[CellGroupData[{
-Cell[6311, 210, 244, 5, 32, "Item",ExpressionUUID->"2363bbff-5c4c-4ef9-9459-f7132d329777",
+Cell[6319, 212, 244, 5, 28, "Item",
  CellID->808671703],
-Cell[6558, 217, 282, 5, 32, "Item",ExpressionUUID->"fa821698-467b-4cd1-9af4-11291f3183a5",
+Cell[6566, 219, 282, 5, 28, "Item",
  CellID->764470499],
-Cell[6843, 224, 250, 5, 32, "Item",ExpressionUUID->"0b354f97-f977-4797-a5d8-042ad4a2bcb7",
+Cell[6851, 226, 250, 5, 28, "Item",
  CellID->1318189595]
-}, Open  ]]
 }, Open  ]],
-Cell[7120, 233, 305, 8, 62, "Text",ExpressionUUID->"bd1bdf8b-4afa-469b-9d0f-7b46224ae6da",
+Cell[7116, 234, 305, 8, 58, "Text",
  CellID->1389138853]
+}, Open  ]]
 }, Open  ]]
 }
 ]

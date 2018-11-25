@@ -70,17 +70,7 @@ SetPacletInfo::usage="";
 Begin["`Private`"];
 
 
-PackageLoadPacletDependency["BTools`",
-  "Site"->"http://www.wolframcloud.com/objects/b3m2a1.paclets/PacletServer",
-  "Update"->True
-  ];
-PackageLoadPacletDependency["Ems`",
-  "Site"->"http://www.wolframcloud.com/objects/b3m2a1.paclets/PacletServer",
-  "Update"->True
-  ];
-
-
-deps=
+PackageExposeDependencies[
   {
     "Ems`",
     "BTools`Developer`",
@@ -89,13 +79,9 @@ deps=
     "BTools`Paclets`",
     "BTools`Paclets`DocGen`",
     "BTools`External`"
-    };
-
-
-
-PackageExtendContextPath@deps
-$ContextPath=
-  Prepend[$PackageContexts, "System`"];
+    },
+  True (* attaches these to the standard context path *)
+  ]
 
 
 (* ::Subsection:: *)
@@ -125,7 +111,7 @@ docsSiteLoc[s_String]:=
 InitializeDocsSite[loc_]:=
   With[{l=docsSiteLoc[loc]},
     If[StringQ@l&&!DirectoryQ@l,
-      With[{s=Ems`Ems["New", l, "docs"]},
+      With[{s=Ems["New", l, "docs"]},
         DeleteFile/@FileNames["*", FileNameJoin@{s, "content", "ref"}];
         DeleteFile/@FileNames["*", FileNameJoin@{s, "content", "guide"}];
         s
@@ -214,7 +200,7 @@ buildNotebookDocsSite[loc_]:=
               WindowFloating->True
               ];
           overrideMonitor[
-            PySimpleServerOpen@Ems`Ems["Build", l],
+            PySimpleServerOpen@Ems["Build", l],
             blech
             ];
           NotebookClose@nb;
