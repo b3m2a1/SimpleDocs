@@ -708,6 +708,7 @@ getSiteSaveFileName[pac_, nb_]:=
     baseDir=getSiteSaveLocation[pac, type];
     title=CurrentValue[nb, {TaggingRules, "Metadata", "label"}];
     If[!StringQ@title, title="Symbol"];
+    Quiet@CreateDirectory[baseDir, CreateIntermediateDirectories->True];
     FileNameJoin@{baseDir,StringTrim[title, ".nb"]<>".nb" }
     ];
 

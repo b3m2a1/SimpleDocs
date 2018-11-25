@@ -1,6 +1,6 @@
 Paclet[
   Name -> "SimpleDocs",
-  Version -> "1.0.4",
+  Version -> "1.0.5",
   Thumbnail -> "Resources/icon.png",
   Extensions -> {
     	{
