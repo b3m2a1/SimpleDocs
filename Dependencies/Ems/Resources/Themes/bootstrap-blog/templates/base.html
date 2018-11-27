@@ -248,6 +248,23 @@ Which[
 
 <wolfram:get path="include/analytics.html"/>
 
+<wolfram:get path="include/lib/templates/varTrueBlock.html">
+  <wolfram:slot id="var">CopyableInput</wolfram:slot>
+  <wolfram:slot id="CopyableInput">`CopyableInput`</wolfram:slot>
+  <wolfram:slot id="if">
+    <wolfram:get path="include/copyable_input.html"></wolfram:get>
+  </wolfram:slot>
+</wolfram:get>
+
+<wolfram:get path="include/lib/templates/varTrueBlock.html">
+  <wolfram:slot id="var">UseMathJAX</wolfram:slot>
+  <wolfram:slot id="UseMathJAX">`UseMathJAX`</wolfram:slot>
+  <wolfram:slot id="if">
+    <wolfram:get path="include/mathjax.html"></wolfram:get>
+  </wolfram:slot>
+</wolfram:get>
+
+
 `Scripts`
 
 </body>

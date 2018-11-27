@@ -35,7 +35,9 @@
 </wolfram:slot>
 
 <wolfram:slot id="ContentFooter">
-  <* If[TrueQ[#EmbedNotebook||#EmbedNotebook=="True"], $$templateLib["embedNotebook"]["Height"->500]] *>
+  <* If[TrueQ[#EmbedNotebook||#EmbedNotebook=="True"],
+    $$templateLib["embedNotebook"]["Height"->500]] *>
+  <wolfram:get path="include/footer_notebook.html"/>
   <wolfram:get path="include/related-posts.html"/>
   <wolfram:get path="include/comments.html"/>
 </wolfram:slot>

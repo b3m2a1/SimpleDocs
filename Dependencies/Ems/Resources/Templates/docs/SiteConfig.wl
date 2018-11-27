@@ -23,6 +23,7 @@
   	(*"SidebarClass"\[Rule]"panel",*)
   	(*"NavbarInvert"\[Rule]True,*)
   	"SummaryLength"->{1, "Lines"},
+  	"ContentFooter"->"",
   	"DeployOptions"->
   		{
   			(*CloudConnect->"DeploymentsAccount"*)(* connect before deployment*)

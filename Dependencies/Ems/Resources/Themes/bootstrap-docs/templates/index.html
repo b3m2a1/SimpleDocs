@@ -19,7 +19,7 @@
   </wolfram:get>
   <br>
   <div class="function-list">
-    <h2>Functions</h2>
+    <h2><a href='`SiteURL`/index/functions.html'>Functions</a></h2>
     <ul>
     <wolfram:sequence
       values='Take[SortBy[#SelectObjects["function"], #["Title"]&], UpTo[5]]'
@@ -31,10 +31,24 @@
   </div>
   </br>
   <div class="guide-list">
-    <h2>Guides</h2>
+    <h2><a href='`SiteURL`/index/guides.html'>Guides</a></h2>
     <ul>
     <wolfram:sequence
       values='Take[SortBy[#SelectObjects["guide"], #["Title"]&], UpTo[5]]'
+      slot="Article"
+      >
+      <article>
+        <li><a href='`SiteURL`/<*#Article["URL"]*>'><*#Article["Title"]*></a></li>
+      </article>
+    </wolfram:sequence>
+    </ul>
+  </div>
+  </br>
+  <div class="tutorial-list">
+    <h2><a href='`SiteURL`/index/tutorials.html'>Tutorials</a></h2>
+    <ul>
+    <wolfram:sequence
+      values='Take[SortBy[#SelectObjects["tutorial"], #["Title"]&], UpTo[5]]'
       slot="Article"
       >
       <article>
