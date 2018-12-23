@@ -204,13 +204,16 @@ MarkdownFileMetadataSlug[t_,name_,opsassoc_]:=
 
 
 
-MarkdownFileMetadata[val_,opsassoc_]:=
-  Replace[val,{
+MarkdownFileMetadata[val_, opsassoc_]:=
+  Replace[val, {
     _List:>
-      StringRiffle[ToString/@val,","],
+      StringRiffle[MarkdownFileMetadata[#, opsassoc]&/@val, ","],
+    <||>|{}:>"",
     _DateObject:>
-      StringReplace[DateString[val,"ISODateTime"],"T"->" "]
-    }]
+      StringReplace[DateString[val,"ISODateTime"], "T"->" "],
+    e_:>ToString[e]
+    }
+  ]
 
 
 (* ::Subsubsubsubsection::Closed:: *)
@@ -324,7 +327,7 @@ MarkdownNotebookContext[nb_]:=
 
 (* ::Subsection:: *)
 (*Settings*)
-
+ 
 
 
 (* ::Subsubsubsection::Closed:: *)
@@ -1799,7 +1802,8 @@ $MarkdownSettings=
     "MathJAXBlockTemplate"->"$$``$$",
     "PacletLinkResolutionFunction"->notebookToMarkdownResolvePacletURL,
     "ImageExportPathFunction"->markdownNotebookExportImagePath,
-    "LinkFormattingFunction"->linkFormatFunction
+    "LinkFormattingFunction"->linkFormatFunction,
+    "ExportFunction"->NotebookToMarkdown
     |>;
 
 
@@ -1933,7 +1937,7 @@ $iNotebookToMarkdownRasterizeBaseForms=
   _CheckboxBox|_DynamicBox|
   _InputFieldBox|_OpenerBox|
   _PopupMenuBox|_RadioButtonBox|_SliderBox|
-  _ButtonBox?(FreeQ[BaseStyle->"Link"|"Hyperlink"])|
+  _ButtonBox?(FreeQ[BaseStyle->("Link"|"Hyperlink")])|
   _PanelBox|_PaneBox|_TogglerBox|
   $iNotebookToMarkdownRasterizeBoxHeads?(Not@*FreeQ[_DynamicBox])|
   TagBox[__, _InterpretTemplate, ___]|
@@ -2536,8 +2540,7 @@ notebookToMarkdownHTMLExport[
                   Replace[
                     ExportString[x, "HTMLFragment"],
                     {
-                      e:Except[_String]:>
-                        (Print[x];"")
+                      e:Except[_String]:>""
                       }
                     ]
                   ],
@@ -2773,7 +2776,7 @@ notebookToMarkdownBasicXMLExport[e_]:=
 
 
 (* ::Subsubsubsection::Closed:: *)
-(*Hooks*)
+(*markdownLinkAnchor*)
 
 
 
@@ -2782,10 +2785,14 @@ markdownIDHook[id_String, style_:"no"]:=
     $MarkdownSettings["LinkAnchorTemplate"],
     {
       ToLowerCase@
-        StringReplace[
-          StringTrim@id,
-          {Whitespace->"-", Except[WordCharacter]->""}
-          ],
+        StringDelete[Except[WordCharacter]]@
+          StringRiffle[
+            Take[
+              StringSplit[
+                StringSplit[StringTrim@id, "<"|"["|"!", 2][[1]]
+                ], UpTo[3]],
+            "-"
+            ],
       style
       }
     ];
@@ -2793,8 +2800,14 @@ markdownLinkAnchor[t_, style_]:=
   If[TrueQ@$MarkdownSettings["LinkAnchors"]||
       MemberQ[$MarkdownSettings["LinkAnchors"], style],
     Replace[
-      FrontEndExecute@
-        ExportPacket[Cell[t], "PlainText"],
+      If[!StringQ@t,
+        FrontEndExecute@
+          ExportPacket[
+            Cell[If[!MatchQ[Head[t], BoxData|TextData], BoxData[t], t]], 
+            "PlainText"
+            ],
+        {t}
+        ],
       {
         {id_String,___}:>
           markdownIDHook[id, style]<>"\n\n",
@@ -3172,76 +3185,138 @@ $iNotebookToMarkdownSectionStyleRanking=
     |>;
 
 
+(* ::Subsubsubsection::Closed:: *)
+(*Title*)
+
+
+
 iNotebookToMarkdownRegister[pathInfo_, Cell[t_, "Title", ___]]:=
   Replace[iNotebookToMarkdown[pathInfo,t],
     s:Except["", _String]:>
-      markdownLinkAnchor[t, "Section"]<>
+      markdownLinkAnchor[s, "Section"]<>
         $MarkdownSettings["SectionCharacter"]<>" "<>
           boldify@s<>
           "\n"<>$MarkdownSettings["DividerCharacter"]
     ];
-iNotebookToMarkdownRegister[pathInfo_,Cell[t_, "Chapter", ___]]:=
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Chapter*)
+
+
+
+iNotebookToMarkdownRegister[pathInfo_, Cell[t_, "Chapter", ___]]:=
   Replace[iNotebookToMarkdown[pathInfo,t],
     s:Except["", _String]:>
-      markdownLinkAnchor[t, "Section"]<>
+      markdownLinkAnchor[s, "Section"]<>
         $MarkdownSettings["SectionCharacter"]<>" "<>
           bolditalicize@s
     ];
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Subchapter*)
+
+
+
 iNotebookToMarkdownRegister[pathInfo_,Cell[t_, "Subchapter", ___]]:=
   Replace[iNotebookToMarkdown[pathInfo,t],
     s:Except["", _String]:>
-      markdownLinkAnchor[t, "Section"]<>
+      markdownLinkAnchor[s, "Section"]<>
         $MarkdownSettings["SectionCharacter"]<>" "<>
         italicize@s
     ];
 
 
+(* ::Subsubsubsection::Closed:: *)
+(*Section*)
+
+
+
 iNotebookToMarkdownRegister[pathInfo_, Cell[t_,"Section",___]]:=
   Replace[iNotebookToMarkdown[pathInfo,t],
     s:Except["", _String]:>
-      markdownLinkAnchor[t, "Section"]<>
+      markdownLinkAnchor[s, "Section"]<>
         $MarkdownSettings["SectionCharacter"]<>" "<>s
     ];
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Subsection*)
+
+
+
 iNotebookToMarkdownRegister[pathInfo_, Cell[t_,"Subsection",___]]:=
   Replace[iNotebookToMarkdown[pathInfo,t],
     s:Except[""]:>
-      markdownLinkAnchor[t, "Subsection"]<>
+      markdownLinkAnchor[s, "Subsection"]<>
         StringRepeat[
           $MarkdownSettings["SectionCharacter"],
           2
           ]<>" "<>s
     ];
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Subsubsection*)
+
+
+
 iNotebookToMarkdownRegister[pathInfo_,Cell[t_,"Subsubsection",___]]:=
   Replace[iNotebookToMarkdown[pathInfo,t],
     s:Except[""]:>
-      markdownLinkAnchor[t, "Subsubsection"]<>
-        "### "<>s
-    ];
-iNotebookToMarkdownRegister[pathInfo_,Cell[t_,"Subsubsubsection",___]]:=
-  Replace[iNotebookToMarkdown[pathInfo,t],
-    s:Except[""]:>
-      markdownLinkAnchor[t, "Subsubsubsection"]<>
+      markdownLinkAnchor[s, "Subsubsection"]<>
         StringRepeat[
           $MarkdownSettings["SectionCharacter"],
           3
-          ]<>" "<>s
+          ]<>s
     ];
-iNotebookToMarkdownRegister[pathInfo_,Cell[t_,"Subsubsubsubsection",___]]:=
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Subsubsubsection*)
+
+
+
+iNotebookToMarkdownRegister[pathInfo_,Cell[t_,"Subsubsubsection",___]]:=
   Replace[iNotebookToMarkdown[pathInfo,t],
     s:Except[""]:>
-      markdownLinkAnchor[t, "Subsubsubsubsection"]<>
+      markdownLinkAnchor[s, "Subsubsubsection"]<>
         StringRepeat[
           $MarkdownSettings["SectionCharacter"],
           4
           ]<>" "<>s
     ];
-iNotebookToMarkdownRegister[pathInfo_,Cell[t_,"Subsububsubsubsection",___]]:=
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Subsubsubsubsection*)
+
+
+
+iNotebookToMarkdownRegister[pathInfo_,Cell[t_,"Subsubsubsubsection",___]]:=
   Replace[iNotebookToMarkdown[pathInfo,t],
     s:Except[""]:>
-      markdownLinkAnchor[t, "Subsububsubsubsection"]<>
+      markdownLinkAnchor[s, "Subsubsubsubsection"]<>
         StringRepeat[
           $MarkdownSettings["SectionCharacter"],
           5
+          ]<>" "<>s
+    ];
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Subsububsubsubsection*)
+
+
+
+iNotebookToMarkdownRegister[pathInfo_,Cell[t_,"Subsububsubsubsection",___]]:=
+  Replace[iNotebookToMarkdown[pathInfo,t],
+    s:Except[""]:>
+      markdownLinkAnchor[s, "Subsububsubsubsection"]<>
+        StringRepeat[
+          $MarkdownSettings["SectionCharacter"],
+          6
           ]<>" "<>s
     ];
 
@@ -3958,13 +4033,13 @@ iNotebookToMarkdownRegister[
 
 
 (* ::Subsubsection::Closed:: *)
-(*Grid / Column / Row*)
+(*Grid*)
 
 
 
 iNotebookToMarkdownRegister[
   pathInfo_, 
-  g:TagBox[_GridBox, "Grid"]
+  g:TagBox[_GridBox, "Grid", ___]
   ]:=
   notebookToMarkdownHTMLToExpressionExport[
     pathInfo,
@@ -3973,18 +4048,39 @@ iNotebookToMarkdownRegister[
     repExpr_,
     {2}
     ];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Column*)
+
+
+
+(* ::Text:: *)
+(*
+	Do I want to support this as pure Markdown...?
+*)
+
+
+
 iNotebookToMarkdownRegister[
   pathInfo_,
-  g:TagBox[_GridBox, "Column"]
+  g:TagBox[_GridBox, "Column", ___]
   ]:=
   ReplaceAll[s_String:>StringDelete[s, "\n"~~"ItemSize->{Automatic,Automatic}"]]@
-  notebookToMarkdownHTMLToExpressionExport[
-    pathInfo,
-    g,
-    1,
-    repExpr_,
-    {1}
-    ];
+    notebookToMarkdownHTMLToExpressionExport[
+      pathInfo,
+      g,
+      1,
+      repExpr_,
+      {1}
+      ];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Row*)
+
+
+
 iNotebookToMarkdownRegister[
   pathInfo_, 
   TemplateBox[g_, "RowDefault"]
@@ -3992,6 +4088,26 @@ iNotebookToMarkdownRegister[
   iNotebookToMarkdown[
     pathInfo,
     TagBox[GridBox[{g}], "Grid"]
+    ];
+
+
+(*iNotebookToMarkdownRegister[
+	pathInfo_, 
+	TemplateBox[g_, "RowDefault", ___]
+	]:=
+	iNotebookToMarkdown[
+		pathInfo,
+		RowBox[g]
+		];*)
+
+
+iNotebookToMarkdownRegister[
+  pathInfo_, 
+  TemplateBox[{_, sep_, data___}, "RowWithSeparators", ___]
+  ]:=
+  iNotebookToMarkdown[
+    pathInfo,
+    RowBox[Riffle[{data}, sep]]
     ];
 
 
@@ -4087,7 +4203,7 @@ iNotebookToMarkdownRegister[
 
 
 (* ::Subsubsubsection::Closed:: *)
-(*Hyperlink*)
+(*HyperlinkURL*)
 
 
 
@@ -4469,6 +4585,23 @@ iNotebookToMarkdownRegister[pathInfo_,
 
 
 (* ::Subsubsection::Closed:: *)
+(*Spacers*)
+
+
+
+(* ::Text:: *)
+(*
+	I ignore all of these by default...
+*)
+
+
+
+iNotebookToMarkdownRegister[pathInfo_, 
+  TemplateBox[a_, "Spacer1"|"Spacer2"|"Spacer3", ___]
+  ]:=""
+
+
+(* ::Subsubsection::Closed:: *)
 (*TemplateBox*)
 
 
@@ -4506,21 +4639,51 @@ iNotebookToMarkdownRegister[pathInfo_,
 
 
 
-iNotebookToMarkdownRegister[pathInfo_, Cell[e_,___]]:=
+(* ::Subsubsubsection::Closed:: *)
+(*Cell*)
+
+
+
+iNotebookToMarkdownRegister[pathInfo_, Cell[e_, ___]]:=
   iNotebookToMarkdown[pathInfo, e]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*String*)
+
+
+
 iNotebookToMarkdownRegister[pathInfo_, s_String]:=
   s;
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*TextData*)
+
+
+
 iNotebookToMarkdownRegister[pathInfo_, s_TextData]:=
   StringRiffle[
     Map[
       Replace[
         iNotebookToMarkdown[pathInfo, #], 
-        m_String:>
-          StringTrim[m, StartOfString~~Whitespace]
+        {
+          m_String:>
+            StringTrim[m, StartOfString~~Whitespace],
+          r_RawBoxes:>
+            Apply[Sequence, r]
+          }
         ]&, 
       List@@s//Flatten
       ]
     ];
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*BoxData*)
+
+
+
 iNotebookToMarkdownRegister[pathInfo_, b_BoxData]:=
   Replace[
     iNotebookToMarkdown[pathInfo, First@b],
@@ -4532,8 +4695,22 @@ iNotebookToMarkdownRegister[pathInfo_, b_BoxData]:=
         "Text"
         ]
     ];
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*$iNotebookToMarkdownIgnoredBoxHeads*)
+
+
+
 iNotebookToMarkdownRegister[pathInfo_, $iNotebookToMarkdownIgnoredBoxHeads[e_,___]]:=
   iNotebookToMarkdown[pathInfo, e]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*_*)
+
+
+
 iNotebookToMarkdownRegister[pathInfo_, e_, ___]:=
   If[BoxQ@e,
     notebookToMarkdownFEExport[

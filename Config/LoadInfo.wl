@@ -1,7 +1,23 @@
-(* ::Package:: *)
-
-(* Created with the Wolfram Language : www.wolfram.com *)
 {
-  "Mode"->"Primary",
-  "Dependencies"->{"Ems`", "BTools`"}
-  }
+	"Mode" -> "Primary",
+	"Dependencies" -> {
+		{
+			"BTools`",
+			"RemovePaths" -> {
+				ParentList,
+				"Documentation",
+				"Resources/Templates",
+				"Resources/PaletteGenerators",
+				"Resources/Themes/minimal",
+				"FrontEnd/Palettes"
+			}
+		},
+		{
+			"Ems`",
+			"LoadInfo" -> {"Dependencies" -> {"BTools`"}}
+		}
+	},
+	"PreLoad" -> None,
+	"FEHidden" -> {},
+	"PackageScope" -> None
+}

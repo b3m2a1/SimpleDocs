@@ -31,6 +31,7 @@
   	"BuildOptions"->
   		{
   		  "ContentDirectories"->{"ref", "tutorial", "guide", "pages"},
+  		  "CopyContent"->Except["ref"|"tutorial"|"guide"|"pages"],
   	      "ContentDirectoryTemplates"->
         	  AssociationThread[
         	    {"ref", "tutorial", "guide"},

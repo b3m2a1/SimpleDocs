@@ -31,6 +31,7 @@ SetNotebookPaclet::usage="";
 SaveNotebookToPaclet::usage="";
 SaveNotebookMarkdown::usage="";
 SaveNotebookToPacletProject::usage=""
+CheckSaveNotebook::usage="";
 
 
 CreateTemplateNotebook::usage="";
@@ -581,6 +582,18 @@ getPacletDialog[]:=
 
 
 (* ::Subsubsection::Closed:: *)
+(*getNBPaclet*)
+
+
+
+getNBPaclet[nb_]:=
+  CurrentValue[nb,
+  {TaggingRules, "SimpleDocs", "Paclet"},
+  CurrentValue[nb, {TaggingRules, "Paclet"}]
+  ]
+
+
+(* ::Subsubsection::Closed:: *)
 (*SetNotebookPaclet*)
 
 
@@ -589,7 +602,7 @@ SetNotebookPaclet[nb_]:=
   Module[
     {pacletLoc=getPacletDialog[]},
     If[StringLength@pacletLoc>0,
-      CurrentValue[nb, {TaggingRules, "Paclet"}]=pacletLoc,
+      CurrentValue[nb, {TaggingRules, "SimpleDocs", "Paclet"}]=pacletLoc,
       pacletLoc=None
       ];
     pacletLoc
@@ -725,7 +738,7 @@ getNotebookPaclet[nb_, ploc_:Automatic]:=
       pac
       },
     If[!StringQ@pacletLoc, 
-      pacletLoc=CurrentValue[nb, {TaggingRules, "Paclet"}]
+      pacletLoc=getNBPaclet[nb]
       ];
     If[!StringQ[pacletLoc], 
       pacletLoc=SetNotebookPaclet[nb];
@@ -753,7 +766,7 @@ SaveNotebookToPaclet[nb_, ploc_:Automatic]:=
       fname
       },
     If[!StringQ@pacletLoc, 
-      pacletLoc=CurrentValue[nb, {TaggingRules, "Paclet"}]
+      pacletLoc=getNBPaclet[nb]
       ];
     If[!StringQ[pacletLoc], 
       pacletLoc=SetNotebookPaclet[nb];
@@ -791,7 +804,7 @@ SaveNotebookToPacletProject[nb_, ploc_:Automatic]:=
       fname
       },
     If[!StringQ@pacletLoc, 
-      pacletLoc=CurrentValue[nb, {TaggingRules, "Paclet"}]
+      pacletLoc=getNBPaclet[nb]
       ];
     If[!StringQ[pacletLoc], 
       pacletLoc=SetNotebookPaclet[nb];
@@ -940,6 +953,30 @@ PopulateNotebookMetadata[nb_]:=
 ClearNotebookMetadata[nb_]:=
   CurrentValue[nb, {TaggingRules, "Metadata"}]=
       Thread[Map[ToLowerCase, Flatten@Values@$MetadataMap]->Automatic];
+
+
+(* ::Subsubsection::Closed:: *)
+(*CheckSaveNotebook*)
+
+
+
+CheckSaveNotebook[nb_]:=
+  Module[
+    {
+      saveMD,
+      saveDoc
+      },
+    saveMD=
+      CurrentValue[nb, {TaggingRules, "SimpleDocs", "MarkdownAutosave"}, False];
+    saveDoc=
+      CurrentValue[nb, {TaggingRules, "SimpleDocs", "DocumentationAutosave"}, False];
+    If[TrueQ@saveDoc,
+      SaveNotebookToPaclet[nb]
+      ];
+    If[TrueQ@saveMD,
+      SaveNotebookMarkdown[nb]
+      ];
+    ]
 
 
 (* ::Subsection:: *)
@@ -1388,24 +1425,31 @@ $MetadataEditor=
         hb=hideButton[Hold@show], sb=showButton[Hold@show]
         },
       Dynamic@
-        Grid[{
+        Grid[
+          {
             {
-              If[TrueQ@show, hb, sb], "Metadata",
-              ButtonBar[
-                {
-                  "Populate":>
-                    (
-                      Needs["SimpleDocs`"];
-                      PopulateNotebookMetadata[EvaluationNotebook[]]
-                      ),
-                  "Clear":>
-                    (
-                      Needs["SimpleDocs`"];
-                      ClearNotebookMetadata[EvaluationNotebook[]]
-                      )
-                  },
-                ImageSize->{100, Automatic}
-                ]},
+              If[TrueQ@show, hb, sb], 
+              Item["Metadata", ItemSize->Scaled[.15]],
+              Item[
+                ButtonBar[
+                  {
+                    "Populate":>
+                      (
+                        Needs["SimpleDocs`"];
+                        PopulateNotebookMetadata[EvaluationNotebook[]]
+                        ),
+                    "Clear":>
+                      (
+                        Needs["SimpleDocs`"];
+                        ClearNotebookMetadata[EvaluationNotebook[]]
+                        )
+                    },
+                  ImageSize->{100, Automatic}
+                  ],
+                Alignment->Right,
+                ItemSize->Scaled[.8]
+                ]
+              },
             {Null, If[TrueQ@show, bg], SpanFromLeft}
             },
           Alignment->Left
@@ -1449,16 +1493,44 @@ $insertionMenuTemplates=
 
 
 
+$thumb1=
+  RawBoxes@
+    DynamicBox[
+      FEPrivate`ImportImage[
+        FrontEnd`FileName[
+          {"Misc"},
+          "CellInsertionPointBitmap.png"
+          ]
+        ]
+      ];
+
+
+$thumb2=
+  Pane[
+    Framed[
+      Style["+", Large, Gray], 
+      Background->GrayLevel[.95], 
+      FrameStyle->Gray, 
+      RoundingRadius->5,
+      ImageSize->{80, 40},
+      FrameMargins->{{25, 25}, {5, 5}},
+      Alignment->Center
+      ],
+    {80, 26},
+    Alignment->{Left, Top},
+    BaselinePosition->Bottom,
+    ImageSizeAction->"Clip",
+    ScrollPosition->{150, 50},
+    Scrollbars->False
+    ];
+
+
 $InsertionMenu=
-ActionMenu[
-Framed[
-Grid[{{Item["Insert", ItemSize->{Scaled[.5], Automatic}, Alignment->{Left, Center}], Item[Style["\[DownPointer]", GrayLevel[.5]], ItemSize->{Scaled[.5], Scaled[.2]}, Alignment->{Right, Bottom}]}}],
-ImageSize->{150, 50},
- RoundingRadius->5, FrameStyle->GrayLevel[.8],Background->White],
-$insertionMenuTemplates,
-ImageSize->{150, 50},
-Appearance->None
-];
+  ActionMenu[
+    $thumb2,
+    $insertionMenuTemplates,
+    Appearance->None
+    ]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -1532,32 +1604,117 @@ $HamburgerMenu=
 
 
 (* ::Subsubsection::Closed:: *)
+(*$AutosaveButtons*)
+
+
+
+$AutosaveButtons=
+  Style[#, PageWidth->Infinity]&@
+  Grid[
+    {
+      {Item["Save", Alignment->Left], SpanFromLeft},
+      {Null,
+        Item[
+          Grid[
+          {
+            {
+              ".md:",
+              Checkbox[
+                Dynamic@
+                  CurrentValue[
+                    EvaluationNotebook[], 
+                    {TaggingRules, "SimpleDocs", "MarkdownAutosave"},
+                    False
+                    ]
+                ]
+              },
+            {
+              ".nb:",
+              Checkbox[
+                Dynamic@
+                  CurrentValue[
+                    EvaluationNotebook[], 
+                    {TaggingRules, "SimpleDocs", "DocumentationAutosave"},
+                    False
+                    ]
+                ]
+              }
+            },
+          Spacings->{0, -.1}
+          ],
+        Alignment->Right
+        ]
+        }
+      }
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
 (*$DockedCell*)
 
 
 
-$DockedCell=
+$dockedCell=
   Grid[
     {
       {
         Item[
-          Framed[$MetadataEditor, 
-            ImageSize->{Scaled[1], {50, 1000}},
-            RoundingRadius->5,Background->White,FrameStyle->GrayLevel[.8]
+          Framed[
+            $MetadataEditor, 
+            ImageSize->{Scaled[1], {55, 1000}},
+            Background->White,
+            RoundingRadius->5,
+            BaseStyle->"Panel",
+            FrameStyle->GrayLevel[.8]
             ], 
           ItemSize->{Scaled[.7], Automatic}
           ], 
+        Item["", ItemSize->Scaled[.15]],
         Item[
-          $InsertionMenu, 
-          ItemSize->Scaled[.27],
-          Alignment->{Left, Top}
+          Pane[$AutosaveButtons,
+            {Scaled[1], 50},
+            Alignment->{Right, Top},
+            ImageSizeAction->"ShrinkToFit"
+            ],
+          ItemSize->{Scaled[.1], All},
+          Alignment->{Right, Top}
           ],
-        Item[$HamburgerMenu, ItemSize->Scaled[.03],Alignment->Right]
+        Item[$HamburgerMenu(*ItemSize\[Rule]Scaled[.03]*),Alignment->Right]
         }
       }, 
     Alignment->{Left, Top}, 
     BaseStyle->{FontFamily->"Helvetica", FontSize->14}
     ];
+
+
+$DockedCell=
+  {
+    Cell[
+      BoxData[ToBoxes@$dockedCell],
+      "Output",
+      Background->GrayLevel[.95],
+      CellFrameColor->Gray,
+      CellFrame->{{0, 0}, {1, 0}}
+      ],
+    Cell[
+      BoxData@ToBoxes@$InsertionMenu,
+      "Output",
+      Background->None,
+      TextAlignment->Center,
+      CellFrame->None,
+      CellMargins->
+        {
+          {
+            FEPrivate`Part[
+              FrontEnd`AbsoluteCurrentValue[WindowSize],
+              1
+              ]-120, 
+            35
+            }, 
+          {0, -2}
+          }
+      ]
+    }
 
 
 (* ::Subsection:: *)

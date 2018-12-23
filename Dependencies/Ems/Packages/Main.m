@@ -21,26 +21,6 @@ Clear[Ems];
 
 
 (* ::Subsection:: *)
-(*Load BTools*)
-
-
-
-(*PackageLoadPacletDependency["BTools`", 
-	"Update"\[Rule]True,
-	"Site"\[Rule]"http://www.wolframcloud.com/objects/b3m2a1.paclets/PacletServer"
-	]*)
-
-
-PackageExtendContextPath[
-  {
-    "SimpleDocs`Dependencies`BTools`",
-    "SimpleDocs`Dependencies`BTools`External`",
-    "SimpleDocs`Dependencies`BTools`Web`"
-    }
-  ]
-
-
-(* ::Subsection:: *)
 (*Interface*)
 
 

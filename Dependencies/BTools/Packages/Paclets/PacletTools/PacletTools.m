@@ -74,6 +74,8 @@ PacletSiteInfo::usage=
   "Extracts a PacletSite from a .paclet or PacletSite.mz file";
 PacletSiteInfoDataset::usage=
   "Formats a PacletSite into a Dataset";
+PacletSiteFromDataset::usage=
+  "...";
 PacletSiteBundle::usage=
   "Bundles a PacletSite.mz from a collection of PacletInfo specs";
 
@@ -864,16 +866,36 @@ PacletInfoExpression[
 
 
 
+(* ::Subsubsubsection::Closed:: *)
+(*$cleanPacletExcludedElements*)
+
+
+
+$cleanPacletExcludedElements=
+  {"Location", "Resources"};
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*cleanPacletForExport*)
+
+
+
+cleanPacletForExport//Clear
 cleanPacletForExport[pac_PacletManager`Paclet]:=
   DeleteDuplicatesBy[
     Map[
       If[StringQ[#[[1]]], ToExpression[#[[1]]], #[[1]]]->#[[2]]&, 
       Select[
         DeleteCases[pac, 
-          (
-            "Location"->_|"Resources"->_|
-            _Symbol?(SymbolName[#]=="Location"&)->_|
-            _Symbol?(SymbolName[#]=="Resources"&)->_)], 
+          Alternatives@@
+            Join[
+              $cleanPacletExcludedElements,
+              Thread[$cleanPacletExcludedElements->_],
+              {
+                _Symbol?(MemberQ[$cleanPacletExcludedElements, SymbolName[#]]&)
+                }
+              ]
+          ], 
         MatchQ[_String|_Symbol->_]
         ]
       ],
@@ -884,6 +906,11 @@ cleanPacletForExport[pac_PacletManager`Paclet]:=
         }
       ]
     ]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*prettyFormatPacletElement*)
+
 
 
 prettyFormatPacletElement[elm_]:=
@@ -914,6 +941,11 @@ prettyFormatPacletElement[elm_]:=
     ]
 
 
+(* ::Subsubsubsection::Closed:: *)
+(*prettyFormatPacletString*)
+
+
+
 prettyFormatPacletString[
   pac_
   ]:=
@@ -924,25 +956,57 @@ prettyFormatPacletString[
     ]
 
 
+(* ::Subsubsubsection::Closed:: *)
+(*PacletInfoExpressionStrings*)
+
+
+
+PacletInfoExpressionStrings[
+  pacs:{__PacletManager`Paclet},
+  exclude_
+  ]:=
+  Block[
+      {
+        $Context="PacletManager`Private`",
+        $ContextPath={"System`", "PacletManager`", "PacletManager`Private`"},
+        $cleanPacletExcludedElements=
+          Replace[exclude,
+            Except[_List]:>$cleanPacletExcludedElements
+            ]
+        },
+      prettyFormatPacletString[cleanPacletForExport[#]]&/@
+        pacs
+      ]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*PacletInfoExpressionBundle*)
+
+
+
+PacletInfoExpressionBundle//Clear;
 Options[PacletInfoExpressionBundle]=
-  Options[PacletInfoExpression];(*
+  Join[
+    Options[PacletInfoExpression],
+    {
+      "ExcludedElements"->Automatic
+      }
+    ];(*
 PacletInfoExpressionBundle[paclet,dest]~~PackageAddUsage~~
 	"bundles paclet into a PacletInfo.m file in dest";*)
 PacletInfoExpressionBundle[
   paclet_PacletManager`Paclet,
-  dest_String?DirectoryQ
+  dest_String?DirectoryQ,
+  ops:OptionsPattern[]
   ]:=
-  With[{pacletFile=FileNameJoin@{dest,"PacletInfo.m"}},
-    Block[
-      {
-        $Context="PacletManager`Private`",
-        $ContextPath={"System`", "PacletManager`", "PacletManager`Private`"}
-        },
-      WriteString[pacletFile, 
-        prettyFormatPacletString[cleanPacletForExport[paclet]]
-        ];
-      Close[pacletFile];
+  With[{pacletFile=FileNameJoin@{dest, "PacletInfo.m"}},
+    WriteString[pacletFile, 
+      First@
+        PacletInfoExpressionStrings[{paclet},
+          OptionValue["ExcludedElements"]
+          ]
       ];
+    Close[pacletFile];
     pacletFile
     ];
 PacletInfoExpressionBundle[
@@ -950,8 +1014,11 @@ PacletInfoExpressionBundle[
   ops:OptionsPattern[]
   ]:=
   PacletInfoExpressionBundle[
-    PacletInfoExpression[dest,ops],
-    dest
+    PacletInfoExpression[dest, 
+      FilterRules[{ops}, Except["ExcludedElements"]]
+      ],
+    dest,
+    FilterRules[{ops}, "ExcludedElements"]
     ];
 
 
@@ -1129,14 +1196,14 @@ Options[PacletBundle]=
 PacletBundle[dir:(_String|_File)?DirectoryQ, ops:OptionsPattern[]]:=
   With[{
     rmpaths=
-      Replace[
+      Select[
         Flatten@List@OptionValue["RemovePaths"],
-        Except[{__?StringPattern`StringPatternQ}]:>{}
+        StringPattern`StringPatternQ
         ],
     rmpatterns=
-      Replace[
+      Select[
         Flatten@List@OptionValue["RemovePatterns"],
-        Except[{__?StringPattern`StringPatternQ}]:>{}
+        StringPattern`StringPatternQ
         ],
     pacletDir=
       FileNameJoin@{
@@ -1201,23 +1268,11 @@ PacletBundle[dir:(_String|_File)?DirectoryQ, ops:OptionsPattern[]]:=
         If[FileExistsQ@pacletDir,
           DeleteDirectory[pacletDir,DeleteContents->True]
           ];
-        CopyDirectory[dir,pacletDir];
-        Do[
-          With[{p=If[Not@FileExistsQ@path,FileNameJoin@{pacletDir,path},path]},
-            If[DirectoryQ@p,
-              DeleteDirectory[p,
-                DeleteContents->True
-                ],
-              If[FileExistsQ@p,DeleteFile[p]]
-              ]
-            ],
-          {path, 
-            Join[
-              fullPathSpec,
-              FileNameDrop[#,FileNameDepth@pacletDir]&/@
-                FileNames[fullPatternSpec, pacletDir, \[Infinity]]
-              ]
-            }
+        PartialDirectoryCopy[
+          dir,
+          pacletDir,
+          "RemovePaths"->rmpaths,
+          "RemovePatterns"->rmpatterns
           ];
         With[{pacletFile=PacletManager`PackPaclet[pacletDir]},
           pacletFile
@@ -1236,7 +1291,8 @@ PacletBundle[f:(_String|_File)?FileExistsQ, ops:OptionsPattern[]]:=
   With[{d=CreateDirectory[]},
     (DeleteDirectory[d, DeleteContents->True];#)&@
       PacletBundle[
-        PacletAutoPaclet[d, f,
+        PacletAutoPaclet[d, 
+          f,
           FilterRules[
             {
               ops,
@@ -1611,7 +1667,7 @@ PacletSiteFiles[infoFiles_, ops:OptionsPattern[]]:=
         Which[
           FileExistsQ@FileNameJoin@{s,"PacletSite.mz"},
             FileNameJoin@{s,"PacletSite.mz"},
-          FileExistsQ@FileNameJoin@{s,"PacletInfo.m"},
+          FileExistsQ@FileNameJoin@{s, "PacletInfo.m"},
             FileNameJoin@{s,"PacletInfo.m"},
           True,
             Replace[FileNames["*PacletSite.mz",s],{
@@ -1826,30 +1882,60 @@ PacletSiteInfoDataset[files:Except[_?OptionQ]|All|{}:All,ops:OptionsPattern[]]:=
 
 
 (* ::Subsubsection::Closed:: *)
+(*PacletSiteFromDataset*)
+
+
+
+PacletSiteFromDataset[
+  ds:{__Association}
+  ]:=
+  PacletManager`PacletSite@@
+    Apply[
+      PacletInfoExpression,
+      Normal/@
+        MapAt[
+          KeyValueMap[Prepend[Normal@#2, #]&],
+          ds,
+          {All, "Extensions"}
+          ],
+      {1}
+      ];
+PacletSiteFromDataset[
+  ds_Dataset
+  ]:=PacletSiteFromDataset[Normal[ds]];
+
+
+(* ::Subsubsection::Closed:: *)
 (*PacletSiteBundle*)
 
 
 
-pacletSiteFileName[br_, fp_, if_, baseName_]:=
+(* ::Subsubsubsection::Closed:: *)
+(*pacletSiteFileName*)
+
+
+
+pacletSiteFileName[br_, fp_, be_, dest_, baseName_]:=
   FileNameJoin@{
     With[{d=
       FileNameJoin@{
-        br,
-        $PacletBuildExtension
+        Replace[br, 
+          Automatic:>
+            If[DirectoryQ@dest, dest, DirectoryName[dest]]
+          ],
+        Replace[be, 
+          Automatic->$PacletBuildExtension
+          ]
         }
       },
-      If[!FileExistsQ@d,
-        CreateDirectory@d
-        ];
+      If[!FileExistsQ@d, CreateDirectory@d];
       d
       ],
     Replace[fp,{
       Automatic:>
-        With[{f=First@if},
-          If[StringMatchQ[FileNameTake[f],"*.*"],
-            DirectoryName[f],
-            FileBaseName[f]
-            ]
+        If[DirectoryQ@dest,
+          FileBaseName[dest],
+          FileBaseName@DirectoryName[dest]
           ]<>"-",
       s_String:>(s<>"-"),
       _->""
@@ -1857,50 +1943,86 @@ pacletSiteFileName[br_, fp_, if_, baseName_]:=
     }
 
 
+(* ::Subsubsubsection::Closed:: *)
+(*PacletSiteBundle*)
+
+
+
 Options[PacletSiteBundle]=
   Join[
     {
-      "BuildRoot":>$TemporaryDirectory,
-      "FilePrefix"->None
+      "BuildRoot"->Automatic,
+      "FilePrefix"->None,
+      "BuildExtension":>Automatic,
+      "ExcludedElements"->Automatic
       },
     Options@PacletSiteInfo
     ];
 (*PacletSiteBundle[infoFiles]~~PackageAddUsage~~
 	"bundles the PacletInfo.m files found in infoFiles into a compressed PacletSite file";*)
+PacletSiteBundle//Clear;
 PacletSiteBundle[dir_String?DirectoryQ, ops:OptionsPattern[]]:=
   PacletSiteBundle[
     FileNames["*.paclet",dir,2],
+    dir,
     ops
+    ];
+PacletSiteBundle[
+  ps_PacletManager`PacletSite,
+  dest_String?DirectoryQ,
+  ops:OptionsPattern[]
+  ]:=
+  Block[
+    {
+      pacletStrings,
+      pacletSiteString,
+      file
+      },
+    pacletStrings=
+      StringReplace[
+        PacletInfoExpressionStrings[
+          List@@ps,
+          OptionValue["ExcludedElements"]
+          ],
+        StartOfString|StartOfLine->"\t"
+        ];
+    pacletSiteString=
+      "PacletSite[\n"<>
+        StringRiffle[pacletStrings, ",\n"]<>
+        "\n\t]";
+    file=
+      pacletSiteFileName[
+        OptionValue["BuildRoot"], 
+        OptionValue["FilePrefix"],
+        OptionValue["BuildExtension"],
+        dest,
+        "PacletSite.mz"
+        ];
+    Export[
+      StringTrim[file, "z"~~EndOfString],
+      pacletSiteString,
+      "Text"
+      ];
+    Export[
+      file,
+      {{"PacletSite.m", "Text"}->pacletSiteString},
+      "ZIP"
+      ]
     ];
 PacletSiteBundle[
   infoFiles:$PacletFilePatterns|{$PacletFilePatterns...},
   ops:OptionsPattern[]
   ]:=
-  Block[
-    {
-      $ContextPath={"System`", "PacletManager`Private`", "PacletManager`"}, 
-      $Context="PacletManager`Private`",
-      Internal`$ContextMarks=False
-      },
-    Export[
-      pacletSiteFileName[
-        OptionValue["BuildRoot"], 
-        OptionValue["FilePrefix"],
-        {infoFiles},
-        "PacletSite.mz"
-        ],
-      Map[
-        cleanPacletForExport,
-        PacletSiteInfo[
-          infoFiles,
-          FilterRules[{ops},
-            Options@PacletSiteInfo
-            ]
-          ]
-        ],
-      {"ZIP", "PacletSite.m"}
-      ]
-    ];
+  PacletSiteBundle[
+    PacletSiteInfo[
+      infoFiles,
+      FilterRules[{ops},
+        Options@PacletSiteInfo
+        ]
+      ],
+    DirectoryName@First@infoFiles,
+    ops
+    ]
 
 
 (* ::Subsection:: *)
@@ -2649,7 +2771,7 @@ PacletSiteUpload[
   With[{mz=
     PacletSiteBundle[
       infoFiles,
-      FilterRules[{ops},Options@PacletSiteBundle]
+      FilterRules[{ops}, Options@PacletSiteBundle]
       ]
     },
     With[{res=
@@ -2758,7 +2880,7 @@ PacletFindBuiltFile[
       build=TrueQ@OptionValue@"BuildPaclets"
       },
     Which[
-      MatchQ[f,_PacletManager`Paclet],
+      MatchQ[f, _PacletManager`Paclet],
         (* We're handed a Paclet expression so we confirm that a .paclet file exists for it or build it ourselves *)
         With[{
           info=
@@ -2781,7 +2903,7 @@ PacletFindBuiltFile[
             ]
           ],
       MatchQ[f, (_File|_String)?DirectoryQ]&&
-        !FileExistsQ[FileNameJoin@{f,"PacletInfo.m"}],
+        !FileExistsQ[FileNameJoin@{f, "PacletInfo.m"}],
         (* prep non-paclet directories for packing *)
         If[build,
           PacletInfoExpressionBundle[Replace[f,File[s_]:>s]];
@@ -3070,14 +3192,15 @@ pacletUpload[
                 (k_->_):>k
                 ],
               FilterRules[
-                {
+                Flatten@{
                   ops,
                   "MergePacletInfo"->
                     If[OptionValue["OverwriteSiteFile"]//TrueQ,
                       None,
                       site
-                      ]
-                    },
+                      ],
+                  Options[PacletUpload]
+                  },
                 Options@PacletSiteBundle
                 ]
               ]
@@ -3096,8 +3219,15 @@ pacletUpload[
             "PacletSiteFile"->
               If[OptionValue["UploadSiteFile"]//TrueQ,
                 Replace[
-                  PacletSiteUpload[CloudObject@site,pacletMZ,
-                    FilterRules[{ops},Options@PacletSiteUpload]
+                  PacletSiteUpload[
+                    CloudObject@site,pacletMZ,
+                    FilterRules[
+                      {
+                        ops,
+                        Options[PacletUpload]
+                        },
+                      Options@PacletSiteUpload
+                      ]
                     ],
                   _PacletSiteUpload->$Failed
                   ],
@@ -3459,21 +3589,12 @@ installPacletGenerate[file:(_String|_File)?FileExistsQ,ops:OptionsPattern[]]:=
             "PacletInfo.m"
             },
           CopyFile[
-            FileNameJoin@{
-              DirectoryName@file,
-              "PacletInfo.m"
-              },
-            FileNameJoin@{
-              dir,
-              "PacletInfo.m"
-              }  
+            FileNameJoin@{DirectoryName@file, "PacletInfo.m"},
+            FileNameJoin@{dir, "PacletInfo.m"}
             ]
           ];
         CopyFile[file,
-          FileNameJoin@{
-            dir,
-            FileNameTake@file
-            },
+          FileNameJoin@{dir, FileNameTake@file},
           OverwriteTarget->True
           ];
         PacletInfoExpressionBundle[dir,
@@ -3502,6 +3623,19 @@ installPacletGenerate[file:(_String|_File)?FileExistsQ,ops:OptionsPattern[]]:=
         ],
     "paclet",
       file,
+    "zip",
+      With[
+        {
+          dir=
+            FileNameJoin@{
+              $TemporaryDirectory,
+              StringJoin@RandomSample[Alphabet[],10],
+              FileBaseName@file
+              }
+          },
+        ExtractArchive[file, dir];
+        installPacletGenerate[dir]
+        ],
     _,
       PackageRaiseException[
         Automatic,
@@ -3862,7 +3996,7 @@ PacletDownloadPaclet[
                     ]&@URLParse[loc]
                   ],
                 {
-                  URLParse[loc,"Path"][[-1]],
+                  URLParse[loc, "Path"][[-1]],
                   $PackageDependenciesFile,
                   "PacletInfo.m"
                   }
@@ -3870,31 +4004,6 @@ PacletDownloadPaclet[
           _,
             Message[PacletDownloadPaclet::nopac, loc];
             $Failed
-            (*Replace[
-					Quiet@Normal@PacletSiteInfoDataset[loc],
-					{
-						Except[{__Association}]:>
-							(
-								Message[PacletDownloadPaclet::nopac, loc];
-								$Failed
-								),
-						a:{__Association}:>
-							PacletDownloadPaclet[
-								URLBuild@
-									Flatten@{
-										loc,
-										StringJoin@{
-											Lookup[Last@SortBy[a, #Version&],{
-												"Name",
-												"Version"
-												}],
-											".paclet"
-											}
-										},
-								ops
-								]
-						}
-					]*)
           ]
       ];
 

@@ -93,6 +93,10 @@ $AppEditMethods=
       AppFindFile,
     "AddContent"->
       AppAddContent,
+    "AddDependency"->
+      AppAddDependency,
+    "UpdateDependencies"->
+      AppUpdateDependencies,
     "ListPackages"->
       AppPackages,
     "ListStylesheets"->
@@ -447,7 +451,7 @@ $AppPacletExecuteMethods=
     "Upload"->
       AppPacletUpload,
     "Bundle"->
-      PacletBundle,
+      AppPacletBundle,
     "Backup"->
       AppPacletBackup,
     "UploadSubpaclet"->
