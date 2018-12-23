@@ -212,15 +212,19 @@ $PackageListing=<||>;
 Ems["Contexts"]:=$PackageContexts;
 If[!ListQ@$PackageContexts,
   $PackageContexts=
-    If[$PackageLoadingMode==="Dependency",
-      $RootContext<>#&/@#,
-      #
-      ]&@
-      {
-        "Ems`",
-        "Ems`PackageScope`Private`",
-        "Ems`PackageScope`Package`"
-        }
+    Join[
+      If[$PackageLoadingMode==="Dependency",
+        $RootContext<>#&/@#,
+        #
+        ]&@
+        {
+          "Ems`",
+          "Ems`PackageScope`Private`",
+          "Ems`PackageScope`Package`"
+          },
+      Lookup[$PackageLoadSpecs, "ExtraContexts", {}]
+      ]
+      ]
   ];
 $PackageDeclared=
   TrueQ[$PackageDeclared];
@@ -1157,7 +1161,7 @@ PackageUpdatePacletDependency[
 
 
 (* ::Subsubsection::Closed:: *)
-(*PackageEnsureLoadDependencies*)
+(*PackageEnsureLoadDependency*)
 
 
 Options[PackageEnsureLoadDependency]=
@@ -1170,7 +1174,20 @@ Options[PackageEnsureLoadDependency]=
 PackageEnsureLoadDependency[dep_, ops:OptionsPattern[]]:=
   Module[
     {
-      depsDir=PackageFilePath["Dependencies"],
+      depsDir=
+        Join[
+          If[$PackageLoadingMode==="Dependency",
+            {
+              FileNameJoin@{
+                ParentDirectory@$PackageDirectory,
+                "Dependencies"
+                }
+              },
+            {
+              }
+            ],
+          PackageFilePath["Dependencies"]
+          ],
       foundFile,
       bund=TrueQ@Quiet@OptionValue["Bundled"]
       },
@@ -1208,6 +1225,10 @@ PackageEnsureLoadDependency[dep_, ops:OptionsPattern[]]:=
      ];
 
 
+(* ::Subsubsection::Closed:: *)
+(*PackageEnsureLoadDependencies*)
+
+
 PackageEnsureLoadDependencies[]:=
   If[!TrueQ@$dependenciesLoaded,
     $dependenciesLoaded=True;
@@ -1236,16 +1257,27 @@ PackageExposeDependencies[deps_, permanent:True|False:False]:=
     {
       cdeps,
       loadQ,
-      depC
+      depCs
       },
     (* 
       someday I'll need this to be more sophisticated, but today is not that day
       *)
-    depC=$PackageContexts[[1]]<>"Dependencies`";
+    depCs=
+      {
+        If[$PackageLoadingMode==="Dependency",
+          StringSplit[$PackageContexts[[1]]<>"Dependencies`", 2][[1]]<>
+            "Dependencies`",
+          Nothing
+          ],
+        $PackageContexts[[1]]<>"Dependencies`"
+        };
     cdeps=
-      If[Length@Join[Names[depC<>#<>"*"], Names[depC<>#<>"*`*"]]>0,
-        depC<>#,
-        #
+      With[{ctx=#},
+        SelectFirst[
+          depCs,
+          Length@Join[Names[#<>ctx<>"*"], Names[#<>ctx<>"*`*"]]>0&,
+          ""
+          ]<>#
         ]&/@deps;
     (* only gonna be used within PackageExecute...? *)
     $ContextPath=
@@ -1257,7 +1289,10 @@ PackageExposeDependencies[deps_, permanent:True|False:False]:=
     cdeps
     ];
 PackageExposeDependencies[]:= 
-  PackageExposeDependencies[$PackageLoadSpecs["DependencyContexts"], True]
+  PackageExposeDependencies[
+    Lookup[$PackageLoadSpecs, "DependencyContexts", {}],
+    True
+    ]
 
 
 (* ::Subsubsection:: *)

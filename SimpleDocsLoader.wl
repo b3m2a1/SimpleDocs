@@ -212,15 +212,19 @@ $PackageListing=<||>;
 SimpleDocs["Contexts"]:=$PackageContexts;
 If[!ListQ@$PackageContexts,
   $PackageContexts=
-    If[$PackageLoadingMode==="Dependency",
-      $RootContext<>#&/@#,
-      #
-      ]&@
-      {
-        "SimpleDocs`",
-        "SimpleDocs`PackageScope`Private`",
-        "SimpleDocs`PackageScope`Package`"
-        }
+    Join[
+      If[$PackageLoadingMode==="Dependency",
+        $RootContext<>#&/@#,
+        #
+        ]&@
+        {
+          "SimpleDocs`",
+          "SimpleDocs`PackageScope`Private`",
+          "SimpleDocs`PackageScope`Package`"
+          },
+      Lookup[$PackageLoadSpecs, "ExtraContexts", {}]
+      ]
+      ]
   ];
 $PackageDeclared=
   TrueQ[$PackageDeclared];
@@ -1285,7 +1289,10 @@ PackageExposeDependencies[deps_, permanent:True|False:False]:=
     cdeps
     ];
 PackageExposeDependencies[]:= 
-  PackageExposeDependencies[$PackageLoadSpecs["DependencyContexts"], True]
+  PackageExposeDependencies[
+    Lookup[$PackageLoadSpecs, "DependencyContexts", {}],
+    True
+    ]
 
 
 (* ::Subsubsection:: *)
