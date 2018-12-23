@@ -9,10 +9,10 @@
 Temp`PackageScope`EmsLoading`Private`$DependencyLoad=
   TrueQ@Temp`PackageScope`EmsLoading`Private`$DependencyLoad;
 If[Temp`PackageScope`EmsLoading`Private`$DependencyLoad,
-  Unprotect["`Ems`PackageScope`Private`$TopLevelLoad"];
-  Evaluate[Symbol["`Ems`PackageScope`Private`$TopLevelLoad"]]=False,
-  Unprotect["Ems`PackageScope`Private`$TopLevelLoad"];
-  Evaluate[Symbol["Ems`PackageScope`EmsLoading`$TopLevelLoad"]]=
+  Unprotect["`Ems`PackageScope`Private`Constants`$TopLevelLoad"];
+  Evaluate[Symbol["`Ems`PackageScope`Private`Constants`$TopLevelLoad"]]=False,
+  Unprotect["Ems`PackageScope`Private`Constants`$TopLevelLoad"];
+  Evaluate[Symbol["Ems`PackageScope`Private`Constants`$TopLevelLoad"]]=
     MemberQ[$ContextPath, "Global`"]
   ];
 
@@ -223,7 +223,6 @@ If[!ListQ@$PackageContexts,
           "Ems`PackageScope`Package`"
           },
       Lookup[$PackageLoadSpecs, "ExtraContexts", {}]
-      ]
       ]
   ];
 $PackageDeclared=
@@ -1175,24 +1174,18 @@ PackageEnsureLoadDependency[dep_, ops:OptionsPattern[]]:=
   Module[
     {
       depsDir=
-        Join[
+        {
           If[$PackageLoadingMode==="Dependency",
-            {
-              FileNameJoin@{
-                ParentDirectory@$PackageDirectory,
-                "Dependencies"
-                }
-              },
-            {
-              }
+            ParentDirectory@$PackageDirectory,
+            Nothing
             ],
           PackageFilePath["Dependencies"]
-          ],
+          },
       foundFile,
       bund=TrueQ@Quiet@OptionValue["Bundled"]
       },
      If[bund,
-       If[DirectoryQ@depsDir,
+       If[AnyTrue[depsDir, DirectoryQ],
          foundFile=
            Block[
              {
@@ -1265,7 +1258,7 @@ PackageExposeDependencies[deps_, permanent:True|False:False]:=
     depCs=
       {
         If[$PackageLoadingMode==="Dependency",
-          StringSplit[$PackageContexts[[1]]<>"Dependencies`", 2][[1]]<>
+          StringSplit[$PackageContexts[[1]], "Dependencies`", 2][[1]]<>
             "Dependencies`",
           Nothing
           ],
