@@ -2891,7 +2891,10 @@ iWebSitePruneUnchangedAggPages[aggthing_][aggs_]:=
       ]
     ];
 WebSiteCollectAggPages[aggthing_, check:True|False:True]:=
-  If[check, iWebSitePruneUnchangedAggPages[aggthing], Identity]@
+  If[check, 
+    {iWebSitePruneUnchangedAggPages[aggthing][#], #}&, 
+    {#, #}&
+    ]@
     iWebSiteCollectAggPages[aggthing]
 
 
@@ -3078,9 +3081,11 @@ iWebSiteGenerateAggPages[
         (* Files to be collected and passed to combined aggregation *)
         $aggregationFiles=<||>,
         (*Collect type name and templates*)
+        pragglist,
         agglist=WebSiteCollectAggPages[aggthing, checkChanged]
         (*Gather elements in the content stack  by type in the aggregation*)
         },
+      {pragglist, agglist}=WebSiteCollectAggPages[aggthing, checkChanged];
       KeyValueMap[
         (*Map over aggregated elements, e.g., over each tag or category*)
         iWebSiteAggExportItem[
@@ -3090,7 +3095,7 @@ iWebSiteGenerateAggPages[
           Hold[aggbit, $aggregationFiles],
           ops
           ],
-        agglist
+        pragglist
         ];
       If[(* If there's a overall aggregation to use, e.g. all tags or categories*)
         AllTrue[{"AggregationFile","AggregationTemplates"},
