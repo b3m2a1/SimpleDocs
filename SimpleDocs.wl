@@ -26,6 +26,8 @@ If[Temp`PackageScope`SimpleDocsLoading`Private`$DependencyLoad,
     Get@FileNameJoin@{DirectoryName@$InputFileName, "SimpleDocsLoader.wl"}
     ],
   If[!TrueQ[Evaluate[Symbol["SimpleDocs`PackageScope`Private`$LoadCompleted"]]],
-    <<SimpleDocs`SimpleDocsLoader`
-    ]
+    <<SimpleDocs`SimpleDocsLoader`,
+   BeginPackage["SimpleDocs`"];
+   EndPackage[];
+   ]
   ]
