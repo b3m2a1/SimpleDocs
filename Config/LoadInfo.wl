@@ -1,3 +1,5 @@
+(* ::Package:: *)
+
 {
 	"Mode" -> "Primary",
 	"Dependencies" -> {
@@ -16,6 +18,15 @@
 			"Ems`",
 			"LoadInfo" -> {"Dependencies" -> {"BTools`"}}
 		}
+	},
+	"DependencyContexts" -> {
+		"Ems`",
+		"BTools`Developer`",
+		"BTools`Web`",
+		"BTools`Web`Markdown`",
+		"BTools`Paclets`",
+		"BTools`Paclets`DocGen`",
+		"BTools`External`"
 	},
 	"PreLoad" -> None,
 	"FEHidden" -> {},

@@ -75,7 +75,8 @@ $WebSitePath=
 If[Length@OwnValues[$WebThemesURLBase]===0,
   $WebThemesURLBase:=
     $WebThemesURLBase=
-      CloudObject["user:b3m2a1.paclets/PacletServer/Resources/SiteBuilder/Themes"][[1]]
+      "https://github.com/mresources/themes/releases/download/v1.0.0/"
+      (*CloudObject["user:b3m2a1.paclets/PacletServer/Resources/SiteBuilder/Themes"][[1]]*)
   ];
 $WebSiteTempThemeDir=
   FileNameJoin@{$TemporaryDirectory, "SiteBuilder_tmp", "Themes"};
@@ -2999,6 +3000,7 @@ iWebSiteAggExportItem[
   outDir_, thm_, longDir_, config_,
   aggdata_, aggsingular_, aggthing_,
   Hold[aggbit_, $aggregationFiles_],
+  pruningList_,
   ops:OptionsPattern[]
   ][aggKey_, aggFiles_]:=
   With[{
@@ -3030,27 +3032,29 @@ iWebSiteAggExportItem[
 		Export aggregation file, e.g. tags/mathematica.html passing the 
 		list of file URLs as the aggregation name, e.g. Tags
 		*)
-    WebSiteTemplateExportPaginated[
-      aggbit,
-      FileBaseName[fout],
-      FileNameTake[fout, {1, -2}],
-      outDir,
-      {
-        thm,
-        FileNameJoin@{thm, "templates"},
-        longDir
-        },
-      None,
-      templates, 
-      Append[config, aggsingular->aggKey],
-      Lookup[
-        Lookup[$WebSiteBuildContentStack, aggFiles, <||>],
-        "Attributes",
-        <||>
-        ],
-      FilterRules[
-        {ops}, 
-        Options@WebSiteTemplateExportPaginated
+    If[KeyExistsQ[pruningList, aggKey],
+      WebSiteTemplateExportPaginated[
+        aggbit,
+        FileBaseName[fout],
+        FileNameTake[fout, {1, -2}],
+        outDir,
+        {
+          thm,
+          FileNameJoin@{thm, "templates"},
+          longDir
+          },
+        None,
+        templates, 
+        Append[config, aggsingular->aggKey],
+        Lookup[
+          Lookup[$WebSiteBuildContentStack, aggFiles, <||>],
+          "Attributes",
+          <||>
+          ],
+        FilterRules[
+          {ops}, 
+          Options@WebSiteTemplateExportPaginated
+          ]
         ]
       ];
       aggbit=.;
@@ -3093,9 +3097,10 @@ iWebSiteGenerateAggPages[
           outDir, thm, longDir, config,
           aggdata, aggsingular, aggthing,
           Hold[aggbit, $aggregationFiles],
+          pragglist,
           ops
           ],
-        pragglist
+        agglist
         ];
       If[(* If there's a overall aggregation to use, e.g. all tags or categories*)
         AllTrue[{"AggregationFile","AggregationTemplates"},

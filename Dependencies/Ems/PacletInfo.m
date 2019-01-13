@@ -1,6 +1,13 @@
+(* ::Package:: *)
+
 Paclet[
   Name -> "Ems",
   Version -> "1.0.8",
+  Thumbnail->"thumbnail.png",
+  Creator->"b3m2a1 <b3m2a1@gmail.com>",
+  URL->"https://github.com/b3m2a1/Ems/wiki",
+  Description->"A static website builder like pelican or jekyll",
+  MathematicaVersion->"11+",
   Extensions -> {
     	{
      		"Kernel",
@@ -8,6 +15,11 @@ Paclet[
      		"Context" -> {"Ems`"}
      	},
     	{"FrontEnd"},
+    	{"PacletServer",
+    	  "Description"->"A static website builder like pelican or jekyll. \
+Comes with built in themes and the ability to develop one's own.",
+    	  "License"->"MIT"
+    	  },
     	{
      		"Resource",
      		"Root" -> "Resources",

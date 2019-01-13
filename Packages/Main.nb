@@ -1,0 +1,77 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["SimpleDocs", \
+"CodeSection",ExpressionUUID->"b956a157-87c7-42cf-9522-119dd53ae0b4"],
+
+Cell["\<\
+This is the main interface package, exposing all the stuff defined at the \
+Package level in a consistent interface.\
+\>", "Text",ExpressionUUID->"456ee6cd-156c-4e2d-97ba-07eccd3251e3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], 
+  ";"}]], "InputSection",ExpressionUUID->"fbea9365-4bc9-4c3d-9879-\
+dbc869562c51"],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling] Paclet Stuff\[RightFloor]", "CodeSubsection",
+ Evaluatable->True,ExpressionUUID->"758e8ecc-8cbf-4975-95c1-a19c43396b8f"],
+
+Cell["\[LeftCeiling]SetNotebookPaclet\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"086c848b-a1be-4ef1-ae8b-66f948f6b82b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Autodocs\[RightFloor]", "CodeSubsection",
+ Evaluatable->True,ExpressionUUID->"67a83345-d2bc-4565-bcdf-5262ca64a221"],
+
+Cell["\[LeftCeiling]TemplateDocumentation\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"acd17ae6-ff02-4701-973d-bbb4737f73be"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Sites\[RightFloor]", "CodeSubsection",
+ Evaluatable->True,ExpressionUUID->"6192b18b-e566-43c2-ac3c-7ca4749dc2db"],
+
+Cell["\[LeftCeiling]InitializeDocsSite\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"b0af95c7-4c6e-4f6f-8362-2ab899c5d09e"],
+
+Cell["\[LeftCeiling]BuildDocsSite\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"7e663e5b-1bff-4d9d-8546-dd94935da84a"],
+
+Cell["\[LeftCeiling]BuildNotebookDocsSite\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"3eb48b60-2ed3-4f39-b666-345473a87760"],
+
+Cell["\[LeftCeiling]OpenDocsSiteConfig\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"d310eef9-1a92-4102-9bd4-738f88b388cf"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"End", "[", "]"}], 
+  ";"}]], "InputSection",ExpressionUUID->"19d41120-34a3-442e-b5a3-\
+8e3a6b7de017"]
+}, Open  ]],
+
+Cell["", "SectionSeparator",ExpressionUUID->"ada7623b-72bd-4407-ba85-\
+b5d13f1e6e85"]
+},
+WindowSize->{808, 755},
+WindowMargins->{{53, Automatic}, {Automatic, 29}},
+TaggingRules->{
+ "UUIDButtons" -> {
+   "Active" -> {
+     "Button-590233c6-9680-4d8a-a854-3b15b03893d8" -> False, 
+      "Button-33d6ec4d-a39a-4e80-8d92-b8c5561caada" -> False, 
+      "Button-c0a09a32-e26b-44bc-931b-a7a8eaa0a4c0" -> False}}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"BTools"}, "CodePackage.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

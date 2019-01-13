@@ -26,6 +26,8 @@ If[Temp`PackageScope`EmsLoading`Private`$DependencyLoad,
     Get@FileNameJoin@{DirectoryName@$InputFileName, "EmsLoader.wl"}
     ],
   If[!TrueQ[Evaluate[Symbol["Ems`PackageScope`Private`$LoadCompleted"]]],
-    <<Ems`EmsLoader`
-    ]
+    <<Ems`EmsLoader`,
+   BeginPackage["Ems`"];
+   EndPackage[];
+   ]
   ]
