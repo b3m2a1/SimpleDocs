@@ -1,5 +1,3 @@
-(* ::Package:: *)
-
 {
 	"Mode" -> "Primary",
 	"Dependencies" -> {
@@ -30,5 +28,6 @@
 	},
 	"PreLoad" -> None,
 	"FEHidden" -> {},
-	"PackageScope" -> None
+	"PackageScope" -> None,
+	"PackageSymbolDefinitions" -> False
 }

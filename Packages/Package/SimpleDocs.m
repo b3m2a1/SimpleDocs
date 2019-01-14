@@ -27,8 +27,14 @@ $NotebookTemplates::usage="";
 
 
 
-$DocsProjects::usage="";
+DocsProjects::usage="";
+SetProjectOptions::usage="";
+RemoveProject::usage="";
 LoadProjectConfig::usage="";
+ReloadProjectConfig::usage="";
+EnsureLoadProject::usage="";
+OpenProjectConfig::usage="";
+InitializeDocsProject::usage="";
 
 
 (* ::Subsubsection::Closed:: *)
@@ -70,6 +76,7 @@ InitializeDocsSite::usage="";
 BuildDocsSite::usage="";
 BuildNotebookDocsSite::usage="";
 OpenDocsSiteConfig::usage="";
+OpenLocalDocsSite::usage="";
 
 
 (* ::Subsubsection::Closed:: *)
@@ -78,13 +85,14 @@ OpenDocsSiteConfig::usage="";
 
 
 SetPacletInfo::usage="";
+CreateDocumentationPaclet::usage="";
 
 
 Begin["`Private`"];
 
 
 (* ::Subsection:: *)
-(*Config*)
+(*Projects*)
 
 
 
@@ -110,6 +118,24 @@ Begin["`Private`"];
 If[!AssociationQ@$DocsProjects, $DocsProjects=<||>];
 
 
+DocsProjects[]:=
+  $DocsProjects;
+DocsProjects[name_String]:=
+  $DocsProjects[name];
+DocsProjects[fn_]:=
+  KeySelect[$DocsProjects, fn];
+
+
+SetProjectOptions[name_, opts_]:=
+  If[KeyExistsQ[$DocsProjects, name],
+    AssociateTo[$DocsProjects[name], opts]
+    ];
+
+
+RemoveProject[name_]:=
+  KeyDropFrom[$DocsProjects, name];
+
+
 (* ::Subsubsection::Closed:: *)
 (*getFileProject*)
 
@@ -132,11 +158,11 @@ getFileProject[file_String]:=
       },
     drop=
       SelectFirst[possibleHeadPaths, 
-        MatchQ[fsplit, #~~Prepend~~__~~Append~~_]&, 
+        MatchQ[fsplit, Append[Prepend[#, __], _]]&, 
         None
         ];
     If[drop===None,
-      FileBaseName@file,
+      DirectoryName@file,
       FileNameJoin@fsplit[[;;Length[drop]+1]]
       ]
     ]
@@ -153,38 +179,92 @@ $standardPathStarters=
     {
       System`$TemporaryDirectory,
       PacletManager`$UserBasePacletsDirectory,System`$CacheBaseDirectory,
-      System`$UserBaseDirectory,System`$UserAddOnsDirectory,
-      System`$PreferencesDirectory,System`$LaunchDirectory,
+      System`$UserBaseDirectory,System`$LaunchDirectory,
       System`$UserDocumentsDirectory,System`$TopDirectory,
       System`$InstallationDirectory,PacletManager`$BasePacletsDirectory,
-      System`$InitialDirectory,System`$HomeDirectory,
-      System`$BaseDirectory,System`$AddOnsDirectory,System`$RootDirectory
+      System`$HomeDirectory, System`$BaseDirectory,
+      System`$RootDirectory
       };
 
 
-getFEFile[dirName_]:=
-  Module[{starter, expDir=ExpandFileName@dirName, split},
+makeFEFile[path_, starter_]:=
+  Module[
+    {
+      split
+      },
+    split=
+      DeleteCases[""]@
+        If[starter===None,
+          FileNameSplit[path],
+          FileNameSplit[StringTrim[path, ReleaseHold@starter]]
+          ];
+    Which[
+      starter===None&&Length@split==1,
+        FrontEnd`FileName[{}, Evaluate@split[[1]]],
+      starter===None,
+        FrontEnd`FileName[Evaluate@split[[;;-2]], Evaluate@split[[-1]]],
+      True,
+        FrontEnd`FileName[
+          Evaluate@
+            Prepend[
+              split[[;;-2]],
+              starter
+              ],
+          Evaluate@split[[-1]]
+          ]/.Hold[s_]:>s
+      ]
+    ]
+
+
+getFEFile[dirName_String]:=
+  Module[{starter, expDir=ExpandFileName@dirName},
     starter=
       SelectFirst[$standardPathStarters,
         StringStartsQ[expDir, ReleaseHold@#]&,
         None
         ];
-    split=
-      DeleteCases[""]@If[starter===None,
-        FileNameSplit[expDir],
-        FileNameSplit[StringTrim[expDir, ReleaseHold@starter]]
-        ];
-    If[starter===None,
-      FrontEnd`FileName[Evaluate@split[[;;-2]], split[[-1]]],
-      FrontEnd`FileName[
-        Evaluate@
-          Prepend[
-            split[[;;-2]],
-            starter
-            ],
-        Evaluate@split[[-1]]
-        ]/.Hold[s_]:>s
-      ]
+    makeFEFile[expDir, starter]
+    ];
+getFEFile[e_]:=
+  None;
+
+
+(* ::Subsubsection::Closed:: *)
+(*getCleanFName*)
+
+
+
+getCleanFName//Clear;
+getCleanFName[FrontEnd`FileName[args__]]:=
+  ToFileName[FileName[args]];
+getCleanFName[l:{__String}]:=
+  FileNameJoin@l
+getCleanFName[s_String?(StringLength[#]>0&)]:=s;
+getCleanFName[e_]:=None;
+
+
+(* ::Subsubsection::Closed:: *)
+(*findDirConfigFile*)
+
+
+
+$defaultConfigPaths=
+  {
+    {"project", "docs", "config"},
+    {"Config", "SimpleDocs", "Config"},
+    {"SimpleDocsConfig"},
+    {"config"}
+    };
+findDirConfigFile[dir_]:=
+  SelectFirst[
+    Join[
+      FileNameJoin@Prepend[#, dir]<>".wl"&/@
+        $defaultConfigPaths,
+      FileNameJoin@Prepend[#, dir]<>".m"&/@
+        $defaultConfigPaths
+      ],
+    FileExistsQ,
+    None
     ]
 
 
@@ -193,61 +273,76 @@ getFEFile[dirName_]:=
 
 
 
-$defaultConfigPaths=
-  {
-    {"project", "docs", "Config.wl"},
-    {"Config", "SimpleDocs", "Config.wl"},
-    {"SimpleDocsConfig.wl"}
-    };
-LoadProjectConfig[projName_String, projDir_String, configFile_String]:=
+(*LoadProjectConfig[name, dir, config]~PackageAddUsage~
+	"loads a project named name in directory dir with config file config";*)
+LoadProjectConfig//Clear
+LoadProjectConfig[projBase_String, projDir_String, configFile_String]:=
   Module[
     {
       feFileDir,
+      projName,
       trueDir,
       trueConfig,
       props
       },
-    trueDir=ToFileName@projDir;
-    trueConfig=ToFileName@configFile;
+    trueDir=getCleanFName@projDir;
+    trueConfig=getCleanFName@configFile;
     If[!TrueQ@Quiet@FileExistsQ@trueConfig,
       trueConfig=FileNameJoin@{trueDir, trueConfig}
       ];
     props=
       Association@
         Replace[Quiet@Get[trueConfig], Except[_?OptionQ|_Association]-><||>];
+    projName=Lookup[props, "Name", projBase];
     feFileDir=getFEFile[trueDir];
-    $DocsProjects[projName]=
-      Association@
-        Replace[Quiet@Get[configFile], Except[_?OptionQ|_Association]-><||>];
-    If[DirectoryQ@projDir&&!KeyExistsQ[$DocsProjects[projName], "Directory"],
-      $DocsProjects[projName, "Directory"]=feFileDir,
-      If[!KeyExistsQ[$DocsProjects[projName], "Directory"],
-        $DocsProjects[projName, "Directory"]=None
+    If[!KeyExistsQ[props, "Directory"],
+      If[StringQ[trueDir]&&DirectoryQ@trueDir,
+        props["Directory"]=feFileDir,
+        props["Directory"]=None
         ]
       ];
-    If[!KeyExistsQ[$DocsProjects[projName], "ConfigFile"]&&FileExistsQ[configFile], 
-      $DocsProjects[projName, "ConfigFile"]=
-          getFEFile@
-            StringTrim[ExpandFileName@configFile, ToFileName@feFileDir];
-      If[!KeyExistsQ[$DocsProjects[projName], "ConfigFile"],
-        $DocsProjects[projName, "ConfigFile"]=None
+    If[!KeyExistsQ[props, "ConfigFile"],
+      If[StringQ[trueConfig]&&StringLength[trueConfig]>0&&FileExistsQ[trueConfig], 
+        props["ConfigFile"]=
+          With[{ec=ExpandFileName@trueConfig, ed=getCleanFName[feFileDir]},
+            makeFEFile[
+              StringTrim[ec, ed],
+              None
+              ]
+            ];,
+        props["ConfigFile"]=None
         ]
       ];
+    $DocsProjects[projName]=props;
     projName
     ];
 LoadProjectConfig[projName_String, projDir_, configFile_]:=
-  LoadProjectConfig[projName, "", ""];
+  LoadProjectConfig[projName, 
+    If[!StringQ@projDir, "", projDir], 
+    If[!StringQ@configFile, "", configFile]
+    ];
+
+
+(*LoadProjectConfig[dir]~PackageAddUsage~
+	"loads a project a directory dir with automatic config file and name";*)
 LoadProjectConfig[dir_String?DirectoryQ]:=
   LoadProjectConfig[
     cleanProjectBaseName@dir, 
     dir,
-    SelectFirst[
-      FileNameJoin@Prepend[#, dir]&/@
-        $defaultConfigPaths,
-      FileExistsQ,
-      None
-      ]
+    findDirConfigFile[dir]
     ];
+
+
+(*LoadProjectConfig[pac]~PackageAddUsage~
+	"loads the project in paclet pac";*)
+LoadProjectConfig[pac_PacletManager`Paclet]:=
+  LoadProjectConfig[
+    cleanProjectBaseName@pac["Name"],
+    pac["Location"],
+    findDirConfigFile@pac["Location"]
+    ];
+LoadProjectConfig[s_String?(Length[PacletManager`PacletFind[#]]>0&)]:=
+  LoadProjectConfig@PacletManager`PacletFind[s][[1]];
 
 
 (* ::Subsubsection::Closed:: *)
@@ -286,12 +381,19 @@ cleanProjectBaseName[name_]:=
 
 
 
-projectQ[projName_]:=
+projectQ//Clear
+projectQ[projName_String]:=
   KeyExistsQ[$DocsProjects, projName]||
     (DirectoryQ[projName]&&KeyExistsQ[$DocsProjects, cleanProjectBaseName@projName]);
+projectQ[___]:=False
 
 
 (* ::Subsubsection::Closed:: *)
+(*get stuff*)
+
+
+
+(* ::Subsubsubsection::Closed:: *)
 (*getProjectName*)
 
 
@@ -307,7 +409,7 @@ getProjectName[name_]:=
     ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsubsection::Closed:: *)
 (*getProjectProp*)
 
 
@@ -320,7 +422,7 @@ getProjectProp[pname_, prop_, default_]:=
     ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsubsection::Closed:: *)
 (*getProjectConfFile*)
 
 
@@ -329,7 +431,7 @@ getProjectConfFile[pname_]:=
   getProjectProp[pname, "ConfigFile", None]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsubsection::Closed:: *)
 (*getProjectDir*)
 
 
@@ -338,7 +440,39 @@ getProjectDir[pname_]:=
   getProjectProp[pname, "Directory", None]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsubsection::Closed:: *)
+(*getProjectLayout*)
+
+
+
+getProjectLayout//Clear
+getProjectLayout[bdir_, bconf_]:=
+  Module[
+    {
+      dir=bdir,
+      conf=bconf
+      },
+    If[MatchQ[dir, _FrontEnd`FileName],
+      dir=getCleanFName@dir
+      ];
+    If[MatchQ[conf, _FrontEnd`FileName],
+      conf=getCleanFName@conf
+      ];
+    If[StringQ@conf&&!(ExpandFileName[conf]==conf)&&StringQ@dir,
+      conf=FileNameJoin@{dir, conf}
+      ];
+    {dir, conf}
+    ];
+getProjectLayout[pname_String]:=
+  Prepend[pname]@
+    getProjectLayout[getProjectDir[pname], getProjectConfFile[pname]];
+getProjectLayout[nb_NotebookObject]:=
+  getProjectLayout@getNBProject[nb];
+getProjectLayout[___]:=
+  {None, None, None}
+
+
+(* ::Subsubsubsection::Closed:: *)
 (*getProjectPaclet*)
 
 
@@ -361,7 +495,7 @@ getProjectPaclet[pname_]:=
     ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsubsection::Closed:: *)
 (*getProjectPacletInfo*)
 
 
@@ -384,7 +518,7 @@ getProjectPacletInfo[pname_]:=
     ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsubsection::Closed:: *)
 (*getProjectContext*)
 
 
@@ -404,24 +538,33 @@ getProjectContext[pname_]:=
         ];
     If[!StringQ@cont,
       pi=getProjectPacletInfo[pname];
-      cont=First["Context"/.Append[pi, "Context"->{Lookup[pi, "Name"]<>"`"}]],
+      cont=First["Context"/.Append[pi, "Context"->{Lookup[pi, "Name"]<>"`"}]]
       ];
     cont
     ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsubsection::Closed:: *)
 (*getProjectBuildDir*)
 
 
 
 getProjectBuildDir[pname_]:=
-  getProjectProp[pname, "BuildDirectory", 
-    getProjectDir@pname
+  Module[
+    {
+      bd=getCleanFName@getProjectProp[pname, "BuildDirectory", Automatic]
+      },
+    If[StringQ@bd,
+      If[ExpandFileName[bd]!=bd,
+        bd=FileNameJoin@{getCleanFName@getProjectDir@pname, bd}
+        ],
+      bd=getCleanFName@getProjectDir@pname
+      ];
+    bd  
     ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsubsection::Closed:: *)
 (*getProjectSitePath*)
 
 
@@ -430,27 +573,119 @@ getProjectSitePath[pname_]:=
   getProjectProp[pname, "SitePath", {"project", "docs"}]
 
 
+(* ::Subsubsubsection::Closed:: *)
+(*getProjectSiteBuildPath*)
+
+
+
+(* ::Text:: *)
+(*
+	This might need an update some day, but should work for now
+*)
+
+
+
+getProjectSiteBuildPath[proj_]:=
+  FileNameJoin@{getProjectSitePath[proj], "output"};
+
+
+(* ::Subsubsection::Closed:: *)
+(*OpenProjectConfig*)
+
+
+
+$defaultConfigOptions=
+  {
+    "BuildDirectory"->Automatic,
+    "MarkdownOptions"->{}
+    }
+
+
+OpenProjectConfig[projName_]:=
+  Module[
+    {
+      cf=getProjectConfFile[projName],
+      dir
+      },
+    If[!StringQ[cf]&&FileExistsQ[cf],
+      dir=getProjectDir[projName];
+      cf=findDirConfigFile[dir];
+      If[!StringQ[cf]&&FileExistsQ[cf],
+        cf=FileNameJoin@Prepend[First@$defaultConfigPaths, dir]<>".wl";
+        CreateFile[cf, CreateIntermediateDirectories->True];
+        Export[cf, PrettyString[$defaultConfigOptions], "Text"]
+        ]
+      ];
+    SystemOpen@cf
+    ]
+
+
 (* ::Subsubsection::Closed:: *)
 (*EnsureLoadProject*)
 
 
 
+(* ::Text:: *)
+(*
+	This is stupidly messy. All I want is to be able to handle whatever combination of things we\[CloseCurlyQuote]re passed from a project name, a project directory, paclet name, config file, etc.
+*)
+
+
+
+EnsureLoadProject//Clear
 EnsureLoadProject[projName_, projDir_, projConf_]:=
-  Module[{pname, pdir, pcnf},
+  Module[{pname=$Failed, pdir, pcnf},
     If[!projectQ[projName],
-      If[!StringQ@projConf||StringLength[projConf]==0,
-        pname=LoadProjectConfig[projName, projDir, None];
-        pname=LoadProjectConfig[projName, projDir, projConf];
+      Which[
+        !StringQ@projName,
+          pname=LoadProjectConfig[projDir],
+        (!StringQ@projDir||StringLength[projDir]==0)&&
+          (!StringQ@projConf||StringLength[projConf]==0),
+          pname=LoadProjectConfig[projName],
+        !StringQ@projConf||StringLength[projConf]==0,
+          pname=LoadProjectConfig[projName, projDir, None],
+        True,
+          pname=LoadProjectConfig[projName, projDir, projConf]
         ],
-      pname=getProjectName[pname]
+      pname=getProjectName[projName]
       ];
     {pname, getProjectDir[pname], getProjectConfFile[pname]}
     ];
+EnsureLoadProject[projName_String, projDir_String?DirectoryQ]:=
+  EnsureLoadProject[
+    projName,
+    projDir,
+    findDirConfigFile[projDir]
+    ];
+EnsureLoadProject[projDir_String]:=
+  EnsureLoadProject[None, projDir, None];
 EnsureLoadProject[nb_NotebookObject]:=
   EnsureLoadProject[
-    CurrentValue[nb, {TaggingRules, "SimpleDocs", "Project", "Name"}],
-    CurrentValue[nb, {TaggingRules, "SimpleDocs", "Project", "Directory"}],
-    CurrentValue[nb, {TaggingRules, "SimpleDocs", "Project", "Config"}]
+    CurrentValue[nb, $projNameTag],
+    CurrentValue[nb, $projDirTag],
+    CurrentValue[nb, $projConfigTag]
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*InitializeDocsProject*)
+
+
+
+InitializeDocsProject[rootDir_, projName_]:=
+  Module[
+    {
+      dir,
+      cf
+      },
+    dir=FileNameJoin@{rootDir, projName};
+    If[!DirectoryQ@dir,
+      CreateDirectory[dir, CreateIntermediateDirectories->True]
+      ];
+    cf=FileNameJoin@Prepend[First@$defaultConfigPaths, dir]<>".wl";
+    CreateFile[cf, CreateIntermediateDirectories->True];
+    Export[cf, PrettyString[$defaultConfigOptions], "Text"];
+    dir
     ]
 
 
@@ -485,7 +720,7 @@ docsSiteLoc1[s_String]:=
 
 docsSiteLoc[projName_]:=
   FileNameJoin@Flatten@{
-    getProjBuildDir@projName, 
+    getProjectBuildDir@projName, 
     getProjectSitePath@projName
     }
 
@@ -496,12 +731,19 @@ docsSiteLoc[projName_]:=
 
 
 InitializeDocsSite[proj_]:=
-  With[{l=docsSiteLoc[proj]},
-    If[StringQ@l&&!DirectoryQ@l,
-      With[{s=Ems["New", l, "docs"]},
-        DeleteFile/@FileNames["*", FileNameJoin@{s, "content", "ref"}];
-        DeleteFile/@FileNames["*", FileNameJoin@{s, "content", "guide"}];
-        s
+  Module[{l=docsSiteLoc[proj], tmp},
+    If[StringQ@l&&!DirectoryQ@FileNameJoin@{l, "content"},
+      If[DirectoryQ[l],
+        tmp=CreateArchive[l, CreateDirectory[]<>".zip"]
+        ];
+      Internal`WithLocalSettings[
+        If[StringQ@tmp, DeleteDirectory[l, DeleteContents->True]],
+        With[{s=Ems["New", l, "docs"]},
+          DeleteFile/@FileNames["*", FileNameJoin@{s, "content", "ref"}];
+          DeleteFile/@FileNames["*", FileNameJoin@{s, "content", "guide"}];
+          s
+          ],
+        If[StringQ@tmp, ExtractArchive[tmp, DirectoryName@l]]
         ],
       $Failed
       ]
@@ -528,9 +770,9 @@ BuildDocsSite[loc_]:=
 
 
 BuildNotebookDocsSite[nb_, ploc_:Automatic]:=
-  With[{pac=getNotebookPaclet[nb, ploc]},
-    If[pac=!=None,
-      buildNotebookDocsSite[pac]
+  With[{proj=getNBProjectName[nb, ploc]},
+    If[proj=!=None,
+      buildNotebookDocsSite[proj]
       ]
     ]
 
@@ -607,6 +849,16 @@ buildNotebookDocsSite[loc_]:=
 OpenDocsSiteConfig[nb_, ploc_:Automatic]:=
   SystemOpen@
     FileNameJoin@{docsSiteLoc@getNotebookPaclet[nb, ploc], "SiteConfig.wl"}
+
+
+(* ::Subsubsection::Closed:: *)
+(*OpenLocalDocsSite*)
+
+
+
+OpenLocalDocsSite[proj_]:=
+  PySimpleServerOpen@
+    getProjSiteBuildPath[proj];
 
 
 (* ::Subsection:: *)
@@ -856,7 +1108,7 @@ $primaryTemplates=
           {
             $metaCell,
             $miscTemplates["TitleBar"],
-            Cell["FunctionName", "Section"],
+            Cell["FunctionName", "Section", "TitleSection"],
             $sectionTemplates["Usage Section"],
             $sectionTemplates["Details Section"],
             $sectionTemplates["Examples Section"],
@@ -870,7 +1122,7 @@ $primaryTemplates=
           {
             $metaCell,
             $miscTemplates["TitleBar"],
-            Cell["Guide Name", "Section"],
+            Cell["Guide Name", "Section", "TitleSection"],
             Cell["guide descriptions", "Text"],
             $sectionTemplates["Guide Section"],
             $miscTemplates["Divider"],
@@ -885,7 +1137,7 @@ $primaryTemplates=
           {
             $metaCell,
             $miscTemplates["TitleBar"],
-            Cell["Tutorial Name", "Section"],
+            Cell["Tutorial Name", "Section", "TitleSection"],
             $miscTemplates["Footer"]
             }
           ]
@@ -912,6 +1164,19 @@ $NotebookTemplates=
 
 
 (* ::Subsubsection::Closed:: *)
+(*taggingRules*)
+
+
+
+$projNameTag=
+  {TaggingRules, "SimpleDocs", "Project", "Name"};
+$projDirTag=
+  {TaggingRules, "SimpleDocs", "Project", "Directory"};
+$projConfigTag=
+  {TaggingRules, "SimpleDocs", "Project", "Config"};
+
+
+(* ::Subsubsection::Closed:: *)
 (*getMeta*)
 
 
@@ -934,12 +1199,13 @@ getMeta[nb_, k_, v_]:=
 
 
 
-getProjectDialog[]:=
+getProjectDialog[nb_:Automatic]:=
+With[{baseStuff=getProjectLayout@nb},
   DialogInput[
     {
-      projName="",
-      projDir="",
-      projConf=""
+      projName=baseStuff[[1]],
+      projDir=If[#===None, "", #]&@baseStuff[[2]],
+      projConf=If[#===None, "", #]&@baseStuff[[3]]
       },
     Pane[
       Panel[
@@ -954,7 +1220,7 @@ getProjectDialog[]:=
               "ReturnKeyDown":>DialogReturn@{projName, projDir, projConf}
               ],
             EventHandler[
-              InputField[Dynamic[projConf],
+              InputField[Dynamic[projDir],
                 String,
                 BoxID->"conf",
                 FieldHint->"project directory (optional)"
@@ -973,10 +1239,10 @@ getProjectDialog[]:=
             }
           ],
         "Specify project:",
-        ImageSize->{Automatic, 120},
+        ImageSize->{Automatic, 150},
         Alignment->Center
         ],
-      ImageSize->{250, 150},
+      ImageSize->{265, 200},
       Alignment->Center
       ],
     NotebookDynamicExpression:>
@@ -985,7 +1251,8 @@ getProjectDialog[]:=
         None
         ],
 CellInsertionPointCell->Automatic
-    ];
+    ]
+  ];
 
 
 (* ::Subsubsection::Closed:: *)
@@ -1035,7 +1302,7 @@ CellInsertionPointCell->Automatic
 getNBPaclet[nb_]:=
   CurrentValue[nb,
   {TaggingRules, "SimpleDocs", "Paclet"},
-  CurrentValue[nb, {TaggingRules, "Paclet"}]
+  Replace[CurrentValue[nb, {TaggingRules, "Paclet"}], Inherited->Automatic]
   ]
 
 
@@ -1044,26 +1311,58 @@ getNBPaclet[nb_]:=
 
 
 
+getNBProject//Clear
 getNBProject[nb_]:=
-  CurrentValue[nb,
-  {TaggingRules, "SimpleDocs", "Project", "Name"},
-  getNBPaclet[nb]
-  ]
+  CurrentValue[nb, $projNameTag];
 
 
 (* ::Subsubsection::Closed:: *)
-(*getNBProjName*)
+(*getNBProjectData*)
+
+
+
+getNBProjectData[nb_]:=
+  {
+    getNBProject[nb],
+    CurrentValue[nb, $projDirTag],
+    CurrentValue[nb, $projConfigTag]
+    };
+
+
+(* ::Subsubsection::Closed:: *)
+(*setNBProjectData*)
+
+
+
+setNBProjectData[nb_, name_]:=
+  If[projectQ[name],
+    With[{dir=getProjectDir[name], conf=getProjectConfFile[name]},
+      If[CurrentValue[nb, $projNameTag]=!=name,
+        CurrentValue[nb, $projNameTag]=name
+        ];
+      If[CurrentValue[nb, $projDirTag]=!=dir,
+        CurrentValue[nb, $projDirTag]=dir
+        ];
+      If[CurrentValue[nb, $projConfigTag]=!=conf,
+        CurrentValue[nb, $projConfigTag]=conf
+        ];
+      ]
+    ];
+
+
+(* ::Subsubsection::Closed:: *)
+(*getNBProjectName*)
 
 
 
 (* ::Text:: *)
 (*
-	Might need a few updates...
+	Might need a few updates... It\[CloseCurlyQuote]s a little bit cobble together right now.
 *)
 
 
 
-getNBProjName[nb_, proj_]:=
+getNBProjectName[nb_, proj_:None]:=
   Module[
     {
       projName=proj
@@ -1072,10 +1371,11 @@ getNBProjName[nb_, proj_]:=
       projName=getNBProject[nb]
       ];
     EnsureLoadProject[nb];
-    If[!projectQ[projName], 
-      projName=SetNotebookProject[nb];
+    If[!projectQ[projName],
+      projName=SetNotebookProject[nb, True];
       ];
     EnsureLoadProject[nb];
+    setNBProjectData[nb, projName];
     projName
     ];
 
@@ -1085,324 +1385,41 @@ getNBProjName[nb_, proj_]:=
 
 
 
+SetNotebookProject//Clear
 SetNotebookProject[nb_, auto:True|False:False]:=
   Module[
     {
       projLoc=If[auto, Quiet@getFileProject[NotebookFileName[nb]]],
       projConf,
-      projName
+      projName,
+      projData
       },
-    If[!StringQ@projLoc,
-      {projName, projLoc, projConf}=getProjectDialog[nb]
+    If[StringQ@projLoc,
+      EnsureLoadProject[projLoc]
       ];
-    {projName, projLoc, projConf}=
-      EnsureLoadProject[projName, projLoc, projConf];
-    CurrentValue[nb, {TaggingRules, "SimpleDocs", "Project", "Name"}]=projName;
-    CurrentValue[nb, {TaggingRules, "SimpleDocs", "Project", "Directory"}]=projLoc;
-    CurrentValue[nb, {TaggingRules, "SimpleDocs", "Project", "Config"}]=projConf;
-    projName
-    ]
-
-
-(* ::Subsubsection::Closed:: *)
-(*SetNotebookPaclet*)
-
-
-
-SetNotebookPaclet[nb_]:=
-  Module[
-    {pacletLoc=getPacletDialog[]},
-    If[StringLength@pacletLoc>0,
-      CurrentValue[nb, {TaggingRules, "SimpleDocs", "Paclet"}]=pacletLoc,
-      pacletLoc=None
-      ];
-    pacletLoc
-    ]
-
-
-(* ::Subsubsection::Closed:: *)
-(*getPacletDocsTypePath*)
-
-
-
-getPacletDocsTypePath[proj_, type_]:=
-  Lookup[
-      <|
-        "symbol"->FileNameJoin@{"ReferencePages", "Symbols"}, 
-        "Symbol"->FileNameJoin@{"ReferencePages", "Symbols"}
-        |>, 
-      type,
-      If[StringQ@type,
-        Replace[
-          (ToUpperCase[StringTake[#, {1}]]<>ToLowerCase@StringDrop[#, 1])&@ type<>"s", 
-          s:Except["Guides"|"Tutorials"]:>
-            FileNameJoin@{"ReferencePages", s}
-          ],
-        FileNameJoin@{"ReferencePages", "Symbols"}
-        ]
-      ]
-
-
-(* ::Subsubsection::Closed:: *)
-(*getPacletDocsLangPath*)
-
-
-
-getPacletDocsLangPath[proj_, lang_]:=
-  lang
-
-
-(* ::Subsubsection::Closed:: *)
-(*getPacletDocsExt*)
-
-
-
-getPacletDocsExt[proj_, ext_]:=
-  ext
-
-
-(* ::Subsubsection::Closed:: *)
-(*getPacletSaveLocation*)
-
-
-
-(* ::Subsubsubsection::Closed:: *)
-(*Older*)
-
-
-
-getPacletSaveLocation1[loc_String, lang_, type_]:=
-  FileNameJoin@{
-    loc, 
-    "Documentation", 
-    lang, 
-    Lookup[
-      <|
-        "symbol"->FileNameJoin@{"ReferencePages", "Symbols"}, 
-        "Symbol"->FileNameJoin@{"ReferencePages", "Symbols"}
-        |>, 
-      type,
-      If[StringQ@type,
-        Replace[
-          (ToUpperCase[StringTake[#, {1}]]<>ToLowerCase@StringDrop[#, 1])&@ type<>"s", 
-          s:Except["Guides"|"Tutorials"]:>
-            FileNameJoin@{"ReferencePages", s}
-          ],
-        FileNameJoin@{"ReferencePages", "Symbols"}
-        ]
-      ]
-    };
-getPacletSaveLocation1[pac_PacletManager`Paclet, lang_, type_]:=
-  getPacletSaveLocation1[pac["Location"], lang, type];
-
-
-(* ::Subsubsubsection::Closed:: *)
-(*Newer*)
-
-
-
-getPacletSaveLocation[projName_String, lang_, type_]:=
-  FileNameJoin@Flatten@{
-    getProjectProp[projName, "BuildDirectory", 
-      getProjectDir@projName
-      ], 
-    getPacletDocsExt[projName, "Documentation"], 
-    getPacletDocsLangPath[projName, lang], 
-    getPacletDocsTypePath[projName, type]
-    };
-
-
-(* ::Subsubsection::Closed:: *)
-(*getPacletSaveFileName*)
-
-
-
-getPacletSaveFileName[pac_, nb_]:=
-  Module[
-    {
-      cont,
-      lang,
-      type,
-      baseDir,
-      title,
-      pi
-      },
-    cont=getMeta[nb, "context"];
-    lang=getMeta[nb, "language"];
-    If[cont===Automatic,
-      pi=PacletManager`PacletInformation[pac];
-      setMeta[nb, "context", 
-        First["Context"/.Append[pi, "Context"->{Lookup[pi, "Name"]<>"`"}]]
-        ]
-      ];
-    type=getMeta[nb, "type"];
-    lang=Lookup[<|"en"->"English"|>, lang, $Language];
-    baseDir=getPacletSaveLocation[pac, lang, type];
-    Quiet@CreateDirectory[baseDir, CreateIntermediateDirectories->True];
-    title=CurrentValue[nb, {TaggingRules, "Metadata", "label"}];
-    If[!StringQ@title, title="Symbol"];
-    FileNameJoin@{baseDir,StringTrim[title, ".nb"]<>".nb" }
-    ];
-
-
-(* ::Subsubsection::Closed:: *)
-(*getSiteTypeExt*)
-
-
-
-getSiteTypeExt[proj_, type_]:=
-  StringTrim[
-    Lookup[<|"symbol"->"ref", "Symbol"->"ref"|>, type,
-      If[StringQ@type,
-        (ToUpperCase[StringTake[#, {1}]]<>StringDrop[#, 1])&@ type, 
-        "ref"
-        ]
-      ],
-    "s"~~EndOfString
-    ]
-
-
-(* ::Subsubsection::Closed:: *)
-(*getSiteContentExt*)
-
-
-
-getSiteContentExt[proj_, ext_]:=
-  ext
-
-
-(* ::Subsubsection::Closed:: *)
-(*getSiteSaveLocation*)
-
-
-
-(* ::Subsubsubsection::Closed:: *)
-(*Older*)
-
-
-
-getSiteSaveLocation1[loc_, type_]:=
-  FileNameJoin@{
-    docsSiteLoc@loc, 
-    "content",
-    StringTrim[
-      Lookup[<|"symbol"->"ref", "Symbol"->"ref"|>, type,
-        If[StringQ@type,
-          (ToUpperCase[StringTake[#, {1}]]<>StringDrop[#, 1])&@ type, 
-          "ref"
-          ]
+    If[!projectQ@projLoc,
+      projLoc=getProjectDialog[nb];
+      If[projLoc=!=$Canceled,
+        {projName, projLoc, projConf}=projLoc
         ],
-      "s"~~EndOfString
+      projName=getProjectNameprojLoc;
+      projLoc=.
+      ];
+    projData=
+      If[StringQ@projLoc,
+        EnsureLoadProject[projName, projLoc, projConf],
+        EnsureLoadProject[projName]
+        ];
+    If[Length[projData]==3,
+      {projName, projLoc, projConf}=projData
+      ];
+    If[StringQ@projName,
+      CurrentValue[nb, $projNameTag]=projName;
+      CurrentValue[nb, $projDirTag]=projLoc;
+      CurrentValue[nb, $projConfigTag]=projConf;
+      projName,
+      $Failed
       ]
-    };
-
-
-(* ::Subsubsubsection::Closed:: *)
-(*Newer*)
-
-
-
-getSiteSaveLocation[projName_, type_]:=
-  FileNameJoin@Flatten@{
-    docsSiteLoc@projName, 
-    getSiteContentExt[projName, "content"],
-    getSiteTypeExt[projName, type]
-    };
-
-
-(* ::Subsubsection::Closed:: *)
-(*getSiteSaveFileName*)
-
-
-
-(* ::Subsubsubsection::Closed:: *)
-(*older*)
-
-
-
-getSiteSaveFileName1[pac_, nb_]:=
-  Module[
-    {
-      cont,
-      lang,
-      type,
-      baseDir,
-      title,
-      pi
-      },
-    cont=getMeta[nb, "context"];
-    lang=getMeta[nb, "language"];
-    If[cont===Automatic,
-      pi=PacletManager`PacletInformation[pac];
-      setMeta[nb, "context",
-        First["Context"/.Append[pi, "Context"->{Lookup[pi, "Name"]<>"`"}]]
-        ]
-      ];
-    type=getMeta[nb, "type"];
-    InitializeDocsSite[pac];
-    baseDir=getSiteSaveLocation[pac, type];
-    title=CurrentValue[nb, {TaggingRules, "Metadata", "label"}];
-    If[!StringQ@title, title="Symbol"];
-    Quiet@CreateDirectory[baseDir, CreateIntermediateDirectories->True];
-    FileNameJoin@{baseDir,StringTrim[title, ".nb"]<>".nb" }
-    ];
-
-
-(* ::Subsubsubsection::Closed:: *)
-(*newer*)
-
-
-
-getSiteSaveFileName[projName_, nb_]:=
-  Module[
-    {
-      cont,
-      lang,
-      type,
-      baseDir,
-      title,
-      pi,
-      projDir,
-      pac
-      },
-    cont=getMeta[nb, "context"];
-    lang=getMeta[nb, "language"];
-    If[cont===Automatic,
-      setMeta[nb, "context", getProjectContext[projName]]
-      ];
-    type=getMeta[nb, "type"];
-    InitializeDocsSite[projName];
-    baseDir=getSiteSaveLocation[projName, type];
-    title=CurrentValue[nb, {TaggingRules, "Metadata", "label"}];
-    If[!StringQ@title, title="Symbol"];
-    Quiet@CreateDirectory[baseDir, CreateIntermediateDirectories->True];
-    FileNameJoin@{baseDir,StringTrim[title, ".nb"]<>".nb" }
-    ];
-
-
-(* ::Subsubsection::Closed:: *)
-(*getNotebookPaclet*)
-
-
-
-getNotebookPaclet[nb_, ploc_:Automatic]:=
-  Module[
-    {
-      pacletLoc=ploc,
-      pac
-      },
-    If[!StringQ@pacletLoc, 
-      pacletLoc=getNBPaclet[nb]
-      ];
-    If[!StringQ[pacletLoc], 
-      pacletLoc=SetNotebookPaclet[nb];
-      ];
-    If[StringQ@pacletLoc,
-      pac=PacletManager`PacletFind[pacletLoc];
-      If[Length@pac>0, pac=First@pac, pac=None],
-      pac=None
-      ];
-    pac
     ]
 
 
@@ -1419,39 +1436,45 @@ getNotebookPaclet[nb_, ploc_:Automatic]:=
 
 
 prepNotebookForDocs[nb_]:=
-  Notebook[#[[1]],
-    FilterRules[
-      Flatten@{
+  Notebook[
+    DeleteCases[
+      #[[1]],
+      Cell[_, "Metadata", ___],
+      \[Infinity],
+      1
+      ],
+    Flatten@{
+      FilterRules[
         List@@#[[2;;]], 
-        ScreenStyleEnvironment->"Working",
-        StyleDefinitions->
-          Notebook[
-            {
-              Cell[
-                StyleData[
-                  StyleDefinitions->
-                    FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"]
-                  ]
-                ],
-              Cell[
-                StyleData[
-                  StyleDefinitions->
-                    FrontEnd`FileName[{ParentDirectory[]}, "SimpleDocsStyles.nb"]
-                  ]
-                ],
-              Cell[
-                StyleData[
-                  StyleDefinitions->
-                    FrontEnd`FileName[{ParentDirectory[], ParentDirectory[]}, "SimpleDocsStyles.nb"]
-                  ]
-                ],
-              Cell[StyleData[StyleDefinitions->"Default.nb"]]
-              },
-            StyleDefinitions->"PrivateStylesheetFormatting.nb"
-            ]
-        },
-       Except[ScreenStyleEnvironment|StyleDefinitions]
-      ]
+        Except[ScreenStyleEnvironment|StyleDefinitions]
+        ],
+      ScreenStyleEnvironment->"Working",
+      StyleDefinitions->
+        Notebook[
+          {
+            Cell[
+              StyleData[
+                StyleDefinitions->
+                  FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"]
+                ]
+              ],
+            Cell[
+              StyleData[
+                StyleDefinitions->
+                  FrontEnd`FileName[{ParentDirectory[]}, "SimpleDocsStyles.nb"]
+                ]
+              ],
+            Cell[
+              StyleData[
+                StyleDefinitions->
+                  FrontEnd`FileName[{ParentDirectory[], ParentDirectory[]}, "SimpleDocsStyles.nb"]
+                ]
+              ],
+            Cell[StyleData[StyleDefinitions->"Default.nb"]]
+            },
+          StyleDefinitions->"PrivateStylesheetFormatting.nb"
+          ]
+      }
     ]&@NotebookGet[nb]
 
 
@@ -1484,9 +1507,10 @@ SaveNotebookToDocumentation[nb_, proj_:Automatic]:=
         FileNameJoin@{
           Nest[DirectoryName, fname, 2],
           "SimpleDocsStyles.nb"
-          }
+          },
+        OverwriteTarget->True
         ];
-      Export[fname, prepNotebookForDocs[nb]]
+      (*Quiet@*)Export[fname, prepNotebookForDocs[nb]]
       ]
     ]
 
@@ -1513,9 +1537,60 @@ SaveNotebookToProject[nb_, proj_:Automatic]:=
       },
     projName=getNBProjectName[nb, projName];
     fname=getSiteSaveFileName[projName, nb];
-    If[StringQ@fname&&DirectoryQ@DirectoryName@fname,
-      NotebookSave[nb, fname]
+    If[StringQ@fname,
+      If[!DirectoryQ@DirectoryName@fname,
+        (* should I need to do this...? *)
+        CreateDirectory[DirectoryName@fname, CreateIntermediateDirectories->True]
+        ];
+      NotebookSave[nb, fname],
+      PackageRaiseException[
+        Automatic,
+        "Save location `` is invalid",
+        fname
+        ]
       ]
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*SetNotebookPaclet*)
+
+
+
+SetNotebookPaclet[nb_]:=
+  Module[
+    {pacletLoc=getPacletDialog[]},
+    If[StringLength@pacletLoc>0,
+      CurrentValue[nb, {TaggingRules, "SimpleDocs", "Paclet"}]=pacletLoc,
+      pacletLoc=None
+      ];
+    pacletLoc
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*getNotebookPaclet*)
+
+
+
+getNotebookPaclet[nb_, ploc_:Automatic]:=
+  Module[
+    {
+      pacletLoc=ploc,
+      pac
+      },
+    If[!StringQ@pacletLoc, 
+      pacletLoc=getNBPaclet[nb]
+      ];
+    If[!StringQ[pacletLoc], 
+      pacletLoc=SetNotebookPaclet[nb];
+      ];
+    If[StringQ@pacletLoc,
+      pac=PacletManager`PacletFind[pacletLoc];
+      If[Length@pac>0, pac=First@pac, pac=None],
+      pac=None
+      ];
+    pac
     ]
 
 
@@ -1639,8 +1714,8 @@ SaveNotebookMarkdown[nb_]:=
   Module[
     {
       md=MarkdownNotebookMetadata@nb,
-      projName=getNBProjectName[nb, None]
-      (* for some reason this isn't getting linked in properly... *)
+      projName=getNBProjectName[nb, None],
+      sname
       },
     md=
       Merge[
@@ -1694,7 +1769,14 @@ SaveNotebookMarkdown[nb_]:=
             First@#
           ]&
         ];
-  NotebookMarkdownSave[nb, Sequence@@Normal@md]
+  sname=getSiteSaveFileName[projName, nb];
+  If[StringQ@sname,
+    NotebookMarkdownSave[nb, 
+      DirectoryName@sname,
+      Sequence@@Normal@md
+      ],
+    NotebookMarkdownSave[nb, Sequence@@Normal@md]
+    ]
   ]
 
 
@@ -1709,7 +1791,7 @@ PrepareNotebookMetadata[nb_]:=
       projName,
       baseData
       },
-    projName=getNBProjName[nb];
+    projName=getNBProjectName[nb];
     baseData=
       getProjectProp[projName, "Metadata", <||>];
     Normal@
@@ -1765,7 +1847,7 @@ CheckSaveNotebook[nb_]:=
     saveDoc=
       CurrentValue[nb, {TaggingRules, "SimpleDocs", "DocumentationAutosave"}, False];
     If[TrueQ@saveDoc,
-      SaveNotebookToPaclet[nb]
+      SaveNotebookToDocumentation[nb]
       ];
     If[TrueQ@saveMD,
       SaveNotebookMarkdown[nb]
@@ -1956,14 +2038,58 @@ formatRelatedSection[names_]:=
 
 
 (* ::Subsubsubsection::Closed:: *)
+(*splitUsageCalls*)
+
+
+
+splitUsageCalls[use_]:=
+  StringSplit[use, 
+    k:((StartOfLine|StartOfString)~~a:Except["["]..~~"["~~b__~~"]")/;
+      StringCount[b, "["]==StringCount["b", "]"]:>
+      k
+    ]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*getUsageMessages*)
+
+
+
+getUsageMessages[s_]:=
+  Module[
+    {
+      ubase,
+      usplits
+      },
+    ubase=s::usage;
+    If[!StringQ@ubase,
+      usplits=None,
+      usplits=StringTrim@splitUsageCalls[ubase];
+      If[Length@usplits>1,
+        usplits=
+          Replace[
+            Partition[usplits, UpTo[2]],
+            {a_}:>{a, ""},
+            1
+            ],
+        usplits=None
+        ]
+      ];
+    usplits
+    ];
+getUsageMessages~SetAttributes~HoldFirst;
+
+
+(* ::Subsubsubsection::Closed:: *)
 (*SymbolNotebookTemplate*)
 
 
 
-SymbolNotebookTemplate[s_Symbol]:=
+SymbolNotebookTemplate[s_Symbol, parent_:None]:=
   Module[
     {
       bits,
+      use1,
       use,
       deets,
       exams,
@@ -1972,15 +2098,17 @@ SymbolNotebookTemplate[s_Symbol]:=
       meta,
       nb
       },
-    keys={"UsageMessages", "Details", "Examples", "RelatedFunctions"};
+    use1=getUsageMessages[s];
+    keys={"Details", "Examples", "RelatedFunctions"};
+    If[Length[use]===0,
+      PrependTo[keys, "UsageMessages"]
+      ];
     bits=GenerateFunctionInfo[s, "Keys"->keys];
-    {use, deets, exams, similar}=Lookup[bits, keys];
-    use=
-      StringSplit[use, 
-        k:((StartOfLine|StartOfString)~~a:Except["["]..~~"["~~b__~~"]")/;
-          StringCount[b, "["]==StringCount["b", "]"]:>
-          k
-        ];
+    {use, deets, exams, similar}=
+      If[Length@use1>0, Prepend[use1], Identity]@Lookup[bits, keys];
+    If[Length@use1===0, 
+      use=splitUsageCalls[use]
+      ];
     meta=AssociationThread[ToLowerCase@Flatten@Values@$MetadataMap, Automatic];
     meta["label"]=SymbolName[s];
     meta["context"]=Context[s];
@@ -2002,6 +2130,10 @@ SymbolNotebookTemplate[s_Symbol]:=
           StyleDefinitions->FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"],
           TaggingRules->{
             "Metadata"->DocMetadata@Normal@meta,
+            If[MatchQ[parent, _NotebookObject],
+              "SimpleDocs"->CurrentValue[nb, {parent, TaggingRules, "SimpleDocs"}],
+              Nothing
+              ],
             "ColorType"->"SymbolColor"
             },
           ScreenStyleEnvironment->"Editing"
@@ -2015,7 +2147,7 @@ SymbolNotebookTemplate[s_Symbol]:=
 
 
 
-GuideNotebookTemplate[name_String]:=
+GuideNotebookTemplate[name_String, parent_:None]:=
   Module[
     {
       cleanName,
@@ -2044,6 +2176,10 @@ GuideNotebookTemplate[name_String]:=
           StyleDefinitions->FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"],
           TaggingRules->{
             "Metadata"->DocMetadata@Normal@meta,
+            If[MatchQ[parent, _NotebookObject],
+              "SimpleDocs"->CurrentValue[nb, {parent, TaggingRules, "SimpleDocs"}],
+              Nothing
+              ],
             "ColorType"->"GuideColor"
             },
           ScreenStyleEnvironment->"Editing"
@@ -2057,7 +2193,7 @@ GuideNotebookTemplate[name_String]:=
 
 
 
-TutorialNotebookTemplate[name_String]:=
+TutorialNotebookTemplate[name_String, parent_:None]:=
   Module[
     {
       cleanName,
@@ -2085,6 +2221,10 @@ TutorialNotebookTemplate[name_String]:=
           StyleDefinitions->FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"],
           TaggingRules->{
             "Metadata"->DocMetadata@Normal@meta,
+            If[MatchQ[parent, _NotebookObject],
+              "SimpleDocs"->CurrentValue[nb, {parent, TaggingRules, "SimpleDocs"}],
+              Nothing
+              ],
             "ColorType"->"TutorialColor"
             },
           ScreenStyleEnvironment->"Editing"
@@ -2352,10 +2492,10 @@ $HamburgerMenu=
           NotebookOpen@SaveNotebookMarkdown[EvaluationNotebook[]]
           ),
       Delimiter,
-      "Set Paclet":>
+      "Set Project":>
         (
           Needs["SimpleDocs`"];
-          SetNotebookPaclet[EvaluationNotebook[]]
+          SetNotebookProject[EvaluationNotebook[]]
           ),
       "Update PacletInfo":>
         (
@@ -2516,6 +2656,11 @@ $DockedCell=
 
 
 
+(* ::Subsubsection::Closed:: *)
+(*SetPacletInfo*)
+
+
+
 (* ::Text:: *)
 (*
 	Not sure how best to fit this into the whole new \[OpenCurlyDoubleQuote]project\[CloseCurlyDoubleQuote] structure. There might not always be a paclet to anchor to?
@@ -2524,17 +2669,329 @@ $DockedCell=
 
 
 SetPacletInfo//Clear
-SetPacletInfo[pac:_String|_PacletManager`Paclet]:=
+SetPacletInfo[pac:_PacletManager`Paclet]:=
   Module[{pi=PacletManager`PacletInformation@pac},
     PacletExecute["GeneratePacletInfo",
       Lookup[pi, "Location"],
       "Version"->Lookup[pi, "Version"]
       ]
     ];
-SetPacletInfo[nb_NotebookObject, ploc_:Automatic]:=
-  Module[{pac=getNotebookPaclet[nb, ploc]},
-    SetPacletInfo[pac]
+SetPacletInfo[projName_]:=
+  Module[
+    {
+      buildDir
+      },
+    buildDir=getProjectBuildDir[projName];
+    If[TrueQ@PacletExecute["ValidDirectoryQ", buildDir],
+      SetPacletInfo[PacletExecute["Paclet", buildDir]]
+      ]
     ];
+SetPacletInfo[nb_NotebookObject, ploc_:Automatic]:=
+  Module[
+    {
+      proj=getNBProjectName[nb, ploc]
+      },
+    SetPacletInfo[proj]
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*getPacletDocsTypePath*)
+
+
+
+getPacletDocsTypePath[proj_, type_]:=
+  Lookup[
+      <|
+        "symbol"->FileNameJoin@{"ReferencePages", "Symbols"}, 
+        "Symbol"->FileNameJoin@{"ReferencePages", "Symbols"}
+        |>, 
+      type,
+      If[StringQ@type,
+        Replace[
+          (ToUpperCase[StringTake[#, {1}]]<>ToLowerCase@StringDrop[#, 1])&@ type<>"s", 
+          s:Except["Guides"|"Tutorials"]:>
+            FileNameJoin@{"ReferencePages", s}
+          ],
+        FileNameJoin@{"ReferencePages", "Symbols"}
+        ]
+      ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*getPacletDocsLangPath*)
+
+
+
+getPacletDocsLangPath[proj_, lang_]:=
+  lang
+
+
+(* ::Subsubsection::Closed:: *)
+(*getPacletDocsExt*)
+
+
+
+getPacletDocsExt[proj_, ext_]:=
+  ext
+
+
+(* ::Subsubsection::Closed:: *)
+(*getPacletSaveLocation*)
+
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Older*)
+
+
+
+getPacletSaveLocation1[loc_String, lang_, type_]:=
+  FileNameJoin@{
+    loc, 
+    "Documentation", 
+    lang, 
+    Lookup[
+      <|
+        "symbol"->FileNameJoin@{"ReferencePages", "Symbols"}, 
+        "Symbol"->FileNameJoin@{"ReferencePages", "Symbols"}
+        |>, 
+      type,
+      If[StringQ@type,
+        Replace[
+          (ToUpperCase[StringTake[#, {1}]]<>ToLowerCase@StringDrop[#, 1])&@ type<>"s", 
+          s:Except["Guides"|"Tutorials"]:>
+            FileNameJoin@{"ReferencePages", s}
+          ],
+        FileNameJoin@{"ReferencePages", "Symbols"}
+        ]
+      ]
+    };
+getPacletSaveLocation1[pac_PacletManager`Paclet, lang_, type_]:=
+  getPacletSaveLocation1[pac["Location"], lang, type];
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Newer*)
+
+
+
+getPacletSaveLocation[projName_String, lang_, type_]:=
+  FileNameJoin@Flatten@{
+    getProjectBuildDir[projName], 
+    getPacletDocsExt[projName, "Documentation"], 
+    getPacletDocsLangPath[projName, lang], 
+    getPacletDocsTypePath[projName, type]
+    };
+
+
+(* ::Subsubsection::Closed:: *)
+(*getPacletSaveFileName*)
+
+
+
+getPacletSaveFileName[projName_, baseLang_, type_, baseTitle_]:=
+  Module[
+    {
+      lang=baseLang,
+      baseDir,
+      title=baseTitle
+      },
+    lang=Lookup[<|"en"->"English"|>, lang, $Language];
+    baseDir=getPacletSaveLocation[projName, lang, type];
+    Quiet@CreateDirectory[baseDir, CreateIntermediateDirectories->True];
+    If[!StringQ@title, title="Symbol"];
+    FileNameJoin@{baseDir, StringTrim[title, ".nb"]<>".nb" }
+    ]
+
+
+getPacletSaveFileName[projName_, nb_]:=
+  Module[
+    {
+      lang,
+      type,
+      title
+      },
+    lang=getMeta[nb, "language"];
+    type=getMeta[nb, "type"];
+    title=getMeta[nb, "label"];
+    getPacletSaveFileName[projName, lang, type, title]
+    ];
+
+
+getPacletSaveFileName[nb_]:=
+  getPacletSaveFileName[
+    getNBProjectName[nb],
+    nb
+    ];
+
+
+(* ::Subsubsection::Closed:: *)
+(*getSiteTypeExt*)
+
+
+
+getSiteTypeExt[proj_, type_]:=
+  StringTrim[
+    Lookup[<|"symbol"->"ref", "Symbol"->"ref"|>, type,
+      If[StringQ@type,
+        (ToUpperCase[StringTake[#, {1}]]<>StringDrop[#, 1])&@ type, 
+        "ref"
+        ]
+      ],
+    "s"~~EndOfString
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*getSiteContentExt*)
+
+
+
+getSiteContentExt[proj_, ext_]:=
+  ext
+
+
+(* ::Subsubsection::Closed:: *)
+(*getSiteSaveLocation*)
+
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Older*)
+
+
+
+getSiteSaveLocation1[loc_, type_]:=
+  FileNameJoin@{
+    docsSiteLoc@loc, 
+    "content",
+    StringTrim[
+      Lookup[<|"symbol"->"ref", "Symbol"->"ref"|>, type,
+        If[StringQ@type,
+          (ToUpperCase[StringTake[#, {1}]]<>StringDrop[#, 1])&@ type, 
+          "ref"
+          ]
+        ],
+      "s"~~EndOfString
+      ]
+    };
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*Newer*)
+
+
+
+getSiteSaveLocation[projName_, type_]:=
+  FileNameJoin@Flatten@{
+    docsSiteLoc@projName, 
+    getSiteContentExt[projName, "content"],
+    getSiteTypeExt[projName, type]
+    };
+
+
+(* ::Subsubsection::Closed:: *)
+(*getSiteSaveFileName*)
+
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*older*)
+
+
+
+getSiteSaveFileName1[pac_, nb_]:=
+  Module[
+    {
+      cont,
+      lang,
+      type,
+      baseDir,
+      title,
+      pi
+      },
+    cont=getMeta[nb, "context"];
+    lang=getMeta[nb, "language"];
+    If[cont===Automatic,
+      pi=PacletManager`PacletInformation[pac];
+      setMeta[nb, "context",
+        First["Context"/.Append[pi, "Context"->{Lookup[pi, "Name"]<>"`"}]]
+        ]
+      ];
+    type=getMeta[nb, "type"];
+    InitializeDocsSite[pac];
+    baseDir=getSiteSaveLocation[pac, type];
+    title=CurrentValue[nb, {TaggingRules, "Metadata", "label"}];
+    If[!StringQ@title, title="Symbol"];
+    Quiet@CreateDirectory[baseDir, CreateIntermediateDirectories->True];
+    FileNameJoin@{baseDir,StringTrim[title, ".nb"]<>".nb" }
+    ];
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*newer*)
+
+
+
+getSiteSaveFileName[projName_, baseTitle_, baseType_]:=
+  Module[
+    {
+      cont,
+      lang,
+      type=baseType,
+      baseDir,
+      title=baseTitle,
+      pi,
+      projDir,
+      pac
+      },
+    InitializeDocsSite[projName];
+    baseDir=getSiteSaveLocation[projName, type];
+    If[!StringQ@title, title="Symbol"];
+    Quiet@CreateDirectory[baseDir, CreateIntermediateDirectories->True];
+    FileNameJoin@{baseDir, StringTrim[title, ".nb"]<>".nb" }
+    ];
+getSiteSaveFileName[projName_, nb_]:=
+  Module[
+    {
+      title=getMeta[nb, "label"],
+      type=getMeta[nb, "type"]
+      },
+    If[!StringQ@title, title="Symbol"(* this should be changed up... *)];
+    getSiteSaveFileName[projName, title, type]
+    ];
+getSiteSaveFileName[nb_]:=
+  getSiteSaveFileName[getNBProjectName[nb], nb];
+
+
+(* ::Subsubsection::Closed:: *)
+(*CreateDocumentationPaclet*)
+
+
+
+CreateDocumentationPaclet[rootDir_, contexts_]:=
+  Module[
+    {
+      targDir,
+      cleanName,
+      conts=Flatten@{contexts}
+      },
+    cleanName=
+      "Documentation_"<>StringDelete[conts[[1]], "`"];
+    targDir=FileNameJoin@{rootDir, cleanName};
+    If[!DirectoryQ@targDir,
+      CreateDirectory[targDir, CreateIntermediateDirectories->True]
+      ];
+    If[!PacletExecute["ValidDirectoryQ", targDir],
+      PacletExecute["GeneratePacletInfo", 
+        targDir, 
+        "Name"->cleanName,
+        "Version"->"0.0.0"
+        ]
+      ];
+    targDir
+    ]
 
 
 End[];

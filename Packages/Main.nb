@@ -5,9 +5,19 @@ Cell["SimpleDocs", \
 "CodeSection",ExpressionUUID->"b956a157-87c7-42cf-9522-119dd53ae0b4"],
 
 Cell["\<\
-This is the main interface package, exposing all the stuff defined at the \
-Package level in a consistent interface.\
-\>", "Text",ExpressionUUID->"456ee6cd-156c-4e2d-97ba-07eccd3251e3"],
+\[LeftCeiling]
+\tThis is the main interface package, exposing all the stuff defined at the \
+Package level in a consistent interface.
+\[RightFloor]\
+\>", "Text",
+ Evaluatable->True,ExpressionUUID->"456ee6cd-156c-4e2d-97ba-07eccd3251e3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SimpleDocs", "::", "usage"}], "=", "\n", "\t", 
+   "\"\<The main interface to the SimpleDocs package\>\""}], 
+  ";"}]], "CodeInput",ExpressionUUID->"9059cdd0-483b-4b45-ade6-56de23cf7cd4"],
 
 Cell[BoxData[
  RowBox[{
@@ -17,38 +27,212 @@ dbc869562c51"],
 
 Cell[CellGroupData[{
 
-Cell["\[LeftCeiling] Paclet Stuff\[RightFloor]", "CodeSubsection",
- Evaluatable->True,ExpressionUUID->"758e8ecc-8cbf-4975-95c1-a19c43396b8f"],
+Cell["\[LeftCeiling]Function\[RightFloor]", "CodeSubsection",
+ Evaluatable->True,ExpressionUUID->"04feab4a-fdee-4b81-95cb-8781a68c73c3"],
 
-Cell["\[LeftCeiling]SetNotebookPaclet\[RightFloor]", "CodeSubsubsection",
- Evaluatable->True,ExpressionUUID->"086c848b-a1be-4ef1-ae8b-66f948f6b82b"]
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]Actions\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"9cd7d0ac-4013-44d6-9533-e54baa9aa3b2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"$map", "=", "\n", "\t", 
+   RowBox[{"<|", "\n", "\t\t", 
+    RowBox[{"(*", " ", 
+     RowBox[{"project", " ", "related"}], " ", "*)"}], "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"\"\<Projects\>\"", "\[Rule]", "DocsProjects"}], ",", "\n", 
+     "\t\t", 
+     RowBox[{"\"\<SetProjectOptions\>\"", "\[Rule]", "SetProjectOptions"}], 
+     ",", "\n", "\t\t", 
+     RowBox[{"\"\<RemoveProject\>\"", "->", "RemoveProject"}], ",", "\n", 
+     "\t\t", 
+     RowBox[{"\"\<LoadProject\>\"", "->", "LoadProjectConfig"}], ",", "\n", 
+     "\t\t", 
+     RowBox[{"\"\<ReloadProject\>\"", "\[Rule]", "ReloadProjectConfig"}], ",",
+      "\n", "\t\t", 
+     RowBox[{"\"\<InitializeProject\>\"", "->", "InitializeDocsProject"}], 
+     ",", "\n", "\t\t", 
+     RowBox[{"\"\<OpenConfig\>\"", "->", "OpenProjectConfig"}], ",", "\n", 
+     "\t\t", 
+     RowBox[{"(*", " ", 
+      RowBox[{"paclet", " ", "related"}], " ", "*)"}], "\n", "\t\t", 
+     RowBox[{
+     "\"\<CreateDocumentationPaclet\>\"", "\[Rule]", 
+      "CreateDocumentationPaclet"}], ",", "\n", "\t\t", 
+     RowBox[{"\"\<SetPacletInfo\>\"", "->", "SetPacletInfo"}], ",", "\n", 
+     "\t\t", 
+     RowBox[{"(*", " ", 
+      RowBox[{"site", " ", "related"}], " ", "*)"}], "\n", "\t\t", 
+     RowBox[{"\"\<InitializeSite\>\"", "->", "InitializeDocsSite"}], ",", 
+     "\n", "\t\t", 
+     RowBox[{"\"\<BuildSite\>\"", "->", "BuildDocsSite"}], ",", "\n", "\t\t", 
+     
+     RowBox[{"\"\<OpenSiteConfig\>\"", "->", "OpenDocsSiteConfig"}], ",", 
+     "\n", "\t\t", 
+     RowBox[{"\"\<ViewLocalSite\>\"", "->", "OpenLocalDocsSite"}], ",", "\n", 
+     "\t\t", 
+     RowBox[{"(*", " ", 
+      RowBox[{"notebok", " ", "related"}], " ", "*)"}], "\n", "\t\t", 
+     RowBox[{"\"\<TemplateNotebook\>\"", "->", "CreateTemplateNotebook"}], 
+     ",", "\n", "\t\t", 
+     RowBox[{"\"\<SampleNotebook\>\"", "->", "SampleTemplateNotebook"}], ",", 
+     "\n", "\t\t", 
+     RowBox[{"\"\<SaveNotebook\>\"", "\[Rule]", "CheckSaveNotebook"}], ",", 
+     "\n", "\t\t", 
+     RowBox[{
+     "\"\<SaveToDocumentation\>\"", "->", "SaveNotebookToDocumentation"}], 
+     ",", "\n", "\t\t", 
+     RowBox[{"\"\<SaveToMarkdown\>\"", "\[Rule]", "SaveNotebookMarkdown"}], 
+     ",", "\n", "\t\t", 
+     RowBox[{"\"\<SaveToProject\>\"", "->", "SaveNotebookToProject"}]}], "\n",
+     "\t\t", "|>"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"e1e4dbc3-6f57-4047-91da-bfacb83a0e3c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["\[LeftCeiling]Autodocs\[RightFloor]", "CodeSubsection",
- Evaluatable->True,ExpressionUUID->"67a83345-d2bc-4565-bcdf-5262ca64a221"],
+Cell["\[LeftCeiling]MethodQ\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"f6e61783-5a37-4828-83f4-3673c10bae40"],
 
-Cell["\[LeftCeiling]TemplateDocumentation\[RightFloor]", "CodeSubsubsection",
- Evaluatable->True,ExpressionUUID->"acd17ae6-ff02-4701-973d-bbb4737f73be"]
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"methodQ", "[", "arg_", "]"}], ":=", "\n", "\t", 
+  RowBox[{"KeyExistsQ", "[", 
+   RowBox[{"$map", ",", " ", "arg"}], 
+   "]"}]}]], \
+"CodeInput",ExpressionUUID->"db2fa46f-b00d-4e71-89f6-7b4c50e1503f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["\[LeftCeiling]Sites\[RightFloor]", "CodeSubsection",
- Evaluatable->True,ExpressionUUID->"6192b18b-e566-43c2-ac3c-7ca4749dc2db"],
+Cell["\[LeftCeiling]SimpleDocs\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"af9f3b3e-2f6b-4dc8-a369-3b5c6a33d23d"],
 
-Cell["\[LeftCeiling]InitializeDocsSite\[RightFloor]", "CodeSubsubsection",
- Evaluatable->True,ExpressionUUID->"b0af95c7-4c6e-4f6f-8362-2ab899c5d09e"],
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SimpleDocs", "//", "Clear"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SimpleDocs", "[", 
+    RowBox[{"\"\<<Method>\>\"", ",", " ", "\"\<Function\>\""}], "]"}], "~", 
+   "PackageAddUsage", "~", "\n", "\t", 
+   "\"\<returns the function for the call into \\\"<Method>\\\" \>\""}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SimpleDocs", "[", 
+    RowBox[{"\"\<<Method>\>\"", ",", " ", 
+     RowBox[{"args", ".."}]}], "]"}], "~", "PackageAddUsage", "~", "\n", 
+   "\t", "\"\<calls the function for \\\"<Method>\\\" on args\>\""}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SimpleDocs", "[", 
+    RowBox[{"\"\<<Method>\>\"", "[", 
+     RowBox[{"args", "..."}], "]"}], "]"}], "~", "PackageAddUsage", "~", "\n",
+    "\t", "\"\<calls the function for \\\"<Method>\\\" on args\>\""}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SimpleDocs", "[", 
+    RowBox[{
+     RowBox[{"k_String", "?", "methodQ"}], ",", " ", "\"\<Function\>\""}], 
+    "]"}], ":=", "\n", "\t", 
+   RowBox[{"$map", "[", "k", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SimpleDocs", "[", 
+    RowBox[{
+     RowBox[{"k_String", "?", "methodQ"}], ",", " ", "args__"}], "]"}], ":=", 
+   "\n", "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"f", "=", 
+       RowBox[{"$map", "[", "k", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"With", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"r", "=", 
+         RowBox[{
+          RowBox[{"PackageExceptionBlock", "[", "\"\<SimpleDocs\>\"", "]"}], 
+          "@", 
+          RowBox[{"f", "[", "args", "]"}]}]}], "}"}], ",", "\n", "\t\t\t", 
+       RowBox[{"r", "/;", 
+        RowBox[{
+         RowBox[{"Head", "[", "r", "]"}], "===", "f"}]}]}], "\n", "\t\t\t", 
+      "]"}]}], "\n", "\t\t", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SimpleDocs", "[", 
+    RowBox[{
+     RowBox[{"k_String", "?", "methodQ"}], "[", "args___", "]"}], "]"}], ":=",
+    "\n", "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"f", "=", 
+       RowBox[{"$map", "[", "k", "]"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"With", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"r", "=", 
+         RowBox[{
+          RowBox[{"PackageExceptionBlock", "[", "\"\<SimpleDocs\>\"", "]"}], 
+          "@", 
+          RowBox[{"f", "[", "args", "]"}]}]}], "}"}], ",", "\n", "\t\t\t", 
+       RowBox[{"r", "/;", 
+        RowBox[{
+         RowBox[{"Head", "[", "r", "]"}], "=!=", "f"}]}]}], "\n", "\t\t\t", 
+      "]"}]}], "\n", "\t\t", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SimpleDocs", "[", 
+    RowBox[{"head_", "[", "stuff___", "]"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"h", "=", 
+       RowBox[{"Evaluate", "@", "head"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{
+      RowBox[{"SimpleDocs", "[", 
+       RowBox[{"h", "[", "stuff", "]"}], "]"}], "/;", 
+      RowBox[{"methodQ", "[", "h", "]"}]}]}], "\n", "\t\t", "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SimpleDocs", "[", 
+    RowBox[{"head_", ",", " ", "stuff__"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"h", "=", 
+       RowBox[{"Evaluate", "@", "head"}]}], "}"}], ",", "\n", "\t\t", 
+     RowBox[{"SimpleDocs", "[", 
+      RowBox[{"h", ",", " ", "stuff"}], "]"}]}], "\n", "\t\t", "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"SimpleDocs", "~", "SetAttributes", "~", 
+  "HoldAllComplete"}]}], \
+"CodeInput",ExpressionUUID->"022ddd66-8cb6-434a-b1f8-3528dc79c108"]
+}, Open  ]]
+}, Open  ]],
 
-Cell["\[LeftCeiling]BuildDocsSite\[RightFloor]", "CodeSubsubsection",
- Evaluatable->True,ExpressionUUID->"7e663e5b-1bff-4d9d-8546-dd94935da84a"],
+Cell[CellGroupData[{
 
-Cell["\[LeftCeiling]BuildNotebookDocsSite\[RightFloor]", "CodeSubsubsection",
- Evaluatable->True,ExpressionUUID->"3eb48b60-2ed3-4f39-b666-345473a87760"],
+Cell["\[LeftCeiling]Autocompletions\[RightFloor]", "CodeSubsection",
+ Evaluatable->True,ExpressionUUID->"b4f4c172-94c0-46eb-b95c-f8329ab4c9dd"],
 
-Cell["\[LeftCeiling]OpenDocsSiteConfig\[RightFloor]", "CodeSubsubsection",
- Evaluatable->True,ExpressionUUID->"d310eef9-1a92-4102-9bd4-738f88b388cf"]
+Cell[BoxData[
+ RowBox[{"PackageAddAutocompletions", "[", "\n", "\t", 
+  RowBox[{"SimpleDocs", ",", "\n", "\t", 
+   RowBox[{"{", "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"Keys", "@", "$map"}], ",", "\n", "\t\t", 
+     RowBox[{"{", "\"\<Function\>\"", "}"}]}], "\n", "\t\t", "}"}]}], "\n", 
+  "\t", "]"}]], \
+"CodeInput",ExpressionUUID->"8cbfa515-0e52-4d69-a91f-0cae44054b9d"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -62,13 +246,22 @@ Cell["", "SectionSeparator",ExpressionUUID->"ada7623b-72bd-4407-ba85-\
 b5d13f1e6e85"]
 },
 WindowSize->{808, 755},
-WindowMargins->{{53, Automatic}, {Automatic, 29}},
+WindowMargins->{{141, Automatic}, {41, Automatic}},
 TaggingRules->{
  "UUIDButtons" -> {
    "Active" -> {
      "Button-590233c6-9680-4d8a-a854-3b15b03893d8" -> False, 
       "Button-33d6ec4d-a39a-4e80-8d92-b8c5561caada" -> False, 
-      "Button-c0a09a32-e26b-44bc-931b-a7a8eaa0a4c0" -> False}}},
+      "Button-c0a09a32-e26b-44bc-931b-a7a8eaa0a4c0" -> False, 
+      "Button-4f342a03-9e58-4750-a06d-ce41ba26caad" -> False, 
+      "Button-a28516f9-2411-4ad5-87c4-dde843a65756" -> False, 
+      "Button-451406bf-3901-4e2c-bbfb-9864f8531f68" -> False, 
+      "Button-0d27d59a-6c0a-4062-941e-7021a66cffb6" -> False, 
+      "Button-d418e9af-6b42-439f-a2d9-cf94f63c942b" -> False, 
+      "Button-4a98cbb2-0f4f-4744-9fda-a829730130bc" -> False, 
+      "Button-b8297203-6b28-48f9-8ba3-edbd5eb431d2" -> False, 
+      "Button-8c92aebb-2725-4f7c-a6a8-f90e3a4dce9c" -> False, 
+      "Button-ede3a027-3279-40a0-8aa4-1fcc5f60357d" -> False}}},
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",
 StyleDefinitions->FrontEnd`FileName[{"BTools"}, "CodePackage.nb", 
