@@ -190,7 +190,10 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{"SimpleDocs", "[", 
-    RowBox[{"head_", "[", "stuff___", "]"}], "]"}], ":=", "\n", "\t", 
+    RowBox[{"head", ":", 
+     RowBox[{
+      RowBox[{"Except", "[", "_String", "]"}], "[", "stuff___", "]"}]}], 
+    "]"}], ":=", "\n", "\t", 
    RowBox[{"With", "[", 
     RowBox[{
      RowBox[{"{", 
@@ -204,14 +207,19 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{"SimpleDocs", "[", 
-    RowBox[{"head_", ",", " ", "stuff__"}], "]"}], ":=", "\n", "\t", 
+    RowBox[{
+     RowBox[{"head", ":", 
+      RowBox[{"Except", "[", "_String", "]"}]}], ",", " ", "stuff__"}], "]"}],
+    ":=", "\n", "\t", 
    RowBox[{"With", "[", 
     RowBox[{
      RowBox[{"{", 
       RowBox[{"h", "=", 
        RowBox[{"Evaluate", "@", "head"}]}], "}"}], ",", "\n", "\t\t", 
-     RowBox[{"SimpleDocs", "[", 
-      RowBox[{"h", ",", " ", "stuff"}], "]"}]}], "\n", "\t\t", "]"}]}], 
+     RowBox[{
+      RowBox[{"SimpleDocs", "[", 
+       RowBox[{"h", ",", " ", "stuff"}], "]"}], "/;", 
+      RowBox[{"methodQ", "[", "h", "]"}]}]}], "\n", "\t\t", "]"}]}], 
   ";"}], "\n", 
  RowBox[{"SimpleDocs", "~", "SetAttributes", "~", 
   "HoldAllComplete"}]}], \

@@ -1584,12 +1584,13 @@ Cell["\[LeftCeiling]BuildDocsSite\[RightFloor]", "CodeSubsubsection",
 Cell[BoxData[
  RowBox[{
   RowBox[{
-   RowBox[{"BuildDocsSite", "[", "loc_", "]"}], ":=", "\n", "\t", 
+   RowBox[{"BuildDocsSite", "[", 
+    RowBox[{"loc_", ",", " ", "ops___"}], "]"}], ":=", "\n", "\t", 
    RowBox[{"Ems", "[", 
     RowBox[{"\"\<Build\>\"", ",", " ", 
-     RowBox[{"docsSiteLoc", "[", "loc", "]"}]}], "]"}]}], 
+     RowBox[{"docsSiteLoc", "[", "loc", "]"}], ",", " ", "ops"}], "]"}]}], 
   ";"}]], "CodeInput",ExpressionUUID->"54215260-b6cd-4fe4-85be-ee1cff6451aa"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -2616,8 +2617,8 @@ Cell[BoxData[{
    RowBox[{"getNBProject", "[", "nb_", "]"}], ":=", "\n", "\t", 
    RowBox[{"CurrentValue", "[", 
     RowBox[{"nb", ",", " ", "$projNameTag"}], "]"}]}], 
-  ";"}]}], \
-"CodeInput",ExpressionUUID->"d5054bae-5908-463a-b490-caddd057126e"]
+  ";"}]}], "CodeInput",ExpressionUUID->"d5054bae-5908-463a-b490-caddd057126e"]\
+
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -2996,15 +2997,33 @@ Cell[BoxData[{
              "\n", "\t\t\t\t\t", "}"}]}], ",", "\n", "\t\t\t\t", 
           RowBox[{"OverwriteTarget", "\[Rule]", "True"}]}], "\n", "\t\t\t\t", 
          "]"}], ";", "\n", "\t\t\t", 
-        RowBox[{"(*", 
-         RowBox[{"Quiet", "@"}], "*)"}], 
-        RowBox[{"Export", "[", 
-         RowBox[{"fname", ",", " ", 
-          RowBox[{"prepNotebookForDocs", "[", "nb", "]"}]}], "]"}]}]}], "\n", 
-      "\t\t\t", "]"}]}]}], "\n", "\t\t", 
+        RowBox[{
+         RowBox[{"CopyFile", "[", "\n", "\t\t\t\t", 
+          RowBox[{
+           RowBox[{"PackageFilePath", "[", 
+            RowBox[{
+            "\"\<FrontEnd\>\"", ",", " ", "\"\<StyleSheets\>\"", ",", " ", 
+             "\"\<SimpleDocs\>\"", ",", " ", "\"\<SimpleDocs.nb\>\""}], "]"}],
+            ",", "\n", "\t\t\t\t", 
+           RowBox[{"FileNameJoin", "@", 
+            RowBox[{"{", "\n", "\t\t\t\t\t", 
+             RowBox[{
+              RowBox[{"Nest", "[", 
+               RowBox[{"DirectoryName", ",", " ", "fname", ",", " ", "3"}], 
+               "]"}], ",", "\n", "\t\t\t\t\t", 
+              "\"\<SimpleDocsStyles.nb\>\""}], "\n", "\t\t\t\t\t", "}"}]}], 
+           ",", "\n", "\t\t\t\t", 
+           RowBox[{"OverwriteTarget", "\[Rule]", "True"}]}], "\n", "\t\t\t\t",
+           "]"}], "\n", "\t\t\t", 
+         RowBox[{"(*", 
+          RowBox[{"Quiet", "@"}], "*)"}], 
+         RowBox[{"Export", "[", 
+          RowBox[{"fname", ",", " ", 
+           RowBox[{"prepNotebookForDocs", "[", "nb", "]"}]}], "]"}]}]}]}], 
+      "\n", "\t\t\t", "]"}]}]}], "\n", "\t\t", 
    "]"}]}]}], \
 "CodeInput",ExpressionUUID->"e2a9747f-8040-4914-ae36-6fd55073c329"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -4174,7 +4193,7 @@ Cell[BoxData[
      RowBox[{"If", "[", 
       RowBox[{
        RowBox[{
-        RowBox[{"Length", "[", "use", "]"}], "===", "0"}], ",", "\n", 
+        RowBox[{"Length", "[", "use1", "]"}], "===", "0"}], ",", "\n", 
        "\t\t\t", 
        RowBox[{"PrependTo", "[", 
         RowBox[{"keys", ",", " ", "\"\<UsageMessages\>\""}], "]"}]}], "\n", 
@@ -4286,8 +4305,8 @@ Cell[BoxData[
          "\n", "\t\t\t\t\t", "}"}]}], "\n", "\t\t\t\t", "]"}]}]}]}], "\n", 
    "\t\t", "]"}]}]], \
 "CodeInput",ExpressionUUID->"7260fbb2-5129-4fb9-a656-ee65aa307380"]
-}, Closed]]
-}, Closed]],
+}, Open  ]]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -5155,8 +5174,8 @@ Cell[BoxData[
        RowBox[{
         RowBox[{"FontFamily", "->", "\"\<Helvetica\>\""}], ",", " ", 
         RowBox[{"FontSize", "\[Rule]", "14"}]}], "}"}]}]}], "\n", "\t", "\t", 
-    "]"}]}], ";"}]], \
-"CodeInput",ExpressionUUID->"070284fc-a310-4b86-9247-bb0310b1dac3"],
+    "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"070284fc-a310-4b86-9247-bb0310b1dac3"],
 
 Cell[BoxData[
  RowBox[{"$DockedCell", "=", "\n", "\t", 
@@ -5569,7 +5588,7 @@ Cell[BoxData[
      RowBox[{"getNBProjectName", "[", "nb", "]"}], ",", "\n", "\t\t", "nb"}], 
     "\n", "\t\t", "]"}]}], 
   ";"}]], "CodeInput",ExpressionUUID->"6cd373cf-555a-47f9-ac96-909db2968a37"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -5866,7 +5885,7 @@ Cell[BoxData[{
   ";"}]}], "CodeInput",ExpressionUUID->"f3a69c41-a904-4dd6-b6a3-2b99c28fe538"]\
 
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 

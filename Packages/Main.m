@@ -89,13 +89,13 @@ SimpleDocs[k_String?methodQ[args___]]:=
       r/;Head[r]=!=f
       ]
     ];
-SimpleDocs[head_[stuff___]]:=
+SimpleDocs[head:Except[_String][stuff___]]:=
   With[{h=Evaluate@head},
     SimpleDocs[h[stuff]]/;methodQ[h]
     ];
-SimpleDocs[head_, stuff__]:=
+SimpleDocs[head:Except[_String], stuff__]:=
   With[{h=Evaluate@head},
-    SimpleDocs[h, stuff]
+    SimpleDocs[h, stuff]/;methodQ[h]
     ];
 SimpleDocs~SetAttributes~HoldAllComplete
 

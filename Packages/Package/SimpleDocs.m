@@ -755,8 +755,8 @@ InitializeDocsSite[proj_]:=
 
 
 
-BuildDocsSite[loc_]:=
-  Ems["Build", docsSiteLoc[loc]];
+BuildDocsSite[loc_, ops___]:=
+  Ems["Build", docsSiteLoc[loc], ops];
 
 
 (* ::Subsubsection::Closed:: *)
@@ -1510,6 +1510,14 @@ SaveNotebookToDocumentation[nb_, proj_:Automatic]:=
           },
         OverwriteTarget->True
         ];
+      CopyFile[
+        PackageFilePath["FrontEnd", "StyleSheets", "SimpleDocs", "SimpleDocs.nb"],
+        FileNameJoin@{
+          Nest[DirectoryName, fname, 3],
+          "SimpleDocsStyles.nb"
+          },
+        OverwriteTarget->True
+        ]
       (*Quiet@*)Export[fname, prepNotebookForDocs[nb]]
       ]
     ]
@@ -2100,7 +2108,7 @@ SymbolNotebookTemplate[s_Symbol, parent_:None]:=
       },
     use1=getUsageMessages[s];
     keys={"Details", "Examples", "RelatedFunctions"};
-    If[Length[use]===0,
+    If[Length[use1]===0,
       PrependTo[keys, "UsageMessages"]
       ];
     bits=GenerateFunctionInfo[s, "Keys"->keys];
