@@ -6,6 +6,7 @@ broad tweaks
     margin-left: auto;
     margin-right: auto;
     width: 80%;
+    padding-top: 25px;
 }
 
 h1, h2, h3 {
@@ -348,4 +349,8 @@ figure.floatcenter, .align-center {
 
 .gap-left {
   margin-left: 10px;
+}
+
+.search-results-panel {
+    margin: 20px;
 }

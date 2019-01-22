@@ -253,3 +253,7 @@ figure.floatcenter, .align-center {
 .gap-left {
   margin-left: 10px;
 }
+
+.search-results-panel {
+    margin: 20px;
+}

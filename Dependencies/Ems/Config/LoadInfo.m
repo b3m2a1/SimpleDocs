@@ -4,7 +4,8 @@
 	"DependencyContexts" -> {
 		"BTools`",
 		"BTools`External`",
-		"BTools`Web`"
+		"BTools`Web`",
+		"BTools`Web`Markdown`"
 	},
 	"FEHidden" -> {},
 	"PackageScope" -> None,

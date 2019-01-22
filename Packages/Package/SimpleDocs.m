@@ -86,6 +86,7 @@ OpenLocalDocsSite::usage="";
 
 SetPacletInfo::usage="";
 CreateDocumentationPaclet::usage="";
+BundlePaclet::usage="";
 
 
 Begin["`Private`"];
@@ -846,9 +847,16 @@ buildNotebookDocsSite[loc_]:=
 
 
 
-OpenDocsSiteConfig[nb_, ploc_:Automatic]:=
+OpenDocsSiteConfig//Clear
+OpenDocsSiteConfig[nb_NotebookObject, ploc_:Automatic]:=
+  SOpenDocsSiteConfig@
+    getNBProjectName[nb, ploc];
+OpenDocsSiteConfig[proj_]:=
   SystemOpen@
-    FileNameJoin@{docsSiteLoc@getNotebookPaclet[nb, ploc], "SiteConfig.wl"}
+    FileNameJoin@{
+      docsSiteLoc@proj, 
+      "SiteConfig.wl"
+      };
 
 
 (* ::Subsubsection::Closed:: *)
@@ -856,9 +864,16 @@ OpenDocsSiteConfig[nb_, ploc_:Automatic]:=
 
 
 
+OpenLocalDocsSite//Clear
+OpenLocalDocsSite[nb_NotebookObject, ploc_:Automatic]:=
+  OpenLocalDocsSite@
+    getNBProjectName[nb, ploc];
 OpenLocalDocsSite[proj_]:=
   PySimpleServerOpen@
-    getProjSiteBuildPath[proj];
+    FileNameJoin@{
+      docsSiteLoc@proj,
+      "output"
+      };
 
 
 (* ::Subsection:: *)
@@ -1446,8 +1461,9 @@ prepNotebookForDocs[nb_]:=
     Flatten@{
       FilterRules[
         List@@#[[2;;]], 
-        Except[ScreenStyleEnvironment|StyleDefinitions]
+        Except[ScreenStyleEnvironment|StyleDefinitions|Visible]
         ],
+      Visible->True,
       ScreenStyleEnvironment->"Working",
       StyleDefinitions->
         Notebook[
@@ -1470,7 +1486,8 @@ prepNotebookForDocs[nb_]:=
                   FrontEnd`FileName[{ParentDirectory[], ParentDirectory[]}, "SimpleDocsStyles.nb"]
                 ]
               ],
-            Cell[StyleData[StyleDefinitions->"Default.nb"]]
+            Cell[StyleData[StyleDefinitions->"Default.nb"]],
+            Cell[StyleData[All, "Editing"], MenuSortingValue->None]
             },
           StyleDefinitions->"PrivateStylesheetFormatting.nb"
           ]
@@ -1517,7 +1534,7 @@ SaveNotebookToDocumentation[nb_, proj_:Automatic]:=
           "SimpleDocsStyles.nb"
           },
         OverwriteTarget->True
-        ]
+        ];
       (*Quiet@*)Export[fname, prepNotebookForDocs[nb]]
       ]
     ]
@@ -1822,10 +1839,30 @@ capitalize=ToUpperCase[StringTake[#, {1}]]<>StringDrop[#, 1]&
 
 
 PopulateNotebookMetadata[nb_]:=
-  Module[{md=PrepareNotebookMetadata},
+  Module[{md=PrepareNotebookMetadata[nb]},
     CurrentValue[nb, {TaggingRules, "Metadata"}]=md;
     CurrentValue[nb, {TaggingRules, "ColorType"}]=
       capitalize[Lookup[md, "type", "message"]]<>"Color";
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*populateNotebookMetadataDynamic*)
+
+
+
+populateNotebookMetadataDynamic[ev_]:=
+  MessageDialog[
+    DynamicModule[
+      {},
+      ":)",
+      Initialization:>{
+        PopulateNotebookMetadata[ev],
+        NotebookClose[EvaluationNotebook[]]
+        },
+      SynchronousInitialization->True
+      ],
+    Visible->False
     ]
 
 
@@ -1877,15 +1914,19 @@ $ctnMap=
   <|
     "Symbol"->SymbolNotebookTemplate,
     "Guide"->GuideNotebookTemplate,
-    "Tutorial"->TutorialNotebookTemplate
+    "Tutorial"->TutorialNotebookTemplate,
+    "TableOfContents" -> TableOfContentsNotebook
     |>;
 
 
 CreateTemplateNotebook//ClearAll
-
-
-CreateTemplateNotebook[type:(Alternatives@@Keys[$ctnMap]), thing_]:=
-  CreateDocument@Lookup[$ctnMap, type][thing];
+CreateTemplateNotebook[type:(Alternatives@@Keys[$ctnMap]), 
+  thing_, ops:OptionsPattern[]
+  ]:=
+  CreateDocument[
+    Lookup[$ctnMap, type][thing],
+    ops
+    ];
 CreateTemplateNotebook[thing_Symbol]:=
   CreateTemplateNotebook["Symbol", thing];
 CreateTemplateNotebook[thing_String]:=
@@ -1895,8 +1936,8 @@ CreateTemplateNotebook[thing_String]:=
       ],
     CreateTemplateNotebook["Guide", thing]
     ];
-CreateTemplateNotebook[e_]:=
-  CreateTemplateNotebook[Evaluate@e]/;
+CreateTemplateNotebook[e_, r___]:=
+  CreateTemplateNotebook[Evaluate@e, r]/;
     MatchQ[e, _String|_Symbol];
 CreateTemplateNotebook[type_, thing_]:=
   CreateTemplateNotebook[Evaluate@type, thing]/;
@@ -2185,7 +2226,7 @@ GuideNotebookTemplate[name_String, parent_:None]:=
           TaggingRules->{
             "Metadata"->DocMetadata@Normal@meta,
             If[MatchQ[parent, _NotebookObject],
-              "SimpleDocs"->CurrentValue[nb, {parent, TaggingRules, "SimpleDocs"}],
+              "SimpleDocs"->CurrentValue[parent, {TaggingRules, "SimpleDocs"}],
               Nothing
               ],
             "ColorType"->"GuideColor"
@@ -2230,7 +2271,7 @@ TutorialNotebookTemplate[name_String, parent_:None]:=
           TaggingRules->{
             "Metadata"->DocMetadata@Normal@meta,
             If[MatchQ[parent, _NotebookObject],
-              "SimpleDocs"->CurrentValue[nb, {parent, TaggingRules, "SimpleDocs"}],
+              "SimpleDocs"->CurrentValue[parent, {TaggingRules, "SimpleDocs"}],
               Nothing
               ],
             "ColorType"->"TutorialColor"
@@ -2279,6 +2320,118 @@ SampleTemplateNotebook["Guide"]:=
 
 SampleTemplateNotebook["Tutorial"]:=
   CreateTemplateNotebook["Tutorial", "Sample Tutorial"];
+
+
+(* ::Subsubsection::Closed:: *)
+(*TableOfContentsNotebook*)
+
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*makeSymCell*)
+
+
+
+makeSymCell[sym_, usage_]:=
+  Module[
+    {
+      sn=SymbolName[sym],
+      baseName=StringSplit[Context@sym, "`"][[1]],
+      u=sym::usage
+      },
+    Cell[
+      TextData[{
+       ButtonBox[sn,
+        BaseStyle->"Link",
+        ButtonData->"paclet:"<>baseName<>"/ref/Function1"
+        ],
+       " - ",
+       usage
+      }], 
+      "Text"
+      ]
+    ]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*TableOfContentsNotebook*)
+
+
+
+TableOfContentsNotebook//Clear
+TableOfContentsNotebook[name_->symbols_, parent_:None]:=
+    Module[
+      {
+        cells,
+        usages=
+          StringSplit[
+            Replace[
+              Replace[
+                Thread@Hold[symbols], 
+                Hold[s_]:>
+                  Replace[s::usage, Except[_String]->""],
+                1
+                ],
+              ""->"No usage",
+              1
+              ],
+            "\n"
+            ][[All, 1]],
+        symGroups,
+        meta,
+        cleanName
+        },
+      Block[symbols,
+        meta=AssociationThread[ToLowerCase@Flatten@Values@$MetadataMap, Automatic];
+        cleanName=StringDelete[name, Except[WordCharacter]|"$"];
+        meta["label"]=cleanName;
+        meta["type"]="Guide";
+        symGroups=
+          KeyMap[StringReplace["`"->" "]]@
+            GroupBy[
+              Thread[{symbols, usages}], Context[Evaluate@#[[1]]]&];
+        Notebook[
+          Flatten@{
+            $metaCell,
+            $miscTemplates["TitleBar"]/.
+              "<Context>"->"Guide",
+            Cell[name, "Section", "GuideName"],
+            KeyValueMap[
+              Cell[
+                CellGroupData[
+                  Flatten@{
+                    Cell["", "PageBreak",                        
+                     PageBreakAbove->False,
+                     PageBreakBelow->False
+                     ],
+                    Cell[#, "Subsection"],
+                    makeSymCell@@@#2
+                    }
+                  ]
+                ]&,
+              symGroups
+              ],
+            $miscTemplates["Divider"],
+            $NotebookTemplates["Related Guides"],
+            $NotebookTemplates["Related Links"],
+            $NotebookTemplates["Footer"]
+            },
+          {
+            StyleDefinitions->FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"],
+            TaggingRules->{
+              "Metadata"->DocMetadata@Normal@meta,
+              If[MatchQ[parent, _NotebookObject],
+                "SimpleDocs"->CurrentValue[parent, {TaggingRules, "SimpleDocs"}],
+                Nothing
+                ],
+              "ColorType"->"GuideColor"
+              },
+            ScreenStyleEnvironment->"Editing"
+            }
+          ]
+      ]
+    ];
+TableOfContentsNotebook~SetAttributes~HoldRest;
 
 
 (* ::Subsection:: *)
@@ -2378,7 +2531,7 @@ $MetadataEditor=
                     "Populate":>
                       (
                         Needs["SimpleDocs`"];
-                        PopulateNotebookMetadata[EvaluationNotebook[]]
+                        populateNotebookMetadataDynamic[EvaluationNotebook[]]
                         ),
                     "Clear":>
                       (
@@ -2700,6 +2853,37 @@ SetPacletInfo[nb_NotebookObject, ploc_:Automatic]:=
       proj=getNBProjectName[nb, ploc]
       },
     SetPacletInfo[proj]
+    ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*BundlePaclet*)
+
+
+
+BundlePaclet//Clear
+BundlePaclet[pac:_PacletManager`Paclet]:=
+  Module[{pi=PacletManager`PacletInformation@pac},
+    PacletExecute["Bundle", Lookup[pi, "Location"],
+      "RemovePatterns"->{"project"}
+      ]
+    ];
+BundlePaclet[projName_]:=
+  Module[
+    {
+      buildDir
+      },
+    buildDir=getProjectBuildDir[projName];
+    If[TrueQ@PacletExecute["ValidDirectoryQ", buildDir],
+      BundlePaclet[PacletExecute["Paclet", buildDir]]
+      ]
+    ];
+BundlePaclet[nb_NotebookObject, ploc_:Automatic]:=
+  Module[
+    {
+      proj=getNBProjectName[nb, ploc]
+      },
+    BundlePaclet[proj]
     ]
 
 

@@ -12,6 +12,10 @@
     background-color: transparent;
 }
 
+.search-results-panel {
+    margin: 20px;
+}
+
 /* for list-groups nested within a list-group-item, reset the bottom margin */
 .list-group-item > .list-group {
     margin-bottom: 0px;

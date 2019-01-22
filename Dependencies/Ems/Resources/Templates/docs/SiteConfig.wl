@@ -42,7 +42,11 @@
   		  "GenerateSearchPage"->True,
     		"SearchPageOptions"->
 				{
-				  "SearchedPages"->{"ref", "tutorial", "guide"},
+				  "SearchedPages"->
+				    {
+				      "article", "ref", "tutorial", "guide", 
+				      "function", "message"
+				      },
 				  "Options"->{"WholeWords"->False}
 				  }(* options for tipue search *)
   			}

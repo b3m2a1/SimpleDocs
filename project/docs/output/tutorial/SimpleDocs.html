@@ -148,7 +148,7 @@ fns = Names[&quot;SimpleDocs`Package`*&quot;]</code>
     id='pre11'>
  <code>{&quot;BuildDocsSite&quot;,&quot;BuildNotebookDocsSite&quot;,&quot;CreateTemplateNotebook&quot;,&quot;InitializeDocsSite&quot;,&quot;OpenDocsSiteConfig&quot;,&quot;SampleTemplateNotebook&quot;,&quot;SaveNotebookMarkdown&quot;,&quot;SaveNotebookToPaclet&quot;,&quot;SaveNotebookToPacletProject&quot;,&quot;SetNotebookPaclet&quot;,&quot;$DockedCell&quot;,&quot;$HamburgerMenu&quot;,&quot;$InsertionMenu&quot;,&quot;$MetadataEditor&quot;,&quot;$NotebookTemplates&quot;}</code>
 </pre>
-<p id='p12'>Then we use <a href='../ref/CreateTemplateNotebook.html'><code>CreateTemplateNotebook</code></a> to make templates for these. To start we&apos;ll just make a template for the first one or something:
+<p id='p12'>Then we use  <a href='../ref/CreateTemplateNotebook.html'><code>CreateTemplateNotebook</code></a> to make templates for these. To start we&apos;ll just make a template for the first one or something:
 </p>
 <pre class='mma-input prettyprint lang-mma'
     id='pre13'>
@@ -158,96 +158,97 @@ fns = Names[&quot;SimpleDocs`Package`*&quot;]</code>
 <img src='../img/simpledocs-1599455536967208861.png' alt='simpledocs-1599455536967208861' id='img15' />
 <a shape='rect' id='building-function-documentation' style='width:0;height:0;margin:0;padding:0;'>&#8204;</a>
 <h2 id='h216'> Building Function Documentation</h2>
-<p id='p17'>At this point we have a template notebook to work with. Before we go on with anything we&apos;ll probably want to save this to our as a template. The place SimpleDocs saves these is to a subfolder of a paclet. It can be saved anywhere, but by using the SimpleDocs code we can get a website out automatically. The way to do this is to go to the hamburger menu in the top-right corner (incidentally this is called <code>$HamburgerMenu</code> in the package) and to the  <em>Save To Project</em> item there. This&apos;ll pop up a little dialog:</p>
+<p id='p17'>At this point we have a template notebook to work with. Before we go on with anything we&apos;ll probably want to save this to our as a template. The place SimpleDocs saves these is to a subfolder of a paclet. It can be saved anywhere, but by using the SimpleDocs code we can get a website out automatically. The way to do this is to go to the hamburger menu in the top-right corner (incidentally this is called  <code>$HamburgerMenu</code> in the package) and to the  <em>Save To Project</em> item there. This&apos;ll pop up a little dialog:</p>
 <img src='../img/simpledocs-3968114955546408557.png' alt='simpledocs-3968114955546408557' id='img18' />
-<p id='p19'>Just press Enter and it&apos;ll save to a project subfolder of the paclet and will also initialize content necessary to build the website later.
+<p id='p19'>Just press Enter and it&apos;ll save to a project subfolder of the paclet and will also initialize content necessary to build the website later.</p>
+<p id='p20'>One note on the time required to do this: SimpleDocs loads a few dependencies from a server, and so the first time you run these commands it will check for updates and download the source (if necessary) which can take a while. In a future version these dependencies will be bundled in with the package and so this download won&apos;t be necessary.
 </p>
-<h3 id='h320'> Metadata</h3>
-<p id='p21'>Next notice the thing in the <a href='../ref/DockedCells.html'><code>DockedCell</code></a> that says  <em>Metadata</em> . This is stuff we should edit to help Mathematica do stuff with the docs finding. This thing works as a cascade of menus and <a href='../ref/InputField.html'><code>InputFields</code></a> that we play with. It&apos;s also just the <code>$MetadataEditor</code> object in the package:
+<h3 id='h321'> Metadata</h3>
+<p id='p22'>Next notice the thing in the  <a href='../ref/DockedCells.html'><code>DockedCell</code></a> that says  <em>Metadata</em> . This is stuff we should edit to help Mathematica do stuff with the docs finding. This thing works as a cascade of menus and  <a href='../ref/InputField.html'><code>InputFields</code></a> that we play with. It&apos;s also just the  <code>$MetadataEditor</code> object in the package:
 </p>
 <pre class='mma-input prettyprint lang-mma'
-    id='pre22'>
+    id='pre23'>
  <code>$MetadataEditor</code>
 </pre>
-<img src='../img/simpledocs-2968537504735316186.png' alt='simpledocs-2968537504735316186' id='img23' />
-<p id='p24'>The biggest thing to edit is the  <em>Basics</em> menu. Here&apos;s a look at that:
+<img src='../img/simpledocs-2968537504735316186.png' alt='simpledocs-2968537504735316186' id='img24' />
+<p id='p25'>The biggest thing to edit is the  <em>Basics</em> menu. Here&apos;s a look at that:
 </p>
 <pre class='mma-input prettyprint lang-mma'
-    id='pre25'>
+    id='pre26'>
  <code>$MetadataEditor[[2, 1, 1, 2, 2, 2, 1, 1, 1, 2]]</code>
 </pre>
-<img src='../img/simpledocs-8406830451181930092.png' alt='simpledocs-8406830451181930092' id='img26' />
-<p id='p27'>The big thing to change here is the <code>&quot;URI&quot;</code> . We&apos;d rather have this be <code>&quot;SimpleDocs/ref/BuildDocsSite&quot;</code> , so that Mathematica can find that URI. The <code>&quot;Context&quot;</code> might need to edited to be in line with this, too, but I&apos;m not sure.</p>
-<p id='p28'>We have many other types of metadata to fill, too, especially in the  <em>Location</em> tab, which help Mathematica locate the documentation notebook.
+<img src='../img/simpledocs-8406830451181930092.png' alt='simpledocs-8406830451181930092' id='img27' />
+<p id='p28'>The big thing to change here is the  <code>&quot;URI&quot;</code> . We&apos;d rather have this be  <code>&quot;SimpleDocs/ref/BuildDocsSite&quot;</code> , so that Mathematica can find that URI. The  <code>&quot;Context&quot;</code> might need to edited to be in line with this, too, but I&apos;m not sure.</p>
+<p id='p29'>We have many other types of metadata to fill, too, especially in the  <em>Location</em> tab, which help Mathematica locate the documentation notebook.
 </p>
-<h3 id='h329'> Usage/Details/Examples</h3>
-<p id='p30'>We also have some things to edit in the documentation body itself. One quick thing is we&apos;ll probably want to change that <code>SIMPLEDOCSPACKAGE SYMBOL</code> to <code>SIMPLEDOCS SYMBOL</code> to be consistent with how we&apos;re thinking about this.</p>
-<p id='p31'>Next, we basically just type what we want. For the usage, we just type a usage message or a function declaration, as we see fit. If we want to add more sections we just copy the previous two or go to  <em>Insert &#187; Usage</em> in the docked cell and it&apos;ll make a template for us to fill out, too.</p>
-<p id='p32'>For the details, there are a few little things set, but for the most part we just add new <code>&quot;Item&quot;</code> cells and type. Honestly pretty much any cell will work, but in the name of simplicity and extensibility grids should be done as cascades of, <code>&quot;Item&quot;</code> ,  <code>&quot;Subitem&quot;</code> and <code>&quot;Subsubitem&quot;</code> cells.</p>
-<p id='p33'>Examples work similarly, where we can just write things and evaluate and all will work as expected. The one thing to be careful with it that we should be sure to add a call in to <a href='../ref/Needs.html'><code>Needs</code></a> for the package at hand so that all the code will work as expected.
+<h3 id='h330'> Usage/Details/Examples</h3>
+<p id='p31'>We also have some things to edit in the documentation body itself. One quick thing is we&apos;ll probably want to change that  <code>SIMPLEDOCSPACKAGE SYMBOL</code> to  <code>SIMPLEDOCS SYMBOL</code> to be consistent with how we&apos;re thinking about this.</p>
+<p id='p32'>Next, we basically just type what we want. For the usage, we just type a usage message or a function declaration, as we see fit. If we want to add more sections we just copy the previous two or go to  <em>Insert &#187; Usage</em> in the docked cell and it&apos;ll make a template for us to fill out, too.</p>
+<p id='p33'>For the details, there are a few little things set, but for the most part we just add new  <code>&quot;Item&quot;</code> cells and type. Honestly pretty much any cell will work, but in the name of simplicity and extensibility grids should be done as cascades of,  <code>&quot;Item&quot;</code> ,   <code>&quot;Subitem&quot;</code> and  <code>&quot;Subsubitem&quot;</code> cells.</p>
+<p id='p34'>Examples work similarly, where we can just write things and evaluate and all will work as expected. The one thing to be careful with it that we should be sure to add a call in to  <a href='../ref/Needs.html'><code>Needs</code></a> for the package at hand so that all the code will work as expected.
 </p>
-<h3 id='h334'> See Also/Related Sections</h3>
-<p id='p35'>In general it&apos;s hard to figure out what things to relate, so there aren&apos;t really any related things that may be autofilled. There may sometimes be a few functions filled out, but that&apos;s pretty much it.</p>
-<p id='p36'>With these sections there are only a few things to be careful with. First off, when there will be lots of related things (as with functions) I tend to use | as the separator between items. Secondly, when working with these, we&apos;ll want to use two different types of links. 
+<h3 id='h335'> See Also/Related Sections</h3>
+<p id='p36'>In general it&apos;s hard to figure out what things to relate, so there aren&apos;t really any related things that may be autofilled. There may sometimes be a few functions filled out, but that&apos;s pretty much it.</p>
+<p id='p37'>With these sections there are only a few things to be careful with. First off, when there will be lots of related things (as with functions) I tend to use | as the separator between items. Secondly, when working with these, we&apos;ll want to use two different types of links. 
 </p>
 <h4> Function/Guide/Tutorial Links</h4>
-<p id='p37'>For any content that references piece of docs within the paclet or in another paclet (or in the system docs), we use a special type of link that looks like <code>&quot;paclet:PkgName/type/ContentName&quot;</code> . This is also how the <code>&quot;URI&quot;</code> in the metadata should look. <code>type</code> will be any of <code>&quot;ref&quot;</code> , <code>&quot;guide&quot;</code> , or <code>&quot;tutorial&quot;</code> , the <code>&quot;PkgName&quot;</code> will be dropped altogether if the context is <code>&quot;System`&quot;</code> .
+<p id='p38'>For any content that references piece of docs within the paclet or in another paclet (or in the system docs), we use a special type of link that looks like  <code>&quot;paclet:PkgName/type/ContentName&quot;</code> . This is also how the  <code>&quot;URI&quot;</code> in the metadata should look.  <code>type</code> will be any of  <code>&quot;ref&quot;</code> ,  <code>&quot;guide&quot;</code> , or  <code>&quot;tutorial&quot;</code> , the  <code>&quot;PkgName&quot;</code> will be dropped altogether if the context is  <code>&quot;System`&quot;</code> .
 </p>
 <h4> External Links</h4>
-<p id='p38'>These links are normal links. It probably makes sense to collect a set of links with the first page of docs and copy these over
+<p id='p39'>These links are normal links. It probably makes sense to collect a set of links with the first page of docs and copy these over
 </p>
-<h3 id='h339'> Saving to Paclet</h3>
-<p id='p40'>We save the documentation from the hamburger menu by going to  <em>Save Documentation</em> . This will ensure the metadata is there, change the notebook mode to working instead of editing, and save to the approrpriate location in the paclet we said the notebook was part of initially. After we do that it mostly looks like normal docs:</p>
-<img src='../img/simpledocs-3479245701921111827.png' alt='simpledocs-3479245701921111827' id='img41' />
-<p id='p42'>Next we add the necessary things to the <code>&quot;PacletInfo.m&quot; </code> file by using the  <em>Update PacletInfo</em> menu item:</p>
-<img src='../img/simpledocs-6839446010392387124.png' alt='simpledocs-6839446010392387124' id='img43' />
-<p id='p44'>We only really need to do this once (or whenever we add new things to the paclet that we want to be accounted for here).</p>
-<p id='p45'>At this point, once the documentation indices get rebuilt (in 11.2+ this is immediate and automatic, in earlier versions we need to do a bit of work) we should be able to find our new function via search.</p>
+<h3 id='h340'> Saving to Paclet</h3>
+<p id='p41'>We save the documentation from the hamburger menu by going to  <em>Save Documentation</em> . This will ensure the metadata is there, change the notebook mode to working instead of editing, and save to the approrpriate location in the paclet we said the notebook was part of initially. After we do that it mostly looks like normal docs:</p>
+<img src='../img/simpledocs-3479245701921111827.png' alt='simpledocs-3479245701921111827' id='img42' />
+<p id='p43'>Next we add the necessary things to the  <code>&quot;PacletInfo.m&quot; </code> file by using the  <em>Update PacletInfo</em> menu item:</p>
+<img src='../img/simpledocs-6839446010392387124.png' alt='simpledocs-6839446010392387124' id='img44' />
+<p id='p45'>We only really need to do this once (or whenever we add new things to the paclet that we want to be accounted for here).</p>
+<p id='p46'>At this point, once the documentation indices get rebuilt (in 11.2+ this is immediate and automatic, in earlier versions we need to do a bit of work) we should be able to find our new function via search.</p>
 <a shape='rect' id='markdown-and-websites' style='width:0;height:0;margin:0;padding:0;'>&#8204;</a>
-<h2 id='h246'> Markdown and Websites</h2>
-<p id='p47'>At this point we can also do things to get a website out of our notebook. The key benefit of the simplistic nature of these docs pages is it&apos;s possible to directly map them over to other formats. The &quot;intermediate representation&quot; we&apos;ll use here is called <a href='https://daringfireball.net/projects/markdown/syntax'>Markdown</a> and is a popular format these days for representing documents. Many sites process it naturally, including <a href='https://github.com/'>GitHub</a> , <a href='https://mathematica.stackexchange.com/'>StackExchange</a> , and many others. Lots of documentation systems (e.g. <a href='http://www.sphinx-doc.org/en/master/'>sphinx</a> ) use Markdown as their base content, too.
+<h2 id='h247'> Markdown and Websites</h2>
+<p id='p48'>At this point we can also do things to get a website out of our notebook. The key benefit of the simplistic nature of these docs pages is it&apos;s possible to directly map them over to other formats. The &quot;intermediate representation&quot; we&apos;ll use here is called  <a href='https://daringfireball.net/projects/markdown/syntax'>Markdown</a> and is a popular format these days for representing documents. Many sites process it naturally, including  <a href='https://github.com/'>GitHub</a> ,  <a href='https://mathematica.stackexchange.com/'>StackExchange</a> , and many others. Lots of documentation systems (e.g.  <a href='http://www.sphinx-doc.org/en/master/'>sphinx</a> ) use Markdown as their base content, too.
 </p>
-<h3 id='h348'> Markdown Export</h3>
-<p id='p49'>As far as what we&apos;ll need to do, we can simply use the  <em>Save to Markdown</em> menu item and it will save the Markdown automatically, exporting any images, links, etc. as we need them.</p>
-<img src='../img/simpledocs-2507836165213850944.png' alt='simpledocs-2507836165213850944' id='img50' />
-<p id='p51'>One big thing is, absent any type of specializations,  <strong>be certain that images aren&apos;t in Input/Code cells</strong> . Input exports as a plain-text representation by default and the box structures can become huge and slow everything down. Images in any other type of cells are fine.
+<h3 id='h349'> Markdown Export</h3>
+<p id='p50'>As far as what we&apos;ll need to do, we can simply use the  <em>Save to Markdown</em> menu item and it will save the Markdown automatically, exporting any images, links, etc. as we need them.</p>
+<img src='../img/simpledocs-2507836165213850944.png' alt='simpledocs-2507836165213850944' id='img51' />
+<p id='p52'>One big thing is, absent any type of specializations,  <strong>be certain that images aren&apos;t in Input/Code cells</strong> . Input exports as a plain-text representation by default and the box structures can become huge and slow everything down. Images in any other type of cells are fine.
 </p>
 <h4> Customization</h4>
-<p id='p52'>On the topic of customization, we finally come to the a cell I ignored up at the top, which is that cell that says &quot;Markdown metadata&quot;</p>
-<img src='../img/simpledocs-5307295244000017838.png' alt='simpledocs-5307295244000017838' id='img53' />
-<p id='p54'>This is a cell where we can add special parameters to the Markdown. This might be flags to be used within the website export process, or, as is commented out, whether to use images for all input as is done in the standard web documentation.</p>
-<p id='p55'>The listing of options is extensive and will depend on the use case, and we&apos;ll get into that in other tutorials
+<p id='p53'>On the topic of customization, we finally come to the a cell I ignored up at the top, which is that cell that says &quot;Markdown metadata&quot;</p>
+<img src='../img/simpledocs-5307295244000017838.png' alt='simpledocs-5307295244000017838' id='img54' />
+<p id='p55'>This is a cell where we can add special parameters to the Markdown. This might be flags to be used within the website export process, or, as is commented out, whether to use images for all input as is done in the standard web documentation.</p>
+<p id='p56'>The listing of options is extensive and will depend on the use case, and we&apos;ll get into that in other tutorials
 </p>
-<h3 id='h356'> Building the Website</h3>
-<p id='p57'>The last thing to do, after we&apos;ve amassed our content, is to build the actual website. Amusingly, the function we&apos;ve been documenting, <code>BuildDocsSite</code> , is the function used for this export process too. All we do though is go to the  <em>Build Site</em> menu item and the site will be built for us automatically. </p>
-<img src='../img/simpledocs-97374131907832919.png' alt='simpledocs-97374131907832919' id='img58' />
-<p id='p59'>It&apos;ll open through python, if possible, but in general the website is just in the  <em>output</em> folder a few up from the current notebook directory:
+<h3 id='h357'> Building the Website</h3>
+<p id='p58'>The last thing to do, after we&apos;ve amassed our content, is to build the actual website. Amusingly, the function we&apos;ve been documenting,  <code>BuildDocsSite</code> , is the function used for this export process too. All we do though is go to the  <em>Build Site</em> menu item and the site will be built for us automatically. </p>
+<img src='../img/simpledocs-97374131907832919.png' alt='simpledocs-97374131907832919' id='img59' />
+<p id='p60'>It&apos;ll open through python, if possible, but in general the website is just in the  <em>output</em> folder a few up from the current notebook directory:
 </p>
 <pre class='mma-input prettyprint lang-mma'
-    id='pre60'>
+    id='pre61'>
  <code>FileNameJoin@{Nest[ParentDirectory, NotebookDirectory[], 2], &quot;output&quot;}</code>
 </pre>
 <pre class='mma-output prettyprint lang-mma'
-    id='pre61'>
+    id='pre62'>
  <code>&quot;~/Documents/Wolfram Mathematica/Applications/SimpleDocs/project/docs/output&quot;</code>
 </pre>
 <hr />
 <a shape='rect' id='related-guides' style='width:0;height:0;margin:0;padding:0;'>&#8204;</a>
-<h2 id='h262'> Related Guides</h2>
+<h2 id='h263'> Related Guides</h2>
 <ul>
  <li>
   <a href='../guide/SimpleDocs.html'>SimpleDocs</a>
  </li>
 </ul>
 <a shape='rect' id='related-tutorials' style='width:0;height:0;margin:0;padding:0;'>&#8204;</a>
-<h2 id='h263'> Related Tutorials</h2>
+<h2 id='h264'> Related Tutorials</h2>
 <ul>
  <li>
   <a href='../tutorial/BatchDocs.html'>Batch Documentation</a>
  </li>
 </ul>
 <a shape='rect' id='related-links' style='width:0;height:0;margin:0;padding:0;'>&#8204;</a>
-<h2 id='h264'> Related Links</h2>
+<h2 id='h265'> Related Links</h2>
 <ul>
  <li>
   <a href='https://github.com/b3m2a1/SimpleDocs'>SimpleDocs</a>
@@ -260,8 +261,8 @@ fns = Names[&quot;SimpleDocs`Package`*&quot;]</code>
  </li>
 </ul>
 <hr />
-<p id='p65'>
-Made with <a href='https://github.com/b3m2a1/SimpleDocs'>SimpleDocs</a></p>
+<p id='p66'>
+Made with  <a href='https://github.com/b3m2a1/SimpleDocs'>SimpleDocs</a></p>
       </div>
       <!-- /.entry-content -->
     </article>
@@ -270,6 +271,127 @@ Made with <a href='https://github.com/b3m2a1/SimpleDocs'>SimpleDocs</a></p>
       </div>
     </div>
   </div>
+  <style>
+.footer-notebook {
+  border-top: solid 1px rgb(225, 225, 225);background-color: white;
+  position: sticky;width: auto;bottom: -2px;right: 0;left: 0;
+}
+.footer-notebook-hidden {height: 1px;width: 100%;overflow: hidden;}
+.footer-notebook-visible {height: 400px;width: 100%;}
+.footer-notebook-thumb {
+    position: absolute;top: 0;left: 65px;height: 25px;width: 85px;padding: 0;
+    margin-top: -25px;border: solid 1px hsl(210, 0%, 80%);
+    background-size: 75% 75%;background-repeat: no-repeat;
+    background-position: center;background-color: hsl(210, 0%, 97%);
+    border-bottom: solid 1px hsl(210, 0%, 97%);border-top-left-radius: 10px;
+    border-top-right-radius: 10px;outline: none;cursor: pointer;
+  }
+/*.footer-notebook-thumb-visible {background-image: url(../img/cloud-notebook-close.png);
+}
+.footer-notebook-thumb-hidden {background-image: url(../img/cloud-notebook-open.png);
+}*/
+.footer-notebook-thumb:hover,
+.footer-notebook-thumb:focus{ background-color: hsl(210, 0%, 100%); border-bottom: solid 1px hsl(210, 0%, 100%);}
+</style>
+<script>
+function footerNotebookOpen() {
+    var thumb = document.getElementById("footer-notebook-thumb");
+    var nb = document.getElementById("footer-notebook");
+    thumb.onclick= footerNotebookClose;
+    nb.classList.add("footer-notebook-visible");
+    nb.classList.remove("footer-notebook-hidden");
+    thumb.classList.add("footer-notebook-thumb-visible");
+    thumb.classList.remove("footer-notebook-thumb-hidden");
+    }
+  function footerNotebookClose() {
+    var thumb = document.getElementById("footer-notebook-thumb");
+    var nb = document.getElementById("footer-notebook");
+    thumb.onclick= footerNotebookOpen;
+    nb.classList.remove("footer-notebook-visible");
+    nb.classList.add("footer-notebook-hidden");
+    thumb.classList.remove("footer-notebook-thumb-visible");
+    thumb.classList.add("footer-notebook-thumb-hidden");
+    }
+</script>
+<div class="footer-notebook embedded-notebook">
+  <button
+    class="footer-notebook-thumb footer-notebook-thumb-hidden"
+    onclick="footerNotebookOpen()"
+    id="footer-notebook-thumb"
+    >
+  </button>
+  <div class="footer-notebook-hidden" id="footer-notebook">
+<div
+  class="embedded-notebook-resize-top"
+  style='position: relative; overflow: hidden; border: 1px solid #e3e3e3; border-radius: 4px; box-shadow: inset 0 1px 1px rgba(0,0,0,.05); height: 400px; width: 100%;'
+    >
+  <div
+    class="embedded-notebook-resize-container"
+    style='width: 100%; height: 100%;'
+    >
+  <div class="embedded-notebook-container" style="position: relative; width: 100%; height: 100%">
+  <button
+    class="embedded-notebook"
+    id="notebook-02f643b1-23e8-47a9-9444-70a9e1ad96d3"
+    onclick="loadCloudNotebook('notebook-02f643b1-23e8-47a9-9444-70a9e1ad96d3')"
+    style="text-align: center; height: 400px; width: 100%; cursor: pointer; background-color: #fff; background-repeat:no-repeat; border:none;"
+    >
+    <script>
+      function insertCloudNotebookCell(frameId, ops, paused = false) {
+        nbFrame = document.getElementById(frameId);
+        if (  nbFrame.contentDocument  == null && paused ) {
+          req = ops;
+          req.api="notebook";
+          req.version=1;
+          req.rid="1";
+          req.command="insertCellAtCursor";
+          origin="https://sandbox.open.wolframcloud.com";
+          nbFrame.contentWindow.postMessage(req, origin);
+        } else if (nbFrame.contentDocument  == null ) {
+          // this is clumsy but I don't really know how better to do this... the API doesn't
+          // activate until the full JS loads
+          window.setTimeout(()=>(insertCloudNotebookCell(frameId, ops, true)), 1500);
+        } else {
+          window.setTimeout(()=>(insertCloudNotebookCell(frameId, ops)), 100);
+        }
+      }
+      function populateCloudNotebookCells(frameId, cells) {
+        for (var ckey in cells) {
+          cell = cells[ckey];
+          if (typeof cell == "string") {
+            insertCloudNotebookCell(frameId, {"style":"Input", "content":cell})
+          } else {
+            if (!cell.hasOwnProperty("style")) {
+              cell.style="Input"
+            };
+            if (!cell.hasOwnProperty("content")) {
+              cell.content=""
+            };
+            insertCloudNotebookCell(frameId, cell)
+          }
+        }
+      }
+      function loadCloudNotebook(frameId) {
+        nbDiv = document.getElementById(frameId);
+        nbFrame = document.createElement('iframe');
+        nbFrame.id=nbDiv.id;
+        nbFrame.class=nbDiv.class;
+        nbFrame.src = "https://sandbox.open.wolframcloud.com/app/view/newNotebook?_view=frameless";
+        nbFrame.style = "position: absolute; left:-2px; top:-2px; height: 400px; width: 100%;"
+        nbCells = JSON.parse("[]");
+        nbDiv.parentNode.replaceChild(nbFrame, nbDiv);
+        populateCloudNotebookCells('notebook-02f643b1-23e8-47a9-9444-70a9e1ad96d3', nbCells)
+        }
+    </script>
+    <span style="display: inline-block; vertical-align: middle;">
+      <i class="fa fa-book"></i>Click to load notebook
+    </span>
+  </button>
+  </div>
+  </div>
+</div>
+  </div>
+</div>
 </div>
 <!-- End Content Container -->
 <footer>
@@ -291,5 +413,18 @@ Made with <a href='https://github.com/b3m2a1/SimpleDocs'>SimpleDocs</a></p>
 <script src="../theme/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="../theme/js/bootstrap.min.js"></script>
+    <script
+  type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    // enable $ for inline math -> use \$ for ordinary dollar-sign
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
 </body>
 </html>

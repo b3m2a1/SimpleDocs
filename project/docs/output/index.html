@@ -137,7 +137,7 @@ This is a website made with Mathematica. It&apos;s designed to host documentatio
       </article>
   <br>
   <div class="function-list">
-    <h2>Functions</h2>
+    <h2><a href='./index/functions.html'>Functions</a></h2>
     <ul>
       <li><a href='../ref/BuildDocsSite.html'>BuildDocsSite</a></li>
       <li><a href='../ref/BuildNotebookDocsSite.html'>BuildNotebookDocsSite</a></li>
@@ -148,10 +148,22 @@ This is a website made with Mathematica. It&apos;s designed to host documentatio
   </div>
   </br>
   <div class="guide-list">
-    <h2>Guides</h2>
+    <h2><a href='./index/guides.html'>Guides</a></h2>
     <ul>
       <article>
         <li><a href='../guide/SimpleDocs.html'>SimpleDocs</a></li>
+      </article>
+    </ul>
+  </div>
+  </br>
+  <div class="tutorial-list">
+    <h2><a href='./index/tutorials.html'>Tutorials</a></h2>
+    <ul>
+      <article>
+        <li><a href='../tutorial/BatchDocs.html'>Making Batch Documentation</a></li>
+      </article>
+      <article>
+        <li><a href='../tutorial/SimpleDocs.html'>SampleTutorial</a></li>
       </article>
     </ul>
   </div>
@@ -180,5 +192,18 @@ This is a website made with Mathematica. It&apos;s designed to host documentatio
 <script src="./theme/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="./theme/js/bootstrap.min.js"></script>
+    <script
+  type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    // enable $ for inline math -> use \$ for ordinary dollar-sign
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
 </body>
 </html>
