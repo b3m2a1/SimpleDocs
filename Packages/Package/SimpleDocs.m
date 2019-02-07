@@ -27,6 +27,8 @@ $NotebookTemplates::usage="";
 
 
 
+DocsProjectsDirectory::usage="";
+SetDocsProjectsDirectory::usage="";
 DocsProjects::usage="";
 SetProjectOptions::usage="";
 RemoveProject::usage="";
@@ -109,6 +111,24 @@ Begin["`Private`"];
 	Each notebook will store what its parent project is (will need to implement some nice guessing/handling cloning notebooks of old ones so people do go insane doing this all the time). This will be Ensure loaded so that all the necessary properties exist to pull from.
 *)
 
+
+
+(* ::Subsubsection::Closed:: *)
+(*DocsProjectsDirectory*)
+
+
+
+DocsProjectsDirectory[]:=
+  If[!StringQ[$DocsProjectsDirectory]&&DirectoryQ[$DocsProjectsDirectory], 
+    $DocsProjectsDirectory=
+      FileNameJoin@{$UserBaseDirectory, "ApplicationData", "SimpleDocs"},
+    $DocsProjectsDirectory
+    ]
+SetDocsProjectsDirectory[dir_]:=
+  (
+    $DocsProjectsDirectory=dir;
+    DocsProjectsDirectory[]
+    )
 
 
 (* ::Subsubsection::Closed:: *)
@@ -1468,12 +1488,12 @@ prepNotebookForDocs[nb_]:=
       StyleDefinitions->
         Notebook[
           {
-            Cell[
-              StyleData[
-                StyleDefinitions->
-                  FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"]
-                ]
-              ],
+            (*Cell[
+							StyleData[
+								StyleDefinitions\[Rule]
+									FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"]
+								]
+							],*)
             Cell[
               StyleData[
                 StyleDefinitions->

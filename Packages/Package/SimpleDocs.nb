@@ -32,6 +32,14 @@ Cell["\[LeftCeiling]Project Stuff\[RightFloor]", "CodeSubsubsection",
 Cell[BoxData[{
  RowBox[{
   RowBox[{
+   RowBox[{"DocsProjectsDirectory", "::", "usage"}], "=", "\"\<\>\""}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetDocsProjectsDirectory", "::", "usage"}], "=", "\"\<\>\""}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
    RowBox[{"DocsProjects", "::", "usage"}], "=", "\"\<\>\""}], ";"}], "\n", 
  RowBox[{
   RowBox[{
@@ -224,6 +232,38 @@ necessary properties exist to pull from.
 \[RightFloor]\
 \>", "Text",
  Evaluatable->True,ExpressionUUID->"bbe34010-e6b0-4229-b7b3-a27fdbb7d182"],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]DocsProjectsDirectory\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"6269e079-5763-491a-bca4-4483e5120d90"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"DocsProjectsDirectory", "[", "]"}], ":=", "\n", "\t", 
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"!", 
+      RowBox[{"StringQ", "[", "$DocsProjectsDirectory", "]"}]}], "&&", 
+     RowBox[{"DirectoryQ", "[", "$DocsProjectsDirectory", "]"}]}], ",", " ", 
+    "\n", "\t\t", 
+    RowBox[{"$DocsProjectsDirectory", "=", "\n", "\t\t\t", 
+     RowBox[{"FileNameJoin", "@", 
+      RowBox[{"{", 
+       RowBox[{
+       "$UserBaseDirectory", ",", " ", "\"\<ApplicationData\>\"", ",", " ", 
+        "\"\<SimpleDocs\>\""}], "}"}]}]}], ",", "\n", "\t\t", 
+    "$DocsProjectsDirectory"}], "\n", "\t\t", "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"SetDocsProjectsDirectory", "[", "dir_", "]"}], ":=", "\n", "\t", 
+  RowBox[{"(", "\n", "\t\t", 
+   RowBox[{
+    RowBox[{"$DocsProjectsDirectory", "=", "dir"}], ";", "\n", "\t\t", 
+    RowBox[{"DocsProjectsDirectory", "[", "]"}]}], "\n", "\t\t", 
+   ")"}]}]}], \
+"CodeInput",ExpressionUUID->"a83dab53-2304-4791-aaa4-bcadfb8d91ca"]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2912,18 +2952,21 @@ Cell[BoxData[
           RowBox[{"Notebook", "[", "\n", "\t\t\t\t\t", 
            RowBox[{
             RowBox[{"{", "\n", "\t\t\t\t\t\t", 
-             RowBox[{
-              RowBox[{"Cell", "[", "\n", "\t", "\t", "\t", "\t\t\t\t", 
-               RowBox[{"StyleData", "[", "\n", "\t", "\t", "\t", "\t\t\t\t\t", 
+             RowBox[{"(*", 
+              RowBox[{
+               RowBox[{"Cell", "[", "\n", "\t\t\t\t\t\t\t", 
                 RowBox[{
-                "StyleDefinitions", "\[Rule]", "\n", "\t", "\t", "\t", 
-                 "\t\t\t\t\t\t", 
-                 RowBox[{"FrontEnd`FileName", "[", 
-                  RowBox[{
-                   RowBox[{"{", "\"\<SimpleDocs\>\"", "}"}], ",", " ", 
-                   "\"\<SimpleDocs.nb\>\""}], "]"}]}], "\n", "\t", "\t", "\t",
-                 "\t\t\t\t\t", "]"}], "\n", "\t", "\t", "\t", "\t\t\t\t", 
-               "]"}], ",", "\n", "\t", "\t", "\t", "\t\t\t", 
+                "StyleData", "[", "\n", "\t", "\t", "\t", "\t\t\t\t\t", 
+                 RowBox[{
+                 "StyleDefinitions", "\[Rule]", "\n", "\t", "\t", "\t", 
+                  "\t\t\t\t\t\t", 
+                  RowBox[{"FrontEnd`FileName", "[", 
+                   RowBox[{
+                    RowBox[{"{", "\"\<SimpleDocs\>\"", "}"}], ",", " ", 
+                    "\"\<SimpleDocs.nb\>\""}], "]"}]}], "\n", "\t", "\t", 
+                 "\t", "\t\t\t\t\t", "]"}], "\n", "\t\t\t\t\t\t\t", "]"}], 
+               ","}], "*)"}], "\n", "\t", "\t", "\t", "\t\t\t", 
+             RowBox[{
               RowBox[{"Cell", "[", "\n", "\t", "\t", "\t", "\t\t\t\t", 
                RowBox[{"StyleData", "[", "\n", "\t", "\t", "\t", "\t\t\t\t\t", 
                 RowBox[{
@@ -4639,8 +4682,8 @@ Cell[BoxData[
    "\n", "\t", 
    RowBox[{"CreateTemplateNotebook", "[", 
     RowBox[{"\"\<Tutorial\>\"", ",", " ", "\"\<Sample Tutorial\>\""}], 
-    "]"}]}], ";"}]], \
-"CodeInput",ExpressionUUID->"26557162-350c-4af7-b94d-2c7cb552c4cf"]
+    "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"26557162-350c-4af7-b94d-2c7cb552c4cf"]
 }, Closed]]
 }, Closed]],
 
@@ -6315,7 +6358,7 @@ Cell["", "SectionSeparator",ExpressionUUID->"7f99b445-dcab-4880-9da5-\
 0b78b519bff4"]
 },
 WindowSize->{808, 755},
-WindowMargins->{{Automatic, 248}, {42, Automatic}},
+WindowMargins->{{106, Automatic}, {Automatic, 0}},
 TaggingRules->{
  "UUIDButtons" -> {
    "Active" -> {

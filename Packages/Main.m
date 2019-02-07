@@ -29,16 +29,20 @@ Begin["`Private`"];
 $map=
   <|
     (* project related *)
+    "BaseDirectory":>DocsProjectsDirectory,
+    "SetBaseDirectory":>SetDocsProjectsDirectory,
     "Projects"->DocsProjects,
     "SetProjectOptions"->SetProjectOptions,
     "RemoveProject"->RemoveProject,
     "LoadProject"->LoadProjectConfig,
     "ReloadProject"->ReloadProjectConfig,
+    "EnsureLoadProject"->EnsureLoadProject,
     "InitializeProject"->InitializeDocsProject,
     "OpenConfig"->OpenProjectConfig,
     (* paclet related *)
     "CreateDocumentationPaclet"->CreateDocumentationPaclet,
     "SetPacletInfo"->SetPacletInfo,
+    "BundlePaclet"->BundlePaclet,
     (* site related *)
     "InitializeSite"->InitializeDocsSite,
     "BuildSite"->BuildDocsSite,
@@ -47,6 +51,7 @@ $map=
     (* notebok related *)
     "TemplateNotebook"->CreateTemplateNotebook,
     "SampleNotebook"->SampleTemplateNotebook,
+    "SetProject"->SetNotebookProject,
     "SaveNotebook"->CheckSaveNotebook,
     "SaveToDocumentation"->SaveNotebookToDocumentation,
     "SaveToMarkdown"->SaveNotebookMarkdown,
