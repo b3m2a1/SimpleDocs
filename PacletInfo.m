@@ -1,6 +1,6 @@
 Paclet[
   Name -> "SimpleDocs",
-  Version -> "1.0.9",
+  Version -> "1.0.10",
   Creator -> "b3m2a1 <b3m2a1@gmail.com>",
   URL -> "https://github.com/b3m2a1/SimpleDocs",
   Thumbnail -> "Resources/icon.png",
@@ -27,6 +27,10 @@ Paclet[
        			{
         				"icon",
         				"icon.png"
+        			},
+       			{
+        				"SimpleDocsHelperGenerator",
+        				"SimpleDocsHelperGenerator.nb"
         			}
        		}
      	},

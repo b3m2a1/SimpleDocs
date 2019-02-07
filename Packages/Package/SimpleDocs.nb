@@ -331,14 +331,14 @@ Cell[BoxData[
    RowBox[{"{", "\n", "\t\t", 
     RowBox[{
      RowBox[{"{", 
-      RowBox[{"\"\<project\>\"", ",", " ", "\"\<docs\>\"", ",", " ", "_"}], 
+      RowBox[{"\"\<project\>\"", ",", " ", "\"\<docs\>\"", ",", " ", "__"}], 
       "}"}], ",", "\n", "\t\t", 
      RowBox[{"{", 
       RowBox[{"\"\<docs\>\"", ",", " ", "_"}], "}"}], ",", "\n", "\t\t", 
      RowBox[{"{", "\"\<docs\>\"", "}"}], ",", "\n", "\t\t", 
      RowBox[{"{", 
-      RowBox[{"\"\<Documentation\>\"", ",", " ", "_", ",", " ", "_"}], 
-      "}"}]}], "\n", "\t\t", "}"}]}], 
+      RowBox[{"\"\<Documentation\>\"", ",", " ", "__"}], "}"}]}], "\n", 
+    "\t\t", "}"}]}], 
   ";"}]], "CodeInput",ExpressionUUID->"0d5d5682-6a0c-41c1-8727-baa910567edb"],
 
 Cell[BoxData[{
@@ -350,31 +350,31 @@ Cell[BoxData[{
      RowBox[{
       RowBox[{"fsplit", "=", 
        RowBox[{"FileNameSplit", "[", "file", "]"}]}], ",", "\n", "\t\t\t", 
-      "drop"}], "\n", "\t\t\t", "}"}], ",", "\n", "\t\t", 
+      "split"}], "\n", "\t\t\t", "}"}], ",", "\n", "\t\t", 
     RowBox[{
-     RowBox[{"drop", "=", "\n", "\t\t\t", 
-      RowBox[{"SelectFirst", "[", 
-       RowBox[{"possibleHeadPaths", ",", " ", "\n", "\t\t\t\t", 
-        RowBox[{
-         RowBox[{"MatchQ", "[", 
-          RowBox[{"fsplit", ",", " ", 
-           RowBox[{"Append", "[", 
+     RowBox[{"split", "=", "\n", "\t\t\t", 
+      RowBox[{"Replace", "[", "\n", "\t\t\t\t", 
+       RowBox[{"fsplit", ",", "\n", "\t\t\t\t", 
+        RowBox[{"Append", "[", "\n", "\t\t\t\t\t", 
+         RowBox[{
+          RowBox[{"Map", "[", 
+           RowBox[{
             RowBox[{
-             RowBox[{"Prepend", "[", 
-              RowBox[{"#", ",", " ", "__"}], "]"}], ",", " ", "_"}], "]"}]}], 
-          "]"}], "&"}], ",", " ", "\n", "\t\t\t\t", "None"}], "\n", 
-       "\t\t\t\t", "]"}]}], ";", "\n", "\t\t", 
+             RowBox[{
+              RowBox[{"Join", "[", 
+               RowBox[{
+                RowBox[{"{", "head__", "}"}], ",", " ", "#", ",", " ", 
+                RowBox[{"{", "tail_", "}"}]}], "]"}], "\[RuleDelayed]", 
+              RowBox[{"{", "head", "}"}]}], "&"}], ",", " ", 
+            "possibleHeadPaths"}], "]"}], ",", "\n", "\t\t\t\t\t", 
+          RowBox[{"_", "\[Rule]", "None"}]}], "\n", "\t\t\t\t\t", "]"}]}], 
+       "\n", "\t\t\t\t", "]"}]}], ";", "\n", "\t\t", 
      RowBox[{"If", "[", 
       RowBox[{
-       RowBox[{"drop", "===", "None"}], ",", "\n", "\t\t\t", 
+       RowBox[{"split", "===", "Null"}], ",", "\n", "\t\t\t", 
        RowBox[{"DirectoryName", "@", "file"}], ",", "\n", "\t\t\t", 
-       RowBox[{"FileNameJoin", "@", 
-        RowBox[{"fsplit", "[", 
-         RowBox[{"[", 
-          RowBox[{";;", 
-           RowBox[{
-            RowBox[{"Length", "[", "drop", "]"}], "+", "1"}]}], "]"}], 
-         "]"}]}]}], "\n", "\t\t\t", "]"}]}]}], "\n", "\t\t", "]"}]}], "\n", 
+       RowBox[{"FileNameJoin", "@", "split"}]}], "\n", "\t\t\t", "]"}]}]}], 
+   "\n", "\t\t", "]"}]}], "\n", 
  RowBox[{"\t\t"}]}], \
 "CodeInput",ExpressionUUID->"424fa163-5322-4041-a867-a38f5ca6f9ec"]
 }, Closed]],
@@ -1194,7 +1194,7 @@ Cell[BoxData[
       ";", "\n", "\t\t", "bd"}]}], "\t", "\n", "\t\t", 
    "]"}]}]], \
 "CodeInput",ExpressionUUID->"5736b840-3446-4777-9523-217d04ddedfe"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -1236,7 +1236,7 @@ Cell[BoxData[
       "\"\<output\>\""}], "}"}]}]}], 
   ";"}]], "CodeInput",ExpressionUUID->"55b58f07-0f8e-48c5-95c1-0fc9384f7af6"]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1808,7 +1808,7 @@ Cell[BoxData[{
        "\"\<SiteConfig.wl\>\""}], "\n", "\t\t\t", "}"}]}]}]}], 
   ";"}]}], "CodeInput",ExpressionUUID->"749d3ca5-8128-48c4-a0c3-88b14d185169"]\
 
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -1836,7 +1836,7 @@ Cell[BoxData[{
        "\"\<output\>\""}], "\n", "\t\t\t", "}"}]}]}]}], 
   ";"}]}], "CodeInput",ExpressionUUID->"e7fde55b-c90e-470f-8be8-69a73c2d9710"]\
 
-}, Open  ]]
+}, Closed]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2367,7 +2367,8 @@ Cell[BoxData[
    RowBox[{
    "$primaryTemplates", ",", "\n", "\t\t", "$sectionTemplates", ",", "\n", 
     "\t\t", "$baseTemplates", ",", "\n", "\t\t", "$miscTemplates"}], "\n", 
-   "\t\t", "]"}]}]], \
+   "\t\t", 
+   "]"}]}]], \
 "CodeInput",ExpressionUUID->"242c05cd-9418-4761-944b-358e0c898350"]
 }, Closed]]
 }, Closed]]
@@ -2769,7 +2770,7 @@ Cell["\[LeftCeiling]getNBProjectName\[RightFloor]", "CodeSubsubsection",
 
 Cell["\<\
 \[LeftCeiling]
-\tMight need a few updates... It\[CloseCurlyQuote]s a little bit cobble \
+\tMight need a few updates... It\[CloseCurlyQuote]s a little bit cobbled \
 together right now.
 \[RightFloor]\
 \>", "Text",
@@ -2809,7 +2810,7 @@ Cell[BoxData[
        RowBox[{"nb", ",", " ", "projName"}], "]"}], ";", "\n", "\t\t", 
       "projName"}]}], "\n", "\t\t", "]"}]}], 
   ";"}]], "CodeInput",ExpressionUUID->"724e4073-c882-4dbc-892f-5799b155a90b"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -2860,8 +2861,8 @@ Cell[BoxData[{
             "}"}], "=", "projLoc"}]}], "\n", "\t\t\t\t", "]"}]}], ",", "\n", 
        "\t\t\t", 
        RowBox[{
-        RowBox[{"projName", "=", "getProjectNameprojLoc"}], ";", "\n", 
-        "\t\t\t", 
+        RowBox[{"projName", "=", 
+         RowBox[{"getProjectName", "@", "projLoc"}]}], ";", "\n", "\t\t\t", 
         RowBox[{"projLoc", "=."}]}]}], "\n", "\t\t\t", "]"}], ";", "\n", 
      "\t\t", 
      RowBox[{"projData", "=", "\n", "\t\t\t", 
@@ -2901,7 +2902,7 @@ Cell[BoxData[{
         "$Failed"}], "\n", "\t\t\t", "]"}]}]}], "\n", "\t\t", 
    "]"}]}]}], \
 "CodeInput",ExpressionUUID->"94a662af-97fb-4365-a4a8-5fda71799b8b"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3013,7 +3014,7 @@ Cell[BoxData[
    "NotebookGet", "[", "nb", 
     "]"}]}]}]], \
 "CodeInput",ExpressionUUID->"a1142ed6-84bb-43e8-8727-0c65e7963cce"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3097,7 +3098,7 @@ Cell[BoxData[{
       "\t\t\t", "]"}]}]}], "\n", "\t\t", 
    "]"}]}]}], \
 "CodeInput",ExpressionUUID->"e2a9747f-8040-4914-ae36-6fd55073c329"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4682,8 +4683,8 @@ Cell[BoxData[
    "\n", "\t", 
    RowBox[{"CreateTemplateNotebook", "[", 
     RowBox[{"\"\<Tutorial\>\"", ",", " ", "\"\<Sample Tutorial\>\""}], 
-    "]"}]}], 
-  ";"}]], "CodeInput",ExpressionUUID->"26557162-350c-4af7-b94d-2c7cb552c4cf"]
+    "]"}]}], ";"}]], \
+"CodeInput",ExpressionUUID->"26557162-350c-4af7-b94d-2c7cb552c4cf"]
 }, Closed]]
 }, Closed]],
 
@@ -5120,7 +5121,7 @@ Cell[BoxData[
           RowBox[{"Alignment", "\[Rule]", "Left"}]}], "\n", "\t\t\t\t\t", 
          "]"}]}]}], "\n", "\t\t\t", "]"}]}], "\n", "\t\t", "]"}]}], 
   ";"}]], "CodeInput",ExpressionUUID->"5f0c08b2-3f4b-4775-a2ee-aab51977226b"]
-}, Open  ]]
+}, Closed]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -6358,7 +6359,7 @@ Cell["", "SectionSeparator",ExpressionUUID->"7f99b445-dcab-4880-9da5-\
 0b78b519bff4"]
 },
 WindowSize->{808, 755},
-WindowMargins->{{106, Automatic}, {Automatic, 0}},
+WindowMargins->{{Automatic, 201}, {Automatic, 33}},
 TaggingRules->{
  "UUIDButtons" -> {
    "Active" -> {

@@ -164,10 +164,10 @@ RemoveProject[name_]:=
 
 possibleHeadPaths=
   {
-    {"project", "docs", _},
+    {"project", "docs", __},
     {"docs", _},
     {"docs"},
-    {"Documentation", _, _}
+    {"Documentation", __}
     };
 
 
@@ -175,16 +175,19 @@ getFileProject[file_String]:=
   Module[
     {
       fsplit=FileNameSplit[file],
-      drop
+      split
       },
-    drop=
-      SelectFirst[possibleHeadPaths, 
-        MatchQ[fsplit, Append[Prepend[#, __], _]]&, 
-        None
+    split=
+      Replace[
+        fsplit,
+        Append[
+          Map[Join[{head__}, #, {tail_}]:>{head}&, possibleHeadPaths],
+          _->None
+          ]
         ];
-    If[drop===None,
+    If[split===Null,
       DirectoryName@file,
-      FileNameJoin@fsplit[[;;Length[drop]+1]]
+      FileNameJoin@split
       ]
     ]
     
@@ -1392,7 +1395,7 @@ setNBProjectData[nb_, name_]:=
 
 (* ::Text:: *)
 (*
-	Might need a few updates... It\[CloseCurlyQuote]s a little bit cobble together right now.
+	Might need a few updates... It\[CloseCurlyQuote]s a little bit cobbled together right now.
 *)
 
 
@@ -1437,7 +1440,7 @@ SetNotebookProject[nb_, auto:True|False:False]:=
       If[projLoc=!=$Canceled,
         {projName, projLoc, projConf}=projLoc
         ],
-      projName=getProjectNameprojLoc;
+      projName=getProjectName@projLoc;
       projLoc=.
       ];
     projData=
