@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     53802,       1098]
-NotebookOptionsPosition[     53195,       1074]
-NotebookOutlinePosition[     53788,       1098]
-CellTagsIndexPosition[     53745,       1095]
+NotebookDataLength[     54583,       1118]
+NotebookOptionsPosition[     53976,       1094]
+NotebookOutlinePosition[     54569,       1118]
+CellTagsIndexPosition[     54526,       1115]
 WindowTitle->Docs Helper
 WindowFrame->Palette*)
 
@@ -110,7 +110,7 @@ z/+r03cY0Xn8Ad19LLo=
                  TrackedSymbols :> {
                   SimpleDocsHelperPalette`Private`$ProjectList}}, 
                 Options[Button]], {1, 1, -1}], StandardForm], {
-             Enabled -> True, 
+             Enabled -> False, 
               TrackedSymbols :> {
                SimpleDocsHelperPalette`Private`$ProjectList}},
              ImageSizeCache->{200., {8., 19.}}]},
@@ -181,9 +181,7 @@ s2fPCGI6qWcgQT3DYFVPSnlFoCxEKRMB+xLGWw==
                    SimpleDocsHelperPalette`Private`$CurrentProject, (
                     SimpleDocsHelperPalette`Private`$CurrentProject = #; 
                     SimpleDocsHelperPalette`Private`ListPages[]; Null)& ], {
-                   "projects"}, 
-                   "/Users/Mark/Documents/Wolfram \
-Mathematica/Applications/BTools", 
+                   "projects"}, None, 
                    Button[
                    "", Null, Appearance -> {"Default" -> Image[CompressedData["
 1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
@@ -302,7 +300,7 @@ mEXTyg==
                   FrontEnd`CurrentValue[
                    FrontEnd`EvaluationNotebook[], {
                    TaggingRules, "UUIDButtons", "Active", 
-                    "Button-f21082b2-4876-4fde-ba61-1862fad73f62"}, False], 
+                    "Button-faf14106-d8aa-4155-a56d-be308216428f"}, False], 
                   "Pressed", Automatic, Automatic]]},
               
               ButtonFunction:>(
@@ -310,9 +308,9 @@ mEXTyg==
                  Internal`WithLocalSettings[CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-f21082b2-4876-4fde-ba61-1862fad73f62"}] = True, 
+                    "Button-faf14106-d8aa-4155-a56d-be308216428f"}] = True, 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "18654ea7-0a5a-4455-85a2-affa8ce4118f"] = True; 
+                    "132cfd13-5b66-4c3f-90ed-e2b133c0c0dd"] = True; 
                    CheckAbort[Symbol["SimpleDocs`SimpleDocs"][
                     "EnsureLoadProject"[
                     SimpleDocsHelperPalette`Private`$CurrentProject]]; 
@@ -320,13 +318,13 @@ mEXTyg==
                     "OpenConfig"[
                     SimpleDocsHelperPalette`Private`$CurrentProject]], 
                     SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "18654ea7-0a5a-4455-85a2-affa8ce4118f"] = False]; 
+                    "132cfd13-5b66-4c3f-90ed-e2b133c0c0dd"] = False]; 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "18654ea7-0a5a-4455-85a2-affa8ce4118f"] = False, 
+                    "132cfd13-5b66-4c3f-90ed-e2b133c0c0dd"] = False, 
                    CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-f21082b2-4876-4fde-ba61-1862fad73f62"}] = False]; 
+                    "Button-faf14106-d8aa-4155-a56d-be308216428f"}] = False]; 
                  Null]; Null),
               Evaluator->Automatic,
               FrameMargins->{{5, 5}, {2, 0}},
@@ -344,7 +342,7 @@ mEXTyg==
                     Automatic -> True]], CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-f21082b2-4876-4fde-ba61-1862fad73f62"}] = True], 
+                    "Button-faf14106-d8aa-4155-a56d-be308216428f"}] = True], 
                  FrontEndExecute[
                   FrontEnd`NotebookResumeScreenUpdates[
                    FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> True, 
@@ -423,7 +421,10 @@ z/+r03cY0Xn8Ad19LLo=
                    FileBaseName[SimpleDocsHelperPalette`Private`n] :> 
                    SystemOpen[SimpleDocsHelperPalette`Private`n]], {
                   SimpleDocsHelperPalette`Private`n, 
-                   SimpleDocsHelperPalette`Private`$PageList["Symbol"]}]], 
+                   Replace[
+                    SimpleDocsHelperPalette`Private`$PageList["Symbol"], 
+                    Except[
+                    Blank[List]] -> {}]}]], 
                FilterRules[{Enabled -> Length[
                     SimpleDocsHelperPalette`Private`$PageList["Symbol"]] > 0, 
                  TrackedSymbols :> {
@@ -506,7 +507,9 @@ z/+r03cY0Xn8Ad19LLo=
                    FileBaseName[SimpleDocsHelperPalette`Private`n] :> 
                    SystemOpen[SimpleDocsHelperPalette`Private`n]], {
                   SimpleDocsHelperPalette`Private`n, 
-                   SimpleDocsHelperPalette`Private`$PageList["Guide"]}]], 
+                   Replace[
+                    SimpleDocsHelperPalette`Private`$PageList["Guide"], Except[
+                    Blank[List]] -> {}]}]], 
                FilterRules[{Enabled -> Length[
                     SimpleDocsHelperPalette`Private`$PageList["Guide"]] > 0, 
                  TrackedSymbols :> {
@@ -589,7 +592,10 @@ z/+r03cY0Xn8Ad19LLo=
                    FileBaseName[SimpleDocsHelperPalette`Private`n] :> 
                    SystemOpen[SimpleDocsHelperPalette`Private`n]], {
                   SimpleDocsHelperPalette`Private`n, 
-                   SimpleDocsHelperPalette`Private`$PageList["Tutorial"]}]], 
+                   Replace[
+                    SimpleDocsHelperPalette`Private`$PageList["Tutorial"], 
+                    Except[
+                    Blank[List]] -> {}]}]], 
                FilterRules[{Enabled -> Length[
                     SimpleDocsHelperPalette`Private`$PageList["Tutorial"]] > 
                   0, TrackedSymbols :> {
@@ -828,7 +834,7 @@ mEXTyg==
                   FrontEnd`CurrentValue[
                    FrontEnd`EvaluationNotebook[], {
                    TaggingRules, "UUIDButtons", "Active", 
-                    "Button-d030e18f-4747-468d-8075-de7edd5f41a5"}, False], 
+                    "Button-ce22ff5a-2352-4908-85e2-aae0ea2575e2"}, False], 
                   "Pressed", Automatic, Automatic]]},
               
               ButtonFunction:>(
@@ -836,9 +842,9 @@ mEXTyg==
                  Internal`WithLocalSettings[CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-d030e18f-4747-468d-8075-de7edd5f41a5"}] = True, 
+                    "Button-ce22ff5a-2352-4908-85e2-aae0ea2575e2"}] = True, 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "61d3163f-ff06-46e1-91f0-33f04e5bdad5"] = True; CheckAbort[
+                    "4f972b9a-da29-43eb-9bdc-147c9b0bbccd"] = True; CheckAbort[
                     Replace[
                     Symbol["SimpleDocs`Package`ListDocsProjects"]; 
                     Symbol["SimpleDocs`Package`Private`getProjectDialog"][], {
@@ -867,13 +873,13 @@ mEXTyg==
                     SimpleDocsHelperPalette`Private`ListProjects[]; 
                     SimpleDocsHelperPalette`Private`ListPages[]; Null]], 
                     SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "61d3163f-ff06-46e1-91f0-33f04e5bdad5"] = False]; 
+                    "4f972b9a-da29-43eb-9bdc-147c9b0bbccd"] = False]; 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "61d3163f-ff06-46e1-91f0-33f04e5bdad5"] = False, 
+                    "4f972b9a-da29-43eb-9bdc-147c9b0bbccd"] = False, 
                    CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-d030e18f-4747-468d-8075-de7edd5f41a5"}] = False]; 
+                    "Button-ce22ff5a-2352-4908-85e2-aae0ea2575e2"}] = False]; 
                  Null]; Null),
               Evaluator->Automatic,
               FrameMargins->{{5, 5}, {2, 0}},
@@ -891,7 +897,7 @@ mEXTyg==
                     Automatic -> True]], CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-d030e18f-4747-468d-8075-de7edd5f41a5"}] = True], 
+                    "Button-ce22ff5a-2352-4908-85e2-aae0ea2575e2"}] = True], 
                  FrontEndExecute[
                   FrontEnd`NotebookResumeScreenUpdates[
                    FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> True, 
@@ -938,7 +944,23 @@ mEXTyg==
      Not[
       StringQ[SimpleDocsHelperPalette`Private`$AppName]], 
      SimpleDocsHelperPalette`Private`GetAppName[]]; Needs[
-     StringJoin[SimpleDocsHelperPalette`Private`$AppName, "`"]]; If[
+     StringJoin[SimpleDocsHelperPalette`Private`$AppName, "`"]]; 
+   DownValues[SimpleDocsHelperPalette`Private`SetProjectsDirectory] = {
+     HoldPattern[
+        SimpleDocsHelperPalette`Private`SetProjectsDirectory[]] :> If[
+        Or[
+         Not[
+          StringQ[SimpleDocsHelperPalette`Private`$ProjectsDirectory]], 
+         Not[
+          DirectoryQ[SimpleDocsHelperPalette`Private`$ProjectsDirectory]]], 
+        SimpleDocsHelperPalette`Private`$ProjectsDirectory := 
+         SimpleDocs`SimpleDocs[
+           "BaseDirectory"[]]; If[
+          Not[
+           DirectoryQ[SimpleDocsHelperPalette`Private`$ProjectsDirectory]], 
+          CreateDirectory[
+          SimpleDocsHelperPalette`Private`$ProjectsDirectory]]]}; 
+   SimpleDocsHelperPalette`Private`SetProjectsDirectory[]; If[
      Not[
       StringQ[SimpleDocsHelperPalette`Private`$PagesDirectory]], 
      SimpleDocsHelperPalette`Private`$PagesDirectory = 
@@ -1002,10 +1024,6 @@ mEXTyg==
           Optional[
            Pattern[SimpleDocsHelperPalette`Private`h, 
             Blank[]], Identity]]] :> Which[Length[
-           DownValues[BTools`Private`Package`PackageFilePath]] > 0, 
-         SimpleDocsHelperPalette`Private`undefF[
-         SimpleDocsHelperPalette`Private`s, SimpleDocsHelperPalette`Private`h,
-           "BTools"], Length[
            DownValues[
             Evaluate[
              ToExpression[
@@ -1014,7 +1032,11 @@ mEXTyg==
                "`Private`Package`PackageFilePath"]]]]] > 0, 
          SimpleDocsHelperPalette`Private`undefF[
          SimpleDocsHelperPalette`Private`s, SimpleDocsHelperPalette`Private`h,
-           SimpleDocsHelperPalette`Private`$AppName], True, 
+           SimpleDocsHelperPalette`Private`$AppName], Length[
+           DownValues[BTools`Private`Package`PackageFilePath]] > 0, 
+         SimpleDocsHelperPalette`Private`undefF[
+         SimpleDocsHelperPalette`Private`s, SimpleDocsHelperPalette`Private`h,
+           "BTools"], True, 
          SimpleDocsHelperPalette`Private`undefF[
          SimpleDocsHelperPalette`Private`s, 
           SimpleDocsHelperPalette`Private`h]]}]; 
@@ -1061,8 +1083,6 @@ mEXTyg==
  CellHorizontalScrolling->True,
  PageBreakAbove->True,
  PageBreakWithin->False,
- CellChangeTimes->{{3.759640607910308*^9, 3.7596406106536617`*^9}, 
-   3.759680803581711*^9, {3.7596809178014812`*^9, 3.759680925985716*^9}},
  ShowAutoStyles->True,
  LineSpacing->{1.25, 0},
  AutoItalicWords->{},
@@ -1070,7 +1090,7 @@ mEXTyg==
  ShowStringCharacters->False,
  FontFamily:>CurrentValue["PanelFontFamily"],
  FontSize:>CurrentValue[
-  "PanelFontSize"],ExpressionUUID->"736641c6-424f-4bad-921d-1a3e2a783c59"]
+  "PanelFontSize"],ExpressionUUID->"b86c869a-1f2b-4a3d-a07e-564570846f7e"]
 },
 WindowSize->{All, 
   Scaled[1]},
@@ -1080,8 +1100,8 @@ WindowTitle->"Docs Helper",
 TaggingRules->{
  "UUIDButtons" -> {
    "Active" -> {
-     "Button-f21082b2-4876-4fde-ba61-1862fad73f62" -> False, 
-      "Button-d030e18f-4747-468d-8075-de7edd5f41a5" -> False}}},
+     "Button-faf14106-d8aa-4155-a56d-be308216428f" -> False, 
+      "Button-ce22ff5a-2352-4908-85e2-aae0ea2575e2" -> False}}},
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",
 StyleDefinitions->"Palette.nb"
@@ -1097,10 +1117,12 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[584, 21, 52607, 1051, 848, InheritFromParent,ExpressionUUID->"736641c6-424f-4bad-921d-1a3e2a783c59",
+Cell[584, 21, 53388, 1071, 848, InheritFromParent,ExpressionUUID->"b86c869a-1f2b-4a3d-a07e-564570846f7e",
  PageBreakAbove->True,
  PageBreakWithin->False]
 }
 ]
 *)
+
+(* End of internal cache information *)
 
