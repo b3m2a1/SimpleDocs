@@ -3182,7 +3182,7 @@ getSiteTypeExt[proj_, type_]:=
 
 
 getSiteContentExt[proj_, ext_]:=
-  ext
+  If[StringQ@ext, ToLowerCase@ext, ext];
 
 
 (* ::Subsubsection::Closed:: *)

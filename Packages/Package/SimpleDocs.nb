@@ -4641,7 +4641,7 @@ Cell[BoxData[{
    "]"}]}]}], \
 "CodeInput",ExpressionUUID->"7260fbb2-5129-4fb9-a656-ee65aa307380"]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4767,7 +4767,7 @@ Cell[BoxData[{
        "]"}]}]}]}], "\n", "\t\t", 
    "]"}]}]}], \
 "CodeInput",ExpressionUUID->"fcda521d-518a-4ad0-bcb5-48839f96009a"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4895,7 +4895,7 @@ Cell[BoxData[{
        "]"}]}]}]}], "\n", "\t\t", 
    "]"}]}]}], \
 "CodeInput",ExpressionUUID->"5b52e305-a002-4b81-bfb4-8fb4d1afbcb2"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -6330,9 +6330,14 @@ Cell["\[LeftCeiling]getSiteContentExt\[RightFloor]", "CodeSubsubsection",
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"getSiteContentExt", "[", 
-   RowBox[{"proj_", ",", " ", "ext_"}], "]"}], ":=", "\n", "\t", 
-  "ext"}]], "CodeInput",ExpressionUUID->"e7feceb9-c4ea-4c17-8a2f-82b0749cf70e"]
+  RowBox[{
+   RowBox[{"getSiteContentExt", "[", 
+    RowBox[{"proj_", ",", " ", "ext_"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{"StringQ", "@", "ext"}], ",", " ", 
+     RowBox[{"ToLowerCase", "@", "ext"}], ",", " ", "ext"}], "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"e7feceb9-c4ea-4c17-8a2f-82b0749cf70e"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -6765,7 +6770,23 @@ Cell[BoxData[
 }, Open  ]],
 
 Cell["", "SectionSeparator",ExpressionUUID->"7f99b445-dcab-4880-9da5-\
-0b78b519bff4"]
+0b78b519bff4"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Get","noopen",
+   "\"Cannot open \\!\\(\\*RowBox[{\\\"\\\\\\\"BTools`\\\\\\\"\\\"}]\\).\"",2,
+   4,2,28093998892325924755,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellLabel->"",ExpressionUUID->"18ffbaba-144a-412b-b907-84701b76e22a"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Needs","nocont",
+   "\"Context \\!\\(\\*RowBox[{\\\"\\\\\\\"BTools`\\\\\\\"\\\"}]\\) was not \
+created when Needs was evaluated.\"",2,4,3,28093998892325924755,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellLabel->"",ExpressionUUID->"8d2be366-09e6-4388-af36-2399ecd60bbb"]
 },
 WindowSize->{808, 755},
 WindowMargins->{{188, Automatic}, {Automatic, 0}},
