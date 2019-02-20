@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     53660,       1096]
-NotebookOptionsPosition[     53053,       1072]
-NotebookOutlinePosition[     53646,       1096]
-CellTagsIndexPosition[     53603,       1093]
+NotebookDataLength[     53802,       1098]
+NotebookOptionsPosition[     53195,       1074]
+NotebookOutlinePosition[     53788,       1098]
+CellTagsIndexPosition[     53745,       1095]
 WindowTitle->Docs Helper
 WindowFrame->Palette*)
 
@@ -1061,6 +1061,8 @@ mEXTyg==
  CellHorizontalScrolling->True,
  PageBreakAbove->True,
  PageBreakWithin->False,
+ CellChangeTimes->{{3.759640607910308*^9, 3.7596406106536617`*^9}, 
+   3.759680803581711*^9, {3.7596809178014812`*^9, 3.759680925985716*^9}},
  ShowAutoStyles->True,
  LineSpacing->{1.25, 0},
  AutoItalicWords->{},
@@ -1095,12 +1097,10 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[584, 21, 52465, 1049, 848, InheritFromParent,ExpressionUUID->"736641c6-424f-4bad-921d-1a3e2a783c59",
+Cell[584, 21, 52607, 1051, 848, InheritFromParent,ExpressionUUID->"736641c6-424f-4bad-921d-1a3e2a783c59",
  PageBreakAbove->True,
  PageBreakWithin->False]
 }
 ]
 *)
-
-(* End of internal cache information *)
 
