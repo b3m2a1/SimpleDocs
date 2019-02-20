@@ -3190,7 +3190,8 @@ getSiteTypeExt[proj_, type_]:=
   StringTrim[
     Lookup[<|"symbol"->"ref", "Symbol"->"ref"|>, type,
       If[StringQ@type,
-        (ToUpperCase[StringTake[#, {1}]]<>StringDrop[#, 1])&@ type, 
+        (*(ToUpperCase[StringTake[#, {1}]]<>StringDrop[#, 1])&@*)
+          ToLowerCase@ type, 
         "ref"
         ]
       ],
