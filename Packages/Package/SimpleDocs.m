@@ -152,9 +152,10 @@ $DocsProjectPath=
 
 
 
-ListDocsProjects[]:=
+ListDocsProjects//Clear
+ListDocsProjects[pattern_:"*"]:=
   Select[DirectoryQ]@
-    FileNames["*", Append[$DocsProjectPath, $DocsProjectsDirectory]]
+    FileNames[pattern, Prepend[$DocsProjectPath, DocsProjectsDirectory[]]]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -417,6 +418,8 @@ LoadProjectConfig[pac_PacletManager`Paclet]:=
     pac["Location"],
     findDirConfigFile@pac["Location"]
     ];
+LoadProjectConfig[s_String?(Length[ListDocsProjects[#]]>0&)]:=
+  LoadProjectConfig[ListDocsProjects[s][[1]]];
 LoadProjectConfig[s_String?(Length[PacletManager`PacletFind[#]]>0&)]:=
   LoadProjectConfig@PacletManager`PacletFind[s][[1]];
 
@@ -427,20 +430,18 @@ LoadProjectConfig[s_String?(Length[PacletManager`PacletFind[#]]>0&)]:=
 
 
 ReloadProjectConfig[proj_]:=
-  Module[{a=$DocsProjects[proj]},
-    $DocsProjects[proj]=
-      Merge[
-        {
-          a,
-          Association@
-            Replace[
-              Quiet@Get[Lookup[a, "ConfigFile"]], 
-              Except[_?OptionQ|_Association]-><||>
-              ]
-          },
-        Last
-        ];
-    ]
+  $DocsProjects[proj]=
+    Merge[
+      {
+        $DocsProjects[proj],
+        Association@
+          Replace[
+            Quiet@Get[getProjectConfFilePath[proj]], 
+            Except[_?OptionQ|_Association]-><||>
+            ]
+        },
+      Last
+      ];
 
 
 (* ::Subsubsection::Closed:: *)
@@ -505,6 +506,27 @@ getProjectProp[pname_, prop_, default_]:=
 
 getProjectConfFile[pname_]:=
   getProjectProp[pname, "ConfigFile", None]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*getProjectConfFilePath*)
+
+
+
+getProjectConfFilePath[pname_]:=
+  Module[
+    {
+      cf=getProjectConfFile[pname],
+      dir=getProjectDir[pname]
+      },
+    If[cf=!=None,
+      cf=getCleanFName[cf];
+      If[ExpandFileName[cf]!=cf&&dir=!=None,
+        cf=FileNameJoin@{getCleanFName@dir, cf}
+        ];
+      ];
+    cf
+    ]
 
 
 (* ::Subsubsubsection::Closed:: *)
