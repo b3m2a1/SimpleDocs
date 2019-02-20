@@ -29,13 +29,24 @@ $NotebookTemplates::usage="";
 
 DocsProjectsDirectory::usage="";
 SetDocsProjectsDirectory::usage="";
+$DocsProjectPath::usage="";
+ListDocsProjects::usage="";
+ListProjectNotebooks::usage="";
+ListProjectSymbolPages::usage="";
+ListProjectGuidePages::usage="";
+ListProjectTutorialPages::usage="";
+
+
 DocsProjects::usage="";
-SetProjectOptions::usage="";
 RemoveProject::usage="";
 LoadProjectConfig::usage="";
 ReloadProjectConfig::usage="";
 EnsureLoadProject::usage="";
+
+
+FindProjectConfig::usage="";
 OpenProjectConfig::usage="";
+SetProjectOptions::usage="";
 InitializeDocsProject::usage="";
 
 
@@ -119,7 +130,7 @@ Begin["`Private`"];
 
 
 DocsProjectsDirectory[]:=
-  If[!StringQ[$DocsProjectsDirectory]&&DirectoryQ[$DocsProjectsDirectory], 
+  If[!StringQ[$DocsProjectsDirectory]||!DirectoryQ[$DocsProjectsDirectory], 
     $DocsProjectsDirectory=
       FileNameJoin@{$UserBaseDirectory, "ApplicationData", "SimpleDocs"},
     $DocsProjectsDirectory
@@ -129,6 +140,47 @@ SetDocsProjectsDirectory[dir_]:=
     $DocsProjectsDirectory=dir;
     DocsProjectsDirectory[]
     )
+
+
+$DocsProjectPath=
+  {
+    };
+
+
+(* ::Subsubsection::Closed:: *)
+(*ListProjects*)
+
+
+
+ListDocsProjects[]:=
+  Select[DirectoryQ]@
+    FileNames["*", Append[$DocsProjectPath, $DocsProjectsDirectory]]
+
+
+(* ::Subsubsection::Closed:: *)
+(*ListProjectNotebooks*)
+
+
+
+ListDocsProjectNotebooks//Clear
+ListDocsProjectNotebooks[projName_String, type_]:=
+  FileNames[
+    "*.nb",
+    getProjectSaveLocation[
+      If[DirectoryQ[projName], 
+        EnsureLoadProject[projName][[1]],
+        projName
+        ], 
+      type
+      ],
+    2
+    ];
+ListProjectSymbolPages[projName_]:=
+  ListDocsProjectNotebooks[projName, "Symbol"]
+ListProjectGuidePages[projName_]:=
+  ListDocsProjectNotebooks[projName, "Guide"]
+ListProjectTutorialPages[projName_]:=
+  ListDocsProjectNotebooks[projName, "Tutorial"]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -593,8 +645,11 @@ getProjectBuildDir[pname_]:=
 
 
 
+$projectSitePathDefault={"project", "docs"};
+
+
 getProjectSitePath[pname_]:=
-  getProjectProp[pname, "SitePath", {"project", "docs"}]
+  getProjectProp[pname, "SitePath", $projectSitePathDefault]
 
 
 (* ::Subsubsubsection::Closed:: *)
@@ -625,23 +680,31 @@ $defaultConfigOptions=
     }
 
 
-OpenProjectConfig[projName_]:=
+FindProjectConfig[projName_]:=
   Module[
     {
       cf=getProjectConfFile[projName],
       dir
       },
-    If[!StringQ[cf]&&FileExistsQ[cf],
-      dir=getProjectDir[projName];
+    If[!(StringQ[cf]&&FileExistsQ[cf])&&DirectoryQ[projName],
+      cf=findDirConfigFile[projName]
+      ];
+    If[!(StringQ[cf]&&FileExistsQ[cf]),
+      dir=getCleanFName@getProjectDir[projName];
       cf=findDirConfigFile[dir];
-      If[!StringQ[cf]&&FileExistsQ[cf],
+      If[!(StringQ[cf]&&FileExistsQ[cf]),
         cf=FileNameJoin@Prepend[First@$defaultConfigPaths, dir]<>".wl";
         CreateFile[cf, CreateIntermediateDirectories->True];
         Export[cf, PrettyString[$defaultConfigOptions], "Text"]
         ]
       ];
-    SystemOpen@cf
+    cf
     ]
+
+
+OpenProjectConfig[projName_]:=
+  SystemOpen@
+    FindProjectConfig[projName];
 
 
 (* ::Subsubsection::Closed:: *)
@@ -696,19 +759,32 @@ EnsureLoadProject[nb_NotebookObject]:=
 
 
 
-InitializeDocsProject[rootDir_, projName_]:=
+InitializeDocsProject[rootDir_, projName_, config_:None]:=
   Module[
     {
       dir,
-      cf
+      cf=If[StringLength[StringTrim@config]==0, None, config]
       },
     dir=FileNameJoin@{rootDir, projName};
     If[!DirectoryQ@dir,
       CreateDirectory[dir, CreateIntermediateDirectories->True]
       ];
-    cf=FileNameJoin@Prepend[First@$defaultConfigPaths, dir]<>".wl";
-    CreateFile[cf, CreateIntermediateDirectories->True];
-    Export[cf, PrettyString[$defaultConfigOptions], "Text"];
+    If[!(StringQ[cf]&&FileExistsQ[cf]),
+      cf=findDirConfigFile[dir]
+      ];
+    If[!(StringQ[cf]&&FileExistsQ[cf]),
+      cf=FileNameJoin@Prepend[First@$defaultConfigPaths, dir]<>".wl";
+      CreateFile[cf, CreateIntermediateDirectories->True];
+      Export[cf, PrettyString[$defaultConfigOptions], "Text"];
+      ];
+    LoadProjectConfig[
+      projName, 
+      dir, 
+      cf
+      ];
+    Block[{docsSiteLoc=docsProjLoc},
+      InitializeDocsSite[projName]
+      ];
     dir
     ]
 
@@ -746,6 +822,18 @@ docsSiteLoc[projName_]:=
   FileNameJoin@Flatten@{
     getProjectBuildDir@projName, 
     getProjectSitePath@projName
+    }
+
+
+(* ::Subsubsection::Closed:: *)
+(*docsProjLoc*)
+
+
+
+docsProjLoc[projName_]:=
+  FileNameJoin@Flatten@{
+    getCleanFName@getProjectDir@projName,
+    $projectSitePathDefault
     }
 
 
@@ -872,7 +960,7 @@ buildNotebookDocsSite[loc_]:=
 
 OpenDocsSiteConfig//Clear
 OpenDocsSiteConfig[nb_NotebookObject, ploc_:Automatic]:=
-  SOpenDocsSiteConfig@
+  OpenDocsSiteConfig@
     getNBProjectName[nb, ploc];
 OpenDocsSiteConfig[proj_]:=
   SystemOpen@
@@ -1584,7 +1672,7 @@ SaveNotebookToProject[nb_, proj_:Automatic]:=
       fname
       },
     projName=getNBProjectName[nb, projName];
-    fname=getSiteSaveFileName[projName, nb];
+    fname=getProjectSaveFileName[projName, nb];
     If[StringQ@fname,
       If[!DirectoryQ@DirectoryName@fname,
         (* should I need to do this...? *)
@@ -1947,8 +2035,7 @@ CreateTemplateNotebook[type:(Alternatives@@Keys[$ctnMap]),
   thing_, ops:OptionsPattern[]
   ]:=
   CreateDocument[
-    Lookup[$ctnMap, type][thing],
-    ops
+    Lookup[$ctnMap, type][thing, ops]
     ];
 CreateTemplateNotebook[thing_Symbol]:=
   CreateTemplateNotebook["Symbol", thing];
@@ -2157,7 +2244,12 @@ getUsageMessages~SetAttributes~HoldFirst;
 
 
 
-SymbolNotebookTemplate[s_Symbol, parent_:None]:=
+SymbolNotebookTemplate//Clear
+Options[SymbolNotebookTemplate]=
+  Options[Notebook];
+SymbolNotebookTemplate[s_Symbol, 
+  parent:Except[_?OptionQ]:None, ops:OptionsPattern[]
+  ]:=
   Module[
     {
       bits,
@@ -2198,17 +2290,23 @@ SymbolNotebookTemplate[s_Symbol, parent_:None]:=
           formatRelatedSection[similar],
           $NotebookTemplates["Footer"]
           },
-        {
+        Flatten@{
           StyleDefinitions->FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"],
-          TaggingRules->{
+          TaggingRules->Flatten@{
             "Metadata"->DocMetadata@Normal@meta,
             If[MatchQ[parent, _NotebookObject],
-              "SimpleDocs"->CurrentValue[nb, {parent, TaggingRules, "SimpleDocs"}],
+              "SimpleDocs"->
+                CurrentValue[nb, {parent, TaggingRules, "SimpleDocs"}],
               Nothing
               ],
-            "ColorType"->"SymbolColor"
+            "ColorType"->"SymbolColor",
+            Replace[OptionValue[TaggingRules], Except[_?OptionQ]:>{}]
             },
-          ScreenStyleEnvironment->"Editing"
+          ScreenStyleEnvironment->"Editing",
+          FilterRules[
+            {ops},
+            Except[StyleDefinitions|TaggingRules|ScreenStyleEnvironment]
+            ]
           }
         ]
     ]
@@ -2219,7 +2317,12 @@ SymbolNotebookTemplate[s_Symbol, parent_:None]:=
 
 
 
-GuideNotebookTemplate[name_String, parent_:None]:=
+GuideNotebookTemplate//Clear
+Options[GuideNotebookTemplate]=
+  Options[Notebook];
+GuideNotebookTemplate[name_String, 
+  parent:Except[_?OptionQ]:None, ops:OptionsPattern[]
+  ]:=
   Module[
     {
       cleanName,
@@ -2246,15 +2349,20 @@ GuideNotebookTemplate[name_String, parent_:None]:=
           },
         {
           StyleDefinitions->FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"],
-          TaggingRules->{
+          TaggingRules->Flatten@{
             "Metadata"->DocMetadata@Normal@meta,
             If[MatchQ[parent, _NotebookObject],
               "SimpleDocs"->CurrentValue[parent, {TaggingRules, "SimpleDocs"}],
               Nothing
               ],
-            "ColorType"->"GuideColor"
+            "ColorType"->"GuideColor",
+            Replace[OptionValue[TaggingRules], Except[_?OptionQ]:>{}]
             },
-          ScreenStyleEnvironment->"Editing"
+          ScreenStyleEnvironment->"Editing",
+          FilterRules[
+            {ops},
+            Except[StyleDefinitions|TaggingRules|ScreenStyleEnvironment]
+            ]
           }
         ]
     ]
@@ -2265,7 +2373,12 @@ GuideNotebookTemplate[name_String, parent_:None]:=
 
 
 
-TutorialNotebookTemplate[name_String, parent_:None]:=
+TutorialNotebookTemplate//Clear
+Options[TutorialNotebookTemplate]=
+  Options[Notebook];
+TutorialNotebookTemplate[name_String, 
+  parent:Except[_?OptionQ]:None, ops:OptionsPattern[]
+  ]:=
   Module[
     {
       cleanName,
@@ -2289,17 +2402,22 @@ TutorialNotebookTemplate[name_String, parent_:None]:=
           $NotebookTemplates["Related Links"],
           $NotebookTemplates["Footer"]
           },
-        {
+        Flatten@{
           StyleDefinitions->FrontEnd`FileName[{"SimpleDocs"}, "SimpleDocs.nb"],
-          TaggingRules->{
+          TaggingRules->Flatten@{
             "Metadata"->DocMetadata@Normal@meta,
             If[MatchQ[parent, _NotebookObject],
               "SimpleDocs"->CurrentValue[parent, {TaggingRules, "SimpleDocs"}],
               Nothing
               ],
-            "ColorType"->"TutorialColor"
+            "ColorType"->"TutorialColor",
+            Replace[OptionValue[TaggingRules], Except[_?OptionQ]:>{}]
             },
-          ScreenStyleEnvironment->"Editing"
+          ScreenStyleEnvironment->"Editing",
+          FilterRules[
+            {ops},
+            Except[StyleDefinitions|TaggingRules|ScreenStyleEnvironment]
+            ]
           }
         ]
     ]
@@ -2315,7 +2433,7 @@ TutorialNotebookTemplate[name_String, parent_:None]:=
 
 
 
-SampleTemplateNotebook["Symbol"]:=
+SampleTemplateNotebook["Symbol", ops:OptionsPattern[]]:=
   Block[{SamplePaclet`Sym, SamplePaclet`Sym1, SamplePaclet`Sym2},
     SamplePaclet`Sym::usage="sample function";
     SamplePaclet`Sym::msg="sample message";
@@ -2323,7 +2441,7 @@ SampleTemplateNotebook["Symbol"]:=
     SamplePaclet`Sym~SetAttributes~Temporary;
     SamplePaclet`Sym1=1;
     SamplePaclet`Sym2=2;
-    CreateTemplateNotebook["Symbol", SamplePaclet`Sym]
+    CreateTemplateNotebook["Symbol", SamplePaclet`Sym, ops]
     ]
 
 
@@ -2332,8 +2450,8 @@ SampleTemplateNotebook["Symbol"]:=
 
 
 
-SampleTemplateNotebook["Guide"]:=
-  CreateTemplateNotebook["Guide", "Sample Guide"];
+SampleTemplateNotebook["Guide", ops:OptionsPattern[]]:=
+  CreateTemplateNotebook["Guide", "Sample Guide", ops];
 
 
 (* ::Subsubsubsection::Closed:: *)
@@ -2341,8 +2459,8 @@ SampleTemplateNotebook["Guide"]:=
 
 
 
-SampleTemplateNotebook["Tutorial"]:=
-  CreateTemplateNotebook["Tutorial", "Sample Tutorial"];
+SampleTemplateNotebook["Tutorial", ops:OptionsPattern[]]:=
+  CreateTemplateNotebook["Tutorial", "Sample Tutorial", ops];
 
 
 (* ::Subsubsection::Closed:: *)
@@ -3107,6 +3225,19 @@ getSiteSaveLocation[projName_, type_]:=
 
 
 (* ::Subsubsection::Closed:: *)
+(*getProjectSaveLocation*)
+
+
+
+getProjectSaveLocation[projName_, type_]:=
+  FileNameJoin@Flatten@{
+    docsProjLoc@projName, 
+    getSiteContentExt[Automatic, "content"],
+    getSiteTypeExt[Automatic, type]
+    };
+
+
+(* ::Subsubsection::Closed:: *)
 (*getSiteSaveFileName*)
 
 
@@ -3178,6 +3309,44 @@ getSiteSaveFileName[projName_, nb_]:=
     ];
 getSiteSaveFileName[nb_]:=
   getSiteSaveFileName[getNBProjectName[nb], nb];
+
+
+(* ::Subsubsection::Closed:: *)
+(*getProjectSaveFileName*)
+
+
+
+getProjectSaveFileName[projName_, baseTitle_, baseType_]:=
+  Module[
+    {
+      cont,
+      lang,
+      type=baseType,
+      baseDir,
+      title=baseTitle,
+      pi,
+      projDir,
+      pac
+      },
+    Block[{docsSiteLoc=docsProjLoc},
+      InitializeDocsSite[projName]
+      ];
+    baseDir=getProjectSaveLocation[projName, type];
+    If[!StringQ@title, title="Symbol"];
+    Quiet@CreateDirectory[baseDir, CreateIntermediateDirectories->True];
+    FileNameJoin@{baseDir, StringTrim[title, ".nb"]<>".nb" }
+    ];
+getProjectSaveFileName[projName_, nb_]:=
+  Module[
+    {
+      title=getMeta[nb, "label"],
+      type=getMeta[nb, "type"]
+      },
+    If[!StringQ@title, title="Symbol"(* this should be changed up... *)];
+    getProjectSaveFileName[projName, title, type]
+    ];
+getProjectSaveFileName[nb_]:=
+  getProjectSaveFileName[getNBProjectName[nb], nb];
 
 
 (* ::Subsubsection::Closed:: *)

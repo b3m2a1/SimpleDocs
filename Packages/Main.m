@@ -31,6 +31,11 @@ $map=
     (* project related *)
     "BaseDirectory":>DocsProjectsDirectory,
     "SetBaseDirectory":>SetDocsProjectsDirectory,
+    "ProjectPath"->($DocsProjectPath&),
+    "ListProjects"->ListDocsProjects,
+    "ListSymbolPages"->ListProjectSymbolPages,
+    "ListGuidePages"->ListProjectGuidePages,
+    "ListTutorialPages"->ListProjectTutorialPages,
     "Projects"->DocsProjects,
     "SetProjectOptions"->SetProjectOptions,
     "RemoveProject"->RemoveProject,

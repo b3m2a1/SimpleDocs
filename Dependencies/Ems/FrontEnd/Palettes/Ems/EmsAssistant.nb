@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     96772,       1954]
-NotebookOptionsPosition[     90549,       1841]
-NotebookOutlinePosition[     96758,       1954]
-CellTagsIndexPosition[     96715,       1951]
+NotebookDataLength[     96991,       1957]
+NotebookOptionsPosition[     90768,       1844]
+NotebookOutlinePosition[     96977,       1957]
+CellTagsIndexPosition[     96934,       1954]
 WindowTitle->Ems Assistant
 WindowFrame->Palette*)
 
@@ -1829,7 +1829,10 @@ mEXTyg==
    3.744001387891925*^9, 3.7440014057518806`*^9}, 3.751595756212097*^9, 
    3.7515959849486027`*^9, 3.751597399598611*^9, {3.751597465993092*^9, 
    3.7515974731490183`*^9}, 3.751599967459127*^9, 3.751600763707758*^9, {
-   3.757117924552421*^9, 3.7571179507927437`*^9}},
+   3.757117924552421*^9, 3.7571179507927437`*^9}, {3.75717591036104*^9, 
+   3.7571759114729853`*^9}, 3.757176599402233*^9, {3.7571771092187357`*^9, 
+   3.757177110369697*^9}, {3.757177271429336*^9, 3.757177276946209*^9}, 
+   3.757178603687385*^9, 3.757221029898787*^9},
  ShowAutoStyles->True,
  LineSpacing->{1.25, 0},
  AutoItalicWords->{},
@@ -1841,7 +1844,7 @@ mEXTyg==
 },
 WindowSize->{All, 
   Scaled[1]},
-WindowMargins->{{Automatic, 1}, {Automatic, 0}},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
 WindowElements->{"StatusArea"},
 WindowTitle->"Ems Assistant",
 TaggingRules->{
@@ -1953,7 +1956,7 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[586, 21, 89959, 1818, 868, InheritFromParent,ExpressionUUID->"9374c4cd-d3dd-4896-9949-b2b97e351523",
+Cell[586, 21, 90178, 1821, 868, InheritFromParent,ExpressionUUID->"9374c4cd-d3dd-4896-9949-b2b97e351523",
  PageBreakAbove->True,
  PageBreakWithin->False]
 }

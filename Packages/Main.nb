@@ -48,6 +48,18 @@ Cell[BoxData[
      RowBox[{
      "\"\<SetBaseDirectory\>\"", "\[RuleDelayed]", 
       "SetDocsProjectsDirectory"}], ",", "\n", "\t\t", 
+     RowBox[{"\"\<ProjectPath\>\"", "\[Rule]", 
+      RowBox[{"(", 
+       RowBox[{"$DocsProjectPath", "&"}], ")"}]}], ",", "\n", "\t\t", 
+     RowBox[{"\"\<ListProjects\>\"", "\[Rule]", "ListDocsProjects"}], ",", 
+     "\n", "\t\t", 
+     RowBox[{"\"\<ListSymbolPages\>\"", "\[Rule]", "ListProjectSymbolPages"}],
+      ",", "\n", "\t\t", 
+     RowBox[{"\"\<ListGuidePages\>\"", "\[Rule]", "ListProjectGuidePages"}], 
+     ",", "\n", "\t\t", 
+     RowBox[{
+     "\"\<ListTutorialPages\>\"", "\[Rule]", "ListProjectTutorialPages"}], 
+     ",", "\n", "\t\t", 
      RowBox[{"\"\<Projects\>\"", "\[Rule]", "DocsProjects"}], ",", "\n", 
      "\t\t", 
      RowBox[{"\"\<SetProjectOptions\>\"", "\[Rule]", "SetProjectOptions"}], 
@@ -266,7 +278,7 @@ Cell["", "SectionSeparator",ExpressionUUID->"ada7623b-72bd-4407-ba85-\
 b5d13f1e6e85"]
 },
 WindowSize->{808, 755},
-WindowMargins->{{Automatic, 103}, {Automatic, 15}},
+WindowMargins->{{Automatic, 175}, {Automatic, 41}},
 TaggingRules->{
  "UUIDButtons" -> {
    "Active" -> {

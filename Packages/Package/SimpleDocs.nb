@@ -40,11 +40,33 @@ Cell[BoxData[{
   ";"}], "\n", 
  RowBox[{
   RowBox[{
-   RowBox[{"DocsProjects", "::", "usage"}], "=", "\"\<\>\""}], ";"}], "\n", 
+   RowBox[{"$DocsProjectPath", "::", "usage"}], "=", "\"\<\>\""}], 
+  ";"}], "\n", 
  RowBox[{
   RowBox[{
-   RowBox[{"SetProjectOptions", "::", "usage"}], "=", "\"\<\>\""}], 
+   RowBox[{"ListDocsProjects", "::", "usage"}], "=", "\"\<\>\""}], 
   ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ListProjectNotebooks", "::", "usage"}], "=", "\"\<\>\""}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ListProjectSymbolPages", "::", "usage"}], "=", "\"\<\>\""}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ListProjectGuidePages", "::", "usage"}], "=", "\"\<\>\""}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ListProjectTutorialPages", "::", "usage"}], "=", "\"\<\>\""}], 
+  ";"}]}], "CodeInput",ExpressionUUID->"5f0f3282-a704-4e86-976f-4c775b799129"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"DocsProjects", "::", "usage"}], "=", "\"\<\>\""}], ";"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"RemoveProject", "::", "usage"}], "=", "\"\<\>\""}], ";"}], "\n", 
@@ -59,6 +81,12 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{"EnsureLoadProject", "::", "usage"}], "=", "\"\<\>\""}], 
+  ";"}]}], "CodeInput",ExpressionUUID->"482b08af-4452-4950-931d-2f3fd074ab20"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"FindProjectConfig", "::", "usage"}], "=", "\"\<\>\""}], 
   ";"}], "\n", 
  RowBox[{
   RowBox[{
@@ -66,8 +94,12 @@ Cell[BoxData[{
   ";"}], "\n", 
  RowBox[{
   RowBox[{
+   RowBox[{"SetProjectOptions", "::", "usage"}], "=", "\"\<\>\""}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
    RowBox[{"InitializeDocsProject", "::", "usage"}], "=", "\"\<\>\""}], 
-  ";"}]}], "CodeInput",ExpressionUUID->"5f0f3282-a704-4e86-976f-4c775b799129"]\
+  ";"}]}], "CodeInput",ExpressionUUID->"1c3a9bb9-38e1-48a4-860a-7faeadad18c3"]\
 
 }, Open  ]],
 
@@ -245,9 +277,10 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{
      RowBox[{"!", 
-      RowBox[{"StringQ", "[", "$DocsProjectsDirectory", "]"}]}], "&&", 
-     RowBox[{"DirectoryQ", "[", "$DocsProjectsDirectory", "]"}]}], ",", " ", 
-    "\n", "\t\t", 
+      RowBox[{"StringQ", "[", "$DocsProjectsDirectory", "]"}]}], "||", 
+     RowBox[{"!", 
+      RowBox[{"DirectoryQ", "[", "$DocsProjectsDirectory", "]"}]}]}], ",", 
+    " ", "\n", "\t\t", 
     RowBox[{"$DocsProjectsDirectory", "=", "\n", "\t\t\t", 
      RowBox[{"FileNameJoin", "@", 
       RowBox[{"{", 
@@ -262,7 +295,74 @@ Cell[BoxData[{
     RowBox[{"$DocsProjectsDirectory", "=", "dir"}], ";", "\n", "\t\t", 
     RowBox[{"DocsProjectsDirectory", "[", "]"}]}], "\n", "\t\t", 
    ")"}]}]}], \
-"CodeInput",ExpressionUUID->"a83dab53-2304-4791-aaa4-bcadfb8d91ca"]
+"CodeInput",ExpressionUUID->"a83dab53-2304-4791-aaa4-bcadfb8d91ca"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"$DocsProjectPath", "=", "\n", "\t", 
+   RowBox[{"{", "\n", "\t\t", "}"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"1192f9fb-60c5-452e-a712-ec0f6b20bfa6"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]ListProjects\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"7811b82b-e376-48fc-a29e-55fe7ffc54ed"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ListDocsProjects", "[", "]"}], ":=", "\n", "\t", 
+  RowBox[{
+   RowBox[{"Select", "[", "DirectoryQ", "]"}], "@", "\n", "\t\t", 
+   RowBox[{"FileNames", "[", 
+    RowBox[{"\"\<*\>\"", ",", " ", 
+     RowBox[{"Append", "[", 
+      RowBox[{"$DocsProjectPath", ",", " ", "$DocsProjectsDirectory"}], 
+      "]"}]}], "]"}]}]}]], \
+"CodeInput",ExpressionUUID->"485102a7-5215-44d0-b191-e157f94b4454"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]ListProjectNotebooks\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"5b61cc44-afc6-4ae7-9db5-2ea1ff4a508d"],
+
+Cell[BoxData[{
+ RowBox[{"ListDocsProjectNotebooks", "//", "Clear"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ListDocsProjectNotebooks", "[", 
+    RowBox[{"projName_String", ",", " ", "type_"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"FileNames", "[", "\n", "\t\t", 
+    RowBox[{"\"\<*.nb\>\"", ",", "\n", "\t\t", 
+     RowBox[{"getProjectSaveLocation", "[", "\n", "\t\t\t", 
+      RowBox[{
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"DirectoryQ", "[", "projName", "]"}], ",", " ", "\n", 
+         "\t\t\t\t", 
+         RowBox[{
+          RowBox[{"EnsureLoadProject", "[", "projName", "]"}], "[", 
+          RowBox[{"[", "1", "]"}], "]"}], ",", "\n", "\t\t\t\t", "projName"}],
+         "\n", "\t\t\t\t", "]"}], ",", " ", "\n", "\t\t\t", "type"}], "\n", 
+      "\t\t\t", "]"}], ",", "\n", "\t\t", "2"}], "\n", "\t\t", "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ListProjectSymbolPages", "[", "projName_", "]"}], ":=", "\n", "\t", 
+  RowBox[{"ListDocsProjectNotebooks", "[", 
+   RowBox[{"projName", ",", " ", "\"\<Symbol\>\""}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"ListProjectGuidePages", "[", "projName_", "]"}], ":=", "\n", "\t", 
+  
+  RowBox[{"ListDocsProjectNotebooks", "[", 
+   RowBox[{"projName", ",", " ", "\"\<Guide\>\""}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"ListProjectTutorialPages", "[", "projName_", "]"}], ":=", "\n", 
+  "\t", 
+  RowBox[{"ListDocsProjectNotebooks", "[", 
+   RowBox[{"projName", ",", " ", "\"\<Tutorial\>\""}], 
+   "]"}]}]}], \
+"CodeInput",ExpressionUUID->"f92a0449-42a6-4905-ac11-b457c733f8dc"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -1194,7 +1294,7 @@ Cell[BoxData[
       ";", "\n", "\t\t", "bd"}]}], "\t", "\n", "\t\t", 
    "]"}]}]], \
 "CodeInput",ExpressionUUID->"5736b840-3446-4777-9523-217d04ddedfe"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1203,11 +1303,18 @@ Cell["\[LeftCeiling]getProjectSitePath\[RightFloor]", "CodeSubsubsubsection",
 
 Cell[BoxData[
  RowBox[{
+  RowBox[{"$projectSitePathDefault", "=", 
+   RowBox[{"{", 
+    RowBox[{"\"\<project\>\"", ",", " ", "\"\<docs\>\""}], "}"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"9752c5d7-1188-45f8-b269-7aecefcb44b7"],
+
+Cell[BoxData[
+ RowBox[{
   RowBox[{"getProjectSitePath", "[", "pname_", "]"}], ":=", "\n", "\t", 
   RowBox[{"getProjectProp", "[", 
-   RowBox[{"pname", ",", " ", "\"\<SitePath\>\"", ",", " ", 
-    RowBox[{"{", 
-     RowBox[{"\"\<project\>\"", ",", " ", "\"\<docs\>\""}], "}"}]}], 
+   RowBox[{
+   "pname", ",", " ", "\"\<SitePath\>\"", ",", " ", 
+    "$projectSitePathDefault"}], 
    "]"}]}]], \
 "CodeInput",ExpressionUUID->"ba4dd6db-58b6-4c0b-ae94-ae93a6dcd093"]
 }, Closed]],
@@ -1236,7 +1343,7 @@ Cell[BoxData[
       "\"\<output\>\""}], "}"}]}]}], 
   ";"}]], "CodeInput",ExpressionUUID->"55b58f07-0f8e-48c5-95c1-0fc9384f7af6"]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -1256,7 +1363,7 @@ Cell[BoxData[
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"OpenProjectConfig", "[", "projName_", "]"}], ":=", "\n", "\t", 
+  RowBox[{"FindProjectConfig", "[", "projName_", "]"}], ":=", "\n", "\t", 
   RowBox[{"Module", "[", "\n", "\t\t", 
    RowBox[{
     RowBox[{"{", "\n", "\t\t\t", 
@@ -1269,21 +1376,38 @@ Cell[BoxData[
       RowBox[{
        RowBox[{
         RowBox[{"!", 
-         RowBox[{"StringQ", "[", "cf", "]"}]}], "&&", 
-        RowBox[{"FileExistsQ", "[", "cf", "]"}]}], ",", "\n", "\t\t\t", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"StringQ", "[", "cf", "]"}], "&&", 
+           RowBox[{"FileExistsQ", "[", "cf", "]"}]}], ")"}]}], "&&", 
+        RowBox[{"DirectoryQ", "[", "projName", "]"}]}], ",", "\n", "\t\t\t", 
+       RowBox[{"cf", "=", 
+        RowBox[{"findDirConfigFile", "[", "projName", "]"}]}]}], "\n", 
+      "\t\t\t", "]"}], ";", "\n", "\t\t", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"!", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"StringQ", "[", "cf", "]"}], "&&", 
+          RowBox[{"FileExistsQ", "[", "cf", "]"}]}], ")"}]}], ",", "\n", 
+       "\t\t\t", 
        RowBox[{
         RowBox[{"dir", "=", 
-         RowBox[{"getProjectDir", "[", "projName", "]"}]}], ";", "\n", 
+         RowBox[{"getCleanFName", "@", 
+          RowBox[{"getProjectDir", "[", "projName", "]"}]}]}], ";", "\n", 
         "\t\t\t", 
         RowBox[{"cf", "=", 
          RowBox[{"findDirConfigFile", "[", "dir", "]"}]}], ";", "\n", 
         "\t\t\t", 
         RowBox[{"If", "[", 
          RowBox[{
-          RowBox[{
-           RowBox[{"!", 
-            RowBox[{"StringQ", "[", "cf", "]"}]}], "&&", 
-           RowBox[{"FileExistsQ", "[", "cf", "]"}]}], ",", "\n", "\t\t\t\t", 
+          RowBox[{"!", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"StringQ", "[", "cf", "]"}], "&&", 
+             RowBox[{"FileExistsQ", "[", "cf", "]"}]}], ")"}]}], ",", "\n", 
+          "\t\t\t\t", 
           RowBox[{
            RowBox[{"cf", "=", 
             RowBox[{
@@ -1301,10 +1425,17 @@ Cell[BoxData[
             RowBox[{"cf", ",", " ", 
              RowBox[{"PrettyString", "[", "$defaultConfigOptions", "]"}], ",",
               " ", "\"\<Text\>\""}], "]"}]}]}], "\n", "\t\t\t\t", "]"}]}]}], 
-      "\n", "\t\t\t", "]"}], ";", "\n", "\t\t", 
-     RowBox[{"SystemOpen", "@", "cf"}]}]}], "\n", "\t\t", 
+      "\n", "\t\t\t", "]"}], ";", "\n", "\t\t", "cf"}]}], "\n", "\t\t", 
    "]"}]}]], \
-"CodeInput",ExpressionUUID->"8e759999-2ba2-4027-af48-2d2372392759"]
+"CodeInput",ExpressionUUID->"c3cb2e33-78b3-4d18-99e1-f13bdd976ac7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"OpenProjectConfig", "[", "projName_", "]"}], ":=", "\n", "\t", 
+   RowBox[{"SystemOpen", "@", "\n", "\t\t", 
+    RowBox[{"FindProjectConfig", "[", "projName", "]"}]}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"8e759999-2ba2-4027-af48-2d2372392759"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -1425,12 +1556,20 @@ Cell["\[LeftCeiling]InitializeDocsProject\[RightFloor]", "CodeSubsubsection",
 Cell[BoxData[
  RowBox[{
   RowBox[{"InitializeDocsProject", "[", 
-   RowBox[{"rootDir_", ",", " ", "projName_"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"rootDir_", ",", " ", "projName_", ",", " ", 
+    RowBox[{"config_:", "None"}]}], "]"}], ":=", "\n", "\t", 
   RowBox[{"Module", "[", "\n", "\t\t", 
    RowBox[{
     RowBox[{"{", "\n", "\t\t\t", 
-     RowBox[{"dir", ",", "\n", "\t\t\t", "cf"}], "\n", "\t\t\t", "}"}], ",", 
-    "\n", "\t\t", 
+     RowBox[{"dir", ",", "\n", "\t\t\t", 
+      RowBox[{"cf", "=", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"StringLength", "[", 
+           RowBox[{"StringTrim", "@", "config"}], "]"}], "\[Equal]", "0"}], 
+         ",", " ", "None", ",", " ", "config"}], "]"}]}]}], "\n", "\t\t\t", 
+     "}"}], ",", "\n", "\t\t", 
     RowBox[{
      RowBox[{"dir", "=", 
       RowBox[{"FileNameJoin", "@", 
@@ -1445,21 +1584,53 @@ Cell[BoxData[
         RowBox[{"dir", ",", " ", 
          RowBox[{"CreateIntermediateDirectories", "\[Rule]", "True"}]}], 
         "]"}]}], "\n", "\t\t\t", "]"}], ";", "\n", "\t\t", 
-     RowBox[{"cf", "=", 
+     RowBox[{"If", "[", 
       RowBox[{
-       RowBox[{"FileNameJoin", "@", 
-        RowBox[{"Prepend", "[", 
+       RowBox[{"!", 
+        RowBox[{"(", 
          RowBox[{
-          RowBox[{"First", "@", "$defaultConfigPaths"}], ",", " ", "dir"}], 
-         "]"}]}], "<>", "\"\<.wl\>\""}]}], ";", "\n", "\t\t", 
-     RowBox[{"CreateFile", "[", 
-      RowBox[{"cf", ",", " ", 
-       RowBox[{"CreateIntermediateDirectories", "\[Rule]", "True"}]}], "]"}], 
-     ";", "\n", "\t\t", 
-     RowBox[{"Export", "[", 
-      RowBox[{"cf", ",", " ", 
-       RowBox[{"PrettyString", "[", "$defaultConfigOptions", "]"}], ",", " ", 
-       "\"\<Text\>\""}], "]"}], ";", "\n", "\t\t", "dir"}]}], "\n", "\t\t", 
+          RowBox[{"StringQ", "[", "cf", "]"}], "&&", 
+          RowBox[{"FileExistsQ", "[", "cf", "]"}]}], ")"}]}], ",", "\n", 
+       "\t\t\t", 
+       RowBox[{"cf", "=", 
+        RowBox[{"findDirConfigFile", "[", "dir", "]"}]}]}], "\n", "\t\t\t", 
+      "]"}], ";", "\n", "\t\t", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"!", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"StringQ", "[", "cf", "]"}], "&&", 
+          RowBox[{"FileExistsQ", "[", "cf", "]"}]}], ")"}]}], ",", "\n", 
+       "\t\t\t", 
+       RowBox[{
+        RowBox[{"cf", "=", 
+         RowBox[{
+          RowBox[{"FileNameJoin", "@", 
+           RowBox[{"Prepend", "[", 
+            RowBox[{
+             RowBox[{"First", "@", "$defaultConfigPaths"}], ",", " ", "dir"}],
+             "]"}]}], "<>", "\"\<.wl\>\""}]}], ";", "\n", "\t", "\t\t", 
+        RowBox[{"CreateFile", "[", 
+         RowBox[{"cf", ",", " ", 
+          RowBox[{"CreateIntermediateDirectories", "\[Rule]", "True"}]}], 
+         "]"}], ";", "\n", "\t", "\t\t", 
+        RowBox[{"Export", "[", 
+         RowBox[{"cf", ",", " ", 
+          RowBox[{"PrettyString", "[", "$defaultConfigOptions", "]"}], ",", 
+          " ", "\"\<Text\>\""}], "]"}], ";"}]}], "\n", "\t\t\t", "]"}], ";", 
+     "\n", "\t\t", 
+     RowBox[{"LoadProjectConfig", "[", "\n", "\t\t\t", 
+      RowBox[{
+      "projName", ",", " ", "\n", "\t\t\t", "dir", ",", " ", "\n", "\t\t\t", 
+       "cf"}], "\n", "\t\t\t", "]"}], ";", "\n", "\t\t", 
+     RowBox[{"Block", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"docsSiteLoc", "=", "docsProjLoc"}], "}"}], ",", "\n", 
+       "\t\t\t", 
+       RowBox[{"InitializeDocsSite", "[", "projName", "]"}]}], "\n", "\t\t\t",
+       "]"}], ";", "\n", "\t\t", "dir"}]}], "\n", "\t\t", 
    "]"}]}]], \
 "CodeInput",ExpressionUUID->"23fc4241-2bea-4189-9f73-9147214ac6a8"]
 }, Closed]]
@@ -1534,8 +1705,27 @@ Cell[BoxData[
       RowBox[{"getProjectSitePath", "@", "projName"}]}], "\n", "\t\t", 
      "}"}]}]}]}]], \
 "CodeInput",ExpressionUUID->"4d4709cf-d0e5-48c9-b90e-eb6deb6089bb"]
-}, Closed]]
-}, Open  ]],
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\[LeftCeiling]docsProjLoc\[RightFloor]", "CodeSubsubsection",
+ Evaluatable->True,ExpressionUUID->"d46996da-bf70-4924-9979-cf040d275953"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"docsProjLoc", "[", "projName_", "]"}], ":=", "\n", "\t", 
+  RowBox[{"FileNameJoin", "@", 
+   RowBox[{"Flatten", "@", 
+    RowBox[{"{", "\n", "\t\t", 
+     RowBox[{
+      RowBox[{"getCleanFName", "@", 
+       RowBox[{"getProjectDir", "@", "projName"}]}], ",", "\n", "\t\t", 
+      "$projectSitePathDefault"}], "\n", "\t\t", 
+     "}"}]}]}]}]], \
+"CodeInput",ExpressionUUID->"6d0d87c9-bd5e-4b3e-957b-bddee01b1878"]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -1634,7 +1824,7 @@ Cell[BoxData[
     RowBox[{"\"\<Build\>\"", ",", " ", 
      RowBox[{"docsSiteLoc", "[", "loc", "]"}], ",", " ", "ops"}], "]"}]}], 
   ";"}]], "CodeInput",ExpressionUUID->"54215260-b6cd-4fe4-85be-ee1cff6451aa"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -1794,7 +1984,7 @@ Cell[BoxData[{
    RowBox[{"OpenDocsSiteConfig", "[", 
     RowBox[{"nb_NotebookObject", ",", " ", 
      RowBox[{"ploc_:", "Automatic"}]}], "]"}], ":=", "\n", "\t", 
-   RowBox[{"SOpenDocsSiteConfig", "@", "\n", "\t\t", 
+   RowBox[{"OpenDocsSiteConfig", "@", "\n", "\t\t", 
     RowBox[{"getNBProjectName", "[", 
      RowBox[{"nb", ",", " ", "ploc"}], "]"}]}]}], ";"}], "\n", 
  RowBox[{
@@ -1808,7 +1998,7 @@ Cell[BoxData[{
        "\"\<SiteConfig.wl\>\""}], "\n", "\t\t\t", "}"}]}]}]}], 
   ";"}]}], "CodeInput",ExpressionUUID->"749d3ca5-8128-48c4-a0c3-88b14d185169"]\
 
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -2367,11 +2557,10 @@ Cell[BoxData[
    RowBox[{
    "$primaryTemplates", ",", "\n", "\t\t", "$sectionTemplates", ",", "\n", 
     "\t\t", "$baseTemplates", ",", "\n", "\t\t", "$miscTemplates"}], "\n", 
-   "\t\t", 
-   "]"}]}]], \
+   "\t\t", "]"}]}]], \
 "CodeInput",ExpressionUUID->"242c05cd-9418-4761-944b-358e0c898350"]
 }, Closed]]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2810,7 +2999,7 @@ Cell[BoxData[
        RowBox[{"nb", ",", " ", "projName"}], "]"}], ";", "\n", "\t\t", 
       "projName"}]}], "\n", "\t\t", "]"}]}], 
   ";"}]], "CodeInput",ExpressionUUID->"724e4073-c882-4dbc-892f-5799b155a90b"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2902,7 +3091,7 @@ Cell[BoxData[{
         "$Failed"}], "\n", "\t\t\t", "]"}]}]}], "\n", "\t\t", 
    "]"}]}]}], \
 "CodeInput",ExpressionUUID->"94a662af-97fb-4365-a4a8-5fda71799b8b"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3130,7 +3319,7 @@ Cell[BoxData[{
       RowBox[{"getNBProjectName", "[", 
        RowBox[{"nb", ",", " ", "projName"}], "]"}]}], ";", "\n", "\t\t", 
      RowBox[{"fname", "=", 
-      RowBox[{"getSiteSaveFileName", "[", 
+      RowBox[{"getProjectSaveFileName", "[", 
        RowBox[{"projName", ",", " ", "nb"}], "]"}]}], ";", "\n", "\t\t", 
      RowBox[{"If", "[", 
       RowBox[{
@@ -3671,7 +3860,7 @@ Cell[BoxData[
         "Last"}], "\n", "\t\t\t\t", "]"}]}]}]}], "\n", "\t\t", 
    "]"}]}]], \
 "CodeInput",ExpressionUUID->"b2636afa-8cdb-48ee-96c7-a393204c6910"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3722,7 +3911,7 @@ Cell[BoxData[
          "]"}], "<>", "\"\<Color\>\""}]}], ";"}]}], "\n", "\t\t", 
    "]"}]}]], \
 "CodeInput",ExpressionUUID->"92fd9dd0-622b-4afd-a12e-b784aa2a057e"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3868,10 +4057,10 @@ Cell[BoxData[{
     "\t", 
    RowBox[{"CreateDocument", "[", "\n", "\t\t", 
     RowBox[{
-     RowBox[{
-      RowBox[{"Lookup", "[", 
-       RowBox[{"$ctnMap", ",", " ", "type"}], "]"}], "[", "thing", "]"}], ",",
-      "\n", "\t\t", "ops"}], "\n", "\t\t", "]"}]}], ";"}], "\n", 
+     RowBox[{"Lookup", "[", 
+      RowBox[{"$ctnMap", ",", " ", "type"}], "]"}], "[", 
+     RowBox[{"thing", ",", " ", "ops"}], "]"}], "\n", "\t\t", "]"}]}], 
+  ";"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"CreateTemplateNotebook", "[", "thing_Symbol", "]"}], ":=", "\n", 
@@ -4282,11 +4471,21 @@ Cell["\[LeftCeiling]SymbolNotebookTemplate\[RightFloor]", \
 "CodeSubsubsubsection",
  Evaluatable->True,ExpressionUUID->"6b7c4f35-5d34-4fbf-809e-18d015361f69"],
 
-Cell[BoxData[
+Cell[BoxData[{
+ RowBox[{"SymbolNotebookTemplate", "//", "Clear"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "SymbolNotebookTemplate", "]"}], "=", "\n", "\t", 
+   RowBox[{"Options", "[", "Notebook", "]"}]}], ";"}], "\n", 
  RowBox[{
   RowBox[{"SymbolNotebookTemplate", "[", 
-   RowBox[{"s_Symbol", ",", " ", 
-    RowBox[{"parent_:", "None"}]}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"s_Symbol", ",", " ", "\n", "\t", 
+    RowBox[{"parent", ":", 
+     RowBox[{"Except", "[", 
+      RowBox[{"_", "?", "OptionQ"}], "]"}], ":", "None"}], ",", " ", 
+    RowBox[{"ops", ":", 
+     RowBox[{"OptionsPattern", "[", "]"}]}]}], "\n", "\t", "]"}], ":=", "\n", 
+  "\t", 
   RowBox[{"Module", "[", "\n", "\t\t", 
    RowBox[{
     RowBox[{"{", "\n", "\t\t\t", 
@@ -4385,53 +4584,85 @@ Cell[BoxData[
           "\t\t\t\t\t", 
           RowBox[{"$NotebookTemplates", "[", "\"\<Footer\>\"", "]"}]}], "\n", 
          "\t\t\t\t\t", "}"}], ",", "\n", "\t\t\t\t", 
-        RowBox[{"{", "\n", "\t\t\t\t\t", 
-         RowBox[{
-          RowBox[{"StyleDefinitions", "\[Rule]", 
-           RowBox[{"FrontEnd`FileName", "[", 
-            RowBox[{
-             RowBox[{"{", "\"\<SimpleDocs\>\"", "}"}], ",", " ", 
-             "\"\<SimpleDocs.nb\>\""}], "]"}]}], ",", "\n", "\t\t\t\t\t", 
-          RowBox[{"TaggingRules", "\[Rule]", 
-           RowBox[{"{", "\n", "\t\t\t\t\t\t", 
-            RowBox[{
-             RowBox[{"\"\<Metadata\>\"", "\[Rule]", 
-              RowBox[{"DocMetadata", "@", 
-               RowBox[{"Normal", "@", "meta"}]}]}], ",", "\n", "\t\t\t\t\t\t", 
-             RowBox[{"If", "[", 
-              RowBox[{
-               RowBox[{"MatchQ", "[", 
-                RowBox[{"parent", ",", " ", "_NotebookObject"}], "]"}], ",", 
-               "\n", "\t\t\t\t\t\t\t", 
-               RowBox[{"\"\<SimpleDocs\>\"", "\[Rule]", 
-                RowBox[{"CurrentValue", "[", 
-                 RowBox[{"nb", ",", " ", 
-                  RowBox[{"{", 
-                   RowBox[{
-                   "parent", ",", " ", "TaggingRules", ",", " ", 
-                    "\"\<SimpleDocs\>\""}], "}"}]}], "]"}]}], ",", "\n", 
-               "\t\t\t\t\t\t\t", "Nothing"}], "\n", "\t\t\t\t\t\t\t", "]"}], 
-             ",", "\n", "\t\t\t\t\t\t", 
+        RowBox[{"Flatten", "@", 
+         RowBox[{"{", "\n", "\t\t\t\t\t", 
+          RowBox[{
+           RowBox[{"StyleDefinitions", "\[Rule]", 
+            RowBox[{"FrontEnd`FileName", "[", 
              RowBox[{
-             "\"\<ColorType\>\"", "\[Rule]", "\"\<SymbolColor\>\""}]}], "\n", 
-            "\t\t\t\t\t\t", "}"}]}], ",", "\n", "\t\t\t\t\t", 
-          RowBox[{"ScreenStyleEnvironment", "\[Rule]", "\"\<Editing\>\""}]}], 
-         "\n", "\t\t\t\t\t", "}"}]}], "\n", "\t\t\t\t", "]"}]}]}]}], "\n", 
-   "\t\t", "]"}]}]], \
+              RowBox[{"{", "\"\<SimpleDocs\>\"", "}"}], ",", " ", 
+              "\"\<SimpleDocs.nb\>\""}], "]"}]}], ",", "\n", "\t\t\t\t\t", 
+           RowBox[{"TaggingRules", "\[Rule]", 
+            RowBox[{"Flatten", "@", 
+             RowBox[{"{", "\n", "\t\t\t\t\t\t", 
+              RowBox[{
+               RowBox[{"\"\<Metadata\>\"", "\[Rule]", 
+                RowBox[{"DocMetadata", "@", 
+                 RowBox[{"Normal", "@", "meta"}]}]}], ",", "\n", 
+               "\t\t\t\t\t\t", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{"MatchQ", "[", 
+                  RowBox[{"parent", ",", " ", "_NotebookObject"}], "]"}], ",",
+                  "\n", "\t\t\t\t\t\t\t", 
+                 RowBox[{
+                 "\"\<SimpleDocs\>\"", "\[Rule]", "\n", "\t\t\t\t\t\t\t\t", 
+                  RowBox[{"CurrentValue", "[", 
+                   RowBox[{"nb", ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    "parent", ",", " ", "TaggingRules", ",", " ", 
+                    "\"\<SimpleDocs\>\""}], "}"}]}], "]"}]}], ",", "\n", 
+                 "\t\t\t\t\t\t\t", "Nothing"}], "\n", "\t\t\t\t\t\t\t", "]"}],
+                ",", "\n", "\t\t\t\t\t\t", 
+               RowBox[{
+               "\"\<ColorType\>\"", "\[Rule]", "\"\<SymbolColor\>\""}], ",", 
+               "\n", "\t\t\t\t\t\t", 
+               RowBox[{"Replace", "[", 
+                RowBox[{
+                 RowBox[{"OptionValue", "[", "TaggingRules", "]"}], ",", " ", 
+                 
+                 RowBox[{
+                  RowBox[{"Except", "[", 
+                   RowBox[{"_", "?", "OptionQ"}], "]"}], "\[RuleDelayed]", 
+                  RowBox[{"{", "}"}]}]}], "]"}]}], "\n", "\t\t\t\t\t\t", 
+              "}"}]}]}], ",", "\n", "\t\t\t\t\t", 
+           RowBox[{"ScreenStyleEnvironment", "\[Rule]", "\"\<Editing\>\""}], 
+           ",", "\n", "\t\t\t\t\t", 
+           RowBox[{"FilterRules", "[", "\n", "\t\t\t\t\t\t", 
+            RowBox[{
+             RowBox[{"{", "ops", "}"}], ",", "\n", "\t\t\t\t\t\t", 
+             RowBox[{"Except", "[", 
+              RowBox[{
+              "StyleDefinitions", "|", "TaggingRules", "|", 
+               "ScreenStyleEnvironment"}], "]"}]}], "\n", "\t\t\t\t\t\t", 
+            "]"}]}], "\n", "\t\t\t\t\t", "}"}]}]}], "\n", "\t\t\t\t", 
+       "]"}]}]}]}], "\n", "\t\t", 
+   "]"}]}]}], \
 "CodeInput",ExpressionUUID->"7260fbb2-5129-4fb9-a656-ee65aa307380"]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["\[LeftCeiling]GuideNotebookTemplate\[RightFloor]", "CodeSubsubsection",
  Evaluatable->True,ExpressionUUID->"4f549378-1101-4e06-a821-dc09088f1524"],
 
-Cell[BoxData[
+Cell[BoxData[{
+ RowBox[{"GuideNotebookTemplate", "//", "Clear"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "GuideNotebookTemplate", "]"}], "=", "\n", "\t", 
+   RowBox[{"Options", "[", "Notebook", "]"}]}], ";"}], "\n", 
  RowBox[{
   RowBox[{"GuideNotebookTemplate", "[", 
-   RowBox[{"name_String", ",", " ", 
-    RowBox[{"parent_:", "None"}]}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"name_String", ",", " ", "\n", "\t", 
+    RowBox[{"parent", ":", 
+     RowBox[{"Except", "[", 
+      RowBox[{"_", "?", "OptionQ"}], "]"}], ":", "None"}], ",", " ", 
+    RowBox[{"ops", ":", 
+     RowBox[{"OptionsPattern", "[", "]"}]}]}], "\n", "\t", "]"}], ":=", "\n", 
+  "\t", 
   RowBox[{"Module", "[", "\n", "\t\t", 
    RowBox[{
     RowBox[{"{", "\n", "\t\t\t", 
@@ -4493,30 +4724,50 @@ Cell[BoxData[
              RowBox[{"{", "\"\<SimpleDocs\>\"", "}"}], ",", " ", 
              "\"\<SimpleDocs.nb\>\""}], "]"}]}], ",", "\n", "\t\t\t\t\t", 
           RowBox[{"TaggingRules", "\[Rule]", 
-           RowBox[{"{", "\n", "\t\t\t\t\t\t", 
-            RowBox[{
-             RowBox[{"\"\<Metadata\>\"", "\[Rule]", 
-              RowBox[{"DocMetadata", "@", 
-               RowBox[{"Normal", "@", "meta"}]}]}], ",", "\n", "\t\t\t\t\t\t", 
-             RowBox[{"If", "[", 
-              RowBox[{
-               RowBox[{"MatchQ", "[", 
-                RowBox[{"parent", ",", " ", "_NotebookObject"}], "]"}], ",", 
-               "\n", "\t\t\t\t\t\t\t", 
-               RowBox[{"\"\<SimpleDocs\>\"", "\[Rule]", 
-                RowBox[{"CurrentValue", "[", 
-                 RowBox[{"parent", ",", " ", 
-                  RowBox[{"{", 
-                   RowBox[{"TaggingRules", ",", " ", "\"\<SimpleDocs\>\""}], 
-                   "}"}]}], "]"}]}], ",", "\n", "\t\t\t\t\t\t\t", "Nothing"}],
-               "\n", "\t\t\t\t\t\t\t", "]"}], ",", "\n", "\t\t\t\t\t\t", 
-             RowBox[{"\"\<ColorType\>\"", "\[Rule]", "\"\<GuideColor\>\""}]}],
-             "\n", "\t\t\t\t\t\t", "}"}]}], ",", "\n", "\t\t\t\t\t", 
-          RowBox[{"ScreenStyleEnvironment", "\[Rule]", "\"\<Editing\>\""}]}], 
-         "\n", "\t\t\t\t\t", "}"}]}], "\n", "\t\t\t\t", "]"}]}]}]}], "\n", 
-   "\t\t", "]"}]}]], \
+           RowBox[{"Flatten", "@", 
+            RowBox[{"{", "\n", "\t\t\t\t\t\t", 
+             RowBox[{
+              RowBox[{"\"\<Metadata\>\"", "\[Rule]", 
+               RowBox[{"DocMetadata", "@", 
+                RowBox[{"Normal", "@", "meta"}]}]}], ",", "\n", 
+              "\t\t\t\t\t\t", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{"MatchQ", "[", 
+                 RowBox[{"parent", ",", " ", "_NotebookObject"}], "]"}], ",", 
+                "\n", "\t\t\t\t\t\t\t", 
+                RowBox[{"\"\<SimpleDocs\>\"", "\[Rule]", 
+                 RowBox[{"CurrentValue", "[", 
+                  RowBox[{"parent", ",", " ", 
+                   RowBox[{"{", 
+                    RowBox[{"TaggingRules", ",", " ", "\"\<SimpleDocs\>\""}], 
+                    "}"}]}], "]"}]}], ",", "\n", "\t\t\t\t\t\t\t", 
+                "Nothing"}], "\n", "\t\t\t\t\t\t\t", "]"}], ",", "\n", 
+              "\t\t\t\t\t\t", 
+              RowBox[{"\"\<ColorType\>\"", "\[Rule]", "\"\<GuideColor\>\""}], 
+              ",", "\n", "\t\t\t\t\t\t", 
+              RowBox[{"Replace", "[", 
+               RowBox[{
+                RowBox[{"OptionValue", "[", "TaggingRules", "]"}], ",", " ", 
+                RowBox[{
+                 RowBox[{"Except", "[", 
+                  RowBox[{"_", "?", "OptionQ"}], "]"}], "\[RuleDelayed]", 
+                 RowBox[{"{", "}"}]}]}], "]"}]}], "\n", "\t\t\t\t\t\t", 
+             "}"}]}]}], ",", "\n", "\t\t\t\t\t", 
+          RowBox[{"ScreenStyleEnvironment", "\[Rule]", "\"\<Editing\>\""}], 
+          ",", "\n", "\t\t\t\t\t", 
+          RowBox[{"FilterRules", "[", "\n", "\t\t\t\t\t\t", 
+           RowBox[{
+            RowBox[{"{", "ops", "}"}], ",", "\n", "\t\t\t\t\t\t", 
+            RowBox[{"Except", "[", 
+             RowBox[{
+             "StyleDefinitions", "|", "TaggingRules", "|", 
+              "ScreenStyleEnvironment"}], "]"}]}], "\n", "\t\t\t\t\t\t", 
+           "]"}]}], "\n", "\t\t\t\t\t", "}"}]}], "\n", "\t\t\t\t", 
+       "]"}]}]}]}], "\n", "\t\t", 
+   "]"}]}]}], \
 "CodeInput",ExpressionUUID->"fcda521d-518a-4ad0-bcb5-48839f96009a"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -4524,11 +4775,21 @@ Cell["\[LeftCeiling]TutorialNotebookTemplate\[RightFloor]", \
 "CodeSubsubsection",
  Evaluatable->True,ExpressionUUID->"cd4ef4f4-0155-493d-a640-1c861ab03100"],
 
-Cell[BoxData[
+Cell[BoxData[{
+ RowBox[{"TutorialNotebookTemplate", "//", "Clear"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "TutorialNotebookTemplate", "]"}], "=", "\n", "\t", 
+   RowBox[{"Options", "[", "Notebook", "]"}]}], ";"}], "\n", 
  RowBox[{
   RowBox[{"TutorialNotebookTemplate", "[", 
-   RowBox[{"name_String", ",", " ", 
-    RowBox[{"parent_:", "None"}]}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"name_String", ",", " ", "\n", "\t", 
+    RowBox[{"parent", ":", 
+     RowBox[{"Except", "[", 
+      RowBox[{"_", "?", "OptionQ"}], "]"}], ":", "None"}], ",", " ", 
+    RowBox[{"ops", ":", 
+     RowBox[{"OptionsPattern", "[", "]"}]}]}], "\n", "\t", "]"}], ":=", "\n", 
+  "\t", 
   RowBox[{"Module", "[", "\n", "\t\t", 
    RowBox[{
     RowBox[{"{", "\n", "\t\t\t", 
@@ -4580,39 +4841,61 @@ Cell[BoxData[
           ",", "\n", "\t\t\t\t\t", 
           RowBox[{"$NotebookTemplates", "[", "\"\<Footer\>\"", "]"}]}], "\n", 
          "\t\t\t\t\t", "}"}], ",", "\n", "\t\t\t\t", 
-        RowBox[{"{", "\n", "\t\t\t\t\t", 
-         RowBox[{
-          RowBox[{"StyleDefinitions", "\[Rule]", 
-           RowBox[{"FrontEnd`FileName", "[", 
-            RowBox[{
-             RowBox[{"{", "\"\<SimpleDocs\>\"", "}"}], ",", " ", 
-             "\"\<SimpleDocs.nb\>\""}], "]"}]}], ",", "\n", "\t\t\t\t\t", 
-          RowBox[{"TaggingRules", "\[Rule]", 
-           RowBox[{"{", "\n", "\t\t\t\t\t\t", 
-            RowBox[{
-             RowBox[{"\"\<Metadata\>\"", "\[Rule]", 
-              RowBox[{"DocMetadata", "@", 
-               RowBox[{"Normal", "@", "meta"}]}]}], ",", "\n", "\t\t\t\t\t\t", 
-             RowBox[{"If", "[", 
-              RowBox[{
-               RowBox[{"MatchQ", "[", 
-                RowBox[{"parent", ",", " ", "_NotebookObject"}], "]"}], ",", 
-               "\n", "\t\t\t\t\t\t\t", 
-               RowBox[{"\"\<SimpleDocs\>\"", "\[Rule]", 
-                RowBox[{"CurrentValue", "[", 
-                 RowBox[{"parent", ",", " ", 
-                  RowBox[{"{", 
-                   RowBox[{"TaggingRules", ",", " ", "\"\<SimpleDocs\>\""}], 
-                   "}"}]}], "]"}]}], ",", "\n", "\t\t\t\t\t\t\t", "Nothing"}],
-               "\n", "\t\t\t\t\t\t\t", "]"}], ",", "\n", "\t\t\t\t\t\t", 
+        RowBox[{"Flatten", "@", 
+         RowBox[{"{", "\n", "\t\t\t\t\t", 
+          RowBox[{
+           RowBox[{"StyleDefinitions", "\[Rule]", 
+            RowBox[{"FrontEnd`FileName", "[", 
              RowBox[{
-             "\"\<ColorType\>\"", "\[Rule]", "\"\<TutorialColor\>\""}]}], 
-            "\n", "\t\t\t\t\t\t", "}"}]}], ",", "\n", "\t\t\t\t\t", 
-          RowBox[{"ScreenStyleEnvironment", "\[Rule]", "\"\<Editing\>\""}]}], 
-         "\n", "\t\t\t\t\t", "}"}]}], "\n", "\t\t\t\t", "]"}]}]}]}], "\n", 
-   "\t\t", "]"}]}]], \
+              RowBox[{"{", "\"\<SimpleDocs\>\"", "}"}], ",", " ", 
+              "\"\<SimpleDocs.nb\>\""}], "]"}]}], ",", "\n", "\t\t\t\t\t", 
+           RowBox[{"TaggingRules", "\[Rule]", 
+            RowBox[{"Flatten", "@", 
+             RowBox[{"{", "\n", "\t\t\t\t\t\t", 
+              RowBox[{
+               RowBox[{"\"\<Metadata\>\"", "\[Rule]", 
+                RowBox[{"DocMetadata", "@", 
+                 RowBox[{"Normal", "@", "meta"}]}]}], ",", "\n", 
+               "\t\t\t\t\t\t", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{"MatchQ", "[", 
+                  RowBox[{"parent", ",", " ", "_NotebookObject"}], "]"}], ",",
+                  "\n", "\t\t\t\t\t\t\t", 
+                 RowBox[{"\"\<SimpleDocs\>\"", "\[Rule]", 
+                  RowBox[{"CurrentValue", "[", 
+                   RowBox[{"parent", ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"TaggingRules", ",", " ", "\"\<SimpleDocs\>\""}], 
+                    "}"}]}], "]"}]}], ",", "\n", "\t\t\t\t\t\t\t", 
+                 "Nothing"}], "\n", "\t\t\t\t\t\t\t", "]"}], ",", "\n", 
+               "\t\t\t\t\t\t", 
+               RowBox[{
+               "\"\<ColorType\>\"", "\[Rule]", "\"\<TutorialColor\>\""}], ",",
+                "\n", "\t\t\t\t\t\t", 
+               RowBox[{"Replace", "[", 
+                RowBox[{
+                 RowBox[{"OptionValue", "[", "TaggingRules", "]"}], ",", " ", 
+                 
+                 RowBox[{
+                  RowBox[{"Except", "[", 
+                   RowBox[{"_", "?", "OptionQ"}], "]"}], "\[RuleDelayed]", 
+                  RowBox[{"{", "}"}]}]}], "]"}]}], "\n", "\t\t\t\t\t\t", 
+              "}"}]}]}], ",", "\n", "\t\t\t\t\t", 
+           RowBox[{"ScreenStyleEnvironment", "\[Rule]", "\"\<Editing\>\""}], 
+           ",", "\n", "\t\t\t\t\t", 
+           RowBox[{"FilterRules", "[", "\n", "\t\t\t\t\t\t", 
+            RowBox[{
+             RowBox[{"{", "ops", "}"}], ",", "\n", "\t\t\t\t\t\t", 
+             RowBox[{"Except", "[", 
+              RowBox[{
+              "StyleDefinitions", "|", "TaggingRules", "|", 
+               "ScreenStyleEnvironment"}], "]"}]}], "\n", "\t\t\t\t\t\t", 
+            "]"}]}], "\n", "\t\t\t\t\t", "}"}]}]}], "\n", "\t\t\t\t", 
+       "]"}]}]}]}], "\n", "\t\t", 
+   "]"}]}]}], \
 "CodeInput",ExpressionUUID->"5b52e305-a002-4b81-bfb4-8fb4d1afbcb2"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -4627,8 +4910,10 @@ Cell["\[LeftCeiling]Symbol\[RightFloor]", "CodeSubsubsubsection",
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"SampleTemplateNotebook", "[", "\"\<Symbol\>\"", "]"}], ":=", "\n", 
-  "\t", 
+  RowBox[{"SampleTemplateNotebook", "[", 
+   RowBox[{"\"\<Symbol\>\"", ",", " ", 
+    RowBox[{"ops", ":", 
+     RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", "\n", "\t", 
   RowBox[{"Block", "[", 
    RowBox[{
     RowBox[{"{", 
@@ -4650,8 +4935,9 @@ Cell[BoxData[
      RowBox[{"SamplePaclet`Sym1", "=", "1"}], ";", "\n", "\t\t", 
      RowBox[{"SamplePaclet`Sym2", "=", "2"}], ";", "\n", "\t\t", 
      RowBox[{"CreateTemplateNotebook", "[", 
-      RowBox[{"\"\<Symbol\>\"", ",", " ", "SamplePaclet`Sym"}], "]"}]}]}], 
-   "\n", "\t\t", 
+      RowBox[{
+      "\"\<Symbol\>\"", ",", " ", "SamplePaclet`Sym", ",", " ", "ops"}], 
+      "]"}]}]}], "\n", "\t\t", 
    "]"}]}]], \
 "CodeInput",ExpressionUUID->"b19b0f6f-a8e8-42a8-9d36-86f9e6dabebc"]
 }, Closed]],
@@ -4664,11 +4950,15 @@ Cell["\[LeftCeiling]Guide\[RightFloor]", "CodeSubsubsubsection",
 Cell[BoxData[
  RowBox[{
   RowBox[{
-   RowBox[{"SampleTemplateNotebook", "[", "\"\<Guide\>\"", "]"}], ":=", "\n", 
-   "\t", 
+   RowBox[{"SampleTemplateNotebook", "[", 
+    RowBox[{"\"\<Guide\>\"", ",", " ", 
+     RowBox[{"ops", ":", 
+      RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", "\n", "\t", 
    RowBox[{"CreateTemplateNotebook", "[", 
-    RowBox[{"\"\<Guide\>\"", ",", " ", "\"\<Sample Guide\>\""}], "]"}]}], 
-  ";"}]], "CodeInput",ExpressionUUID->"18ca630f-9a6f-4d75-b0e5-c3a89b8b13a6"]
+    RowBox[{
+    "\"\<Guide\>\"", ",", " ", "\"\<Sample Guide\>\"", ",", " ", "ops"}], 
+    "]"}]}], ";"}]], \
+"CodeInput",ExpressionUUID->"18ca630f-9a6f-4d75-b0e5-c3a89b8b13a6"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -4679,14 +4969,17 @@ Cell["\[LeftCeiling]Tutorial\[RightFloor]", "CodeSubsubsubsection",
 Cell[BoxData[
  RowBox[{
   RowBox[{
-   RowBox[{"SampleTemplateNotebook", "[", "\"\<Tutorial\>\"", "]"}], ":=", 
-   "\n", "\t", 
+   RowBox[{"SampleTemplateNotebook", "[", 
+    RowBox[{"\"\<Tutorial\>\"", ",", " ", 
+     RowBox[{"ops", ":", 
+      RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", "\n", "\t", 
    RowBox[{"CreateTemplateNotebook", "[", 
-    RowBox[{"\"\<Tutorial\>\"", ",", " ", "\"\<Sample Tutorial\>\""}], 
-    "]"}]}], ";"}]], \
-"CodeInput",ExpressionUUID->"26557162-350c-4af7-b94d-2c7cb552c4cf"]
+    RowBox[{
+    "\"\<Tutorial\>\"", ",", " ", "\"\<Sample Tutorial\>\"", ",", " ", 
+     "ops"}], "]"}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"26557162-350c-4af7-b94d-2c7cb552c4cf"]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -4915,8 +5208,8 @@ Cell[BoxData[{
   RowBox[{"TableOfContentsNotebook", "~", "SetAttributes", "~", "HoldRest"}], 
   ";"}]}], "CodeInput",ExpressionUUID->"402d7a75-1504-48bb-8d6a-4af94155b74a"]\
 
-}, Open  ]]
-}, Open  ]]
+}, Closed]]
+}, Closed]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -5122,7 +5415,7 @@ Cell[BoxData[
          "]"}]}]}], "\n", "\t\t\t", "]"}]}], "\n", "\t\t", "]"}]}], 
   ";"}]], "CodeInput",ExpressionUUID->"5f0c08b2-3f4b-4775-a2ee-aab51977226b"]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -5348,7 +5641,7 @@ Cell[BoxData[
      RowBox[{"Method", "\[Rule]", "\"\<Queued\>\""}]}], "\n", "\t\t", "]"}]}],
    ";"}]], "CodeInput",ExpressionUUID->"095e71ef-6d60-46ee-a07e-b7b44890f7be"]\
 
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -5642,7 +5935,7 @@ Cell[BoxData[{
     RowBox[{"SetPacletInfo", "[", "proj", "]"}]}], "\n", "\t\t", 
    "]"}]}]}], \
 "CodeInput",ExpressionUUID->"7dce5445-72d0-4e1f-a3f7-ce1d6366fac3"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -5704,7 +5997,7 @@ Cell[BoxData[{
     RowBox[{"BundlePaclet", "[", "proj", "]"}]}], "\n", "\t\t", 
    "]"}]}]}], \
 "CodeInput",ExpressionUUID->"19607369-45ac-4575-b0e8-0654774bc079"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -6119,6 +6412,31 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
+Cell["\[LeftCeiling]getProjectSaveLocation\[RightFloor]", "CodeSubsubsection",
+ 
+ Evaluatable->True,ExpressionUUID->"ab002286-2967-4346-bf1e-503e51654de2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"getProjectSaveLocation", "[", 
+    RowBox[{"projName_", ",", " ", "type_"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"FileNameJoin", "@", 
+    RowBox[{"Flatten", "@", 
+     RowBox[{"{", "\n", "\t\t", 
+      RowBox[{
+       RowBox[{"docsProjLoc", "@", "projName"}], ",", " ", "\n", "\t\t", 
+       RowBox[{"getSiteContentExt", "[", 
+        RowBox[{"Automatic", ",", " ", "\"\<content\>\""}], "]"}], ",", "\n", 
+       "\t\t", 
+       RowBox[{"getSiteTypeExt", "[", 
+        RowBox[{"Automatic", ",", " ", "type"}], "]"}]}], "\n", "\t\t", 
+      "}"}]}]}]}], 
+  ";"}]], "CodeInput",ExpressionUUID->"eac3fd09-fd6b-44fc-9aa3-e6af270a6bc2"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
 Cell["\[LeftCeiling]getSiteSaveFileName\[RightFloor]", "CodeSubsubsection",
  Evaluatable->True,ExpressionUUID->"ffd1da53-508d-418a-bf9f-1b58d7d3c728"],
 
@@ -6291,6 +6609,97 @@ Cell[BoxData[{
 
 Cell[CellGroupData[{
 
+Cell["\[LeftCeiling]getProjectSaveFileName\[RightFloor]", "CodeSubsubsection",
+ 
+ Evaluatable->True,ExpressionUUID->"62566655-c81d-4731-a196-a06287339166"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"getProjectSaveFileName", "[", 
+    RowBox[{"projName_", ",", " ", "baseTitle_", ",", " ", "baseType_"}], 
+    "]"}], ":=", "\n", "\t", 
+   RowBox[{"Module", "[", "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"{", "\n", "\t\t\t", 
+      RowBox[{"cont", ",", "\n", "\t\t\t", "lang", ",", "\n", "\t\t\t", 
+       RowBox[{"type", "=", "baseType"}], ",", "\n", "\t\t\t", "baseDir", ",",
+        "\n", "\t\t\t", 
+       RowBox[{"title", "=", "baseTitle"}], ",", "\n", "\t\t\t", "pi", ",", 
+       "\n", "\t\t\t", "projDir", ",", "\n", "\t\t\t", "pac"}], "\n", 
+      "\t\t\t", "}"}], ",", "\n", "\t\t", 
+     RowBox[{
+      RowBox[{"Block", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"docsSiteLoc", "=", "docsProjLoc"}], "}"}], ",", "\n", 
+        "\t\t\t", 
+        RowBox[{"InitializeDocsSite", "[", "projName", "]"}]}], "\n", 
+       "\t\t\t", "]"}], ";", "\n", "\t\t", 
+      RowBox[{"baseDir", "=", 
+       RowBox[{"getProjectSaveLocation", "[", 
+        RowBox[{"projName", ",", " ", "type"}], "]"}]}], ";", "\n", "\t\t", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"!", 
+         RowBox[{"StringQ", "@", "title"}]}], ",", " ", 
+        RowBox[{"title", "=", "\"\<Symbol\>\""}]}], "]"}], ";", "\n", "\t\t", 
+      
+      RowBox[{"Quiet", "@", 
+       RowBox[{"CreateDirectory", "[", 
+        RowBox[{"baseDir", ",", " ", 
+         RowBox[{"CreateIntermediateDirectories", "\[Rule]", "True"}]}], 
+        "]"}]}], ";", "\n", "\t\t", 
+      RowBox[{"FileNameJoin", "@", 
+       RowBox[{"{", 
+        RowBox[{"baseDir", ",", " ", 
+         RowBox[{
+          RowBox[{"StringTrim", "[", 
+           RowBox[{"title", ",", " ", "\"\<.nb\>\""}], "]"}], "<>", 
+          "\"\<.nb\>\""}]}], " ", "}"}]}]}]}], "\n", "\t\t", "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"getProjectSaveFileName", "[", 
+    RowBox[{"projName_", ",", " ", "nb_"}], "]"}], ":=", "\n", "\t", 
+   RowBox[{"Module", "[", "\n", "\t\t", 
+    RowBox[{
+     RowBox[{"{", "\n", "\t\t\t", 
+      RowBox[{
+       RowBox[{"title", "=", 
+        RowBox[{"getMeta", "[", 
+         RowBox[{"nb", ",", " ", "\"\<label\>\""}], "]"}]}], ",", "\n", 
+       "\t\t\t", 
+       RowBox[{"type", "=", 
+        RowBox[{"getMeta", "[", 
+         RowBox[{"nb", ",", " ", "\"\<type\>\""}], "]"}]}]}], "\n", "\t\t\t", 
+      "}"}], ",", "\n", "\t\t", 
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"!", 
+         RowBox[{"StringQ", "@", "title"}]}], ",", " ", 
+        RowBox[{"title", "=", "\"\<Symbol\>\""}]}], 
+       RowBox[{"(*", " ", 
+        RowBox[{
+         RowBox[{
+         "this", " ", "should", " ", "be", " ", "changed", " ", "up"}], 
+         "..."}], " ", "*)"}], "]"}], ";", "\n", "\t\t", 
+      RowBox[{"getProjectSaveFileName", "[", 
+       RowBox[{"projName", ",", " ", "title", ",", " ", "type"}], "]"}]}]}], 
+    "\n", "\t\t", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"getProjectSaveFileName", "[", "nb_", "]"}], ":=", "\n", "\t", 
+   RowBox[{"getProjectSaveFileName", "[", 
+    RowBox[{
+     RowBox[{"getNBProjectName", "[", "nb", "]"}], ",", " ", "nb"}], "]"}]}], 
+  ";"}]}], "CodeInput",ExpressionUUID->"3190ab37-20dd-43be-a7c8-9623cc02c074"]\
+
+}, Closed]],
+
+Cell[CellGroupData[{
+
 Cell["\[LeftCeiling]CreateDocumentationPaclet\[RightFloor]", \
 "CodeSubsubsection",
  Evaluatable->True,ExpressionUUID->"3b5f36ee-6b1e-45f4-971d-5711c5be8f69"],
@@ -6359,7 +6768,7 @@ Cell["", "SectionSeparator",ExpressionUUID->"7f99b445-dcab-4880-9da5-\
 0b78b519bff4"]
 },
 WindowSize->{808, 755},
-WindowMargins->{{Automatic, 201}, {Automatic, 33}},
+WindowMargins->{{188, Automatic}, {Automatic, 0}},
 TaggingRules->{
  "UUIDButtons" -> {
    "Active" -> {
