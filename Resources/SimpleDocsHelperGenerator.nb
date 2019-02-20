@@ -33,13 +33,12 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"$PaletteName", "=", "\"\<SimpleDocsHelper\>\""}], ";"}], "\n", 
  RowBox[{
-  RowBox[{"$PaletteTitle", "=", "\"\<Docs Helper\>\""}], ";"}], "\n", 
+  RowBox[{"$PaletteTitle", "=", "\"\<Simpler Docs\>\""}], ";"}], "\n", 
  RowBox[{
   RowBox[{"$PaletteWidth", "=", "200"}], ";"}], "\n", 
  RowBox[{
-  RowBox[{"$PaletteContentWidth", "=", "200"}], ";"}]}], "CodeInput",
- CellLabel->
-  "In[262]:=",ExpressionUUID->"e81e832f-d1fb-4e2b-b14e-8c775d663f79"],
+  RowBox[{"$PaletteContentWidth", "=", "200"}], 
+  ";"}]}], "CodeInput",ExpressionUUID->"e81e832f-d1fb-4e2b-b14e-8c775d663f79"],
 
 Cell[BoxData[{
  RowBox[{
@@ -106,7 +105,7 @@ Cell[BoxData[{
   3.705187560944337*^9}, {3.7051879694515533`*^9, 3.705188016540567*^9}, {
   3.728879170823661*^9, 3.728879173412648*^9}},
  CellLabel->"In[268]:=",ExpressionUUID->"00f60c4d-a6d8-4d25-821d-f0d53a85dab1"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1822,7 +1821,7 @@ Cell["", "SectionSeparator",ExpressionUUID->"450306f0-0a96-47fc-aa83-\
 },
 Evaluator->"Palettes",
 WindowSize->{712, 784},
-WindowMargins->{{10, Automatic}, {Automatic, 0}},
+WindowMargins->{{184, Automatic}, {Automatic, 0}},
 TaggingRules->{
  "UUIDButtons" -> {
    "Active" -> {

@@ -10,11 +10,11 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     74412,       1504]
-NotebookOptionsPosition[     73175,       1470]
-NotebookOutlinePosition[     74398,       1504]
-CellTagsIndexPosition[     74355,       1501]
-WindowTitle->Docs Helper
+NotebookDataLength[     74055,       1499]
+NotebookOptionsPosition[     73195,       1471]
+NotebookOutlinePosition[     74041,       1499]
+CellTagsIndexPosition[     73998,       1496]
+WindowTitle->Simpler Docs
 WindowFrame->Palette*)
 
 (* Beginning of Notebook Content *)
@@ -110,7 +110,7 @@ z/+r03cY0Xn8Ad19LLo=
                  TrackedSymbols :> {
                   SimpleDocsHelperPalette`Private`$ProjectList}}, 
                 Options[Button]], {1, 1, -1}], StandardForm], {
-             Enabled -> False, 
+             Enabled -> True, 
               TrackedSymbols :> {
                SimpleDocsHelperPalette`Private`$ProjectList}},
              ImageSizeCache->{200., {8., 19.}}]},
@@ -181,7 +181,9 @@ s2fPCGI6qWcgQT3DYFVPSnlFoCxEKRMB+xLGWw==
                    SimpleDocsHelperPalette`Private`$CurrentProject, (
                     SimpleDocsHelperPalette`Private`$CurrentProject = #; 
                     SimpleDocsHelperPalette`Private`ListPages[]; Null)& ], {
-                   "projects"}, None, 
+                   "projects"}, 
+                   "/Users/Mark/Library/Mathematica/ApplicationData/\
+SimpleDocs/Tutorials", 
                    Button[
                    "", Null, Appearance -> {"Default" -> Image[CompressedData["
 1:eJxTTMoPSmNiYGAo5gASQYnljkVFiZXBAkBOaF5xZnpeaopnXklqemqRRRIz
@@ -300,7 +302,7 @@ mEXTyg==
                   FrontEnd`CurrentValue[
                    FrontEnd`EvaluationNotebook[], {
                    TaggingRules, "UUIDButtons", "Active", 
-                    "Button-4c685829-72bc-44be-828e-74c26c18388b"}, False], 
+                    "Button-677d021d-2c82-4bfd-acd5-22e26b260d4c"}, False], 
                   "Pressed", Automatic, Automatic]]},
               
               ButtonFunction:>(
@@ -308,9 +310,9 @@ mEXTyg==
                  Internal`WithLocalSettings[CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-4c685829-72bc-44be-828e-74c26c18388b"}] = True, 
+                    "Button-677d021d-2c82-4bfd-acd5-22e26b260d4c"}] = True, 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "2b96a356-f38e-4457-b284-0794239f12b2"] = True; 
+                    "fe5b145c-bc81-4161-bf82-d6c3f6a801c0"] = True; 
                    CheckAbort[Symbol["SimpleDocs`SimpleDocs"][
                     "EnsureLoadProject"[
                     SimpleDocsHelperPalette`Private`$CurrentProject]]; 
@@ -318,13 +320,13 @@ mEXTyg==
                     "OpenConfig"[
                     SimpleDocsHelperPalette`Private`$CurrentProject]], 
                     SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "2b96a356-f38e-4457-b284-0794239f12b2"] = False]; 
+                    "fe5b145c-bc81-4161-bf82-d6c3f6a801c0"] = False]; 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "2b96a356-f38e-4457-b284-0794239f12b2"] = False, 
+                    "fe5b145c-bc81-4161-bf82-d6c3f6a801c0"] = False, 
                    CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-4c685829-72bc-44be-828e-74c26c18388b"}] = False]; 
+                    "Button-677d021d-2c82-4bfd-acd5-22e26b260d4c"}] = False]; 
                  Null]; Null),
               Evaluator->Automatic,
               FrameMargins->{{5, 5}, {2, 0}},
@@ -342,7 +344,7 @@ mEXTyg==
                     Automatic -> True]], CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-4c685829-72bc-44be-828e-74c26c18388b"}] = True], 
+                    "Button-677d021d-2c82-4bfd-acd5-22e26b260d4c"}] = True], 
                  FrontEndExecute[
                   FrontEnd`NotebookResumeScreenUpdates[
                    FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> True, 
@@ -765,7 +767,7 @@ mEXTyg==
                   FrontEnd`CurrentValue[
                    FrontEnd`EvaluationNotebook[], {
                    TaggingRules, "UUIDButtons", "Active", 
-                    "Button-a3644fc0-0be6-4860-8669-c573fad9009c"}, False], 
+                    "Button-8a6b8a96-d067-4302-baf3-bc796ed58938"}, False], 
                   "Pressed", Automatic, Automatic]]},
               
               ButtonFunction:>(
@@ -773,9 +775,9 @@ mEXTyg==
                  Internal`WithLocalSettings[CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-a3644fc0-0be6-4860-8669-c573fad9009c"}] = True, 
+                    "Button-8a6b8a96-d067-4302-baf3-bc796ed58938"}] = True, 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "ee27e754-cb11-405b-b34d-38daaaa73d86"] = True; CheckAbort[
+                    "13162161-a9f7-41b7-bab9-c16c386c477c"] = True; CheckAbort[
                     Replace[Pattern[SimpleDocsHelperPalette`Private`s, 
                     Blank[String]] :> 
                     NotebookOpen[SimpleDocsHelperPalette`Private`s]][
@@ -786,13 +788,13 @@ mEXTyg==
                     "EnsureLoadProject"[
                     SimpleDocsHelperPalette`Private`$CurrentProject]]]]]], 
                     SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "ee27e754-cb11-405b-b34d-38daaaa73d86"] = False]; 
+                    "13162161-a9f7-41b7-bab9-c16c386c477c"] = False]; 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "ee27e754-cb11-405b-b34d-38daaaa73d86"] = False, 
+                    "13162161-a9f7-41b7-bab9-c16c386c477c"] = False, 
                    CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-a3644fc0-0be6-4860-8669-c573fad9009c"}] = False]; 
+                    "Button-8a6b8a96-d067-4302-baf3-bc796ed58938"}] = False]; 
                  Null]; Null),
               Evaluator->Automatic,
               FrameMargins->{{5, 5}, {2, 0}},
@@ -810,7 +812,7 @@ mEXTyg==
                     Automatic -> True]], CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-a3644fc0-0be6-4860-8669-c573fad9009c"}] = True], 
+                    "Button-8a6b8a96-d067-4302-baf3-bc796ed58938"}] = True], 
                  FrontEndExecute[
                   FrontEnd`NotebookResumeScreenUpdates[
                    FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> True, 
@@ -854,7 +856,7 @@ mEXTyg==
                   FrontEnd`CurrentValue[
                    FrontEnd`EvaluationNotebook[], {
                    TaggingRules, "UUIDButtons", "Active", 
-                    "Button-2c78faaf-cb3f-4d47-a734-83806bd67ce9"}, False], 
+                    "Button-f1e264ed-e2cc-4ae6-a62a-8d76f555c34d"}, False], 
                   "Pressed", Automatic, Automatic]]},
               
               ButtonFunction:>(
@@ -862,9 +864,9 @@ mEXTyg==
                  Internal`WithLocalSettings[CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-2c78faaf-cb3f-4d47-a734-83806bd67ce9"}] = True, 
+                    "Button-f1e264ed-e2cc-4ae6-a62a-8d76f555c34d"}] = True, 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "81c11cc7-98b6-4c49-9d7c-657831d80010"] = True; CheckAbort[
+                    "389704b7-56d6-4452-a291-ee207b06ad6a"] = True; CheckAbort[
                     Replace[Pattern[SimpleDocsHelperPalette`Private`s, 
                     Blank[String]] :> SystemOpen[
                     DirectoryName[SimpleDocsHelperPalette`Private`s]]][
@@ -875,13 +877,13 @@ mEXTyg==
                     "EnsureLoadProject"[
                     SimpleDocsHelperPalette`Private`$CurrentProject]]]]]], 
                     SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "81c11cc7-98b6-4c49-9d7c-657831d80010"] = False]; 
+                    "389704b7-56d6-4452-a291-ee207b06ad6a"] = False]; 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "81c11cc7-98b6-4c49-9d7c-657831d80010"] = False, 
+                    "389704b7-56d6-4452-a291-ee207b06ad6a"] = False, 
                    CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-2c78faaf-cb3f-4d47-a734-83806bd67ce9"}] = False]; 
+                    "Button-f1e264ed-e2cc-4ae6-a62a-8d76f555c34d"}] = False]; 
                  Null]; Null),
               Evaluator->Automatic,
               FrameMargins->{{5, 5}, {2, 0}},
@@ -899,7 +901,7 @@ mEXTyg==
                     Automatic -> True]], CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-2c78faaf-cb3f-4d47-a734-83806bd67ce9"}] = True], 
+                    "Button-f1e264ed-e2cc-4ae6-a62a-8d76f555c34d"}] = True], 
                  FrontEndExecute[
                   FrontEnd`NotebookResumeScreenUpdates[
                    FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> True, 
@@ -954,7 +956,7 @@ mEXTyg==
                   FrontEnd`CurrentValue[
                    FrontEnd`EvaluationNotebook[], {
                    TaggingRules, "UUIDButtons", "Active", 
-                    "Button-a38cdb8b-9285-40b3-b839-5e59e4837bdf"}, False], 
+                    "Button-e6f18487-3180-455d-8260-649b13df49d5"}, False], 
                   "Pressed", Automatic, Automatic]]},
               
               ButtonFunction:>(
@@ -962,9 +964,9 @@ mEXTyg==
                  Internal`WithLocalSettings[CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-a38cdb8b-9285-40b3-b839-5e59e4837bdf"}] = True, 
+                    "Button-e6f18487-3180-455d-8260-649b13df49d5"}] = True, 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "1098ca99-87bd-4df8-acbd-8f2552e70d86"] = True; CheckAbort[
+                    "5a6319d0-b45e-4cc6-97bb-ef492808295d"] = True; CheckAbort[
                     Symbol["SimpleDocs`SimpleDocs"][
                     "BuildSite"[
                     First[
@@ -972,13 +974,13 @@ mEXTyg==
                     "EnsureLoadProject"[
                     SimpleDocsHelperPalette`Private`$CurrentProject]]]]], 
                     SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "1098ca99-87bd-4df8-acbd-8f2552e70d86"] = False]; 
+                    "5a6319d0-b45e-4cc6-97bb-ef492808295d"] = False]; 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "1098ca99-87bd-4df8-acbd-8f2552e70d86"] = False, 
+                    "5a6319d0-b45e-4cc6-97bb-ef492808295d"] = False, 
                    CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-a38cdb8b-9285-40b3-b839-5e59e4837bdf"}] = False]; 
+                    "Button-e6f18487-3180-455d-8260-649b13df49d5"}] = False]; 
                  Null]; Null),
               Evaluator->Automatic,
               FrameMargins->{{5, 5}, {2, 0}},
@@ -996,7 +998,7 @@ mEXTyg==
                     Automatic -> True]], CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-a38cdb8b-9285-40b3-b839-5e59e4837bdf"}] = True], 
+                    "Button-e6f18487-3180-455d-8260-649b13df49d5"}] = True], 
                  FrontEndExecute[
                   FrontEnd`NotebookResumeScreenUpdates[
                    FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> True, 
@@ -1040,7 +1042,7 @@ mEXTyg==
                   FrontEnd`CurrentValue[
                    FrontEnd`EvaluationNotebook[], {
                    TaggingRules, "UUIDButtons", "Active", 
-                    "Button-0feaa23f-8eb7-420c-aebd-ecb8f7930d28"}, False], 
+                    "Button-b83b22fc-e71f-4e94-b9f8-7d423c70fe64"}, False], 
                   "Pressed", Automatic, Automatic]]},
               
               ButtonFunction:>(
@@ -1048,9 +1050,9 @@ mEXTyg==
                  Internal`WithLocalSettings[CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-0feaa23f-8eb7-420c-aebd-ecb8f7930d28"}] = True, 
+                    "Button-b83b22fc-e71f-4e94-b9f8-7d423c70fe64"}] = True, 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "c5489cab-371e-411f-ae96-a9f2564f031f"] = True; CheckAbort[
+                    "d060b4c4-7bd4-47e7-adb3-c57f3151bede"] = True; CheckAbort[
                     Symbol["SimpleDocs`SimpleDocs"][
                     "OpenSiteConfig"[
                     First[
@@ -1058,13 +1060,13 @@ mEXTyg==
                     "EnsureLoadProject"[
                     SimpleDocsHelperPalette`Private`$CurrentProject]]]]], 
                     SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "c5489cab-371e-411f-ae96-a9f2564f031f"] = False]; 
+                    "d060b4c4-7bd4-47e7-adb3-c57f3151bede"] = False]; 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "c5489cab-371e-411f-ae96-a9f2564f031f"] = False, 
+                    "d060b4c4-7bd4-47e7-adb3-c57f3151bede"] = False, 
                    CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-0feaa23f-8eb7-420c-aebd-ecb8f7930d28"}] = False]; 
+                    "Button-b83b22fc-e71f-4e94-b9f8-7d423c70fe64"}] = False]; 
                  Null]; Null),
               Evaluator->Automatic,
               FrameMargins->{{5, 5}, {2, 0}},
@@ -1082,7 +1084,7 @@ mEXTyg==
                     Automatic -> True]], CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-0feaa23f-8eb7-420c-aebd-ecb8f7930d28"}] = True], 
+                    "Button-b83b22fc-e71f-4e94-b9f8-7d423c70fe64"}] = True], 
                  FrontEndExecute[
                   FrontEnd`NotebookResumeScreenUpdates[
                    FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> True, 
@@ -1209,7 +1211,7 @@ mEXTyg==
                   FrontEnd`CurrentValue[
                    FrontEnd`EvaluationNotebook[], {
                    TaggingRules, "UUIDButtons", "Active", 
-                    "Button-9410a8b8-3e88-410f-9def-2353d601b940"}, False], 
+                    "Button-e51c3349-062d-456a-80c9-73ebc272cdf6"}, False], 
                   "Pressed", Automatic, Automatic]]},
               
               ButtonFunction:>(
@@ -1217,9 +1219,9 @@ mEXTyg==
                  Internal`WithLocalSettings[CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-9410a8b8-3e88-410f-9def-2353d601b940"}] = True, 
+                    "Button-e51c3349-062d-456a-80c9-73ebc272cdf6"}] = True, 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "1b182795-c698-468d-8afd-9e8d81d48157"] = True; CheckAbort[
+                    "09f6fe25-46a4-453c-9e83-fd4d9d46c5f6"] = True; CheckAbort[
                     Replace[
                     Symbol["SimpleDocs`Package`ListDocsProjects"]; 
                     Symbol["SimpleDocs`Package`Private`getProjectDialog"][], {
@@ -1248,13 +1250,13 @@ mEXTyg==
                     SimpleDocsHelperPalette`Private`ListProjects[]; 
                     SimpleDocsHelperPalette`Private`ListPages[]; Null]], 
                     SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "1b182795-c698-468d-8afd-9e8d81d48157"] = False]; 
+                    "09f6fe25-46a4-453c-9e83-fd4d9d46c5f6"] = False]; 
                    SimpleDocsHelperPalette`Private`paletteButtonRunning[
-                    "1b182795-c698-468d-8afd-9e8d81d48157"] = False, 
+                    "09f6fe25-46a4-453c-9e83-fd4d9d46c5f6"] = False, 
                    CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-9410a8b8-3e88-410f-9def-2353d601b940"}] = False]; 
+                    "Button-e51c3349-062d-456a-80c9-73ebc272cdf6"}] = False]; 
                  Null]; Null),
               Evaluator->Automatic,
               FrameMargins->{{5, 5}, {2, 0}},
@@ -1272,7 +1274,7 @@ mEXTyg==
                     Automatic -> True]], CurrentValue[
                     FrontEnd`EvaluationNotebook[], {
                     TaggingRules, "UUIDButtons", "Active", 
-                    "Button-9410a8b8-3e88-410f-9def-2353d601b940"}] = True], 
+                    "Button-e51c3349-062d-456a-80c9-73ebc272cdf6"}] = True], 
                  FrontEndExecute[
                   FrontEnd`NotebookResumeScreenUpdates[
                    FrontEnd`EvaluationNotebook[]]]], PassEventsDown -> True, 
@@ -1458,7 +1460,6 @@ mEXTyg==
  CellHorizontalScrolling->True,
  PageBreakAbove->True,
  PageBreakWithin->False,
- CellChangeTimes->{{3.759694899418004*^9, 3.7596949056863413`*^9}},
  ShowAutoStyles->True,
  LineSpacing->{1.25, 0},
  AutoItalicWords->{},
@@ -1466,28 +1467,22 @@ mEXTyg==
  ShowStringCharacters->False,
  FontFamily:>CurrentValue["PanelFontFamily"],
  FontSize:>CurrentValue[
-  "PanelFontSize"],ExpressionUUID->"4b79136c-2fee-4212-8cfd-d6c0a59327b6"]
+  "PanelFontSize"],ExpressionUUID->"b5a87621-5198-4d78-8c43-e4a9d0f68bbc"]
 },
 WindowSize->{All, 
   Scaled[1]},
 WindowMargins->{{Automatic, 0}, {0, 0}},
 WindowElements->{"StatusArea"},
-WindowTitle->"Docs Helper",
+WindowTitle->"Simpler Docs",
 TaggingRules->{
  "UUIDButtons" -> {
    "Active" -> {
-     "Button-f21082b2-4876-4fde-ba61-1862fad73f62" -> False, 
-      "Button-d030e18f-4747-468d-8075-de7edd5f41a5" -> False, 
-      "Button-faf14106-d8aa-4155-a56d-be308216428f" -> False, 
-      "Button-ce22ff5a-2352-4908-85e2-aae0ea2575e2" -> False, 
-      "Button-ca0eb26b-86fa-4f1d-8a85-e41ad3ec9a17" -> False, 
-      "Button-9f787f5a-eaee-472f-b1a4-dbaf21558589" -> False, 
-      "Button-4c685829-72bc-44be-828e-74c26c18388b" -> False, 
-      "Button-a3644fc0-0be6-4860-8669-c573fad9009c" -> False, 
-      "Button-2c78faaf-cb3f-4d47-a734-83806bd67ce9" -> False, 
-      "Button-a38cdb8b-9285-40b3-b839-5e59e4837bdf" -> False, 
-      "Button-0feaa23f-8eb7-420c-aebd-ecb8f7930d28" -> False, 
-      "Button-9410a8b8-3e88-410f-9def-2353d601b940" -> False}}},
+     "Button-677d021d-2c82-4bfd-acd5-22e26b260d4c" -> False, 
+      "Button-8a6b8a96-d067-4302-baf3-bc796ed58938" -> False, 
+      "Button-f1e264ed-e2cc-4ae6-a62a-8d76f555c34d" -> False, 
+      "Button-e6f18487-3180-455d-8260-649b13df49d5" -> False, 
+      "Button-b83b22fc-e71f-4e94-b9f8-7d423c70fe64" -> False, 
+      "Button-e51c3349-062d-456a-80c9-73ebc272cdf6" -> False}}},
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",
 StyleDefinitions->"Palette.nb"
@@ -1503,10 +1498,12 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[584, 21, 72587, 1447, 848, InheritFromParent,ExpressionUUID->"4b79136c-2fee-4212-8cfd-d6c0a59327b6",
+Cell[585, 21, 72606, 1448, 848, InheritFromParent,ExpressionUUID->"b5a87621-5198-4d78-8c43-e4a9d0f68bbc",
  PageBreakAbove->True,
  PageBreakWithin->False]
 }
 ]
 *)
+
+(* End of internal cache information *)
 
