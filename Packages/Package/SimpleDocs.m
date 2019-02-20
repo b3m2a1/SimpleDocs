@@ -2828,6 +2828,13 @@ $HamburgerMenu=
             s_String:>NotebookOpen@s
             ]
           ),
+      "Bundle Paclet":>
+        (
+          Needs["SimpleDocs`"];
+          Replace[BundlePaclet[EvaluationNotebook[]],
+            s_String:>SystemOpen@DirectoryName@s
+            ]
+          ),
       Delimiter,
       "New Symbol":>
         (
@@ -3007,7 +3014,13 @@ SetPacletInfo[projName_]:=
       },
     buildDir=getProjectBuildDir[projName];
     If[TrueQ@PacletExecute["ValidDirectoryQ", buildDir],
-      SetPacletInfo[PacletExecute["Paclet", buildDir]]
+      SetPacletInfo[PacletExecute["Paclet", buildDir]],
+      If[DirectoryQ[buildDir],
+        PacletExecute["GeneratePacletInfo",
+          buildDir,
+          "Version"->"0.0.0"
+          ]
+        ]
       ]
     ];
 SetPacletInfo[nb_NotebookObject, ploc_:Automatic]:=

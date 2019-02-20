@@ -5652,6 +5652,20 @@ Cell[BoxData[
             RowBox[{"s_String", ":>", 
              RowBox[{"NotebookOpen", "@", "s"}]}]}], "\n", "\t\t\t\t\t\t", 
            "]"}]}], "\n", "\t\t\t\t\t", ")"}]}], ",", "\n", "\t\t\t", 
+       RowBox[{"\"\<Bundle Paclet\>\"", ":>", "\n", "\t\t\t\t", 
+        RowBox[{"(", "\n", "\t\t\t\t\t", 
+         RowBox[{
+          RowBox[{"Needs", "[", "\"\<SimpleDocs`\>\"", "]"}], ";", "\n", 
+          "\t\t\t\t\t", 
+          RowBox[{"Replace", "[", 
+           RowBox[{
+            RowBox[{"BundlePaclet", "[", 
+             RowBox[{"EvaluationNotebook", "[", "]"}], "]"}], ",", "\n", 
+            "\t\t\t\t\t\t", 
+            RowBox[{"s_String", "\[RuleDelayed]", 
+             RowBox[{"SystemOpen", "@", 
+              RowBox[{"DirectoryName", "@", "s"}]}]}]}], "\n", "\t\t\t\t\t\t",
+            "]"}]}], "\n", "\t\t\t\t\t", ")"}]}], ",", "\n", "\t\t\t", 
        "Delimiter", ",", "\n", "\t\t\t", 
        RowBox[{"\"\<New Symbol\>\"", ":>", "\n", "\t\t\t\t", 
         RowBox[{"(", "\n", "\t\t\t\t\t", 
@@ -5695,7 +5709,7 @@ Cell[BoxData[
      RowBox[{"Method", "\[Rule]", "\"\<Queued\>\""}]}], "\n", "\t\t", "]"}]}],
    ";"}]], "CodeInput",ExpressionUUID->"095e71ef-6d60-46ee-a07e-b7b44890f7be"]\
 
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -5973,8 +5987,18 @@ Cell[BoxData[{
         ",", "\n", "\t\t\t", 
         RowBox[{"SetPacletInfo", "[", 
          RowBox[{"PacletExecute", "[", 
-          RowBox[{"\"\<Paclet\>\"", ",", " ", "buildDir"}], "]"}], "]"}]}], 
-       "\n", "\t\t\t", "]"}]}]}], "\n", "\t\t", "]"}]}], ";"}], "\n", 
+          RowBox[{"\"\<Paclet\>\"", ",", " ", "buildDir"}], "]"}], "]"}], ",",
+         "\n", "\t\t\t", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"DirectoryQ", "[", "buildDir", "]"}], ",", "\n", "\t\t\t\t", 
+          RowBox[{"PacletExecute", "[", 
+           RowBox[{
+           "\"\<GeneratePacletInfo\>\"", ",", "\n", "\t\t\t\t\t", "buildDir", 
+            ",", "\n", "\t\t\t\t\t", 
+            RowBox[{"\"\<Version\>\"", "\[Rule]", "\"\<0.0.0\>\""}]}], "\n", 
+           "\t\t\t\t\t", "]"}]}], "\n", "\t\t\t\t", "]"}]}], "\n", "\t\t\t", 
+       "]"}]}]}], "\n", "\t\t", "]"}]}], ";"}], "\n", 
  RowBox[{
   RowBox[{"SetPacletInfo", "[", 
    RowBox[{"nb_NotebookObject", ",", " ", 
@@ -5989,7 +6013,7 @@ Cell[BoxData[{
     RowBox[{"SetPacletInfo", "[", "proj", "]"}]}], "\n", "\t\t", 
    "]"}]}]}], \
 "CodeInput",ExpressionUUID->"7dce5445-72d0-4e1f-a3f7-ce1d6366fac3"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -6135,7 +6159,7 @@ Cell[BoxData[
   RowBox[{"getPacletDocsExt", "[", 
    RowBox[{"proj_", ",", " ", "ext_"}], "]"}], ":=", "\n", "\t", 
   "ext"}]], "CodeInput",ExpressionUUID->"ff494a64-cdfb-41ce-b2fb-5a32544d1469"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -6470,7 +6494,7 @@ Cell[BoxData[
       "}"}]}]}]}], 
   ";"}]], "CodeInput",ExpressionUUID->"50f9725f-05ee-4313-9d07-54b87a1f44e1"]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -6495,7 +6519,7 @@ Cell[BoxData[
         RowBox[{"Automatic", ",", " ", "type"}], "]"}]}], "\n", "\t\t", 
       "}"}]}]}]}], 
   ";"}]], "CodeInput",ExpressionUUID->"eac3fd09-fd6b-44fc-9aa3-e6af270a6bc2"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -6827,26 +6851,10 @@ Cell[BoxData[
 }, Open  ]],
 
 Cell["", "SectionSeparator",ExpressionUUID->"7f99b445-dcab-4880-9da5-\
-0b78b519bff4"],
-
-Cell[BoxData[
- TemplateBox[{
-  "Get","noopen",
-   "\"Cannot open \\!\\(\\*RowBox[{\\\"\\\\\\\"BTools`\\\\\\\"\\\"}]\\).\"",2,
-   4,2,28093998892325924755,"Local"},
-  "MessageTemplate"]], "Message", "MSG",
- CellLabel->"",ExpressionUUID->"18ffbaba-144a-412b-b907-84701b76e22a"],
-
-Cell[BoxData[
- TemplateBox[{
-  "Needs","nocont",
-   "\"Context \\!\\(\\*RowBox[{\\\"\\\\\\\"BTools`\\\\\\\"\\\"}]\\) was not \
-created when Needs was evaluated.\"",2,4,3,28093998892325924755,"Local"},
-  "MessageTemplate"]], "Message", "MSG",
- CellLabel->"",ExpressionUUID->"8d2be366-09e6-4388-af36-2399ecd60bbb"]
+0b78b519bff4"]
 },
 WindowSize->{808, 755},
-WindowMargins->{{Automatic, 219}, {Automatic, 0}},
+WindowMargins->{{309, Automatic}, {Automatic, 48}},
 TaggingRules->{
  "UUIDButtons" -> {
    "Active" -> {
