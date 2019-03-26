@@ -5,6 +5,7 @@
 			"BTools`",
 			"RemovePaths" -> {
 				ParentList,
+				"PacletInfo.m",
 				"Documentation",
 				"Resources/Templates",
 				"Resources/PaletteGenerators",
@@ -14,7 +15,11 @@
 		},
 		{
 			"Ems`",
-			"LoadInfo" -> {"Dependencies" -> {"BTools`"}}
+			"LoadInfo" -> {"Dependencies" -> {"BTools`"}},
+			"RemovePaths" -> {
+				ParentList,
+				"PacletInfo.m"
+			}
 		}
 	},
 	"DependencyContexts" -> {
