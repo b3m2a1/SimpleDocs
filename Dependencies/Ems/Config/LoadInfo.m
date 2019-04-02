@@ -1,12 +1,6 @@
 {
 	"PreLoad" -> {},
-	"Dependencies" -> {
-		{
-			"BTools`",
-			"Bundled" -> False,
-			"Site" -> "http://www.wolframcloud.com/objects/b3m2a1.paclets/PacletServer"
-		}
-	},
+	"Dependencies" -> {"BTools`"},
 	"DependencyContexts" -> {
 		"BTools`",
 		"BTools`External`",
@@ -15,5 +9,5 @@
 	},
 	"FEHidden" -> {},
 	"PackageScope" -> None,
-	"Mode" -> "Primary"
+	"Mode" -> "Dependency"
 }

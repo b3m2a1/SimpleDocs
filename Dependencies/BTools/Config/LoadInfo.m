@@ -1,12 +1,7 @@
-(* ::Package:: *)
-
 {
-  "PreLoad"-> None,
-  "FEHidden" ->
-    {
-      },
-  "PackageScope"->
-    {
-      },
-  "Mode"->"Primary"
-  }
+	"PreLoad" -> None,
+	"FEHidden" -> {},
+	"PackageScope" -> {},
+	"Mode" -> "Dependency",
+	"Dependencies" -> {}
+}
