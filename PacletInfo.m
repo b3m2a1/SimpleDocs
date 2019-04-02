@@ -1,6 +1,6 @@
 Paclet[
   Name -> "SimpleDocs",
-  Version -> "1.1.1",
+  Version -> "1.1.2",
   Creator -> "b3m2a1 <b3m2a1@gmail.com>",
   URL -> "https://github.com/b3m2a1/SimpleDocs",
   Thumbnail -> "Resources/icon.png",

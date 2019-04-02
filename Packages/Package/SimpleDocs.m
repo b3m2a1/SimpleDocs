@@ -9,7 +9,7 @@
 
 (* ::Text:: *)
 (*
-	This implements the code behind the SimpleDocs stylesheet and palette, if I ever make a palette
+	This implements the code behind the SimpleDocs stylesheet and palette
 *)
 
 
@@ -785,7 +785,7 @@ InitializeDocsProject[rootDir_, projName_, config_:None]:=
   Module[
     {
       dir,
-      cf=If[StringLength[StringTrim@config]==0, None, config]
+      cf=If[StringQ[config]&&StringLength[StringTrim@config]==0, None, config]
       },
     dir=FileNameJoin@{rootDir, projName};
     If[!DirectoryQ@dir,
@@ -808,7 +808,9 @@ InitializeDocsProject[rootDir_, projName_, config_:None]:=
       InitializeDocsSite[projName]
       ];
     dir
-    ]
+    ];
+InitializeDocsProject[rootDir_String?DirectoryQ]:=
+  InitializeDocsProject[DirectoryName[rootDir], FileBaseName@rootDir];
 
 
 (* ::Subsection:: *)
