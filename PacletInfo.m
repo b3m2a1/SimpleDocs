@@ -1,3 +1,5 @@
+(* ::Package:: *)
+
 Paclet[
   Name -> "SimpleDocs",
   Version -> "1.1.2",
