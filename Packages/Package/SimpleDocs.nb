@@ -2466,8 +2466,8 @@ flexible project structure\n\[RightFloor]", "Text", Evaluatable -> True],
                        "TableOfContentsNotebook"}]}], "\n", "\t\t", "|>"}]}], 
                ";"}]], "CodeInput"], Cell[BoxData[
              {RowBox[{"CreateTemplateNotebook", "//", "ClearAll"}], "\n", 
-              RowBox[{RowBox[{RowBox[{"CreateTemplateNotebook", "[", 
-                    RowBox[{RowBox[{"type", ":", RowBox[{"(", RowBox[
+              RowBox[{RowBox[{RowBox[{"CreateTemplateNotebook", "[", "\n", 
+                    "  ", RowBox[{RowBox[{"type", ":", RowBox[{"(", RowBox[
                           {"Alternatives", "@@", RowBox[{"Keys", "[", 
                           "$ctnMap", "]"}]}], ")"}]}], ",", " ", "\n", "\t", 
                       "thing_", ",", " ", RowBox[{"ops", ":", RowBox[
@@ -2513,7 +2513,7 @@ flexible project structure\n\[RightFloor]", "Text", Evaluatable -> True],
            Cell[BoxData[RowBox[{"PackageAddAutocompletions", "[", "\n", "\t", 
                RowBox[{"CreateTemplateNotebook", ",", "\n", "\t", 
                  RowBox[{"{", RowBox[{"Keys", "@", "$ctnMap"}], "}"}]}], 
-               "\n", "\t", "]"}]], "CodeInput"]}, Closed]], 
+               "\n", "\t", "]"}]], "CodeInput"]}, Open]], 
         Cell[CellGroupData[
           {Cell["\[LeftCeiling]SymbolNotebookTemplate\[RightFloor]", 
             "CodeSubsubsection", Evaluatable -> True], 
@@ -2684,20 +2684,33 @@ flexible project structure\n\[RightFloor]", "Text", Evaluatable -> True],
            Cell[CellGroupData[
              {Cell["\[LeftCeiling]splitUsageCalls\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
-                RowBox[{RowBox[{"splitUsageCalls", "[", "use_", "]"}], ":=", 
-                  "\n", "\t", RowBox[{"StringSplit", "[", RowBox[{"use", ",", 
-                      " ", "\n", "\t\t", RowBox[{RowBox[{RowBox[{"k", ":", 
-                          RowBox[{"(", RowBox[{RowBox[{"(", RowBox[
-                          {"StartOfLine", "|", "StartOfString"}], ")"}], 
-                          "~~", RowBox[{"a", ":", RowBox[{RowBox[{"Except", 
-                          "[", "\"[\"", "]"}], ".."}]}], "~~", "\"[\"", "~~", 
-                          "b__", "~~", "\"]\""}], ")"}]}], "/;", "\n", 
-                          "\t\t\t", RowBox[{RowBox[{"StringCount", "[", 
+                RowBox[{RowBox[{"splitUsageCalls", "[", RowBox[{"sname_", 
+                      ",", " ", "use_"}], "]"}], ":=", "\n", "\t", 
+                  RowBox[{"StringSplit", "[", RowBox[{"use", ",", " ", "\n", 
+                      "\t\t", RowBox[{"{", "\n", "\t  \t", RowBox[
+                         {RowBox[{RowBox[{"k", ":", RowBox[{"Shortest", "[", 
+                          "\n", "\t  \t  ", RowBox[{RowBox[{"(", RowBox[
+                          {RowBox[{"(", RowBox[{"StartOfLine", "|", 
+                          "StartOfString"}], ")"}], "~~", RowBox[{"a", ":", 
+                          RowBox[{RowBox[{"Except", "[", "\"[\"", "]"}], 
+                          ".."}]}], "~~", "\"[\"", "~~", "b___", "~~", 
+                          "\"]\""}], ")"}], "/;", "\n", "  ", "  \t\t\t", 
+                          RowBox[{"(", "\n", "  ", "  \t\t\t  ", RowBox[
+                          {RowBox[{"StringContainsQ", "[", RowBox[{"a", ",", 
+                          " ", "sname"}], "]"}], "&&", "\n", "  ", 
+                          "  \t\t\t    ", RowBox[{RowBox[{"StringCount", "[", 
                           RowBox[{"b", ",", " ", "\"[\""}], "]"}], 
                           "\[Equal]", RowBox[{"StringCount", "[", RowBox[
-                          {"\"b\"", ",", " ", "\"]\""}], "]"}]}]}], ":>", 
-                        "\n", "\t\t\t", "k"}]}], "\n", "\t\t", "]"}]}]], 
-               "CodeInput"]}, Closed]], Cell[CellGroupData[
+                          {"b", ",", " ", "\"]\""}], "]"}]}]}], "\n", 
+                          "    \t\t\t  ", ")"}]}], "\n", "        ", "]"}]}], 
+                          ":>", "\n", "  \t\t  ", "k"}], ",", "\n", "  \t\t", 
+                          RowBox[{RowBox[{"(", RowBox[{RowBox[{"(", RowBox[
+                          {"StartOfLine", "|", "StartOfString"}], ")"}], 
+                          "~~", "sname", "~~", "\" \""}], ")"}], ":>", "\n", 
+                          "  \t   ", RowBox[{"StringTrim", "[", "sname", 
+                          "]"}]}]}], "\n", "  \t ", "}"}]}], "\n", "\t\t", 
+                    "]"}]}]], "CodeInput"]}, Open]], 
+           Cell[CellGroupData[
              {Cell["\[LeftCeiling]getUsageMessages\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
                 {RowBox[{RowBox[{RowBox[{"getUsageMessages", "[", "s_", 
@@ -2712,7 +2725,9 @@ flexible project structure\n\[RightFloor]", "Text", Evaluatable -> True],
                           {"usplits", "=", "None"}], ",", "\n", "\t\t\t", 
                           RowBox[{RowBox[{"usplits", "=", RowBox[
                           {"StringTrim", "@", RowBox[{"splitUsageCalls", "[", 
-                          "ubase", "]"}]}]}], ";", "\n", "\t\t\t", RowBox[
+                          RowBox[{RowBox[{"SymbolName", "[", RowBox[
+                          {"Unevaluated", "@", "s"}], "]"}], ",", " ", 
+                          "ubase"}], "]"}]}]}], ";", "\n", "\t\t\t", RowBox[
                           {"If", "[", RowBox[{RowBox[{RowBox[{"Length", "@", 
                           "usplits"}], ">", "1"}], ",", "\n", "\t\t\t\t", 
                           RowBox[{"usplits", "=", "\n", "\t\t\t\t\t", RowBox[
@@ -2724,11 +2739,11 @@ flexible project structure\n\[RightFloor]", "Text", Evaluatable -> True],
                           {"a", ",", " ", "\"\""}], "}"}]}], ",", "\n", 
                           "\t\t\t\t\t\t", "1"}], "\n", "\t\t\t\t\t\t", 
                           "]"}]}], ",", "\n", "\t\t\t\t", RowBox[{"usplits", 
-                          "=", "None"}]}], "\n", "\t\t\t\t", "]"}]}]}], "\n", 
-                          "\t\t\t", "]"}], ";", "\n", "\t\t", "usplits"}]}], 
-                       "\n", "\t\t", "]"}]}], ";"}], "\n", RowBox[
-                  {RowBox[{"getUsageMessages", "~", "SetAttributes", "~", 
-                     "HoldFirst"}], ";"}]}], "CodeInput"]}, Closed]], 
+                          "=", "ubase"}]}], "\n", "\t\t\t\t", "]"}]}]}], 
+                          "\n", "\t\t\t", "]"}], ";", "\n", "\t\t", 
+                          "usplits"}]}], "\n", "\t\t", "]"}]}], ";"}], "\n", 
+                 RowBox[{RowBox[{"getUsageMessages", "~", "SetAttributes", 
+                     "~", "HoldFirst"}], ";"}]}], "CodeInput"]}, Open]], 
            Cell[CellGroupData[
              {Cell["\[LeftCeiling]SymbolNotebookTemplate\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
@@ -2736,25 +2751,26 @@ flexible project structure\n\[RightFloor]", "Text", Evaluatable -> True],
                  RowBox[{RowBox[{RowBox[{"Options", "[", 
                        "SymbolNotebookTemplate", "]"}], "=", "\n", "\t", 
                      RowBox[{"Options", "[", "Notebook", "]"}]}], ";"}], 
-                 "\n", RowBox[{RowBox[{"SymbolNotebookTemplate", "[", 
-                     RowBox[{"s_Symbol", ",", " ", "\n", "\t", RowBox[
-                        {"parent", ":", RowBox[{"Except", "[", RowBox[{"_", 
-                          "?", "OptionQ"}], "]"}], ":", "None"}], ",", " ", 
-                       RowBox[{"ops", ":", RowBox[{"OptionsPattern", "[", 
-                          "]"}]}]}], "\n", "\t", "]"}], ":=", "\n", "\t", 
-                   RowBox[{"Module", "[", "\n", "\t\t", RowBox[
-                      {RowBox[{"{", "\n", "\t\t\t", RowBox[{"bits", ",", 
-                          "\n", "\t\t\t", "use1", ",", "\n", "\t\t\t", "use", 
-                          ",", "\n", "\t\t\t", "deets", ",", "\n", "\t\t\t", 
-                          "exams", ",", "\n", "\t\t\t", "similar", ",", "\n", 
-                          "\t\t\t", "keys", ",", "\n", "\t\t\t", "meta", ",", 
-                          "\n", "\t\t\t", "nb"}], "\n", "\t\t\t", "}"}], ",", 
-                       "\n", "\t\t", RowBox[{RowBox[{"use1", "=", RowBox[
+                 "\n", RowBox[{RowBox[{RowBox[{"SymbolNotebookTemplate", "[", 
+                       "\n", "  ", RowBox[{"s_Symbol", ",", " ", "\n", "\t", 
+                         RowBox[{"parent", ":", RowBox[{"Except", "[", 
+                          RowBox[{"_", "?", "OptionQ"}], "]"}], ":", 
+                          "None"}], ",", " ", "\n", "\t", RowBox[{"ops", ":", 
+                          RowBox[{"OptionsPattern", "[", "]"}]}]}], "\n", 
+                       "\t", "]"}], ":=", "\n", "\t", RowBox[{"Module", "[", 
+                       "\n", "\t\t", RowBox[{RowBox[{"{", "\n", "\t\t\t", 
+                          RowBox[{"bits", ",", "\n", "\t\t\t", "use1", ",", 
+                          "\n", "\t\t\t", "use", ",", "\n", "\t\t\t", 
+                          "deets", ",", "\n", "\t\t\t", "exams", ",", "\n", 
+                          "\t\t\t", "similar", ",", "\n", "\t\t\t", "keys", 
+                          ",", "\n", "\t\t\t", "meta", ",", "\n", "\t\t\t", 
+                          "nb"}], "\n", "\t\t\t", "}"}], ",", "\n", "\t\t", 
+                         RowBox[{RowBox[{"use1", "=", RowBox[
                           {"getUsageMessages", "[", "s", "]"}]}], ";", "\n", 
-                         "\t\t", RowBox[{"keys", "=", RowBox[{"{", RowBox[
+                          "\t\t", RowBox[{"keys", "=", RowBox[{"{", RowBox[
                           {"\"Details\"", ",", " ", "\"Examples\"", ",", " ", 
                           "\"RelatedFunctions\""}], "}"}]}], ";", "\n", 
-                         "\t\t", RowBox[{"If", "[", RowBox[{RowBox[{RowBox[
+                          "\t\t", RowBox[{"If", "[", RowBox[{RowBox[{RowBox[
                           {"Length", "[", "use1", "]"}], "===", "0"}], ",", 
                           "\n", "\t\t\t", RowBox[{"PrependTo", "[", RowBox[
                           {"keys", ",", " ", "\"UsageMessages\""}], "]"}]}], 
@@ -2762,7 +2778,7 @@ flexible project structure\n\[RightFloor]", "Text", Evaluatable -> True],
                           {"bits", "=", RowBox[{"GenerateFunctionInfo", "[", 
                           RowBox[{"s", ",", " ", RowBox[{"\"Keys\"", 
                           "\[Rule]", "keys"}]}], "]"}]}], ";", "\n", "\t\t", 
-                         RowBox[{RowBox[{"{", RowBox[{"use", ",", " ", 
+                          RowBox[{RowBox[{"{", RowBox[{"use", ",", " ", 
                           "deets", ",", " ", "exams", ",", " ", "similar"}], 
                           "}"}], "=", "\n", "\t\t\t", RowBox[{RowBox[{"If", 
                           "[", RowBox[{RowBox[{RowBox[{"Length", "@", 
@@ -2770,47 +2786,58 @@ flexible project structure\n\[RightFloor]", "Text", Evaluatable -> True],
                           "[", "use1", "]"}], ",", " ", "Identity"}], "]"}], 
                           "@", RowBox[{"Lookup", "[", RowBox[{"bits", ",", 
                           " ", "keys"}], "]"}]}]}], ";", "\n", "\t\t", 
-                         RowBox[{"If", "[", RowBox[{RowBox[{RowBox[{"Length", 
-                          "@", "use1"}], "===", "0"}], ",", " ", "\n", 
-                          "\t\t\t", RowBox[{"use", "=", RowBox[
-                          {"splitUsageCalls", "[", "use", "]"}]}]}], "\n", 
+                          RowBox[{"If", "[", RowBox[{RowBox[{RowBox[
+                          {"Length", "@", "use1"}], "===", "0"}], ",", "\n", 
+                          "\t\t\t", RowBox[{RowBox[{"use", "=", RowBox[
+                          {"splitUsageCalls", "[", RowBox[{RowBox[
+                          {"SymbolName", "[", RowBox[{"Unevaluated", "[", 
+                          "s", "]"}], "]"}], ",", " ", "use"}], "]"}]}], ";", 
+                          "\n", "\t\t\t", RowBox[{"If", "[", RowBox[{RowBox[
+                          {RowBox[{"StringQ", "@", "use1"}], "&&", RowBox[
+                          {RowBox[{"Length", "[", "use", "]"}], "===", 
+                          "0"}]}], ",", "\n", "\t\t\t  ", RowBox[{"use", " ", 
+                          "=", " ", RowBox[{"{", RowBox[{"{", RowBox[{RowBox[
+                          {"SymbolName", "[", RowBox[{"Unevaluated", "[", 
+                          "s", "]"}], "]"}], ",", " ", "use1"}], "}"}], 
+                          "}"}]}]}], "\n", "\t\t\t  ", "]"}]}]}], "\n", 
                           "\t\t\t", "]"}], ";", "\n", "\t\t", RowBox[{"meta", 
                           "=", RowBox[{"AssociationThread", "[", RowBox[
                           {RowBox[{"ToLowerCase", "@", RowBox[{"Flatten", 
                           "@", RowBox[{"Values", "@", "$MetadataMap"}]}]}], 
                           ",", " ", "Automatic"}], "]"}]}], ";", "\n", 
-                         "\t\t", RowBox[{RowBox[{"meta", "[", "\"label\"", 
-                          "]"}], "=", RowBox[{"SymbolName", "[", "s", 
-                          "]"}]}], ";", "\n", "\t\t", RowBox[{RowBox[{"meta", 
-                          "[", "\"context\"", "]"}], "=", RowBox[{"Context", 
-                          "[", "s", "]"}]}], ";", "\n", "\t\t", RowBox[
-                          {RowBox[{"meta", "[", "\"type\"", "]"}], "=", 
-                          "\"Symbol\""}], ";", "\n", "\t\t", RowBox[{"nb", 
-                          "=", "\n", "\t\t\t", RowBox[{"Notebook", "[", "\n", 
-                          "\t\t\t\t", RowBox[{RowBox[{"{", "\n", 
-                          "\t\t\t\t\t", RowBox[{"$metaCell", ",", "\n", 
-                          "\t\t\t\t\t", RowBox[{RowBox[{"$miscTemplates", 
-                          "[", "\"TitleBar\"", "]"}], "/.", "\n", 
-                          "\t\t\t\t\t\t", RowBox[{"\"<Context>\"", "\[Rule]", 
-                          RowBox[{RowBox[{"StringDelete", "[", RowBox[{RowBox[
-                          {"meta", "[", "\"context\"", "]"}], ",", " ", 
-                          "\"`\""}], "]"}], "<>", "\" Symbol\""}]}]}], ",", 
-                          "\n", "\t\t\t\t\t", RowBox[{"Cell", "[", RowBox[
-                          {RowBox[{"meta", "[", "\"label\"", "]"}], ",", " ", 
-                          "\"Section\"", ",", " ", "\"SymbolName\""}], "]"}], 
-                          ",", "\n", "\t\t\t\t\t", RowBox[{
-                          "formatUsageSection", "[", "use", "]"}], ",", "\n", 
-                          "\t\t\t\t\t", RowBox[{"formatDetailsSection", "[", 
-                          "deets", "]"}], ",", "\n", "\t\t\t\t\t", RowBox[
-                          {"formatExamplesSection", "[", "exams", "]"}], ",", 
+                          "\t\t", RowBox[{RowBox[{"meta", "[", "\"label\"", 
+                          "]"}], "=", RowBox[{"SymbolName", "[", RowBox[
+                          {"Unevaluated", "@", "s"}], "]"}]}], ";", "\n", 
+                          "\t\t", RowBox[{RowBox[{"meta", "[", "\"context\"", 
+                          "]"}], "=", RowBox[{"Context", "[", "s", "]"}]}], 
+                          ";", "\n", "\t\t", RowBox[{RowBox[{"meta", "[", 
+                          "\"type\"", "]"}], "=", "\"Symbol\""}], ";", "\n", 
+                          "\t\t", RowBox[{"nb", "=", "\n", "\t\t\t", RowBox[
+                          {"Notebook", "[", "\n", "\t\t\t\t", RowBox[
+                          {RowBox[{"{", "\n", "\t\t\t\t\t", RowBox[
+                          {"$metaCell", ",", "\n", "\t\t\t\t\t", RowBox[
+                          {RowBox[{"$miscTemplates", "[", "\"TitleBar\"", 
+                          "]"}], "/.", "\n", "\t\t\t\t\t\t", RowBox[
+                          {"\"<Context>\"", "\[Rule]", RowBox[{RowBox[
+                          {"StringDelete", "[", RowBox[{RowBox[{"meta", "[", 
+                          "\"context\"", "]"}], ",", " ", "\"`\""}], "]"}], 
+                          "<>", "\" Symbol\""}]}]}], ",", "\n", "\t\t\t\t\t", 
+                          RowBox[{"Cell", "[", RowBox[{RowBox[{"meta", "[", 
+                          "\"label\"", "]"}], ",", " ", "\"Section\"", ",", 
+                          " ", "\"SymbolName\""}], "]"}], ",", "\n", 
+                          "\t\t\t\t\t", RowBox[{"formatUsageSection", "[", 
+                          "use", "]"}], ",", "\n", "\t\t\t\t\t", RowBox[
+                          {"formatDetailsSection", "[", "deets", "]"}], ",", 
+                          "\n", "\t\t\t\t\t", RowBox[{
+                          "formatExamplesSection", "[", "exams", "]"}], ",", 
                           "\n", "\t\t\t\t\t", RowBox[{"formatRelatedSection", 
                           "[", "similar", "]"}], ",", "\n", "\t\t\t\t\t", 
                           RowBox[{"$NotebookTemplates", "[", "\"Footer\"", 
                           "]"}]}], "\n", "\t\t\t\t\t", "}"}], ",", "\n", 
                           "\t\t\t\t", RowBox[{"Flatten", "@", RowBox[{"{", 
                           "\n", "\t\t\t\t\t", RowBox[{RowBox[{
-                          "StyleDefinitions", "\[Rule]", RowBox[
-                          {"FrontEnd`FileName", "[", RowBox[{RowBox[{"{", 
+                          "StyleDefinitions", "\[Rule]", RowBox[{
+                          "FrontEnd`FileName", "[", RowBox[{RowBox[{"{", 
                           "\"SimpleDocs\"", "}"}], ",", " ", 
                           "\"SimpleDocs.nb\""}], "]"}]}], ",", "\n", 
                           "\t\t\t\t\t", RowBox[{"TaggingRules", "\[Rule]", 
@@ -2844,7 +2871,9 @@ flexible project structure\n\[RightFloor]", "Text", Evaluatable -> True],
                           "ScreenStyleEnvironment"}], "]"}]}], "\n", 
                           "\t\t\t\t\t\t", "]"}]}], "\n", "\t\t\t\t\t", 
                           "}"}]}]}], "\n", "\t\t\t\t", "]"}]}]}]}], "\n", 
-                     "\t\t", "]"}]}]}], "CodeInput"]}, Closed]]}, Open]], 
+                       "\t\t", "]"}]}], ";"}], "\n", RowBox[
+                  {"SymbolNotebookTemplate", "~", "SetAttributes", "~", 
+                   "HoldFirst"}]}], "CodeInput"]}, Open]]}, Open]], 
         Cell[CellGroupData[
           {Cell["\[LeftCeiling]GuideNotebookTemplate\[RightFloor]", 
             "CodeSubsubsection", Evaluatable -> True], 
@@ -3212,7 +3241,7 @@ flexible project structure\n\[RightFloor]", "Text", Evaluatable -> True],
                           "\t\t\t", "]"}]}], "\n", "\t\t", "]"}]}], ";"}], 
                  "\n", RowBox[{RowBox[{"TableOfContentsNotebook", "~", 
                      "SetAttributes", "~", "HoldRest"}], ";"}]}], 
-               "CodeInput"]}, Closed]]}, Open]]}, Closed]], 
+               "CodeInput"]}, Open]]}, Open]]}, Open]], 
      Cell[CellGroupData[{Cell["\[LeftCeiling]GUI\[RightFloor]", 
          "CodeSubsection", Evaluatable -> True], 
         Cell[CellGroupData[
@@ -4231,7 +4260,7 @@ not always be a paclet to anchor to?\n\[RightFloor]", "Text",
                           "\n", "\t\t\t\t", RowBox[{"\"Version\"", "\[Rule]", 
                           "\"0.0.0\""}]}], "\n", "\t\t\t\t", "]"}]}], "\n", 
                        "\t\t\t", "]"}], ";", "\n", "\t\t", "targDir"}]}], 
-                 "\n", "\t\t", "]"}]}]], "CodeInput"]}, Closed]]}, Closed]], 
+                 "\n", "\t\t", "]"}]}]], "CodeInput"]}, Closed]]}, Open]], 
      Cell[CellGroupData[{Cell["\[LeftCeiling]Workbench\[RightFloor]", 
          "CodeSubsection", Evaluatable -> True], 
         Cell[CellGroupData[
